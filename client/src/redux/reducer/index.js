@@ -11,7 +11,7 @@ const reducer = (state = initialStates, action) => {
     case GET_DETAILS:
       return {
         ...state,
-        detail: action.payload,
+        serviceDetail: action.payload,
       };
       case GET_ALL_SERVICES: 
       return {
