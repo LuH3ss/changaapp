@@ -5,40 +5,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../redux/actions/index.js";
 import { useEffect } from "react";
 
+const imgDef =
+  "https://1.bp.blogspot.com/-OONwIqLJAE0/YCH249Alt2I/AAAAAAAAIzQ/7moXO_wK3pMxyug7CTWW6qZWb05sV3MAACNcBGAsYHQ/s16000/trabajos-mas-demandados-en-brasil-en-2021.jpg";
+
 export default function ServiceDetail(props) {
   const dispatch = useDispatch();
-  const {id} = useParams()
+  const { id } = useParams();
 
   useEffect(() => {
     dispatch(getDetail(id));
   }, [dispatch]);
 
-  var services = useSelector((state) => state.serviceDetail);
+  var service = useSelector((state) => state.serviceDetail);
 
   return (
-    <div>
-      <div>
+    <div className="cards-container">
+      <div className="card-container">
         <div>
-          <h2>{services.name}</h2>
+          <h2>{service.name}</h2>
         </div>
         <div>
-          <img src={services.img} alt="Not found"></img>
+          <img src={service.img ? service.img : imgDef} alt="Not found"></img>
         </div>
         <div>
           <p>Description</p>
-          <p>{services.description}</p>
+          <p>{service.description}</p>
         </div>
         <div>
-          <p>{`Rating: ${services.rating}`} </p>
+          <p>{`Rating: ${service.rating}`} </p>
         </div>
         <div>
           <p>Reviews</p>
-          <p>{services.review}</p>
+          <p>{service.review}</p>
         </div>
+        <Link to="/home">
+          <button>Back Home</button>
+        </Link>
       </div>
-      <Link to="/home">
-        <button>Back Home</button>
-      </Link>
     </div>
   );
 }
