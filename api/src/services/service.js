@@ -54,7 +54,7 @@ const getServices = async (req, res) => {
   
       const newService = await Servicios.create({
         // img,
-        name, 
+        name,
         description,
         price,
         // user_id:idUser
