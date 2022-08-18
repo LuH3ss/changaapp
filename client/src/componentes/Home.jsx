@@ -11,7 +11,7 @@ export default function Home() {
 
   const handleClick = (e) => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   return (

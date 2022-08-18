@@ -1,6 +1,6 @@
-import { GET_DETAILS } from "../actions/index.js";
+import { GET_DETAILS, REGISTER_USER } from "../actions/index.js";
 
-const initialStates = { serviceDetail: [] };
+const initialStates = { serviceDetail: [], registerUser: [] };
 
 const reducer = (state = initialStates, action) => {
   switch (action.type) {
@@ -9,6 +9,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         detail: action.payload,
       };
+    case REGISTER_USER:
+      return {
+        ...state,
+        registerUser: [...state, {...action.payload}]
+      }
     default:
       return state;
   }
