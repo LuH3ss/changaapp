@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail } from "../../actions/index.js";
+import { getDetail } from "../redux/actions/index.js";
 import { useEffect } from "react";
 
 export default function ServiceDetail(props) {
   const dispatch = useDispatch();
+  const {id} = useParams()
 
   useEffect(() => {
-    dispatch(getDetail(props.match.params.id));
+    dispatch(getDetail(id));
   }, [dispatch]);
 
   var services = useSelector((state) => state.serviceDetail);

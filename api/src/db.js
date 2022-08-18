@@ -41,7 +41,7 @@ Servicios.belongsTo(Usuario,{as:"serviceOwner",foreignKey:"user_id"});
 Usuario.hasMany(Solicitud);
 Solicitud.belongsTo(Usuario);
 
-Solicitud.hasOne(Servicios); 
+Solicitud.hasOne(Servicios);
 Servicios.belongsTo(Solicitud);
 
 Servicios.hasOne(Categoria);
