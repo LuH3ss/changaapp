@@ -18,7 +18,7 @@ export default function ServiceDetail(props) {
     <div>
       <div>
         <div>
-          <h2>{services.category}</h2>
+          <h2>{services.name}</h2>
         </div>
         <div>
           <img src={services.img} alt="Not found"></img>
