@@ -1,6 +1,8 @@
 import React from "react";
 import "../css/navBar.css";
 import SearchBar from "../SearchBar";
+
+
 export default function Navbar({ user, handleClick }) {
   return (
     <div className="navBar">
