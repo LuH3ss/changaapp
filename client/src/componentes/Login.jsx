@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Alert from "./Alert";
 
 export default function Login() {
@@ -10,7 +10,7 @@ export default function Login() {
   });
 
   const [error, setError] = useState('')
-  const { login } = useAuth();
+  const { login, loginGoogle, loginFacebook } = useAuth();
   const navigate = useNavigate();
 
   const handleOnChange = (e) => {
@@ -33,6 +33,26 @@ export default function Login() {
     }
     
   };
+
+  const handleGoogle = async (e) => {
+    e.preventDefault()
+    try {
+      await loginGoogle()
+      navigate('/home')
+    } catch (error) {
+      console.log('asd')
+    }
+  }
+
+  const handleFacebook = async (e) => {
+    e.preventDefault()
+    try {
+      await loginFacebook()
+      navigate('/home')
+    } catch (error) {
+      console.log('Error facebook')
+    }
+  }
 
   return (
     <div>
@@ -59,6 +79,9 @@ export default function Login() {
         </div>
         <button type="submit">Iniciar Sesion</button>
       </form>
+        <p>Aun no te has registrado? <Link to='/register'>Registrar</Link></p>
+        <button onClick={handleGoogle}>Iniciar Sesion con Google</button>
+        <button onClick={handleFacebook}>Iniciar Sesion con Facebook</button>
     </div>
   );
 }
