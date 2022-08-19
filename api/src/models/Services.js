@@ -1,15 +1,19 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("servicios", {
+  sequelize.define("services", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     img: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.STRING,
     },
     rating: {
       type: DataTypes.INTEGER,
@@ -23,8 +27,5 @@ module.exports = (sequelize) => {
     price: {
       type: DataTypes.INTEGER,
     },
-    idCategory: {
-      type: DataTypes.STRING,
-    }
   });
 };
