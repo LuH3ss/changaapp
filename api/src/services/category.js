@@ -59,4 +59,4 @@ const getCategories = async (req, res) => {
 };
 module.exports = {
   getCategories,
-};
+}

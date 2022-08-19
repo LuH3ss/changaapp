@@ -30,11 +30,13 @@ export default function Home() {
   const handleClick = (e) => {
     logout();
     navigate("/");
+
   };
 
   const handleSort = (e) => {
     setOrder(e.target.value);
     dispatch(sortServices(e.target.value));
+
   };
 
   console.log(allServices);
