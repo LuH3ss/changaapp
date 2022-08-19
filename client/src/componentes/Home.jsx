@@ -38,6 +38,7 @@ export default function Home() {
                   name={service.name}
                   img={service.img ? service.img : imgDef} 
                   description={service.description}
+                  price={service.price}
                   />
                   </Link>
                 )
