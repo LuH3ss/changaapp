@@ -30,13 +30,11 @@ export default function Home() {
   const handleClick = (e) => {
     logout();
     navigate("/");
-
   };
 
   const handleSort = (e) => {
     setOrder(e.target.value);
     dispatch(sortServices(e.target.value));
-
   };
 
   console.log(allServices);
@@ -78,7 +76,7 @@ export default function Home() {
                   img={service.img ? service.img : imgDef}
                   description={service.description}
                   price={service.price}
-                  category={service.categories[0].name}
+                  category={service.categories[0]?.name}
                 />
               </Link>
             );
