@@ -35,17 +35,17 @@ const { Usuario, Categoria, Servicios, Solicitud } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-Usuario.hasMany(Servicios,{as:"servicesPosted",foreignKey:"user_id"});
-Servicios.belongsTo(Usuario,{as:"serviceOwner",foreignKey:"user_id"});
+Usuario.hasMany(Servicios);
+Servicios.belongsTo(Usuario);
 
-Usuario.hasMany(Solicitud);
-Solicitud.belongsTo(Usuario);
+// Usuario.hasMany(Solicitud);
+// Solicitud.belongsTo(Usuario);
 
-Solicitud.hasOne(Servicios);
-Servicios.belongsTo(Solicitud);
+// Solicitud.hasOne(Servicios); 
+// Servicios.belongsTo(Solicitud);
 
-Servicios.hasOne(Categoria);
-Categoria.belongsToMany(Servicios,{through:'categoriaservicio'});
+Servicios.belongsToMany(Categoria, { through: "categoriaservicio" });
+Categoria.belongsToMany(Servicios, { through: "categoriaservicio" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
