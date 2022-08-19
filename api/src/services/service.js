@@ -38,7 +38,7 @@ const getServicebyId = async (req, res) => {
         id: id,
       },
       include: Category,
-    }); //dudoso
+    });
 
     return res.status(200).send(services);
   } catch (e) {
