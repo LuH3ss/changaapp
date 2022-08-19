@@ -24,6 +24,7 @@ export default function SearchBar() {
   function handleInput(e) {
     e.preventDefault();
     setName(e.target.value);
+    console.log(e.target.value)
   }
 
   function handleSubmit(e) {
