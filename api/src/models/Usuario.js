@@ -13,25 +13,25 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      // lastName: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      // },
-      // birthDate: {
-      //   type: DataTypes.DATE,
-      //   allowNull: false,
-      // },
-      // email: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      //   unique: true,
-      // },
-      // phone: {
-      //   type: DataTypes.STRING,
-      // },
-      // img: {
-      //   type: DataTypes.STRING,
-      // },
+      lastName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      birthDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      phone: {
+        type: DataTypes.STRING,
+      },
+      img: {
+        type: DataTypes.STRING,
+      },
       offerer: {
         type: DataTypes.BOOLEAN
       },

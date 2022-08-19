@@ -3,6 +3,8 @@ import { useAuth } from "../context/authContext";
 import {useNavigate, Link} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { registerUser } from "../redux/actions";
+import { CLOUDINARY_API } from '../Secret.js'
+import axios from "axios";
 
 function validate(user) {
     let error = {}
@@ -15,7 +17,7 @@ function validate(user) {
     else if(!/^[a-z ,.'-]+$/i.test(user.lastName)) error.lastname = 'El apellido no puede contener numeros ni caracteres especiales'
     
     //ERROR FECHA DE NACIMIENTO
-    else if(!user.date) error.date = 'Debes ingresar una fecha de nacimiento'
+    else if(!user.birthDate) error.birthDate = 'Debes ingresar una fecha de nacimiento'
     // else if(!/^(?:3[01]|[12][0-9]|0?[1-9])([-/.])(0?[1-9]|1[1-2])\1\d{4}$/.test(user.date)) error.date = 'El formanto de la fecha ingresada es incorrecto'
 
     //ERROR NUMERO DE TELEFONO
@@ -34,10 +36,10 @@ export default function Register(){
     const [user, setUser] = useState({
         firstName: '',
         lastName: '',
-        date: '',
-        phone: '',
-        photo: '',
         email: '',
+        birthDate: '',
+        phone: '',
+        img: '',
         password: '',
         
     })
@@ -47,10 +49,11 @@ export default function Register(){
     const [error, setError] = useState('')
     const dispatch = useDispatch()
     const [fire, setFire] = useState('')
-   
     
-    const handleOnChange = (e) => {
+    
+    const handleOnChange = async (e) => {
         e.preventDefault()
+        
         setUser({
             ...user,
             [e.target.name]: e.target.value
@@ -61,8 +64,21 @@ export default function Register(){
         }))
     }
     
+    const handleImage = async (e) => {
+        e.preventDefault()
+        const file = e.target.files[0]
+        const data = new FormData()
+        data.append('file', file)
+        data.append('upload_preset', 'changApp')
+        let cloudinary = await axios.post(CLOUDINARY_API, data)
+        cloudinary = cloudinary.data.secure_url
+
+        console.log(cloudinary)
+    }
+
+    // console.log(user.lastName)
     useEffect(() => {
-        if(!error.firstName && !error.lastName && !error.date && !error.phone && !error.photo && !error.email && !error.password && user.firstName && user.lastName && user.date &&
+        if(!error.firstName && !error.lastName && !error.birthDate && !error.phone && !error.img && !error.email && !error.password && user.firstName && user.lastName && user.birthDate &&
           user.email && user.password){
             setBoton(true)
           }else{
@@ -106,8 +122,8 @@ export default function Register(){
                 </div>
                 <div>
                     <label>Fecha de Nacimiento: </label>
-                    <input type="date" value={user.date} name='date' onChange={handleOnChange}/>
-                    {error.date && <p>{error.date}</p>}
+                    <input type="date" value={user.birthDate} name='birthDate' onChange={handleOnChange}/>
+                    {error.birthDate && <p>{error.birthDate}</p>}
                 </div>
                 <div>
                     <label>Telefono / Celular: </label>
@@ -116,7 +132,7 @@ export default function Register(){
                 </div>
                 <div>
                     <label>Foto de perfil</label>
-                    <input type="file" accept="image/jpeg" value={user.photo} name='photo' onChange={handleOnChange}/>
+                    <input type="file" accept='image/jpeg' value={user.img} name='img' onChange={handleImage} />
                     {error.photo && <p>{error.photo}</p>}
                 </div>
                 <div>
