@@ -78,7 +78,7 @@ export default function Home() {
                   img={service.img ? service.img : imgDef}
                   description={service.description}
                   price={service.price}
-                  category={service.categories[0].name}
+                  category={service.categories[0]?.name}
                 />
               </Link>
             );
