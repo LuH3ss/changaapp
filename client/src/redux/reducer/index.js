@@ -3,6 +3,7 @@ import {
   GET_DETAILS,
   GET_ALL_SERVICES,
   SORT_SERVICES,
+  FILTER_SERVICES,
   GET_ALL_CATEGORIES,
   SERVICE_NAME,
   REGISTER_USER
@@ -39,7 +40,6 @@ const reducer = (state = initialStates, action) => {
       return {
         ...state,
         services: action.payload,
-        servicesAux: action.payload,
       };
     case SORT_SERVICES:
       let sorted;
@@ -64,6 +64,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         services: sorted,
       };
+    case FILTER_SERVICES:
+      return {
+        ...state,
+        services: state.servicesAux.filter(el => el.categories[0].name === action.payload)
+      }
     case REGISTER_USER:
       return {
         ...state,
