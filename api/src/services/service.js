@@ -47,6 +47,7 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
+
   let { name, img, description, price, category } = req.body;
   let serviceCreated = await Services.create({
     name,
@@ -66,4 +67,4 @@ module.exports = {
   getServices,
   getServicebyId,
   postService,
-};
+}

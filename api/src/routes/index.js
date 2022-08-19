@@ -18,8 +18,13 @@ router.post("/services", postService);
 router.get("/services", getServices);
 router.get("/services/:id", getServicebyId);
 
+
 //category routes
 router.get("/category", getCategories);
 
 
+
+
 module.exports = router;
+
+
