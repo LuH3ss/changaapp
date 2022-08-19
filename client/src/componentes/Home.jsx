@@ -9,6 +9,7 @@ import {
   getAllServices,
   sortServices,
   getAllCategories,
+  filterByCategory
 } from "../redux/actions";
 import "./css/home.css";
 const imgDef =
@@ -36,7 +37,11 @@ export default function Home() {
   const handleSort = (e) => {
     setOrder(e.target.value);
     dispatch(sortServices(e.target.value));
-
+  };
+  
+  const handleFilter = (e) => {
+    e.preventDefault();
+    dispatch(filterByCategory(e.target.value));
   };
 
   const handlerReload = (e) => {
@@ -64,11 +69,11 @@ export default function Home() {
         <label>filter by category: </label>
         <select
           onChange={(e) => {
-            handleSort(e);
+            handleFilter(e);
           }}
         >
           {allCategories?.map((el) => {
-            return <option>{el.name}</option>;
+            return <option value={el.name}>{el.name}</option>;
           })}
         </select>
         <button className="buttonReload" onClick={(e)=>handlerReload(e)}>Reload page</button>
