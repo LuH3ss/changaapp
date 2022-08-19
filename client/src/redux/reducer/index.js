@@ -39,16 +39,22 @@ const reducer = (state = initialStates, action) => {
       };
     case SORT_SERVICES:
       let sorted;
-      if (action.payload === "Price") {
+      if (action.payload.includes('Price')) {
         sorted = state.services.sort(function (a, b) {
           return a.price - b.price;
         });
+        if(action.payload === 'PriceDes'){
+          sorted = sorted.reverse();
+        }
       } else {
         sorted = state.services.sort(function (a, b) {
-          if (a.name > b.name) return 1;
-          if (a.name < b.name) return -1;
+          if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+          if (a.name.toUpperCase() < b.name.toUpperCase()) return -1;
           return 0;
         });
+        if(action.payload === 'AlphabeticalDes'){
+          sorted = sorted.reverse();
+        }
       }
       return {
         ...state,

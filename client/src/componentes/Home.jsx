@@ -40,16 +40,18 @@ export default function Home() {
     <div>
       <Navbar user={user} handleClick={handleClick} />
       <div className="container-filters">
-        <label>ordenar por: </label>
+        <label>order by: </label>
         <select
           onChange={(e) => {
             handleSort(e);
           }}
         >
-          <option value="Price">Precio</option>
-          <option value="Alphabetical">Alfabético</option>
+          <option value="PriceAs">Price ascendant</option>
+          <option value="PriceDes">Price descendant</option>
+          <option value="AlphabeticalAs">Alphabetical ascendant</option>
+          <option value="AlphabeticalDes">Alphabetical descendant</option>
         </select>
-        <label>filtrar por categoria: </label>
+        <label>filter by category: </label>
         <select
           onChange={(e) => {
             handleSort(e);
