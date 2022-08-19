@@ -32,6 +32,9 @@ export default function ServiceDetail(props) {
           <p>{service.description}</p>
         </div>
         <div>
+          <p>{`Price: ${service.price}`} </p>
+        </div>
+        <div>
           <p>{`Rating: ${service.rating}`} </p>
         </div>
         <div>
