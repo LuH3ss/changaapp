@@ -1,3 +1,8 @@
+
+import { GET_DETAILS, REGISTER_USER } from "../actions/index.js";
+
+const initialStates = { serviceDetail: [], registerUser: [] };
+
 import {
   GET_DETAILS,
   GET_ALL_SERVICES,
@@ -12,6 +17,7 @@ const initialStates = {
   servicesAux: [],
   categories: [],
 };
+
 
 const reducer = (state = initialStates, action) => {
   switch (action.type) {
@@ -60,6 +66,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         services: sorted,
       };
+    case REGISTER_USER:
+      return {
+        ...state,
+        registerUser: [...state, {...action.payload}]
+      }
     default:
       return state;
   }

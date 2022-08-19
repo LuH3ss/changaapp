@@ -47,11 +47,11 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
-  let { name, img, rating, description, price, category } = req.body;
+
+  let { name, img, description, price, category } = req.body;
   let serviceCreated = await Services.create({
     name,
     img,
-    rating,
     description,
     price,
   });
@@ -67,4 +67,4 @@ module.exports = {
   getServices,
   getServicebyId,
   postService,
-};
+}

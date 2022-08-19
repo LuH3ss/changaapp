@@ -15,9 +15,6 @@ module.exports = (sequelize) => {
     img: {
       type: DataTypes.STRING,
     },
-    rating: {
-      type: DataTypes.INTEGER,
-    },
     description: {
       type: DataTypes.STRING,
     },
@@ -28,4 +25,4 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
     },
   });
-};
+
