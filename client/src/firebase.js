@@ -3,7 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import { fire_apiKey, fire_authDomain, fire_projectId, fire_storageBucket, fire_messagingSenderId, fire_appId} from './Secret.js'
+import { fire_apiKey, fire_authDomain, fire_projectId, fire_storageBucket, fire_messagingSenderId, fire_appId} from './Secret/Secret.js'
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: fire_apiKey,

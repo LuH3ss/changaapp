@@ -6,7 +6,6 @@ const { allUsers } = require('../utils/utils.js')
 const router = Router();
 
 
-
 router.post("/user", async (req, res) => {
   const {
     firstName,
@@ -22,12 +21,12 @@ router.post("/user", async (req, res) => {
 
   try {
     const allUser = await allUsers()
+    if(!firstName || !lastName || !birthDate || !email) return res.send('Los datos ingresados estan incompletos')
     const filterEmail = allUser.filter(e => e.email === email)
     if(filterEmail[0]){
       return res.send('El email ya se encuentra registrado')
     }
     else {
-
       const newUser= await Usuario.create({
         firstName,
         lastName,
@@ -40,8 +39,7 @@ router.post("/user", async (req, res) => {
         // banned,
       });
       return res.status(201).send(newUser);
-    }    
-  
+    }
   } catch (error) {
     return res.status(400).send(console.log(error.message))
   }

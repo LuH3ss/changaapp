@@ -3,7 +3,7 @@ import { useAuth } from "../context/authContext";
 import {useNavigate, Link} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { registerUser } from "../redux/actions";
-import { CLOUDINARY_API } from '../Secret.js'
+import { CLOUDINARY_API } from '../Secret/Secret.js'
 import axios from "axios";
 
 function validate(user) {
@@ -66,16 +66,25 @@ export default function Register(){
     
     const handleImage = async (e) => {
         e.preventDefault()
-        const file = e.target.files[0]
-        const data = new FormData()
-        data.append('file', file)
-        data.append('upload_preset', 'changApp')
-        let cloudinary = await axios.post(CLOUDINARY_API, data)
-        cloudinary = cloudinary.data.secure_url
-
-        console.log(cloudinary)
+        try {
+            const file = e.target.files[0]
+            const data = new FormData()
+            data.append('file', file)
+            data.append('upload_preset', 'changApp')
+            console.log(file)
+            const cloudinary = await axios.post(CLOUDINARY_API, data)
+            
+            setUser({
+                ...user,
+                img: cloudinary.data.secure_url
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        
+        
     }
-
+    
     // console.log(user.lastName)
     useEffect(() => {
         if(!error.firstName && !error.lastName && !error.birthDate && !error.phone && !error.img && !error.email && !error.password && user.firstName && user.lastName && user.birthDate &&
@@ -132,7 +141,7 @@ export default function Register(){
                 </div>
                 <div>
                     <label>Foto de perfil</label>
-                    <input type="file" accept='image/jpeg' value={user.img} name='img' onChange={handleImage} />
+                    <input type="file" accept='image/jpeg' name='img' onChange={handleImage} />
                     {error.photo && <p>{error.photo}</p>}
                 </div>
                 <div>
@@ -148,6 +157,6 @@ export default function Register(){
                 
                 <button type="submit" disabled={!boton}>Registrarse</button>
             </form>
-            <Link to='/login'>Volver</Link>
+            <Link to='/'>Volver</Link>
         </div>)
 }
