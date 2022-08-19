@@ -39,6 +39,11 @@ export default function Home() {
 
   };
 
+  const handlerReload = (e) => {
+    e.preventDefault();
+    dispatch(getAllServices());
+  };
+
   console.log(allServices);
 
   return (
@@ -66,6 +71,7 @@ export default function Home() {
             return <option>{el.name}</option>;
           })}
         </select>
+        <button className="buttonReload" onClick={(e)=>handlerReload(e)}>Reload page</button>
       </div>
       <div className="cards-container">
         {allServices &&
@@ -78,7 +84,7 @@ export default function Home() {
                   img={service.img ? service.img : imgDef}
                   description={service.description}
                   price={service.price}
-                  category={service.categories[0].name}
+                  category={service.categories[0]?.name}
                 />
               </Link>
             );
