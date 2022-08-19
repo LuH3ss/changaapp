@@ -18,3 +18,15 @@
     background-color: rgba(255, 255, 255, 0.45);
   
   }
+
+.container-filters{
+    display: flex;
+    justify-content: center;
+    background-color: antiquewhite;
+    padding-bottom: 20px;
+    font-weight: bold;
+}  
+
+.container-filters label{
+    padding: 5px 15px 5px 15px;
+}  

@@ -36,10 +36,13 @@ export default function Home() {
         <Navbar
         user={user}
         handleClick={handleClick} />
+        <div className="container-filters">
+          <label>ordenar por: </label>
         <select onChange={e => {handleSort(e)}}>
-            <option value="Price">Price</option>
-            <option value="Alphabetical">Alphabetical</option>
+            <option value="Price">Precio</option>
+            <option value="Alphabetical">Alfabético</option>
         </select>
+          <label>filtrar por categoria: </label>
         <select onChange={e => {handleSort(e)}}>
             {
               allCategories?.map(el => {
@@ -47,6 +50,7 @@ export default function Home() {
               })
             }
         </select>
+        </div>
         <div className="cards-container">
             {
               allServices && allServices.map((service) => {
