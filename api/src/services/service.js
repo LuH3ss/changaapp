@@ -2,31 +2,31 @@ const { Categoria, Servicios, Solicitud, Usuario } = require("../db");
 
 
 const getServices = async (req, res) => {
-    const { category } = req.query;
-    try {
-      // let servicios = await Servicios.findAll();
-      // if (category) {
-      //   servicios = servicios.filter((el) => el.category === category);
-      // }
-      // res.status(200).send(servicios);
-      if (category) {
-        const servicios = await Servicios.findAll({
-          include: Categoria,
-          where: {
-            categorium: category
-          }
-        });
-        return res.status(200).send(servicios);
-      } else {
-        const servicios = await Servicios.findAll({
-          include: Categoria
-        });
-        return res.status(200).send(servicios);
-      }
-    } catch (e) {
-      return res.status(400).send(console.log(e.message));
+  const { category } = req.query;
+  try {
+    // let servicios = await Servicios.findAll();
+    // if (category) {
+    //   servicios = servicios.filter((el) => el.category === category);
+    // }
+    // res.status(200).send(servicios);
+    if (category) {
+      const servicios = await Servicios.findAll({
+        include: Categoria,
+        where: {
+          categorium: category,
+        },
+      });
+      return res.status(200).send(servicios);
+    } else {
+      const servicios = await Servicios.findAll({
+        include: Categoria,
+      });
+      return res.status(200).send(servicios);
     }
-  };
+  } catch (e) {
+    return res.status(400).send(console.log(e.message));
+  }
+};
 
   const getServicebyId = async (req, res) => {
     const { id } = req.params
