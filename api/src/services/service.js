@@ -1,7 +1,7 @@
-const { Categoria, Servicios, Solicitud, Usuario } = require("../db");
+const { Category, Services, Solicitud, User } = require("../db");
 
 const getServices = async (req, res) => {
-  const { category, name } = req.query;
+  const { category } = req.query;
   try {
     // let servicios = await Servicios.findAll();
     // if (category) {
@@ -9,26 +9,18 @@ const getServices = async (req, res) => {
     // }
     // res.status(200).send(servicios);
     if (category) {
-      const servicios = await Servicios.findAll({
-        include: Categoria,
+      const services = await Services.findAll({
+        include: [Category],
         where: {
-          categorium: category,
+          attributes: ["name"],
         },
       });
-      return res.status(200).send(servicios);
-    } else if (name) {
-      const servicios = await Servicios.findAll({
-        include: Categoria,
-        where: {
-          categorium: category,
-        },
-      });
-      return res.status(200).send(servicios);
+      return res.status(200).send(services);
     } else {
-      const servicios = await Servicios.findAll({
-        include: Categoria,
+      const services = await Services.findAll({
+        include: [Category],
       });
-      return res.status(200).send(servicios);
+      return res.status(200).send(services);
     }
   } catch (e) {
     return res.status(400).send(console.log(e.message));
@@ -41,48 +33,34 @@ const getServicebyId = async (req, res) => {
     // let servicios = await Servicios.findAll();
     // res.status(200).send(servicios.find((el) => el.id === id));
 
-    const servicio = await Servicios.findOne({
+    const services = await Services.findOne({
       where: {
         id: id,
       },
-      include: Categoria,
+      include: Category,
     }); //dudoso
 
-    return res.status(200).send(servicio);
+    return res.status(200).send(services);
   } catch (e) {
     return console.log(e);
   }
 };
 
 const postService = async (req, res) => {
-  const { name, img, description, price, idCategory, idUser } = req.body;
-  try {
-    const newService = await Servicios.create({
-      // img,
-      name,
-      description,
-      price,
-      // user_id:idUser
-    });
+  let { name, img, rating, description, price, category } = req.body;
+  let serviceCreated = await Services.create({
+    name,
+    img,
+    rating,
+    description,
+    price,
+  });
+  let categorys = await Category.findAll({
+    where: { name: category },
+  });
+  serviceCreated.addCategories(categorys);
 
-    // const user = await Usuario.findOne({
-    //   where: {
-    //     firstName: idUser
-    //   }
-    // });
-
-    // const categoria = await Categoria.findOne({
-    //   attributes:["name"],
-    //   where:{name:idCategory}
-    // })
-
-    // newService.addCategoria(categoria);
-    // user.addServicios(newService)
-
-    return res.status(201).send(newService);
-  } catch (error) {
-    return res.status(400).send(console.log(error.message));
-  }
+  res.send("Service Created");
 };
 
 module.exports = {
