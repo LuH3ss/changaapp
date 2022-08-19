@@ -3,7 +3,7 @@ import { useAuth } from "../context/authContext";
 import {useNavigate, Link} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { registerUser } from "../redux/actions";
-import { CLOUDINARY_API } from '../Secret/Secret.js'
+import { CLODUNIARY_API } from '../Secret/Secret.js'
 import axios from "axios";
 
 function validate(user) {
@@ -72,7 +72,7 @@ export default function Register(){
             data.append('file', file)
             data.append('upload_preset', 'changApp')
             console.log(file)
-            const cloudinary = await axios.post(CLOUDINARY_API, data)
+            const cloudinary = await axios.post(CLODUNIARY_API, data)
             
             setUser({
                 ...user,
