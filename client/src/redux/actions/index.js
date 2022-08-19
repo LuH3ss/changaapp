@@ -34,6 +34,7 @@ export function registerUser(user){
       payload: detalle.data
     }))
   }
+}
 
 export function getAllServices() {
   return async function (dispatch) {

@@ -1,14 +1,11 @@
 
-import { GET_DETAILS, REGISTER_USER } from "../actions/index.js";
-
-const initialStates = { serviceDetail: [], registerUser: [] };
-
 import {
   GET_DETAILS,
   GET_ALL_SERVICES,
   SORT_SERVICES,
   GET_ALL_CATEGORIES,
   SERVICE_NAME,
+  REGISTER_USER
 } from "../actions/index.js";
 
 const initialStates = {
@@ -16,6 +13,7 @@ const initialStates = {
   services: [],
   servicesAux: [],
   categories: [],
+  registerUser: []
 };
 
 
