@@ -62,7 +62,7 @@
   text-shadow: 0px 1px 0px #e1e2ed;
 }
 .buttonReload:hover {
-  background: linear-gradient(to bottom, #353131 5%, #ededed 100%);
+  background: linear-gradient(to bottom, #a39f9f 5%, #ededed 100%);
   background-color: #bab1ba;
 }
 .buttonReload:active {

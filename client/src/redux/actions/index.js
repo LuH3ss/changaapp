@@ -65,7 +65,7 @@ export function sortServices(payload) {
 
 export function getName(name) {
   return async (dispatch) => {
-    const dataDb = await axios(`${EP}/services?name=` + name);
+    const dataDb = await axios(`${EP}/services/search?name=` + name);
     return dispatch({
       type: SERVICE_NAME,
       payload: dataDb.data,
