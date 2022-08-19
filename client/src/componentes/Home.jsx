@@ -71,20 +71,14 @@ export default function Home() {
                   img={service.img ? service.img : imgDef}
                   description={service.description}
                   price={service.price}
-<<<<<<< HEAD
+
                   />
                   </Link>
                 )
               })
             }
         </div>
-=======
-                />
-              </Link>
-            );
-          })}
+      
       </div>
->>>>>>> origin/dev
-    </div>
-  );
+  )
 }
