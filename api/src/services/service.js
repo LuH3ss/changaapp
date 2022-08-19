@@ -47,7 +47,7 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
-  const { name, img, description, price, idCategory, idUser } = req.body;
+  const { name, img, description, price, category, idUser } = req.body;
   try {
     const newService = await Servicios.create({
       // img,
@@ -63,12 +63,14 @@ const postService = async (req, res) => {
     //   }
     // });
 
-    // const categoria = await Categoria.findOne({
-    //   attributes:["name"],
-    //   where:{name:idCategory}
-    // })
+    const categoria = await Categoria.findOne({
+      attributes:["name"],
+      where:{name:category}
+    })
 
-    // newService.addCategoria(categoria);
+    console.log(categoria, newService)
+
+    await newService.addCategoria(categoria);
     // user.addServicios(newService)
 
     return res.status(201).send(newService);
