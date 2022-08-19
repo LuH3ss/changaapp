@@ -1,7 +1,7 @@
 const { Categoria, Servicios, Solicitud, Usuario } = require("../db");
 
 const getServices = async (req, res) => {
-  const { category } = req.query;
+  const { category, name } = req.query;
   try {
     // let servicios = await Servicios.findAll();
     // if (category) {
@@ -9,6 +9,14 @@ const getServices = async (req, res) => {
     // }
     // res.status(200).send(servicios);
     if (category) {
+      const servicios = await Servicios.findAll({
+        include: Categoria,
+        where: {
+          categorium: category,
+        },
+      });
+      return res.status(200).send(servicios);
+    } else if (name) {
       const servicios = await Servicios.findAll({
         include: Categoria,
         where: {
