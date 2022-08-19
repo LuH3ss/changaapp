@@ -50,7 +50,7 @@ const postService = async (req, res) => {
 
   let { name, img, description, price, category } = req.body;
   let serviceCreated = await Services.create({
-    name,
+    name: name.charAt(0).toUpperCase() + name.slice(1),
     img,
     description,
     price,
