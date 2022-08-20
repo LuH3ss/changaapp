@@ -50,7 +50,7 @@ const postService = async (req, res) => {
 
   let { name, img, description, price, category } = req.body;
   let serviceCreated = await Services.create({
-    name,
+    name: name.charAt(0).toUpperCase() + name.slice(1),
     img,
     description,
     price,
@@ -63,8 +63,21 @@ const postService = async (req, res) => {
   res.send("Service Created");
 };
 
+const getByName = async (req,res) => {
+  try {
+    const { name } = req.query;
+    const response = await Services.findAll({
+      where: { name: name } ,
+      include : Category
+    });
+    res.send(response)
+  } catch (error) {
+    res.status(500).end();
+  }
+}
 module.exports = {
   getServices,
   getServicebyId,
+  getByName,
   postService,
 }

@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { Router } = require("express");
 const { register, getUsers } = require("../services/user")
-const { getServices, getServicebyId, postService } = require("../services/service")
+const { getServices, getServicebyId, postService, getByName } = require("../services/service")
 const { getCategories } = require("../services/category")
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -16,6 +16,7 @@ router.get("/user", getUsers);
 //services routes
 router.post("/services", postService);
 router.get("/services", getServices);
+router.get("/services/search", getByName);
 router.get("/services/:id", getServicebyId);
 
 

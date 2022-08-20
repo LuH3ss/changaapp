@@ -23,7 +23,9 @@ export default function SearchBar() {
 
   function handleInput(e) {
     e.preventDefault();
-    setName(e.target.value);
+    const value = e.target.value;
+    const value2 = value.charAt(0).toUpperCase() + value.slice(1);
+    setName(value2);
   }
 
   function handleSubmit(e) {
