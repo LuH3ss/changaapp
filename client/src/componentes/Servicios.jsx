@@ -2,13 +2,13 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { postService } from "../redux/actions";
 import { CLOUDINARY_API } from "../Secret/Secret";
 
 
 export default function Servicios(){
     const [service, setService] = useState({
         img: '',
-        rating: '',
         description: '',
         review: '',
         price: '',
@@ -44,20 +44,22 @@ export default function Servicios(){
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // disptach(postService(service))
+        disptach(postService(service))
+        setService({
+        img: '',
+        description: '',
+        review: '',
+        price: '',
+        })
     }
     
     return(
         <div>
             <h1>Servicios</h1>
-            <form>
+            <form onSubmit={e => handleSubmit(e)}>
                 <div>
                     <label>Imagen del servicio</label>
                     <input type="file"  name='img' onChange={handleImage}/>
-                </div>
-                <div>
-                    <label>Puntaje</label>
-                    <input type="numbers" name='rating' value={service.rating} onChange={handleOnChange}/>
                 </div>
                 <div>
                     <label>Descripcion</label>

@@ -5,7 +5,8 @@ import {
   SORT_SERVICES,
   GET_ALL_CATEGORIES,
   SERVICE_NAME,
-  REGISTER_USER
+  REGISTER_USER,
+  REGISTER_SERVICE
 } from "../actions/index.js";
 
 const initialStates = {
@@ -13,7 +14,8 @@ const initialStates = {
   services: [],
   servicesAux: [],
   categories: [],
-  registerUser: []
+  registerUser: [],
+  registerService: []
 };
 
 
@@ -69,6 +71,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         registerUser: [...state, {...action.payload}]
       }
+    case REGISTER_SERVICE: 
+      return {
+        ...state,
+        registerService: [...state, {...action.payload}]
+      }  
     default:
       return state;
   }
