@@ -5,6 +5,7 @@ export const REGISTER_SERVICE = 'REGISTER_SERVICE'
 export const GET_ALL_SERVICES = "GET_ALL_SERVICES";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const SORT_SERVICES = "SORT_SERVICES";
+export const FILTER_SERVICES = "FILTER_SERVICES";
 export const SERVICE_NAME = "SERVICE_NAME";
 const EP = "http://localhost:3001";
 
@@ -62,9 +63,16 @@ export function sortServices(payload) {
   };
 }
 
+export function filterByCategory(payload) {
+  return {
+    type: FILTER_SERVICES,
+    payload: payload,
+  };
+}
+
 export function getName(name) {
   return async (dispatch) => {
-    const dataDb = await axios(`${EP}/services?name=` + name);
+    const dataDb = await axios(`${EP}/services/search?name=` + name);
     return dispatch({
       type: SERVICE_NAME,
       payload: dataDb.data,
