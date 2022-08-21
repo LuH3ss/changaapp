@@ -1,15 +1,14 @@
 import axios from "axios";
 export const GET_DETAILS = "GET_DETAILS";
-
-export const REGISTER_USER = 'REGISTER_USER'
-
+export const REGISTER_USER = "REGISTER_USER";
+export const REGISTER_SERVICE = "REGISTER_SERVICE";
 export const GET_ALL_SERVICES = "GET_ALL_SERVICES";
 export const GET_ALL_CATEGORIES = "GET_ALL_CATEGORIES";
 export const SORT_SERVICES = "SORT_SERVICES";
 export const FILTER_SERVICES = "FILTER_SERVICES";
 export const SERVICE_NAME = "SERVICE_NAME";
+export const POST_CATEGORY = "POST_CATEGORY";
 const EP = "http://localhost:3001";
-
 
 export function getDetail(id) {
   return async function (dispatch) {
@@ -26,15 +25,15 @@ export function getDetail(id) {
   };
 }
 
-
-export function registerUser(user){
-  return async function(dispatch){
-    await axios.post('http://localhost:3001/user', user)
-    .then(detalle => dispatch({
-      type: REGISTER_USER,
-      payload: detalle.data
-    }))
-  }
+export function registerUser(user) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/user`, user).then((detalle) =>
+      dispatch({
+        type: REGISTER_USER,
+        payload: detalle.data,
+      })
+    );
+  };
 }
 
 export function getAllServices() {
@@ -79,5 +78,26 @@ export function getName(name) {
       payload: dataDb.data,
     });
   };
+}
 
+export function postService(service) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/services`, service).then((detalle) =>
+      dispatch({
+        type: REGISTER_SERVICE,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function postCategory(category) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/category`, category).then((detalle) =>
+      dispatch({
+        type: POST_CATEGORY,
+        payload: detalle.data,
+      })
+    );
+  };
 }

@@ -1,4 +1,5 @@
 const { Category, Services, Solicitud, User } = require("../db");
+const { allCategories } = require("../utils/utils");
 
 const getCategories = async (req, res) => {
   // try {
@@ -57,6 +58,31 @@ const getCategories = async (req, res) => {
     return res.status(400).send(console.log(err.message));
   }
 };
+
+const postCategorie = async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name) return res.send("Debes ingresar un nombre para la categoria");
+    const allCat = await allCategories();
+    const filterCategorie = allCat.filter((c) => c.name === name);
+    if (filterCategorie[0]) {
+      return res.send("Ya existe la categoria");
+    } else {
+      const createCategorie = await Category.create({
+        name,
+      });
+      // let service = await Services.findAll({
+      //   where: { name: req.body.service },
+      // });
+      // createCategorie.addServices(service);
+      res.status(201).send("Category created");
+    }
+  } catch (error) {
+    res.status(404).send(error);
+  }
+};
+
 module.exports = {
   getCategories,
-}
+  postCategorie,
+};

@@ -1,4 +1,3 @@
-
 import {
   GET_DETAILS,
   GET_ALL_SERVICES,
@@ -6,7 +5,9 @@ import {
   FILTER_SERVICES,
   GET_ALL_CATEGORIES,
   SERVICE_NAME,
-  REGISTER_USER
+  REGISTER_USER,
+  REGISTER_SERVICE,
+  POST_CATEGORY,
 } from "../actions/index.js";
 
 const initialStates = {
@@ -14,9 +15,10 @@ const initialStates = {
   services: [],
   servicesAux: [],
   categories: [],
-  registerUser: []
+  registerUser: [],
+  registerService: [],
+  postCategory: [],
 };
-
 
 const reducer = (state = initialStates, action) => {
   switch (action.type) {
@@ -43,11 +45,11 @@ const reducer = (state = initialStates, action) => {
       };
     case SORT_SERVICES:
       let sorted;
-      if (action.payload.includes('Price')) {
+      if (action.payload.includes("Price")) {
         sorted = state.services.sort(function (a, b) {
           return a.price - b.price;
         });
-        if(action.payload === 'PriceDes'){
+        if (action.payload === "PriceDes") {
           sorted = sorted.reverse();
         }
       } else {
@@ -56,7 +58,7 @@ const reducer = (state = initialStates, action) => {
           if (a.name.toUpperCase() < b.name.toUpperCase()) return -1;
           return 0;
         });
-        if(action.payload === 'AlphabeticalDes'){
+        if (action.payload === "AlphabeticalDes") {
           sorted = sorted.reverse();
         }
       }
@@ -67,13 +69,25 @@ const reducer = (state = initialStates, action) => {
     case FILTER_SERVICES:
       return {
         ...state,
-        services: state.servicesAux.filter(el => el.categories[0].name === action.payload)
-      }
+        services: state.servicesAux.filter(
+          (el) => el.categories[0].name === action.payload
+        ),
+      };
     case REGISTER_USER:
       return {
         ...state,
-        registerUser: [...state, {...action.payload}]
-      }
+        registerUser: [...state, { ...action.payload }],
+      };
+    case REGISTER_SERVICE:
+      return {
+        ...state,
+        registerService: [...state, { ...action.payload }],
+      };
+    case POST_CATEGORY:
+      return {
+        ...state,
+        postCategory: [...state, { ...action.payload }],
+      };
     default:
       return state;
   }
