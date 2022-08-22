@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 
+
 import {
   getAllServices,
   sortServices,
@@ -34,6 +35,7 @@ export default function Home() {
   const indexOfLastService = currentPage * servicesPerPage; // =3
   const indexOfFirstService = indexOfLastService - servicesPerPage; // =0
   const Services = allServices.slice(indexOfFirstService, indexOfLastService);
+  
 
   const paging = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -123,6 +125,7 @@ export default function Home() {
         <Button onClick={(e) => handlerReload(e)}>
           Reload page
         </Button>
+        
       </Box>
       <Paging
         servicesPerPage={servicesPerPage}
