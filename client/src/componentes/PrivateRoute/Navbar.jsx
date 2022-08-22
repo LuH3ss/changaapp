@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/navBar.css";
 import SearchBar from "../SearchBar";
-
+import { Link } from 'react-router-dom'
 
 export default function Navbar({ user, handleClick }) {
   return (
@@ -12,6 +12,11 @@ export default function Navbar({ user, handleClick }) {
       <SearchBar />
       <div className="buttons">
         <button>Menu</button>
+      </div>
+      <div>
+        <Link to='/home/createService'>
+          <button>Crear Servicio</button>
+        </Link>
       </div>
 
       {user === null ? (

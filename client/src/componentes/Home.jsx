@@ -4,12 +4,13 @@ import { useAuth } from "../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
+import Paging from "./Paging";
 import Navbar from "./PrivateRoute/Navbar";
 import {
   getAllServices,
   sortServices,
   getAllCategories,
-  filterByCategory
+  filterByCategory,
 } from "../redux/actions";
 import "./css/home.css";
 const imgDef =
@@ -20,6 +21,15 @@ export default function Home() {
   const dispatch = useDispatch();
   const allServices = useSelector((state) => state.services);
   const allCategories = useSelector((state) => state.categories);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [servicesPerPage, setServicesPerPage] = useState(6);
+  const indexOfLastService = currentPage * servicesPerPage; // =3
+  const indexOfFirstService = indexOfLastService - servicesPerPage; // =0
+  const Services = allServices.slice(indexOfFirstService, indexOfLastService);
+
+  const paging = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   useEffect(() => {
     dispatch(getAllServices());
@@ -31,14 +41,13 @@ export default function Home() {
   const handleClick = (e) => {
     logout();
     navigate("/");
-
   };
 
   const handleSort = (e) => {
     setOrder(e.target.value);
     dispatch(sortServices(e.target.value));
   };
-  
+
   const handleFilter = (e) => {
     e.preventDefault();
     dispatch(filterByCategory(e.target.value));
@@ -76,11 +85,18 @@ export default function Home() {
             return <option value={el.name}>{el.name}</option>;
           })}
         </select>
-        <button className="buttonReload" onClick={(e)=>handlerReload(e)}>Reload page</button>
+        <button className="buttonReload" onClick={(e) => handlerReload(e)}>
+          Reload page
+        </button>
       </div>
+      <Paging
+        servicesPerPage={servicesPerPage}
+        allServices={allServices.length}
+        paging={paging}
+      />
       <div className="cards-container">
-        {allServices &&
-          allServices.map((service) => {
+        {Services &&
+          Services.map((service) => {
             return (
               <Link to={`services/${service.id}`}>
                 <Card
@@ -95,6 +111,11 @@ export default function Home() {
             );
           })}
       </div>
+      <Paging
+        servicesPerPage={servicesPerPage}
+        allServices={allServices.length}
+        paging={paging}
+      />
     </div>
   );
 }

@@ -9,55 +9,53 @@ export default function Login() {
     password: "",
   });
 
-  const [error, setError] = useState('')
+  const [error, setError] = useState("");
   const { login, loginGoogle, loginFacebook } = useAuth();
   const navigate = useNavigate();
 
   const handleOnChange = (e) => {
-    
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSumbit = async(e) => {
+  const handleSumbit = async (e) => {
     e.preventDefault();
-    setError('')
+    setError("");
     try {
-      await login(user.email, user.password);     
+      await login(user.email, user.password);
       navigate("/home");
     } catch (error) {
       // setError(error.message)
-      console.log(error.message)
+      console.log(error.message);
     }
-    
   };
 
   const handleGoogle = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await loginGoogle()
-      navigate('/home')
+      await loginGoogle();
+      navigate("/home");
     } catch (error) {
-      console.log('asd')
+      console.log("asd");
     }
-  }
+  };
 
   const handleFacebook = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await loginFacebook()
-      navigate('/home')
+      await loginFacebook();
+      navigate("/home");
     } catch (error) {
-      console.log('Error facebook')
+      console.log("Error facebook");
     }
-  }
+  };
 
   return (
     <div>
       <h1>Login</h1>
-      {error && <Alert message={error}/>}
+      {error && <Alert message={error} />}
       <form onSubmit={(e) => handleSumbit(e)}>
         <div>
           <label>Email</label>
@@ -79,9 +77,11 @@ export default function Login() {
         </div>
         <button type="submit">Iniciar Sesion</button>
       </form>
-        <p>Aun no te has registrado? <Link to='/register'>Registrar</Link></p>
-        <button onClick={handleGoogle}>Iniciar Sesion con Google</button>
-        <button onClick={handleFacebook}>Iniciar Sesion con Facebook</button>
+      <p>
+        Aun no te has registrado? <Link to="/register">Registrar</Link>
+      </p>
+      <button onClick={handleGoogle}>Iniciar Sesion con Google</button>
+      <button onClick={handleFacebook}>Iniciar Sesion con Facebook</button>
     </div>
   );
 }
