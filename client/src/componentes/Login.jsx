@@ -112,7 +112,10 @@ export default function Login() {
           </Box>
         </form>
         <Typography variant="h6">
-          Aun no te has registrado? <Link to="/register"><Button>Registrar</Button></Link>
+          Aun no te has registrado? 
+          <Link style={{textDecoration: 'none'}} to="/register">
+            <Button>Registrar</Button>
+          </Link>
         </Typography>
         <Button style={ styles.button } onClick={handleGoogle}>Iniciar Sesion con Google</Button>
         <Button style={ styles.button } onClick={handleFacebook}>Iniciar Sesion con Facebook</Button>

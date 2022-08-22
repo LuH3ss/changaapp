@@ -5,6 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories, postCategory, postService } from "../redux/actions";
 import { CLOUDINARY_API } from "../Secret/Secret";
 import { Link, useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 
 export default function Servicios() {
   const [service, setService] = useState({
@@ -97,81 +101,83 @@ export default function Servicios() {
   };
 
   return (
-    <div>
-      <h1>Servicios</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Nombre del Servicio</label>
-          <input
-            type="text"
-            name="name"
-            value={service.name}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Imagen del servicio</label>
-          <input type="file" name="img" onChange={handleImage} />
-        </div>
-        <div>
-          <p>Categorias</p>
-          {categories &&
-            categories.map((e) => {
-              return (
-                <div key={e.id}>
-                  <button type="button" onClick={() => handleCat(e.name)}>
-                    {e.name}
-                  </button>
-                </div>
-              );
-            })}
+    <Box>
+      <Box>
+        <h1>Servicios</h1>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div>
+            <label>Nombre del Servicio</label>
             <input
               type="text"
-              placeholder="Agregar categoria"
               name="name"
-              value={categoryAdd.name}
-              onChange={handleChangeCat}
+              value={service.name}
+              onChange={handleOnChange}
             />
-            <button type="submit" onClick={(e) => handleAddCategory(e)}>
-              +
-            </button>
           </div>
-        </div>
+          <div>
+            <label>Imagen del servicio</label>
+            <input type="file" name="img" onChange={handleImage} />
+          </div>
+          <div>
+            <p>Categorias</p>
+            {categories &&
+              categories.map((e) => {
+                return (
+                  <div key={e.id}>
+                    <button type="button" onClick={() => handleCat(e.name)}>
+                      {e.name}
+                    </button>
+                  </div>
+                );
+              })}
+            <div>
+              <input
+                type="text"
+                placeholder="Agregar categoria"
+                name="name"
+                value={categoryAdd.name}
+                onChange={handleChangeCat}
+              />
+              <button type="submit" onClick={(e) => handleAddCategory(e)}>
+                +
+              </button>
+            </div>
+          </div>
 
-        <div>
-          <label>Descripcion</label>
-          <input
-            type="text"
-            name="description"
-            value={service.description}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Review</label>
-          <input
-            type="text"
-            name="review"
-            value={service.review}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Precio del servicio</label>
-          <input
-            type="text"
-            name="price"
-            value={service.price}
-            onChange={handleOnChange}
-          />
-        </div>
+          <div>
+            <label>Descripcion</label>
+            <input
+              type="text"
+              name="description"
+              value={service.description}
+              onChange={handleOnChange}
+            />
+          </div>
+          <div>
+            <label>Review</label>
+            <input
+              type="text"
+              name="review"
+              value={service.review}
+              onChange={handleOnChange}
+            />
+          </div>
+          <div>
+            <label>Precio del servicio</label>
+            <input
+              type="text"
+              name="price"
+              value={service.price}
+              onChange={handleOnChange}
+            />
+          </div>
 
-        <button type="submit">Solicitar servicio</button>
-      </form>
-      <Link to="/home">
-        <button>Volver atras</button>
-      </Link>
-    </div>
+          <button type="submit">Solicitar servicio</button>
+        </form>
+        <Link to="/home">
+          <button>Volver atras</button>
+        </Link>
+      </Box>
+    </Box>
   );
 }
