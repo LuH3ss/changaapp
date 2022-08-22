@@ -7,7 +7,7 @@ import {AuthProvider} from './context/authContext'
 import Register from './componentes/Register';
 
 import ServiceDetail from './componentes/ServiceDetail';
-import Servicios from './componentes/Servicios';
+import Servicios from './componentes/ServiceForm/Servicios';
 
 //comentario borrar
 function App() {

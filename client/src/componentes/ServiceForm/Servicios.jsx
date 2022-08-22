@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories, postService } from "../redux/actions";
-import { CLOUDINARY_API } from "../Secret/Secret";
+import { getAllCategories, postService } from "../../redux/actions";
+import { CLOUDINARY_API } from "../../Secret/Secret";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import s from './Servicios.module.css'
 
 function validate(service) {
   let error = {};
@@ -19,7 +20,7 @@ function validate(service) {
   else if (!/^[a-z ñ]+$/i.test(service.name))
     error.name = "No puedes asignar numeros/caracteres especiales al nombre";
   //ERROR CATEGORIA
-  else if (service.category.length !== 1)
+  else if (!service.category)
     error.category = "Tiene que asignar alguna categoria";
   //ERROR DESCRIPCION
   else if (!service.description)
@@ -34,35 +35,31 @@ function validate(service) {
 }
 
 export default function Servicios() {
+
   const [service, setService] = useState({
     name: "",
     img: "",
     description: "",
     price: "",
-    category: [],
+    category: "",
   });
-  const disptach = useDispatch();
+
+  const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [btn, setBtn] = useState(false);
   useEffect(() => {
-    disptach(getAllCategories());
-  }, [disptach]);
+    dispatch(getAllCategories());
+  }, [dispatch]);
 
   //CONSTANTES PARA QUE EL USUARIO PUEDA ELEGIR LOS VALORES DE CADA INPUT AL CREAR UN SERVICIO
   const handleOnChange = (e) => {
+    const {value} = e.target
     e.preventDefault();
     setService({
       ...service,
-      [e.target.name]: e.target.value,
-    });
-    e.preventDefault();
-    const value = e.target.value;
-    const value2 = value.charAt(0).toUpperCase() + value.slice(1);
-    setService({
-      ...service,
-      [e.target.name] : value2
+      [e.target.name] : value.charAt(0).toUpperCase() + value.slice(1)
     });
     setError(
       validate({
@@ -89,19 +86,20 @@ export default function Servicios() {
     }
   };
 
-  const handleCat = (dato) => {
-    if (service.category) {
-      if (service.category.includes(dato)) {
-        console.log("ya lo agregaste");
-      } else {
-        service.category.pop();
-        service.category.push(dato);
+  const[activeCat,setActiveCat]=useState('');
+
+  const handleCat = (e) => {
+    e.preventDefault()
+    //id hace referencia al nombre de la categoria
+    const category = e.target.id;
+    if(category === service.category)return;
+    setService((prevState)=>{
+      return{
+        ...prevState,
+        category: category
       }
-    }
-    setService({
-      ...service,
-      category: service.category,
     });
+    setActiveCat(category);
     setError(
       validate({
         ...service,
@@ -109,8 +107,6 @@ export default function Servicios() {
       })
     );
   };
-
-  console.log(service.category);
 
   //MANEJO DE ERRORES PARA EL FORMULARIO
   useEffect(() => {
@@ -134,7 +130,7 @@ export default function Servicios() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
-    disptach(postService(service));
+    dispatch(postService(service));
     setService({
       name: "",
       img: "",
@@ -207,11 +203,11 @@ export default function Servicios() {
             <Typography variant="h6">Categorías</Typography>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               {categories &&
-                categories.map((e) => {
+                categories.map((c) => {
                   return (
-                    <div key={e.id}>
-                      <button type="button" onClick={() => handleCat(e.name)}>
-                        {e.name}
+                    <div key={c.id}>
+                      <button id={c.name} className={activeCat === c.name?s.active_cat+' '+s.cat:s.cat} onClick={handleCat}>
+                        {c.name}
                       </button>
                     </div>
                   );
@@ -232,7 +228,7 @@ export default function Servicios() {
           <Box style={styles.box}>
             <TextField
               id="outlined-basic"
-              label="Descripcón"
+              label="Descripcion"
               variant="outlined"
               style={styles.input}
               type="text"

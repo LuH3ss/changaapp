@@ -76,17 +76,17 @@ const reducer = (state = initialStates, action) => {
     case REGISTER_USER:
       return {
         ...state,
-        registerUser: [...state, { ...action.payload }],
+        registerUser: [...state.registerUser, { ...action.payload }],
       };
     case REGISTER_SERVICE:
       return {
         ...state,
-        registerService: [...state, { ...action.payload }],
+        registerService: [...state.registerService, { ...action.payload }],
       };
     case POST_CATEGORY:
       return {
         ...state,
-        postCategory: [...state, { ...action.payload }],
+        postCategory: [...state.postCategory, { ...action.payload }],
       };
     default:
       return state;
