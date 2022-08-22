@@ -10,11 +10,11 @@ function validate(user) {
   let error = {};
 
   if (!user.firstName) error.name = "Debes ingresar un nombre";
-  else if (!/^[a-z ,.'-]+$/i.test(user.firstName))
+  else if (!/^[a-z ñ]+$/i.test(user.firstName))
     error.name = "El nombre no puede contener numeros ni caracteres especiales";
   //ERROR APELLIDO
   else if (!user.lastName) error.lastname = "Debes ingresar un apellido";
-  else if (!/^[a-z ,.'-]+$/i.test(user.lastName))
+  else if (!/^[a-z ñ]+$/i.test(user.lastName))
     error.lastname =
       "El apellido no puede contener numeros ni caracteres especiales";
   //ERROR FECHA DE NACIMIENTO
