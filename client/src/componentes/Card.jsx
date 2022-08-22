@@ -11,15 +11,20 @@ const imgDef =
 
   const styles = {
     containerCard:{
-      margin: '20px'
+      margin: '20px',
+
+
     },
     cardContent: {
       display: 'flex',
       flexDirection:'column',
       alignItems: 'center',
+      height:'400px',
+      gap:'20px',
+      padding: '15px'
     },
     img: {
-      width: '100%',
+      width: '50%',
     },
     name: {
       color: '#1F2937',
@@ -29,7 +34,7 @@ const imgDef =
       color: '#1F2937',
       padding: '5px 0 5px 0'
     }
-  }  
+  }
 
 export default function Card({ name, img, description, price, category }) {
   return (

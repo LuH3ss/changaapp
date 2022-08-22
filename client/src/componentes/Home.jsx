@@ -18,6 +18,8 @@ import {
   filterByCategory,
 } from "../redux/actions";
 import "./css/home.css";
+import { borderTop, borderTopColor } from "@mui/system";
+import { lightBlue } from "@mui/material/colors";
 const imgDef =
   "https://1.bp.blogspot.com/-OONwIqLJAE0/YCH249Alt2I/AAAAAAAAIzQ/7moXO_wK3pMxyug7CTWW6qZWb05sV3MAACNcBGAsYHQ/s16000/trabajos-mas-demandados-en-brasil-en-2021.jpg";
 
@@ -72,6 +74,7 @@ export default function Home() {
       gridTemplateColumns: '1fr 1fr 1fr',
       backgroundColor: '#E5E7EB',
       color: '#1F2937',
+      height:'100%'
     },
     button: {
       display: 'flex',
@@ -79,13 +82,24 @@ export default function Home() {
       width: '30%',
       alignItems: 'center',
     },
+    filterSection:{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent:'center',
+      gap:'25px',
+      height: '80px',
+      backgroundColor: '#1F2937',
+      color:'#E5E7EB',
+      borderTop: 'solid 2px white'
+      ,
+    }
   }
 
   return (
-    <div>
+    <Box >
       <Navbar user={user} handleClick={handleClick} />
-      <div className="container-filters">
-        <Typography variant="h6">ordenar por: </Typography>
+      <Box style={styles.filterSection}>
+        <Typography variant="h6">Ordenar por: </Typography>
         <select
           onChange={(e) => {
             handleSort(e);
@@ -96,7 +110,7 @@ export default function Home() {
           <option value="AlphabeticalAs">Alfabético A-Z</option>
           <option value="AlphabeticalDes">Alfabético Z-A</option>
         </select>
-        <Typography variant="h6">filtrar por categoría: </Typography>
+        <Typography variant="h6">Filtrar por categoría: </Typography>
         <select
           onChange={(e) => {
             handleFilter(e);
@@ -109,7 +123,7 @@ export default function Home() {
         <Button onClick={(e) => handlerReload(e)}>
           Reload page
         </Button>
-      </div>
+      </Box>
       <Paging
         servicesPerPage={servicesPerPage}
         allServices={allServices.length}
@@ -119,7 +133,7 @@ export default function Home() {
         {Services &&
           Services.map((service) => {
             return (
-              <Link style={{textDecoration: 'none'}} to={`services/${service.id}`}>
+              <Link style={{textDecoration: 'none', }} to={`services/${service.id}`}>
                 <Card
                   key={service.id}
                   name={service.name}
@@ -137,6 +151,6 @@ export default function Home() {
         allServices={allServices.length}
         paging={paging}
       />
-    </div>
+    </Box>
   );
 }
