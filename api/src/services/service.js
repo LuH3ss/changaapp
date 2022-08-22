@@ -68,7 +68,7 @@ const getByName = async (req,res) => {
   try {
     const { name } = req.query;
     const response = await Services.findAll({
-      where: { name: name } ,
+      where: { name:name } ,
       include : Category
     });
     res.send(response)
