@@ -100,40 +100,76 @@ export default function Servicios() {
     navigate("/home");
   };
 
+  const styles = {
+    container:{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      backgroundColor: '#E5E7EB',
+      color: '#1F2937'
+    },
+    containerForm: {
+      width: '40%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    box: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+    },
+    form: {
+      width: '100%',
+    },
+    input: {
+      width: '100%',
+      margin: '10px 0 10px 0'
+    }
+  }
+
   return (
-    <Box>
-      <Box>
-        <h1>Servicios</h1>
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div>
-            <label>Nombre del Servicio</label>
-            <input
+    <Box style={styles.container}>
+      <Box style={styles.containerForm}>
+        <Typography variant="h4">
+            Servicios
+        </Typography>
+        <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
+          <Box style={styles.box}>
+            <TextField id="outlined-basic" label="Nombre del Servicio" variant="outlined" 
+              style={styles.input}
               type="text"
               name="name"
               value={service.name}
               onChange={handleOnChange}
             />
-          </div>
-          <div>
-            <label>Imagen del servicio</label>
-            <input type="file" name="img" onChange={handleImage} />
-          </div>
-          <div>
-            <p>Categorias</p>
-            {categories &&
-              categories.map((e) => {
-                return (
-                  <div key={e.id}>
-                    <button type="button" onClick={() => handleCat(e.name)}>
-                      {e.name}
-                    </button>
-                  </div>
-                );
-              })}
-            <div>
-              <input
+          </Box>
+          <Box style={styles.box}>
+            <Typography variant="h6">
+              Imagen del Servicio
+            </Typography>
+            <input style={styles.input} type="file" name="img" onChange={handleImage} />
+          </Box>
+          <Box style={styles.box}>
+            <Typography variant="h6">
+              Categorías
+            </Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center'}}>
+              {categories &&
+                categories.map((e) => {
+                  return (
+                    <div key={e.id}>
+                      <button type="button" onClick={() => handleCat(e.name)}>
+                        {e.name}
+                      </button>
+                    </div>
+                  );
+                })}
+                <input
+                style={styles.input}
                 type="text"
-                placeholder="Agregar categoria"
                 name="name"
                 value={categoryAdd.name}
                 onChange={handleChangeCat}
@@ -141,42 +177,48 @@ export default function Servicios() {
               <button type="submit" onClick={(e) => handleAddCategory(e)}>
                 +
               </button>
-            </div>
-          </div>
+            </Box>
+          </Box>
 
-          <div>
-            <label>Descripcion</label>
-            <input
+          <Box style={styles.box}>
+            <TextField id="outlined-basic" label="Descripcón" variant="outlined"
+              style={styles.input}
               type="text"
               name="description"
               value={service.description}
               onChange={handleOnChange}
             />
-          </div>
-          <div>
-            <label>Review</label>
-            <input
+          </Box>
+          <Box style={styles.box}>
+            <TextField id="outlined-basic" label="Review" variant="outlined"
+              style={styles.input}
               type="text"
               name="review"
               value={service.review}
               onChange={handleOnChange}
             />
-          </div>
-          <div>
-            <label>Precio del servicio</label>
-            <input
+          </Box>
+          <Box style={styles.box}>
+            <TextField id="outlined-basic" label="Precio del servicio" variant="outlined"
+              style={styles.input}
               type="text"
               name="price"
               value={service.price}
               onChange={handleOnChange}
             />
-          </div>
-
-          <button type="submit">Solicitar servicio</button>
+          </Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-around'}}>
+            <Button>
+              <Link style={{textDecoration: 'none'}} to="/home">
+                <label style={{color:'#1F2937'}}>Volver atras</label>
+              </Link>
+            </Button>
+            <Button sx={{ color: '#1F2937' }}type="submit">Crear</Button>
+          </Box>
         </form>
-        <Link to="/home">
-          <button>Volver atras</button>
-        </Link>
+        
+          
+        
       </Box>
     </Box>
   );
