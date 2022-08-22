@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import Alert from "./Alert";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+
 
 export default function Login() {
   const [user, setUser] = useState({
@@ -52,36 +57,66 @@ export default function Login() {
     }
   };
 
+  const styles = {
+    container:{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100vh',
+      backgroundColor: '#E5E7EB',
+      color: '#1F2937'
+    },
+    login: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '30%',
+      alignItems: 'center',
+    },
+    form: {
+      width: '100%',
+    },
+    button: {
+      width: '100%',
+      margin: '5px 0 5px 0'
+    },
+    input: {
+      width: '100%',
+      margin: '10px 0 10px 0'
+    }
+  }
+
   return (
-    <div>
-      <h1>Login</h1>
-      {error && <Alert message={error} />}
-      <form onSubmit={(e) => handleSumbit(e)}>
-        <div>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={user.email}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Contraseña</label>
-          <input
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={handleOnChange}
-          />
-        </div>
-        <button type="submit">Iniciar Sesion</button>
-      </form>
-      <p>
-        Aun no te has registrado? <Link to="/register">Registrar</Link>
-      </p>
-      <button onClick={handleGoogle}>Iniciar Sesion con Google</button>
-      <button onClick={handleFacebook}>Iniciar Sesion con Facebook</button>
-    </div>
+    <Box style={ styles.container }>
+      <Box style={ styles.login }>
+        <Typography variant="h4" sx={{ marginBottom: '30px' }}>
+            Login
+        </Typography>
+        {error && <Alert message={error} />}
+        <form style={ styles.form } onSubmit={(e) => handleSumbit(e)}>
+          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column'}}>
+            <TextField id="outlined-basic" label="Email" variant="outlined"
+              style={ styles.input }
+              type="email"
+              name="email"
+              value={user.email}
+              onChange={handleOnChange}
+            />
+            <TextField id="outlined-basic" label="Contraseña" variant="outlined"
+              style={ styles.input }
+              type="password"
+              name="password"
+              value={user.password}
+              onChange={handleOnChange}
+            />
+            <Button style={ styles.button } type="submit">Iniciar Sesion</Button>
+          </Box>
+        </form>
+        <Typography variant="h6">
+          Aun no te has registrado? <Link to="/register"><Button>Registrar</Button></Link>
+        </Typography>
+        <Button style={ styles.button } onClick={handleGoogle}>Iniciar Sesion con Google</Button>
+        <Button style={ styles.button } onClick={handleFacebook}>Iniciar Sesion con Facebook</Button>
+      </Box>
+    </Box>
   );
 }
