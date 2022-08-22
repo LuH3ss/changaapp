@@ -114,7 +114,7 @@ export default function Servicios() {
       !error.category &&
       service.name &&
       service.description &&
-      service.img &&
+      // service.img &&
       service.price &&
       service.category
     ) {
