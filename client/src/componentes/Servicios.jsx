@@ -57,6 +57,13 @@ export default function Servicios() {
       ...service,
       [e.target.name]: e.target.value,
     });
+    e.preventDefault();
+    const value = e.target.value;
+    const value2 = value.charAt(0).toUpperCase() + value.slice(1);
+    setService({
+      ...service,
+      [e.target.name] : value2
+    });
     setError(
       validate({
         ...service,
@@ -136,6 +143,7 @@ export default function Servicios() {
     });
     navigate("/home");
   };
+
 
   const styles = {
     container: {
