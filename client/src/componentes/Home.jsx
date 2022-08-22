@@ -6,6 +6,11 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
 import Paging from "./Paging";
 import Navbar from "./PrivateRoute/Navbar";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+
 import {
   getAllServices,
   sortServices,
@@ -13,8 +18,11 @@ import {
   filterByCategory,
 } from "../redux/actions";
 import "./css/home.css";
+import { borderTop, borderTopColor } from "@mui/system";
+import { lightBlue } from "@mui/material/colors";
 const imgDef =
   "https://1.bp.blogspot.com/-OONwIqLJAE0/YCH249Alt2I/AAAAAAAAIzQ/7moXO_wK3pMxyug7CTWW6qZWb05sV3MAACNcBGAsYHQ/s16000/trabajos-mas-demandados-en-brasil-en-2021.jpg";
+
 
 export default function Home() {
   const [order, setOrder] = useState("");
@@ -60,22 +68,49 @@ export default function Home() {
 
   console.log(allServices);
 
+  const styles = {
+    containerCards:{
+      display: 'grid',
+      gridTemplateColumns: '1fr 1fr 1fr',
+      backgroundColor: '#E5E7EB',
+      color: '#1F2937',
+      height:'100%'
+    },
+    button: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '30%',
+      alignItems: 'center',
+    },
+    filterSection:{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent:'center',
+      gap:'25px',
+      height: '80px',
+      backgroundColor: '#1F2937',
+      color:'#E5E7EB',
+      borderTop: 'solid 2px white'
+      ,
+    }
+  }
+
   return (
-    <div>
+    <Box >
       <Navbar user={user} handleClick={handleClick} />
-      <div className="container-filters">
-        <label>order by: </label>
+      <Box style={styles.filterSection}>
+        <Typography variant="h6">Ordenar por: </Typography>
         <select
           onChange={(e) => {
             handleSort(e);
           }}
         >
-          <option value="PriceAs">Price ascendant</option>
-          <option value="PriceDes">Price descendant</option>
-          <option value="AlphabeticalAs">Alphabetical ascendant</option>
-          <option value="AlphabeticalDes">Alphabetical descendant</option>
+          <option value="PriceAs">Precio ascendente</option>
+          <option value="PriceDes">Precio descendente</option>
+          <option value="AlphabeticalAs">Alfabético A-Z</option>
+          <option value="AlphabeticalDes">Alfabético Z-A</option>
         </select>
-        <label>filter by category: </label>
+        <Typography variant="h6">Filtrar por categoría: </Typography>
         <select
           onChange={(e) => {
             handleFilter(e);
@@ -85,20 +120,20 @@ export default function Home() {
             return <option value={el.name}>{el.name}</option>;
           })}
         </select>
-        <button className="buttonReload" onClick={(e) => handlerReload(e)}>
+        <Button onClick={(e) => handlerReload(e)}>
           Reload page
-        </button>
-      </div>
+        </Button>
+      </Box>
       <Paging
         servicesPerPage={servicesPerPage}
         allServices={allServices.length}
         paging={paging}
       />
-      <div className="cards-container">
+      <Box style={styles.containerCards}>
         {Services &&
           Services.map((service) => {
             return (
-              <Link to={`services/${service.id}`}>
+              <Link style={{textDecoration: 'none', }} to={`services/${service.id}`}>
                 <Card
                   key={service.id}
                   name={service.name}
@@ -110,12 +145,12 @@ export default function Home() {
               </Link>
             );
           })}
-      </div>
+      </Box>
       <Paging
         servicesPerPage={servicesPerPage}
         allServices={allServices.length}
         paging={paging}
       />
-    </div>
+    </Box>
   );
 }
