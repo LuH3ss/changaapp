@@ -1,4 +1,5 @@
 const { Category, Services, Solicitud, User } = require("../db");
+const { Op } = require("sequelize");
 
 const getServices = async (req, res) => {
   const { category } = req.query;
@@ -68,7 +69,7 @@ const getByName = async (req,res) => {
   try {
     const { name } = req.query;
     const response = await Services.findAll({
-      where: { name:name } ,
+      where: { name: { [Op.startsWith]: name } }, 
       include : Category
     });
     res.send(response)
