@@ -1,0 +1,31 @@
+.landing-welcome {
+    background-image: url('../../assets/workers-landing.jpg');
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.whoWeAre-welcome {
+    
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        text-align: center;
+        padding: 50px;
+        align-items: center;
+        background-color: rgba(180, 180, 179, 0.684);
+}
+
+
+.queEsChangapp, .primeraPregunta, .segundaPregunta {
+    max-width: 400px;
+    border-bottom:solid black 2px ;
+    padding-bottom: 50px;
+    
+}

@@ -8,13 +8,17 @@ import Register from './componentes/Register';
 
 import ServiceDetail from './componentes/ServiceDetail';
 import Servicios from './componentes/Servicios';
+import Landing from './componentes/Landing';
+import Navbar from './componentes/PrivateRoute/Navbar';
 
 //comentario borrar
 function App() {
   return (
     <AuthProvider>
+      {/* <Route  path='/' element={<Navbar />}/> */}
       <Routes>
-        <Route exact path='/' element={<Login />}/>
+        <Route exact path='/' element={[<Landing />, <Navbar />]} />
+        <Route exact path='/login' element={<Login />} />
         <Route exact path='/home' element={<Home />}/>
         <Route path='/register' element={<Register/>}/>
         <Route exact path='/home/services/:id'  element={<ServiceDetail />}/>
