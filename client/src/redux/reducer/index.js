@@ -8,6 +8,7 @@ import {
   REGISTER_USER,
   REGISTER_SERVICE,
   POST_CATEGORY,
+  POST_REQUEST
 } from "../actions/index.js";
 
 const initialStates = {
@@ -87,6 +88,10 @@ const reducer = (state = initialStates, action) => {
       return {
         ...state,
         postCategory: [...state, { ...action.payload }],
+      };
+    case POST_REQUEST:
+      return {
+        ...state
       };
     default:
       return state;

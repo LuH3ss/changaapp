@@ -1,28 +1,29 @@
-const { Category, Services, Solicitud, User } = require("../db");
+const { Category, Services, Request, User } = require("../db");
 const { Op } = require("sequelize");
 
 const getServices = async (req, res) => {
   const { category } = req.query;
   try {
-    // let servicios = await Servicios.findAll();
-    // if (category) {
-    //   servicios = servicios.filter((el) => el.category === category);
-    // }
-    // res.status(200).send(servicios);
-    if (category) {
-      const services = await Services.findAll({
-        include: [Category],
-        where: {
-          attributes: ["name"],
-        },
-      });
-      return res.status(200).send(services);
-    } else {
-      const services = await Services.findAll({
-        include: [Category],
-      });
-      return res.status(200).send(services);
-    }
+    const services = await Services.findAll({
+      include: [{
+        model: Category,
+        attributes: ['name'],
+        through: {
+        attributes: []
+        }
+      }
+      ,{
+        model: Request,
+        attributes: ['day','hours'],
+        through: {
+        attributes: []
+        }
+      }
+      ]
+    });
+    category ? 
+    res.status(200).send(services.filter(el => el.categories[0].name === category)) :
+    res.status(200).send(services)
   } catch (e) {
     return res.status(400).send(console.log(e.message));
   }
