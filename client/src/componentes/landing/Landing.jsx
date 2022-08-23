@@ -6,11 +6,11 @@ import CardLanding from './CardLanding'
 
 export default function Landing() {
   return (
-    <Container maxWidth="xl" >
+    <Container maxWidth='xl' >
         <Box className="landing-welcome" variant="section">
             <Typography variant='h3'>Bienvenido/a a</Typography>
             <Typography variant='h1'>CHANGAPP</Typography>
-            <Button variant='outlined'>Conocenos</Button>
+            <Button variant='outlined' href='#mision'>Conocenos</Button>
         </Box>
         <Box variant="section" id='mision'>
             <Box variant="div" className='whoWeAre-welcome'>
@@ -37,16 +37,17 @@ export default function Landing() {
         <Box variant='section' className='get-started-welcome'>
             <Typography variant='h3' className='gt-tiitle'>Comenzamos?</Typography>
             <Typography viariant='p'>Ingresa con cualquiera de estos botones y/o inicia sesion con tu cuenta nueva o ya registrada</Typography>
-            <Box variant='div' className='bttns-welcome' sx={{display:'flex', gap:'100px', margin:'60px 0 0', justifyContent:'center'}}>
-                <Link to='/home' >
-                <Button sx={{height:'400px', width:'350px', border: 'solid blue 2px',
-    borderRadius:'30px'}} variant='outlined' color='primary'>Ingreso sin cuenta</Button>
+            <Box variant='div' className='bttns-welcome' sx={{display:'flex', gap:'100px', margin:'60px 0 0', justifyContent:'center', height:'400px'}}>
+                <Link style={{ textDecoration: 'none',
+    textTransform: 'none' }} to='/home' >
+                <Typography className='bttns_welcome' sx={{height:'138px'}} variant='h5'>Ingreso sin cuenta</Typography>
                 </Link>
-                <Link to='/login'>
-                    <Box variant='div' className='lft-bttns_welcome'>
-                    <Button>Registrate</Button>
-                    <Typography variant='p'>O</Typography>
-                    <Button>nIgresa con tu cuenta</Button>
+                <Link style={{ textDecoration: 'none',
+    textTransform: 'none'}}to='/login'>
+                    <Box variant='div' className='bttns_welcome'>
+                    <Typography s variant='h5'>Registrate</Typography>
+                    <Typography variant='h5'>O</Typography>
+                    <Typography variant='h5'>Ingresa con tu cuenta</Typography>
                     </Box>
                 </Link>
             </Box>

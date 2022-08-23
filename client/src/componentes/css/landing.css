@@ -38,8 +38,9 @@
 .get-started-welcome {
     height: fit-content;
     text-align: center;
-    background-color: rgba(0, 123, 255, 0.653);
+    background-color: rgba(33, 91, 153, 0.428);
     color: white;
+    padding-bottom: 30px;
 }
 
 .lft-bttns_welcome {
@@ -51,4 +52,25 @@
     padding: 130px;
     border: solid blue 2px;
     border-radius: 30px;
+}
+
+.bttns_welcome {
+    height:'400px';
+    width:'350px';
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 130px;
+    border: solid rgb(44, 44, 126) 2px;
+    border-radius: 30px;
+    background-color: rgba(0, 0, 0, 0.567);
+    color: white;
+
+
+}
+
+
+.bttns_welcome:hover {
+  background-color: rgba(0, 0, 0, 0);
+    
 }
