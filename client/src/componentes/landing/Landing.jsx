@@ -1,6 +1,8 @@
 import { Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
-import './css/landing.css'
+import { Link } from 'react-router-dom'
+import '../css/landing.css'
+import CardLanding from './CardLanding'
 
 export default function Landing() {
   return (
@@ -10,7 +12,7 @@ export default function Landing() {
             <Typography variant='h1'>CHANGAPP</Typography>
             <Button variant='outlined'>Conocenos</Button>
         </Box>
-        <Box variant="section">
+        <Box variant="section" id='mision'>
             <Box variant="div" className='whoWeAre-welcome'>
                 <Box variant="div" className='queEsChangapp'>
                     <Typography variant='h4'>Qué es ChangApp?</Typography>
@@ -26,6 +28,27 @@ export default function Landing() {
                     <Typography variant='h4'>Necesitas una solución rápida?</Typography>
                     <Typography variant='p'>Como cliente vas a encontrar los profesionales más destacados del mercado dispuestos a ayudarte en lo que necesites.</Typography>
                 </Box>
+            </Box>
+        </Box>
+        <Box variant="section" className="standout-services-welcome" sx={{padding:'20px', textAlign: 'center', backgroundColor: 'black'}}>
+            <Typography variant='h4' sx={{margin:'15px 0', color: 'white', backgroundColor: 'black'}}>Algunos Servicios</Typography>
+                <CardLanding />
+        </Box>
+        <Box variant='section' className='get-started-welcome'>
+            <Typography variant='h3' className='gt-tiitle'>Comenzamos?</Typography>
+            <Typography viariant='p'>Ingresa con cualquiera de estos botones y/o inicia sesion con tu cuenta nueva o ya registrada</Typography>
+            <Box variant='div' className='bttns-welcome' sx={{display:'flex', gap:'100px', margin:'60px 0 0', justifyContent:'center'}}>
+                <Link to='/home' >
+                <Button sx={{height:'400px', width:'350px', border: 'solid blue 2px',
+    borderRadius:'30px'}} variant='outlined' color='primary'>Ingreso sin cuenta</Button>
+                </Link>
+                <Link to='/login'>
+                    <Box variant='div' className='lft-bttns_welcome'>
+                    <Button>Registrate</Button>
+                    <Typography variant='p'>O</Typography>
+                    <Button>nIgresa con tu cuenta</Button>
+                    </Box>
+                </Link>
             </Box>
         </Box>
 

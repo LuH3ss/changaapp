@@ -29,3 +29,26 @@
     padding-bottom: 50px;
     
 }
+
+
+.standout-services-welcome {
+    height: 100%;
+}
+
+.get-started-welcome {
+    height: fit-content;
+    text-align: center;
+    background-color: rgba(0, 123, 255, 0.653);
+    color: white;
+}
+
+.lft-bttns_welcome {
+    height:'400px';
+    width:'350px';
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding: 130px;
+    border: solid blue 2px;
+    border-radius: 30px;
+}

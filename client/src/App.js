@@ -8,7 +8,7 @@ import Register from './componentes/Register';
 
 import ServiceDetail from './componentes/ServiceDetail';
 import Servicios from './componentes/Servicios';
-import Landing from './componentes/Landing';
+import Landing from './componentes/landing/Landing.jsx';
 import Navbar from './componentes/PrivateRoute/Navbar';
 
 //comentario borrar
