@@ -42,8 +42,8 @@ const { User, Category, Services, Solicitud } = sequelize.models;
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-// User.hasMany(Services); //AL HACER ESTA RELACION SEQUELIZE GENERA UNA LLAVE FORANEA EN EL MODELO DE SERVICIOS. QUE ES Usuario+id=UsuarioId
-// Services.belongsTo(User);
+User.hasOne(Category, {as: "category", foreignKey: "user_id"})
+Category.belongsTo(User, {as: "user", foreignKey: "user_id"})
 
 // Usuario.hasMany(Solicitud);
 // Solicitud.belongsTo(Usuario);
@@ -51,8 +51,9 @@ const { User, Category, Services, Solicitud } = sequelize.models;
 // Solicitud.hasOne(Servicios);
 // Servicios.belongsTo(Solicitud);
 
-Services.belongsToMany(Category, { through: "categoryservice" });
-Category.belongsToMany(Services, { through: "categoryservice" });
+// Services.belongsToMany(Category, { through: "categoryservice" });
+// Category.belongsToMany(Services, { through: "categoryservice" });
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

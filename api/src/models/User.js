@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       birthDate: {
-        type: DataTypes.DATE,
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
       email: {

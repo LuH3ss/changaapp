@@ -50,7 +50,10 @@ const getUsers = async (req, res) => {
   const { id } = req.body;
 
 
-  const users = await User.findAll();
+  const users = await User.findAll({include: {
+    model: Category,
+    as: 'category'
+  }});
 
   return res.status(200).send(users);
 

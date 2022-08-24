@@ -10,7 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Navbar from "../PrivateRoute/Navbar";
+// import Navbar from "../PrivateRoute/Navbar";
 import { useAuth } from "../../context/authContext";
 const image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjOMkAMbpBh8B0S8l5dvwrIhlsLqOh-rmOBw&usqp=CAU'
 
@@ -24,7 +24,7 @@ export default function Profile() {
   }, [dispatch, user?.email]);
   return (
     <div>
-      <Navbar/>
+      
       {
         user?.email === null ? (
           <p>
@@ -38,7 +38,7 @@ export default function Profile() {
         /* SECCION PREGUNTAS FRECUENTES */
         /* SECCION RESEÑAS Y RAITING */
         <Card sx={{ maxWidth: 500 }}>
-          <CardMedia component="img" height="200" image={image} alt="Profile photo" />
+          <CardMedia component="img" height="200" image={estado[0].img} alt="Profile photo" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               Nombre y apellido: {estado[0].firstName + ' ' + estado[0].lastName} 
@@ -50,7 +50,7 @@ export default function Profile() {
               Description: 
             </Typography>
           </CardContent>
-          <CardActions>
+          {/* <CardActions>
             <Button size="small" variant="outlined">
               <Link style={{ textDecoration: "none" }} to="">
                 Contact
@@ -71,9 +71,10 @@ export default function Profile() {
                 Volver atras
               </Link>
             </Button>
-          </CardActions>
+          </CardActions> */}
         </Card>
       }
+      
     </div>
   );
 }
