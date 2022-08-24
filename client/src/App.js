@@ -8,6 +8,7 @@ import Register from './componentes/Register';
 
 import ServiceDetail from './componentes/ServiceDetail';
 import Servicios from './componentes/Servicios';
+import Profile from './componentes/Profile';
 
 //comentario borrar
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route exact path='/home/services/:id'  element={<ServiceDetail />}/>
         <Route exact path='/home/createService' element={<Servicios/>}/>
+        <Route exact path='/profile' element={<Profile />}/>
       </Routes>
     </AuthProvider>
   );
