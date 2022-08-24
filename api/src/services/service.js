@@ -7,19 +7,12 @@ const getServices = async (req, res) => {
     const services = await Services.findAll({
       include: [{
         model: Category,
-        attributes: ['name'],
-        through: {
-        attributes: []
-        }
-      }
-      ,{
-        model: Request,
-        attributes: ['day','hours'],
-        through: {
-        attributes: []
-        }
-      }
-      ]
+        as: 'category',            
+    },
+    {
+        model: User,
+        as: "user"
+    }]
     });
     category ? 
     res.status(200).send(services.filter(el => el.categories[0].name === category)) :
@@ -50,20 +43,19 @@ const getServicebyId = async (req, res) => {
 
 const postService = async (req, res) => {
 
-  let { name, img, description, price, category, day } = req.body;
+  let { name, description, review, price, day, hours, category_id, user_id } = req.body;
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
-    img,
     description,
+    review,
     price,
-    day
+    day,
+    hours,
+    service_id:user_id,
+    categoty_id:category_id
   });
-  let categorys = await Category.findAll({
-    where: { name: category },
-  });
-  serviceCreated.addCategories(categorys);
-
+  console.log(serviceCreated)
   res.send("Service Created");
 };
 

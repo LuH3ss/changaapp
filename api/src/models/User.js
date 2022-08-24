@@ -29,15 +29,12 @@ module.exports = (sequelize) => {
       img: {
         type: DataTypes.STRING,
       },
-      offerer: {
-        type: DataTypes.BOOLEAN
-      },
       admin: {
         type: DataTypes.BOOLEAN
       },
       banned: {
         type: DataTypes.BOOLEAN
-      }
+      },
     });
 }
 
