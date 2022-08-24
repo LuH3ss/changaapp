@@ -92,9 +92,11 @@ export default function Navbar({ user, handleClick }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
+        <Link style={{textDecoration: 'none', color:'black'}}  to='/profile'>
+        <MenuItem >
           <Avatar /> Profile
         </MenuItem>
+        </Link>
         <MenuItem>
           <Avatar /> My account
         </MenuItem>
