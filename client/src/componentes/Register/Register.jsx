@@ -20,7 +20,7 @@ function validate(user) {
   //ERROR FECHA DE NACIMIENTO
   else if (!user.birthDate)
     error.birthDate = "Debes ingresar una fecha de nacimiento";
-  // else if(!/^(?:3[01]|[12][0-9]|0?[1-9])([-/.])(0?[1-9]|1[1-2])\1\d{4}$/.test(user.date)) error.date = 'El formanto de la fecha ingresada es incorrecto'
+  else if(user.birthDate < 18) error.date = 'Para registrarte a esta plataforma debes ser mayor de 18 años'
   //ERROR NUMERO DE TELEFONO
   else if (!/^[0-9]/.test(user.phone))
     error.phone = "No puedes ingresar letras, unicamente numeros";
@@ -157,7 +157,7 @@ export default function Register() {
         <div>
           <label>Fecha de Nacimiento: </label>
           <input
-            type="date"
+            type="number"
             value={user.birthDate}
             name="birthDate"
             onChange={handleOnChange}
