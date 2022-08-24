@@ -5,18 +5,12 @@ const { allUsers } = require("../utils/utils");
 const register = async (req, res) => {
   const {
     firstName,
-
     lastName,
     birthDate,
     email,
-    phone,
-    img,
-    // offerer,
-
-    // admin,
-    // banned,
   } = req.body;
 
+<<<<<<< HEAD
   try {
     const allUser = await allUsers();
     if (!firstName || !lastName || !birthDate || !email)
@@ -41,26 +35,36 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send(console.log(error.message));
   }
+=======
+
+  const newUser = await User.create({
+    firstName,
+    lastName,
+    birthDate,
+    email,
+  });
+  return res.status(201).send(newUser);
+
+>>>>>>> origin/rama-fix
 };
 
 const getUsers = async (req, res) => {
   // const { email } = req.body;
   const { id } = req.body;
 
+<<<<<<< HEAD
   const users = await User.findAll();
+=======
+
+  const users = await User.findAll({include: {
+    model: Services,
+    as: 'services'
+  }});
+>>>>>>> origin/rama-fix
 
   return res.status(200).send(users);
-
-  // try {
-  //   // const user = users.find((el) => el.email === email);
-  //   const user = users.find((el) => el.id === id);
-  //   user
-  //     ? res.status(200).send(user)
-  //     : res.status(404).send("user not found");
-  // } catch (e) {
-  //   console.log(e);
-  // }
 };
+
 
 module.exports = {
   register,

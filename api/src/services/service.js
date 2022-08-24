@@ -5,6 +5,7 @@ const getServices = async (req, res) => {
   const { category } = req.query;
   try {
     const services = await Services.findAll({
+<<<<<<< HEAD
       include: [
         {
           model: Category,
@@ -21,6 +22,16 @@ const getServices = async (req, res) => {
           },
         },
       ],
+=======
+      include: [{
+        model: Category,
+        as: 'category',            
+    },
+    {
+        model: User,
+        as: "user"
+    }]
+>>>>>>> origin/rama-fix
     });
     category
       ? res
@@ -42,7 +53,7 @@ const getServicebyId = async (req, res) => {
       where: {
         id: id,
       },
-      include: Category,
+      include: Category
     });
 
     return res.status(200).send(services);
@@ -52,19 +63,24 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
+<<<<<<< HEAD
   let { name, img, description, price, category } = req.body;
+=======
+
+  let { name, description, review, price, day, hours, category_id, user_id } = req.body;
+>>>>>>> origin/rama-fix
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
-    img,
     description,
+    review,
     price,
+    day,
+    hours,
+    service_id:user_id,
+    categoty_id:category_id
   });
-  let categorys = await Category.findAll({
-    where: { name: category },
-  });
-  serviceCreated.addCategories(categorys);
-
+  console.log(serviceCreated)
   res.send("Service Created");
 };
 

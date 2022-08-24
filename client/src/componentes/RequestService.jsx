@@ -22,8 +22,9 @@ export default function RequestService(props) {
     dispatch(getDetail(id));
   }, [dispatch]);
 
-  var service = useSelector((state) => state.serviceDetail);
+  const service = useSelector((state) => state.serviceDetail);
 
+  console.log(service)
   const handleOnChange = (e) => {
     e.preventDefault();
     setRequest({
@@ -32,9 +33,19 @@ export default function RequestService(props) {
     });
   };
 
+  const handleDay = (e) => {
+    if(!request.day.includes(e.target.value)){
+      setRequest({
+        ...request,
+        day: [...request.day, e.target.value]
+      });
+    }
+  }
+
   const handleSubmit = (e) => {
+    request.day = request.day.join(",")
     e.preventDefault();
-    let requestService = {...request, service:service.name}
+    let requestService = {...request, service:service.id}
     dispatch(postRequest(requestService));
     setRequest({
       day: "",
@@ -109,7 +120,7 @@ export default function RequestService(props) {
           </Box>
           <Box style={styles.containerRequestForm}>
             <form onSubmit={(e) => handleSubmit(e)}>
-            <Box style={styles.box}>
+            {/* <Box style={styles.box}>
               <TextField
                 id="outlined-basic"
                 label="día"
@@ -120,7 +131,14 @@ export default function RequestService(props) {
                 value={request.day}
                 onChange={handleOnChange}
               />
-            </Box>
+            </Box> */}
+            {console.log(request)}
+            
+            {
+              service.day?.split(',').map(el => {
+                return <Button value={el} onClick={(e)=>handleDay(e)}>{el}</Button>
+              })
+            }
 
             <Box style={styles.box}>
               <TextField
