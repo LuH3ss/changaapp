@@ -8,6 +8,8 @@ import {
   REGISTER_USER,
   REGISTER_SERVICE,
   POST_CATEGORY,
+  FILTER,
+  UPDATE
 } from "../actions/index.js";
 
 const initialStates = {
@@ -18,6 +20,8 @@ const initialStates = {
   registerUser: [],
   registerService: [],
   postCategory: [],
+  update: [],
+  filter: []
 };
 
 const reducer = (state = initialStates, action) => {
@@ -76,18 +80,28 @@ const reducer = (state = initialStates, action) => {
     case REGISTER_USER:
       return {
         ...state,
-        registerUser: [...state, { ...action.payload }],
+        registerUser: [...state.registerUser, { ...action.payload }],
       };
     case REGISTER_SERVICE:
       return {
         ...state,
-        registerService: [...state, { ...action.payload }],
+        registerService: [...state.registerService, { ...action.payload }],
       };
     case POST_CATEGORY:
       return {
         ...state,
         postCategory: [...state, { ...action.payload }],
       };
+    case FILTER: 
+    return {
+      ...state,
+      filter: action.payload
+    }
+    case UPDATE:
+      return{
+        ...state,
+        update: [...state.update, {...action.payload}]
+      }  
     default:
       return state;
   }

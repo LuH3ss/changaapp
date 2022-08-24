@@ -1,13 +1,16 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import Home from './componentes/Home'
-import Login from './componentes/Login'
+import Home from './componentes/Home/Home'
+import Login from './componentes/Login/Login'
 import {AuthProvider} from './context/authContext'
 
-import Register from './componentes/Register';
+import Register from './componentes/Register/Register';
 
 import ServiceDetail from './componentes/ServiceDetail';
-import Servicios from './componentes/Servicios';
+import Servicios from './componentes/Servicios/Servicios';
+import Settings from './componentes/Settings/Settings';
+import Password from './componentes/Settings/Password';
+import Prueba from './componentes/Settings/Prueba';
 
 //comentario borrar
 function App() {
@@ -19,6 +22,12 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route exact path='/home/services/:id'  element={<ServiceDetail />}/>
         <Route exact path='/home/createService' element={<Servicios/>}/>
+        
+        <Route path='/settings' element={<Settings/>}/>
+
+        
+        
+        <Route exact path='/password' element={<Password/>}/>
       </Routes>
     </AuthProvider>
   );

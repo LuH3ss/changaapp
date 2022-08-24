@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
-import Alert from "./Alert";
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -17,7 +17,7 @@ export default function Login() {
   });
 
   const [error, setError] = useState("");
-  const { login, loginGoogle, loginFacebook } = useAuth();
+  const { login, loginGoogle, loginFacebook, logAnonymous } = useAuth();
   const navigate = useNavigate();
 
   const handleOnChange = (e) => {
@@ -58,6 +58,16 @@ export default function Login() {
       console.log("Error facebook");
     }
   };
+
+  const handleAnonymous = async (e) => {
+    e.preventDefault()
+    try {
+      await logAnonymous()
+      navigate('/home')
+    } catch (error) {
+      console.log('Error anonimo')
+    }
+  }
 
   const styles = {
     container:{
@@ -107,7 +117,7 @@ Como cliente vas a encontrar los profesionales más destacados del mercado.
         <Typography variant="h4" sx={{ marginBottom: '30px' }}>
             Login
         </Typography>
-        {error && <Alert message={error} />}
+        
         <form style={ styles.form } onSubmit={(e) => handleSumbit(e)}>
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column'}}>
             <TextField id="outlined-basic" label="Email" variant="outlined"
@@ -139,12 +149,16 @@ Como cliente vas a encontrar los profesionales más destacados del mercado.
           <Link style={{textDecoration: 'none'}} to="/register">
             <Button variant="contained">Registrar</Button>
           </Link>
+          <p>
+            <Link to='/password'>¿Olvidaste la constraseña?</Link>
+          </p>
         </Box>
         <Button sx={{backgroundColor: '#030303', color:'#E5E7EB',  '&:hover': {
           color: 'primary.main',
           
         }}} variant="outlined" startIcon={<GoogleIcon />} style={ styles.button } onClick={handleGoogle}>Iniciar Sesion con Google</Button>
         <Button sx={{backgroundColor: '#030303'}}variant="outlined"  startIcon={<FacebookIcon />}style={ styles.button } onClick={handleFacebook}>Iniciar Sesion con Facebook</Button>
+        <button onClick={handleAnonymous}>Iniciar como Anonimo</button>
       </Box>
     </Box>
   );

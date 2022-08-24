@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { Router } = require("express");
-const { register, getUsers } = require("../services/user");
+const { register, getUsers, updateUser, filterUser } = require("../services/user");
 const {
   getServices,
   getServicebyId,
@@ -16,7 +16,8 @@ const router = Router();
 //user routes
 router.post("/user", register);
 router.get("/user", getUsers);
-
+router.put('/user/:email', updateUser)
+router.get('/user/:email', filterUser)
 //services routes
 router.post("/services", postService);
 router.get("/services", getServices);

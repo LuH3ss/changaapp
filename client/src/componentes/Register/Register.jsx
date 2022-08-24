@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../redux/actions";
-import { CLODUNIARY_API } from "../Secret/Secret.js";
+import { registerUser } from "../../redux/actions";
+import { CLODUNIARY_API } from "../../Secret/Secret.js";
 import axios from "axios";
 
 function validate(user) {
@@ -117,7 +117,7 @@ export default function Register() {
     dispatch(registerUser(user));
     try {
       await signUp(user.email, user.password);
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       if (error.code === "auth/weak-password") {
         setFire("La contraseña tiene que tener al menos 6 caracteres");

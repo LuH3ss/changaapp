@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "./Card";
-import Paging from "./Paging";
-import Navbar from "./PrivateRoute/Navbar";
+import Card from "../Card";
+import Paging from "../Paging";
+import Navbar from "../PrivateRoute/Navbar";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -17,8 +17,8 @@ import {
   sortServices,
   getAllCategories,
   filterByCategory,
-} from "../redux/actions";
-import "./css/home.css";
+} from "../../redux/actions";
+import "../css/home.css";
 import { borderTop, borderTopColor } from "@mui/system";
 import { lightBlue } from "@mui/material/colors";
 const imgDef =
@@ -48,10 +48,10 @@ export default function Home() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
-    logout();
-    navigate("/");
-  };
+  // const handleClick = (e) => {
+  //   logout();
+  //   navigate("/");
+  // };
 
   const handleSort = (e) => {
     setOrder(e.target.value);
@@ -99,7 +99,7 @@ export default function Home() {
 
   return (
     <Box >
-      <Navbar user={user} handleClick={handleClick} />
+      <Navbar />
       <Box style={styles.filterSection}>
         <Typography variant="h6">Ordenar por: </Typography>
         <select
@@ -145,9 +145,11 @@ export default function Home() {
                   price={service.price}
                   category={service.categories[0]?.name}
                 />
+                
               </Link>
             );
           })}
+          
       </Box>
       <Paging
         servicesPerPage={servicesPerPage}

@@ -20,5 +20,5 @@ export const fire_appId = "1:1001351434564:web:f2bc55cad2cf0c95654711";
 
 
 //CLODUNIARY API
-export const CLODUNIARY_API = 'https://api.cloudinary.com/v1_1/demo/image/upload'
+export const CLODUNIARY_API = 'https://api.cloudinary.com/v1_1/powchorba/image/upload'
 

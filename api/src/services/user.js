@@ -65,7 +65,41 @@ const getUsers = async (req, res) => {
   // }
 };
 
+const updateUser = async (req,res) => {
+  const {firstName, lastName, birthDate , phone, img} = req.body
+  const {email} = req.params
+  
+  await User.update({
+    firstName,
+    lastName,
+    birthDate,
+    phone,
+    img
+  }, {where: {
+    email
+  }}) 
+  
+  return res.status(201).send('Usuario actualizado')
+  
+}
+
+const filterUser = async (req, res) => {
+  const {email} = req.params
+  if(email) {
+      const alluser = await allUsers()
+      const filterEmail = alluser.filter(e => e.email === email)
+      if(filterEmail){
+        return res.send(filterEmail)
+      }else{
+        return res.send('No se encontro el email solicitado')
+      }
+  }
+
+}
+
 module.exports = {
   register,
   getUsers,
+  updateUser,
+  filterUser
 };
