@@ -8,6 +8,7 @@ export const SORT_SERVICES = "SORT_SERVICES";
 export const FILTER_SERVICES = "FILTER_SERVICES";
 export const SERVICE_NAME = "SERVICE_NAME";
 export const POST_CATEGORY = "POST_CATEGORY";
+export const POST_REQUEST = "POST_REQUEST";
 const EP = "http://localhost:3001";
 
 export function getDetail(id) {
@@ -97,6 +98,17 @@ export function postCategory(category) {
       dispatch({
         type: POST_CATEGORY,
         payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function postRequest(request) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/request`, request).then((data) =>
+      dispatch({
+        type: POST_REQUEST,
+        payload: data.data
       })
     );
   };

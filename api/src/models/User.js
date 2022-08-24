@@ -19,15 +19,12 @@ module.exports = (sequelize) => {
       },
       birthDate: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
-      },
-      phone: {
-        type: DataTypes.STRING,
       },
       img: {
         type: DataTypes.STRING,
