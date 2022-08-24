@@ -45,7 +45,7 @@ export default function RequestService(props) {
   const handleSubmit = (e) => {
     request.day = request.day.join(",")
     e.preventDefault();
-    let requestService = {...request, service:service.name}
+    let requestService = {...request, service:service.id}
     dispatch(postRequest(requestService));
     setRequest({
       day: "",
