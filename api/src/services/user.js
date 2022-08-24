@@ -2,7 +2,6 @@ const { Category, Services, Solicitud, User } = require("../db");
 
 const { allUsers } = require("../utils/utils");
 
-
 const register = async (req, res) => {
   const {
     firstName,
@@ -19,7 +18,6 @@ const register = async (req, res) => {
   } = req.body;
 
   try {
-
     const allUser = await allUsers();
     if (!firstName || !lastName || !birthDate || !email)
       return res.send("Los datos ingresados estan incompletos");
@@ -48,7 +46,6 @@ const register = async (req, res) => {
 const getUsers = async (req, res) => {
   // const { email } = req.body;
   const { id } = req.body;
-
 
   const users = await User.findAll();
 
