@@ -1,7 +1,8 @@
+const { STRING } = require("sequelize");
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("servicios", {
+  sequelize.define("services", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -12,12 +13,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    img: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-    },
-    rating: {
-      type: DataTypes.INTEGER,
-    },
     description: {
       type: DataTypes.STRING,
     },
@@ -27,8 +22,11 @@ module.exports = (sequelize) => {
     price: {
       type: DataTypes.INTEGER,
     },
-    idCategory: {
-      type: DataTypes.STRING,
+    day: {
+      type: DataTypes.STRING
     },
+    hours: {
+      type: DataTypes.ARRAY(STRING)
+    }
   });
-};
+}

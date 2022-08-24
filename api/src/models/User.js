@@ -1,33 +1,38 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("solicitud", {
+  sequelize.define("user", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
     },
-    idClient: {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    img: {
       type: DataTypes.STRING,
     },
-    idOfferer: {
-      type: DataTypes.STRING,
+    admin: {
+      type: DataTypes.BOOLEAN,
     },
-    idPrestador: {
-      type: DataTypes.STRING,
-    },
-    idReview: {
-      type: DataTypes.STRING,
-    },
-    state: {
-      type: DataTypes.ENUM("pendiente", "aceptado", "rechazado", "finalizado"),
-    },
-    category: {
-      type: DataTypes.STRING,
-    },
-    description: {
-      type: DataTypes.STRING,
+    banned: {
+      type: DataTypes.BOOLEAN,
     },
   });
 };
