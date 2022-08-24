@@ -8,9 +8,9 @@ import Register from './componentes/Register/Register';
 
 import ServiceDetail from './componentes/ServiceDetail';
 import Servicios from './componentes/Servicios/Servicios';
-import Settings from './componentes/Settings/Settings';
+import EditProfile from './componentes/Settings/EditProfile';
 import Password from './componentes/Settings/Password';
-import Prueba from './componentes/Settings/Prueba';
+import Profile from './componentes/Settings/Profile';
 
 //comentario borrar
 function App() {
@@ -22,8 +22,8 @@ function App() {
         <Route path='/register' element={<Register/>}/>
         <Route exact path='/home/services/:id'  element={<ServiceDetail />}/>
         <Route exact path='/home/createService' element={<Servicios/>}/>
-        
-        <Route path='/settings' element={<Settings/>}/>
+        <Route path='/settings/edit' element={<EditProfile/>}/>
+        <Route exact path='/settings/profile' element={<Profile/>}/>
 
         
         

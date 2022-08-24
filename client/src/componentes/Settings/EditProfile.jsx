@@ -16,7 +16,7 @@ function validate(fire) {
     return error
 }
 
-export default function Setting() {
+export default function EditProfile() {
   const { user } = useAuth();
   //ESTADO PARA ACTUALIZAR
   const estado = useSelector((state) => state.filter);
@@ -39,6 +39,7 @@ export default function Setting() {
   const dispatch = useDispatch();
   
   //PARA TRAER LA DATA DESDE LA BASE DE DATOS
+
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
@@ -144,8 +145,9 @@ export default function Setting() {
             
             <input
               type="text"
-              placeholder={estado[0].firstName}
               value={input.firstName}
+              // defaultValue={estado[0].firstName}
+              placeholder={estado[0].firstName}
               name="firstName"
               onChange={handleChange}
             />

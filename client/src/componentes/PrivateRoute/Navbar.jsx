@@ -101,18 +101,18 @@ export default function Navbar() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <Link to ='/settings/profile'>
         <MenuItem>
           <Avatar /> Perfil
         </MenuItem>
-        <MenuItem>
-          <Avatar /> Mi cuenta
-        </MenuItem>
+        </Link>
+        
         <Divider />
         <MenuItem>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          <Link to='/settings'>Configuracion</Link>
+          <Link to='/settings/edit'>Configuracion</Link>
         </MenuItem>
         <MenuItem onClick={handleClick} >
           <ListItemIcon>
