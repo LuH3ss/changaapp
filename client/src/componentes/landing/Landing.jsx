@@ -56,3 +56,15 @@ export default function Landing() {
     </Container>
   )
 }
+
+
+
+// const handleAnonymous = async (e) => {
+//     e.preventDefault()
+//     try {
+//       await logAnonymous()
+//       navigate('/home')
+//     } catch (error) {
+//       console.log('Error anonimo')
+//     }
+//   }
