@@ -39,7 +39,7 @@ const getServicebyId = async (req, res) => {
       where: {
         id: id,
       },
-      include: Category,
+      include: Category
     });
 
     return res.status(200).send(services);
@@ -50,13 +50,14 @@ const getServicebyId = async (req, res) => {
 
 const postService = async (req, res) => {
 
-  let { name, img, description, price, category } = req.body;
+  let { name, img, description, price, category, day } = req.body;
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
     img,
     description,
     price,
+    day
   });
   let categorys = await Category.findAll({
     where: { name: category },

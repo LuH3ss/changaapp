@@ -68,7 +68,7 @@ export default function Home() {
     dispatch(getAllServices());
   };
 
-  console.log(allServices);
+  console.log(allServices)
 
   const styles = {
     containerCards:{
