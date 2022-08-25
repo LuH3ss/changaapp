@@ -5,6 +5,8 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/actions";
 import { CLODUNIARY_API } from "../Secret/Secret.js";
 import axios from "axios";
+import { Box } from "@mui/system";
+import { Button } from "@mui/material";
 
 function validate(user) {
   let error = {};
@@ -129,11 +131,56 @@ export default function Register() {
     }
   };
 
+
+  const styles = {
+    container: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+      backgroundColor: "#E5E7EB",
+      color: "#1F2937",
+    },
+    containerForm: {
+      width: "70%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: 'rgba(26, 155, 241, 0.143) ',
+      padding:'20px',
+      borderRadius: '15px',
+      
+    },
+    box: {
+      display: "flex",
+      flexDirection: "column",
+      width: "100%",
+      
+    },
+    form: {
+      width: "100%",
+      display: 'flex',
+      flexDirection: 'column',
+      gap:'15px',
+      alignItems: 'center',
+      marginBottom: '15px',
+      
+
+    },
+    input: {
+      width: "100%",
+      margin: "10px 0 10px 0",
+    },
+  };
+
   return (
-    <div>
+    <Box style={styles.container}>
+
+    <div style={styles.containerForm}>
       <h1>Registrarse</h1>
       {fire && <p>{fire}</p>}
-      <form onSubmit={(e) => handleOnSubmit(e)}>
+      <form style={styles.form}  onSubmit={(e) => handleOnSubmit(e)}>
         <div>
           <label>Nombre: </label>
           <input
@@ -151,7 +198,7 @@ export default function Register() {
             name="lastName"
             value={user.lastName}
             onChange={handleOnChange}
-          />
+            />
           {error.lastname && <p>{error.lastname}</p>}
         </div>
         <div>
@@ -161,7 +208,7 @@ export default function Register() {
             value={user.birthDate}
             name="birthDate"
             onChange={handleOnChange}
-          />
+            />
           {error.birthDate && <p>{error.birthDate}</p>}
         </div>
         <div>
@@ -181,7 +228,7 @@ export default function Register() {
             accept="image/jpeg"
             name="img"
             onChange={handleImage}
-          />
+            />
           {error.photo && <p>{error.photo}</p>}
         </div>
         <div>
@@ -191,7 +238,7 @@ export default function Register() {
             name="email"
             value={user.email}
             onChange={handleOnChange}
-          />
+            />
           {error.email && <p>{error.email}</p>}
         </div>
         <div>
@@ -205,11 +252,16 @@ export default function Register() {
           {error.password && <p>{error.password}</p>}
         </div>
 
-        <button type="submit" disabled={!boton}>
+        <Button variant="outlined" type="submit" disabled={!boton}>
           Registrarse
-        </button>
+        </Button>
       </form>
-      <Link to="/">Volver</Link>
+      <Link style={{textDecoration: 'none'}} to="/">
+        <Button  variant="contained">
+          Volver
+          </Button>
+          </Link>
     </div>
+            </Box>
   );
 }
