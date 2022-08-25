@@ -13,22 +13,27 @@ import Password from "./componentes/Settings/Password";
 import Profile from "./componentes/Settings/Profile";
 import Settings from "./componentes/Settings/Settings";
 
+import Landing from "./componentes/landing/Landing.jsx";
+import Navbar from "./componentes/PrivateRoute/Navbar";
+
+import RequestService from "./componentes/RequestService";
+
 //comentario borrar
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route exact path="/" element={<Login />} />
+        <Route exact path="/" element={[<Navbar />, <Landing />]} />
+        <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route exact path="/home/services/:id" element={<ServiceDetail />} />
+        <Route exact path="/home/services/:id" element={<RequestService />} />
         <Route exact path="/home/createService" element={<Servicios />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
         </Route>
-
-        <Route exact path="/password" element={<Password />} />
+        <Route path="/password" element={<Password />} />
       </Routes>
     </AuthProvider>
   );

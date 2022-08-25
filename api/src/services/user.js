@@ -3,11 +3,14 @@ const { Category, Services, Solicitud, User } = require("../db");
 const { allUsers } = require("../utils/utils");
 
 const register = async (req, res) => {
-  const {
+  const { firstName, lastName, age, email } = req.body;
+
+  const newUser = await User.create({
     firstName,
     lastName,
-    birthDate,
+    age,
     email,
+<<<<<<< HEAD
     img,
     phone,
     offerer,
@@ -39,6 +42,10 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send(console.log(error.message));
   }
+=======
+  });
+  return res.status(201).send(newUser);
+>>>>>>> origin/dev
 };
 
 const getUsers = async (req, res) => {
@@ -53,6 +60,7 @@ const getUsers = async (req, res) => {
   });
 
   return res.status(200).send(users);
+<<<<<<< HEAD
 };
 
 const updateUser = async (req, res) => {
@@ -88,11 +96,17 @@ const filterUser = async (req, res) => {
       return res.send("No se encontro el email solicitado");
     }
   }
+=======
+>>>>>>> origin/dev
 };
 
 module.exports = {
   register,
   getUsers,
+<<<<<<< HEAD
   updateUser,
   filterUser,
 };
+=======
+};
+>>>>>>> origin/dev

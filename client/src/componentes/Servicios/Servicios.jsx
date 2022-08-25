@@ -40,6 +40,7 @@ export default function Servicios() {
     description: "",
     price: "",
     category: [],
+    day: []
   });
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
@@ -56,6 +57,13 @@ export default function Servicios() {
     setService({
       ...service,
       [e.target.name]: e.target.value,
+    });
+    e.preventDefault();
+    const value = e.target.value;
+    const value2 = value.charAt(0).toUpperCase() + value.slice(1);
+    setService({
+      ...service,
+      [e.target.name] : value2
     });
     setError(
       validate({
@@ -114,7 +122,7 @@ export default function Servicios() {
       !error.category &&
       service.name &&
       service.description &&
-      service.img &&
+      // service.img &&
       service.price &&
       service.category
     ) {
@@ -124,8 +132,20 @@ export default function Servicios() {
     }
   }, [service, error]);
 
+  //Manejo de días de disponibilidad
+  const handleDay = (e) => {
+    if(!service.day.includes(e.target.value)){
+      setService({
+        ...service,
+        day: [...service.day, e.target.value]
+      });
+    }
+  }
+
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
+    console.log(service)
+    service.day = service.day.join(",")
     e.preventDefault();
     disptach(postService(service));
     setService({
@@ -133,9 +153,12 @@ export default function Servicios() {
       img: "",
       description: "",
       price: "",
+      category: [],
+      day: []
     });
     navigate("/home");
   };
+
 
   const styles = {
     container: {
@@ -186,7 +209,7 @@ export default function Servicios() {
             />
           </Box>
 
-          <Box style={styles.box}>
+          {/* <Box style={styles.box}>
             <Typography variant="h6">Imagen del Servicio</Typography>
             <input
               style={styles.input}
@@ -194,11 +217,18 @@ export default function Servicios() {
               name="img"
               onChange={handleImage}
             />
-          </Box>
+          </Box> */}
           <Box style={styles.box}>
             <Typography variant="h6">Categorías</Typography>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              {categories &&
+            <select onChange={(e) => handleCat(e.target.value)}>
+              {
+                categories?.map(el => {
+                  return <option value={el.name}>{el.name}</option>
+                })
+              }
+            </select>
+              {/* {categories &&
                 categories.map((e) => {
                   return (
                     <div key={e.id}>
@@ -207,7 +237,7 @@ export default function Servicios() {
                       </button>
                     </div>
                   );
-                })}
+                })} */}
               {/* <input
                 style={styles.input}
                 type="text"
@@ -256,6 +286,13 @@ export default function Servicios() {
               value={service.price}
               onChange={handleOnChange}
             />
+          </Box>
+          <Box sx={{ display: 'flex', flexDirection: 'row'}}>
+            {
+              ['Lunes','Martes','Miércoles','Jueves','Viernes'].map(el => {
+                return <Button value={el} onClick={(e)=>handleDay(e)}>{el}</Button>
+              })
+            }
           </Box>
           <Box sx={{ display: "flex", justifyContent: "space-around" }}>
             <Button>

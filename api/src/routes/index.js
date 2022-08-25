@@ -8,6 +8,8 @@ const {
   getByName,
 } = require("../services/service");
 const { getCategories, postCategorie } = require("../services/category");
+const { getRequest, postRequest } = require("../services/request");
+
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
 
@@ -27,5 +29,9 @@ router.get("/services/:id", getServicebyId);
 //category routes
 router.get("/category", getCategories);
 router.post("/category", postCategorie);
+
+//request routes
+router.get("/request", getRequest);
+router.post("/request", postRequest);
 
 module.exports = router;
