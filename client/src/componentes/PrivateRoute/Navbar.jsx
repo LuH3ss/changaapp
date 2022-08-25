@@ -47,7 +47,7 @@ export default function Navbar() {
   };
   return (
     <Box style={styles.container} className="navBar">
-        <Typography variant="h4">ChangApp</Typography>
+        <Typography variant="h4"><Link to='/home'>ChangApp</Link></Typography>
       <SearchBar style={styles.button} />
       <div>
         <Link style={{textDecoration: 'none'}} to='/home/createService'>
