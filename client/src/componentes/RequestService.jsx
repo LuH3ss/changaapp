@@ -5,11 +5,12 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail, postRequest } from "../redux/actions/index.js";
 import { useEffect } from "react";
+import { useAuth } from "../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
-
-import user from "../../src/user.png";
+import userImg from "../../src/user.png";
 
 export default function RequestService(props) {
+  const { user } = useAuth();
   const [request, setRequest] = useState({
     day: "",
     hours: "",
@@ -22,6 +23,7 @@ export default function RequestService(props) {
     dispatch(getDetail(id));
   }, [dispatch]);
   console.log(id);
+  console.log(user);
 
   const service = useSelector((state) => state.serviceDetail);
 
@@ -105,7 +107,7 @@ export default function RequestService(props) {
           <Typography sx={{ textAlign: "center" }} variant="h4">
             Acá va el usuario
           </Typography>
-          <img style={styles.userPic} src={user} alt="" />
+          <img style={styles.userPic} src={userImg} alt="" />
         </Box>
         <Box style={styles.containerService}>
           <Typography sx={{ textAlign: "center" }} variant="h4">

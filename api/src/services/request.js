@@ -22,6 +22,7 @@ const postRequest = async (req, res) => {
       day: req.body.day,
       hours: req.body.hours,
       service_id: req.body.service_id,
+      requested_uid: req.body.requested_uid,
     });
 
     // let service = await Services.findOne({ where: { id: req.body.service } });
