@@ -14,6 +14,7 @@ const postReviews = async (req, res) => {
       message: req.body.message,
       rate: req.body.rate,
       user_id: req.body.user_id,
+      author_uid: req.body.author_uid,
     });
 
     // let service = await Services.findOne({ where: { id: req.body.service } });
