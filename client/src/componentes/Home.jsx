@@ -114,6 +114,7 @@ export default function Home() {
             handleFilter(e);
           }}
         >
+          <option value="All">Todos...</option>
           {allCategories?.map((el) => {
             return <option value={el.name}>{el.name}</option>;
           })}
@@ -139,7 +140,7 @@ export default function Home() {
                   img={service.img ? service.img : imgDef}
                   description={service.description}
                   price={service.price}
-                  category={service.categories?.name}
+                  category={service.category.name}
                 />
               </Link>
             );
