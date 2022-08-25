@@ -3,7 +3,8 @@ const { Category, Services, Solicitud, User } = require("../db");
 const { allUsers } = require("../utils/utils");
 
 const register = async (req, res) => {
-  const { firstName, lastName, age, email, img } = req.body;
+
+  const { firstName, lastName, age, email } = req.body;
 
   const newUser = await User.create({
     firstName,

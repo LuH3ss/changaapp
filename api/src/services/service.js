@@ -38,8 +38,8 @@ const getServicebyId = async (req, res) => {
       },
       include: {
         model: Category,
-        as: 'category',    
-      }
+        as: "category",
+      },
     });
 
     return res.status(200).send(services);
@@ -51,6 +51,7 @@ const getServicebyId = async (req, res) => {
 const postService = async (req, res) => {
   let { name, description, review, price, day, hours, category_id, user_id } =
     req.body;
+
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
