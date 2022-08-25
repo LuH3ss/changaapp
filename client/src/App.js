@@ -6,13 +6,12 @@ import { AuthProvider } from "./context/authContext";
 
 import Register from "./componentes/Register/Register";
 
-
 import Servicios from "./componentes/Servicios/Servicios";
 import EditProfile from "./componentes/Settings/EditProfile";
 import Password from "./componentes/Settings/Password";
 import Profile from "./componentes/Settings/Profile";
 import Settings from "./componentes/Settings/Settings";
-
+import Footer from "./componentes/Footer.jsx";
 import Landing from "./componentes/landing/Landing.jsx";
 import Navbar from "./componentes/PrivateRoute/Navbar";
 
@@ -23,7 +22,7 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route exact path="/" element={[<Navbar />, <Landing />]} />
+        <Route exact path="/" element={[<Navbar />, <Landing />, <Footer />]} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
