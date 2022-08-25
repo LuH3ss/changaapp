@@ -142,7 +142,7 @@ export default function Home() {
                   description={service.description}
                   price={service.price}
 
-                  category={service.category.name}
+                  category={service.category?.name}
                 />
               </Link>
             );
