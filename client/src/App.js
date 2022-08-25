@@ -17,13 +17,14 @@ import Landing from "./componentes/landing/Landing.jsx";
 import Navbar from "./componentes/PrivateRoute/Navbar";
 
 import RequestService from "./componentes/RequestService";
+import Footer from "./componentes/Footer";
 
 //comentario borrar
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route exact path="/" element={[<Navbar />, <Landing />]} />
+        <Route exact path="/" element={[<Navbar />, <Landing />, <Footer/>]} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />

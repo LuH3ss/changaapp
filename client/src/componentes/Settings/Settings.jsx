@@ -15,11 +15,10 @@ export default function Settings() {
   return (
     <div>
       <Navbar />
-
       <Link to="profile">Perfil</Link>
       <Link to="edit">Editar Perfil</Link>
       <button onClick={handleClick}>Cerrar Sesion</button>
       <Outlet />
     </div>
-  );
+);
 }
