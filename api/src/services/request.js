@@ -5,11 +5,8 @@ const getRequest = async (req, res) => {
     return res.status(200).send(
       await Request.findAll({
         include: {
-          model: Services,
-          attributes: ["id", "name"],
-          through: {
-            attributes: [],
-          },
+          model: User,
+          as: "user",
         },
       })
     );

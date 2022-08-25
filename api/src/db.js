@@ -41,15 +41,14 @@ const { User, Category, Services, Request } = sequelize.models;
 
 // Aca vendrian las relaciones
 
-User.hasMany(Services, {as: "services", foreignKey: "service_id"})
-Services.belongsTo(User, {as: "user", foreignKey: "service_id"})
+User.hasMany(Services, { as: "services", foreignKey: "service_id" });
+Services.belongsTo(User, { as: "user", foreignKey: "service_id" });
 
-Category.hasMany(Services, {as: "services", foreignKey: "categoty_id"})
-Services.belongsTo(Category, {as: "category", foreignKey: "categoty_id"})
+Category.hasMany(Services, { as: "services", foreignKey: "categoty_id" });
+Services.belongsTo(Category, { as: "category", foreignKey: "categoty_id" });
 
-// User.hasMany(Request, {as: "request", foreignKey: "user_review_id"})
-// Request.belongsTo(User, {as: "user", foreignKey: "user_review_id"})
-
+User.hasMany(Request, { as: "request", foreignKey: "user_review_id" });
+Request.belongsTo(User, { as: "user", foreignKey: "user_review_id" });
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
