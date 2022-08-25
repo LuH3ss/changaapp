@@ -11,11 +11,11 @@ import EditProfile from "./componentes/Settings/EditProfile";
 import Password from "./componentes/Settings/Password";
 import Profile from "./componentes/Settings/Profile";
 import Settings from "./componentes/Settings/Settings";
-import Footer from "./componentes/Footer.jsx";
 import Landing from "./componentes/landing/Landing.jsx";
 import Navbar from "./componentes/PrivateRoute/Navbar";
 
 import RequestService from "./componentes/RequestService";
+import Footer from "./componentes/Footer";
 
 //comentario borrar
 function App() {

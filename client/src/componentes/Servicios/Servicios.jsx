@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories, postService } from "../../redux/actions";
+import { getAllCategories, getUserEmail, postService } from "../../redux/actions";
 import { CLOUDINARY_API } from "../../Secret/Secret";
 import {useAuth} from '../../context/authContext'
 import Navbar from "../PrivateRoute/Navbar";
@@ -37,14 +37,18 @@ function validate(service) {
 
 export default function Servicios() {
   const {user} = useAuth()
+  const estado = useSelector(state => state.filter)
   const [service, setService] = useState({
     name: "",
     img: "",
+    user_id: '',
     description: "",
     price: "",
     category: [],
-    day: []
+    day: [],
+    category_id: ''
   });
+  // console.log(estado[0].id)
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
   const navigate = useNavigate();
@@ -52,7 +56,11 @@ export default function Servicios() {
   const [btn, setBtn] = useState(false);
   useEffect(() => {
     disptach(getAllCategories());
-  }, [disptach]);
+    disptach(getUserEmail(user?.email))
+    
+  }, [disptach, user?.email]);
+
+  console.log(categories)
 
   //CONSTANTES PARA QUE EL USUARIO PUEDA ELEGIR LOS VALORES DE CADA INPUT AL CREAR UN SERVICIO
   const handleOnChange = (e) => {
@@ -76,7 +84,7 @@ export default function Servicios() {
     );
   };
 
-  const handleCat = (dato) => {
+  const handleCat = (dato, ) => {
     if (service.category) {
       if (service.category.includes(dato)) {
         console.log("ya lo agregaste");
@@ -88,6 +96,7 @@ export default function Servicios() {
     setService({
       ...service,
       category: service.category,
+      category_id: dato
     });
     setError(
       validate({
@@ -133,6 +142,7 @@ export default function Servicios() {
     
     service.day = service.day.join(",")
     e.preventDefault();
+    if(service.user_id === '') service.user_id = estado[0].id
     disptach(postService(service));
     setService({
       name: "",
@@ -141,6 +151,7 @@ export default function Servicios() {
       price: "",
       category: [],
       day: []
+      
     });
     navigate("/home");
   };
@@ -175,7 +186,7 @@ export default function Servicios() {
       margin: "10px 0 10px 0",
     },
   };
-  console.log(service);
+  
 
   return (
     <div>
@@ -212,7 +223,7 @@ export default function Servicios() {
               <select onChange={(e) => handleCat(e.target.value)}>
                 {
                   categories?.map(el => {
-                    return <option value={el.name}>{el.name}</option>
+                    return <option value={el.id}>{el.name}</option>
                   })
                 }
               </select>
