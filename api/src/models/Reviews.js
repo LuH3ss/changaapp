@@ -19,5 +19,9 @@ module.exports = (sequelize) => {
         min: 1,
       },
     },
+    author_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
 };

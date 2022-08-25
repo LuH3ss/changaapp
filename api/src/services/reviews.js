@@ -14,6 +14,7 @@ const postReviews = async (req, res) => {
       message: req.body.message,
       rate: req.body.rate,
       user_id: req.body.user_id,
+      author_id: req.body.author_id,
     });
 
     // let service = await Services.findOne({ where: { id: req.body.service } });
@@ -25,6 +26,8 @@ const postReviews = async (req, res) => {
     res.status(404).send(error);
   }
 };
+
+
 
 module.exports = {
   getReviews,
