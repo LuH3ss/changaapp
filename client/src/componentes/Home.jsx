@@ -6,11 +6,10 @@ import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card";
 import Paging from "./Paging";
 import Navbar from "./PrivateRoute/Navbar";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-
-
+import Footer from "./Footer";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 import {
   getAllServices,
@@ -24,7 +23,6 @@ import { lightBlue } from "@mui/material/colors";
 const imgDef =
   "https://1.bp.blogspot.com/-OONwIqLJAE0/YCH249Alt2I/AAAAAAAAIzQ/7moXO_wK3pMxyug7CTWW6qZWb05sV3MAACNcBGAsYHQ/s16000/trabajos-mas-demandados-en-brasil-en-2021.jpg";
 
-
 export default function Home() {
   const [order, setOrder] = useState("");
   const dispatch = useDispatch();
@@ -35,7 +33,6 @@ export default function Home() {
   const indexOfLastService = currentPage * servicesPerPage; // =3
   const indexOfFirstService = indexOfLastService - servicesPerPage; // =0
   const Services = allServices.slice(indexOfFirstService, indexOfLastService);
-  
 
   const paging = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -71,34 +68,33 @@ export default function Home() {
   console.log(allServices)
 
   const styles = {
-    containerCards:{
-      display: 'grid',
-      gridTemplateColumns: '1fr 1fr 1fr',
-      backgroundColor: '#E5E7EB',
-      color: '#1F2937',
-      height:'100%'
+    containerCards: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr 1fr",
+      backgroundColor: "#E5E7EB",
+      color: "#1F2937",
+      height: "100%",
     },
     button: {
-      display: 'flex',
-      flexDirection: 'column',
-      width: '30%',
-      alignItems: 'center',
+      display: "flex",
+      flexDirection: "column",
+      width: "30%",
+      alignItems: "center",
     },
-    filterSection:{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent:'center',
-      gap:'25px',
-      height: '80px',
-      backgroundColor: '#1F2937',
-      color:'#E5E7EB',
-      borderTop: 'solid 2px white'
-      ,
-    }
-  }
+    filterSection: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "25px",
+      height: "80px",
+      backgroundColor: "#1F2937",
+      color: "#E5E7EB",
+      borderTop: "solid 2px white",
+    },
+  };
 
   return (
-    <Box >
+    <Box>
       <Navbar user={user} handleClick={handleClick} />
       <Box style={styles.filterSection}>
         <Typography variant="h6">Ordenar por: </Typography>
@@ -122,10 +118,7 @@ export default function Home() {
             return <option value={el.name}>{el.name}</option>;
           })}
         </select>
-        <Button onClick={(e) => handlerReload(e)}>
-          Reload page
-        </Button>
-        
+        <Button onClick={(e) => handlerReload(e)}>Reload page</Button>
       </Box>
       <Paging
         servicesPerPage={servicesPerPage}
@@ -136,7 +129,10 @@ export default function Home() {
         {Services &&
           Services.map((service) => {
             return (
-              <Link style={{textDecoration: 'none', }} to={`services/${service.id}`}>
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`services/${service.id}`}
+              >
                 <Card
                   key={service.id}
                   name={service.name}
@@ -154,6 +150,7 @@ export default function Home() {
         allServices={allServices.length}
         paging={paging}
       />
+      <Footer />
     </Box>
   );
 }
