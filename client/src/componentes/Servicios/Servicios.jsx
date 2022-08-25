@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCategories, postService } from "../redux/actions";
-import { CLOUDINARY_API } from "../Secret/Secret";
+import { getAllCategories, postService } from "../../redux/actions";
+import { CLOUDINARY_API } from "../../Secret/Secret";
+import {useAuth} from '../../context/authContext'
+import Navbar from "../PrivateRoute/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -34,6 +36,7 @@ function validate(service) {
 }
 
 export default function Servicios() {
+  const {user} = useAuth()
   const [service, setService] = useState({
     name: "",
     img: "",
@@ -73,23 +76,6 @@ export default function Servicios() {
     );
   };
 
-  const handleImage = async (e) => {
-    e.preventDefault();
-    try {
-      const file = e.target.files[0];
-      const datos = new FormData();
-      datos.append("file", file);
-      datos.append("upload_preset", "changApp");
-      const cloudinary = await axios.post(CLOUDINARY_API, datos);
-      setService({
-        ...service,
-        img: cloudinary.data.secure_url,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleCat = (dato) => {
     if (service.category) {
       if (service.category.includes(dato)) {
@@ -111,7 +97,7 @@ export default function Servicios() {
     );
   };
 
-  console.log(service.category);
+  
 
   //MANEJO DE ERRORES PARA EL FORMULARIO
   useEffect(() => {
@@ -144,7 +130,7 @@ export default function Servicios() {
 
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
-    console.log(service)
+    
     service.day = service.day.join(",")
     e.preventDefault();
     disptach(postService(service));
@@ -192,120 +178,94 @@ export default function Servicios() {
   console.log(service);
 
   return (
-    <Box style={styles.container}>
-      <Box style={styles.containerForm}>
-        <Typography variant="h4">Servicios</Typography>
-        <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
-          <Box style={styles.box}>
-            <TextField
-              id="outlined-basic"
-              label="Nombre del Servicio"
-              variant="outlined"
-              style={styles.input}
-              type="text"
-              name="name"
-              value={service.name}
-              onChange={handleOnChange}
-            />
-          </Box>
-
-          {/* <Box style={styles.box}>
-            <Typography variant="h6">Imagen del Servicio</Typography>
-            <input
-              style={styles.input}
-              type="file"
-              name="img"
-              onChange={handleImage}
-            />
-          </Box> */}
-          <Box style={styles.box}>
-            <Typography variant="h6">Categorías</Typography>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-            <select onChange={(e) => handleCat(e.target.value)}>
-              {
-                categories?.map(el => {
-                  return <option value={el.name}>{el.name}</option>
-                })
-              }
-            </select>
-              {/* {categories &&
-                categories.map((e) => {
-                  return (
-                    <div key={e.id}>
-                      <button type="button" onClick={() => handleCat(e.name)}>
-                        {e.name}
-                      </button>
-                    </div>
-                  );
-                })} */}
-              {/* <input
+    <div>
+      <Navbar/>
+      {
+        user?.email === null 
+        ? <p>
+        No tienes acceso a estos datos ya que ingresaste como un usuario
+        anonimo. Ve a la seccion de registrar para poder utilizar estos
+        servicios.
+        <Link to="/register">Registrarse</Link>
+      </p>
+        : <Box style={styles.container}>
+        <Box style={styles.containerForm}>
+          <Typography variant="h4">Servicios</Typography>
+          <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
+            <Box style={styles.box}>
+              <TextField
+                id="outlined-basic"
+                label="Nombre del Servicio"
+                variant="outlined"
                 style={styles.input}
                 type="text"
                 name="name"
-                value={categoryAdd.name}
-                onChange={handleChangeCat}
+                value={service.name}
+                onChange={handleOnChange}
               />
-              <button type="submit" onClick={(e) => handleAddCategory(e)}>
-                +
-              </button> */}
             </Box>
-          </Box>
-
-          <Box style={styles.box}>
-            <TextField
-              id="outlined-basic"
-              label="Descripcón"
-              variant="outlined"
-              style={styles.input}
-              type="text"
-              name="description"
-              value={service.description}
-              onChange={handleOnChange}
-            />
-          </Box>
-          {/* <Box style={styles.box}>
-            <TextField
-              id="outlined-basic"
-              label="Review"
-              variant="outlined"
-              style={styles.input}
-              type="text"
-              name="review"
-              value={service.review}
-              onChange={handleOnChange}
-            />
-          </Box> */}
-          <Box style={styles.box}>
-            <TextField
-              id="outlined-basic"
-              label="Precio del servicio"
-              variant="outlined"
-              style={styles.input}
-              type="number"
-              name="price"
-              value={service.price}
-              onChange={handleOnChange}
-            />
-          </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row'}}>
-            {
-              ['Lunes','Martes','Miércoles','Jueves','Viernes'].map(el => {
-                return <Button value={el} onClick={(e)=>handleDay(e)}>{el}</Button>
-              })
-            }
-          </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-            <Button>
-              <Link style={{ textDecoration: "none" }} to="/home">
-                <label style={{ color: "#1F2937" }}>Volver atras</label>
-              </Link>
-            </Button>
-            <Button sx={{ color: "#1F2937" }} type="submit" disabled={!btn}>
-              Crear
-            </Button>
-          </Box>
-        </form>
+  
+            
+            <Box style={styles.box}>
+              <Typography variant="h6">Categorías</Typography>
+              <Box sx={{ display: "flex", alignItems: "center" }}>
+              <select onChange={(e) => handleCat(e.target.value)}>
+                {
+                  categories?.map(el => {
+                    return <option value={el.name}>{el.name}</option>
+                  })
+                }
+              </select>
+                
+              </Box>
+            </Box>
+  
+            <Box style={styles.box}>
+              <TextField
+                id="outlined-basic"
+                label="Descripcón"
+                variant="outlined"
+                style={styles.input}
+                type="text"
+                name="description"
+                value={service.description}
+                onChange={handleOnChange}
+              />
+            </Box>
+            
+            <Box style={styles.box}>
+              <TextField
+                id="outlined-basic"
+                label="Precio del servicio"
+                variant="outlined"
+                style={styles.input}
+                type="number"
+                name="price"
+                value={service.price}
+                onChange={handleOnChange}
+              />
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'row'}}>
+              {
+                ['Lunes','Martes','Miércoles','Jueves','Viernes'].map(el => {
+                  return <Button value={el} onClick={(e)=>handleDay(e)}>{el}</Button>
+                })
+              }
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+              <Button>
+                <Link style={{ textDecoration: "none" }} to="/home">
+                  <label style={{ color: "#1F2937" }}>Volver atras</label>
+                </Link>
+              </Button>
+              <Button sx={{ color: "#1F2937" }} type="submit" disabled={!btn}>
+                Crear
+              </Button>
+            </Box>
+          </form>
+        </Box>
       </Box>
-    </Box>
+      }
+    </div>
   );
 }

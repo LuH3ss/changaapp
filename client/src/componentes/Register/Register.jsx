@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../redux/actions";
-import { CLODUNIARY_API } from "../Secret/Secret.js";
+import { registerUser } from "../../redux/actions";
+import { CLODUNIARY_API } from "../../Secret/Secret.js";
 import axios from "axios";
 import { Box } from "@mui/system";
 import { Button } from "@mui/material";
@@ -22,7 +22,7 @@ function validate(user) {
   //ERROR FECHA DE NACIMIENTO
   else if (!user.birthDate)
     error.birthDate = "Debes ingresar una fecha de nacimiento";
-  // else if(!/^(?:3[01]|[12][0-9]|0?[1-9])([-/.])(0?[1-9]|1[1-2])\1\d{4}$/.test(user.date)) error.date = 'El formanto de la fecha ingresada es incorrecto'
+  else if(user.birthDate < 18) error.date = 'Para registrarte a esta plataforma debes ser mayor de 18 años'
   //ERROR NUMERO DE TELEFONO
   else if (!/^[0-9]/.test(user.phone))
     error.phone = "No puedes ingresar letras, unicamente numeros";
@@ -80,7 +80,7 @@ export default function Register() {
       const data = new FormData();
       data.append("file", file);
       data.append("upload_preset", "changApp");
-      console.log(file);
+      
       const cloudinary = await axios.post(CLODUNIARY_API, data);
 
       setUser({
@@ -119,7 +119,7 @@ export default function Register() {
     dispatch(registerUser(user));
     try {
       await signUp(user.email, user.password);
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       if (error.code === "auth/weak-password") {
         setFire("La contraseña tiene que tener al menos 6 caracteres");
@@ -127,7 +127,7 @@ export default function Register() {
       if (error.code === "auth/email-already-in-use") {
         setFire("El email ya se encuentra registrado");
       }
-      console.log(error);
+      
     }
   };
 
@@ -204,7 +204,7 @@ export default function Register() {
         <div>
           <label>Fecha de Nacimiento: </label>
           <input
-            type="date"
+            type="number"
             value={user.birthDate}
             name="birthDate"
             onChange={handleOnChange}

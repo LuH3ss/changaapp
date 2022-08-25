@@ -1,23 +1,23 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "./Card";
-import Paging from "./Paging";
-import Navbar from "./PrivateRoute/Navbar";
-import Footer from "./Footer";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+import Card from "../Card";
+import Paging from "../Paging";
+import Navbar from "../PrivateRoute/Navbar";
+import Footer from "../Footer";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 import {
   getAllServices,
   sortServices,
   getAllCategories,
   filterByCategory,
-} from "../redux/actions";
-import "./css/home.css";
+} from "../../redux/actions";
+import "../css/home.css";
 import { borderTop, borderTopColor } from "@mui/system";
 import { lightBlue } from "@mui/material/colors";
 const imgDef =
@@ -45,11 +45,6 @@ export default function Home() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
-    logout();
-    navigate("/");
-  };
-
   const handleSort = (e) => {
     setOrder(e.target.value);
     dispatch(sortServices(e.target.value));
@@ -65,7 +60,7 @@ export default function Home() {
     dispatch(getAllServices());
   };
 
-  console.log(allServices);
+  
 
   const styles = {
     containerCards: {
@@ -94,8 +89,10 @@ export default function Home() {
   };
 
   return (
-    <Box>
-      <Navbar user={user} handleClick={handleClick} />
+
+    <Box >
+      <Navbar />
+
       <Box style={styles.filterSection}>
         <Typography variant="h6">Ordenar por: </Typography>
         <select
@@ -140,11 +137,13 @@ export default function Home() {
                   img={service.img ? service.img : imgDef}
                   description={service.description}
                   price={service.price}
-                  category={service.category.name}
+                  category={service.category?.name}
                 />
+                
               </Link>
             );
           })}
+          
       </Box>
       <Paging
         servicesPerPage={servicesPerPage}
