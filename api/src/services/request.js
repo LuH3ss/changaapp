@@ -26,11 +26,7 @@ const postRequest = async (req, res) => {
       hours: req.body.hours,
     });
 
-<<<<<<< HEAD
-    let service = await Services.findOne({ where: { name: req.body.service } });
-=======
-        let service = await Services.findOne({where: { id: req.body.service }});
->>>>>>> origin/rama-fix
+    let service = await Services.findOne({ where: { id: req.body.service } });
 
     service.addRequest(request);
 

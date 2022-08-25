@@ -5,33 +5,16 @@ const getServices = async (req, res) => {
   const { category } = req.query;
   try {
     const services = await Services.findAll({
-<<<<<<< HEAD
       include: [
         {
           model: Category,
-          attributes: ["name"],
-          through: {
-            attributes: [],
-          },
+          as: "category",
         },
         {
-          model: Request,
-          attributes: ["day", "hours"],
-          through: {
-            attributes: [],
-          },
+          model: User,
+          as: "user",
         },
       ],
-=======
-      include: [{
-        model: Category,
-        as: 'category',            
-    },
-    {
-        model: User,
-        as: "user"
-    }]
->>>>>>> origin/rama-fix
     });
     category
       ? res
@@ -53,7 +36,10 @@ const getServicebyId = async (req, res) => {
       where: {
         id: id,
       },
-      include: Category
+      include: {
+        model: Category,
+        as: "category",
+      },
     });
 
     return res.status(200).send(services);
@@ -63,12 +49,9 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
-<<<<<<< HEAD
-  let { name, img, description, price, category } = req.body;
-=======
+  let { name, description, review, price, day, hours, category_id, user_id } =
+    req.body;
 
-  let { name, description, review, price, day, hours, category_id, user_id } = req.body;
->>>>>>> origin/rama-fix
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
@@ -77,10 +60,10 @@ const postService = async (req, res) => {
     price,
     day,
     hours,
-    service_id:user_id,
-    categoty_id:category_id
+    service_id: user_id,
+    categoty_id: category_id,
   });
-  console.log(serviceCreated)
+  console.log(serviceCreated);
   res.send("Service Created");
 };
 
