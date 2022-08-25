@@ -76,9 +76,13 @@ export default function Footer() {
             type="text"
             className="formulario__nombre"
             id="name"
+
             required           
             data-tipo="name"
             placeholder={user?.email}
+
+            
+
           />
         </div>
         <div className="formulario__campo">
@@ -87,8 +91,12 @@ export default function Footer() {
             name="message"
             id="message"
             className="formulario__texto"
+
             required
             data-tipo="message"
+
+            
+
           ></textarea>
         </div>
         <button className="formulario__boton">Enviar mensaje</button>

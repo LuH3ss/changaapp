@@ -14,6 +14,10 @@ const getServices = async (req, res) => {
           model: User,
           as: "user",
         },
+        {
+          model: Request,
+          as: "request",
+        },
       ],
     });
     category
@@ -60,8 +64,8 @@ const postService = async (req, res) => {
     price,
     day,
     hours,
-    service_id: user_id,
-    categoty_id: category_id,
+    user_id: user_id,
+    category_id: category_id,
   });
   console.log(serviceCreated);
   res.send("Service Created");
@@ -84,6 +88,4 @@ module.exports = {
   getServicebyId,
   getByName,
   postService,
-
 };
-

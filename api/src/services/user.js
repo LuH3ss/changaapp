@@ -1,11 +1,9 @@
-const { Category, Services, Solicitud, User } = require("../db");
+const { Category, Services, Solicitud, User, Reviews } = require("../db");
 
 const { allUsers } = require("../utils/utils");
 
 const register = async (req, res) => {
   const { firstName, lastName, birthDate, email, phone, img } = req.body;
-
- 
 
   try {
     // const allUser = await allUsers();
@@ -41,23 +39,30 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send(console.log(error.message));
   }
-}
- 
-  
+};
 
 const getUsers = async (req, res) => {
   // const { email } = req.body;
   const { id } = req.body;
 
   const users = await User.findAll({
-    include: {
-      model: Services,
-      as: "services",
-    },
+    include: [
+      {
+        model: Services,
+        as: "services",
+        include: {
+          model: Category,
+          as: "category",
+        },
+      },
+      {
+        model: Reviews,
+        as: "reviews",
+      },
+    ],
   });
 
   return res.status(200).send(users);
-
 };
 
 const updateUser = async (req, res) => {
@@ -103,7 +108,6 @@ const filterUser = async (req, res) => {
       return res.send("No se encontro el email solicitado");
     }
   }
-
 };
 
 module.exports = {
@@ -113,5 +117,3 @@ module.exports = {
   updateUser,
   filterUser,
 };
-
-
