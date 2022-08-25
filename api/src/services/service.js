@@ -1,27 +1,26 @@
-const { Category, Services, Solicitud, User } = require("../db");
+const { Category, Services, Request, User } = require("../db");
+const { Op } = require("sequelize");
 
 const getServices = async (req, res) => {
   const { category } = req.query;
   try {
-    // let servicios = await Servicios.findAll();
-    // if (category) {
-    //   servicios = servicios.filter((el) => el.category === category);
-    // }
-    // res.status(200).send(servicios);
-    if (category) {
-      const services = await Services.findAll({
-        include: [Category],
-        where: {
-          attributes: ["name"],
+    const services = await Services.findAll({
+      include: [
+        {
+          model: Category,
+          as: "category",
         },
-      });
-      return res.status(200).send(services);
-    } else {
-      const services = await Services.findAll({
-        include: [Category],
-      });
-      return res.status(200).send(services);
-    }
+        {
+          model: User,
+          as: "user",
+        },
+      ],
+    });
+    category
+      ? res
+          .status(200)
+          .send(services.filter((el) => el.categories[0].name === category))
+      : res.status(200).send(services);
   } catch (e) {
     return res.status(400).send(console.log(e.message));
   }
@@ -37,7 +36,10 @@ const getServicebyId = async (req, res) => {
       where: {
         id: id,
       },
-      include: Category,
+      include: {
+        model: Category,
+        as: "category",
+      },
     });
 
     return res.status(200).send(services);
@@ -47,38 +49,39 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
+  let { name, description, review, price, day, hours, category_id, user_id } =
+    req.body;
 
-  let { name, img, description, price, category } = req.body;
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
-    img,
     description,
+    review,
     price,
+    day,
+    hours,
+    service_id: user_id,
+    categoty_id: category_id,
   });
-  let categorys = await Category.findAll({
-    where: { name: category },
-  });
-  serviceCreated.addCategories(categorys);
-
+  console.log(serviceCreated);
   res.send("Service Created");
 };
 
-const getByName = async (req,res) => {
+const getByName = async (req, res) => {
   try {
     const { name } = req.query;
     const response = await Services.findAll({
-      where: { name:name } ,
-      include : Category
+      where: { name: { [Op.startsWith]: name } },
+      include: Category,
     });
-    res.send(response)
+    res.send(response);
   } catch (error) {
     res.status(500).end();
   }
-}
+};
 module.exports = {
   getServices,
   getServicebyId,
   getByName,
   postService,
-}
+};

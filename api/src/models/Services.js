@@ -1,3 +1,4 @@
+const { STRING } = require("sequelize");
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
@@ -12,9 +13,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    img: {
-      type: DataTypes.STRING,
-    },
     description: {
       type: DataTypes.STRING,
     },
@@ -24,5 +22,11 @@ module.exports = (sequelize) => {
     price: {
       type: DataTypes.INTEGER,
     },
+    day: {
+      type: DataTypes.STRING
+    },
+    hours: {
+      type: DataTypes.ARRAY(STRING)
+    }
   });
 }

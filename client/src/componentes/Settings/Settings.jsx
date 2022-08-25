@@ -18,7 +18,7 @@ export default function Settings() {
 
       <Link to="profile">Perfil</Link>
       <Link to="edit">Editar Perfil</Link>
-      <span onClick={handleClick}>Cerrar Sesion</span>
+      <button onClick={handleClick}>Cerrar Sesion</button>
       <Outlet />
     </div>
   );
