@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
         min: 1,
       },
     },
-    author_uid: {
+    author_id: {
       type: DataTypes.STRING,
       allowNull: false,
     },
