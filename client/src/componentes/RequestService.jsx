@@ -3,14 +3,16 @@ import React from "react";
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail, postRequest } from "../redux/actions/index.js";
+import { getDetail, getUserEmail, postRequest } from "../redux/actions/index.js";
 import { useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import userImg from "../../src/user.png";
 
 export default function RequestService(props) {
+
   const { user } = useAuth();
+
   const [request, setRequest] = useState({
     day: "",
     hours: "",
@@ -21,11 +23,14 @@ export default function RequestService(props) {
 
   useEffect(() => {
     dispatch(getDetail(id));
+    dispatch(getUserEmail(user?.email))
   }, [dispatch]);
-  console.log(id);
-  console.log(user);
+  console.log(id, 'ID DE SERVICE');
+
 
   const service = useSelector((state) => state.serviceDetail);
+  const userDb = useSelector((state) => state.filter)
+  
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -47,11 +52,12 @@ export default function RequestService(props) {
   const handleSubmit = (e) => {
     request.day = request.day.join(",");
     e.preventDefault();
-    let requestService = { ...request, service_id: service.id };
+    let requestService = { ...request, service_id: service.id, requester_id: userDb[0].id };
     dispatch(postRequest(requestService));
     setRequest({
       day: "",
       hours: "",
+
     });
     navigate("/home");
   };
