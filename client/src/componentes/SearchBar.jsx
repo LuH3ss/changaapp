@@ -45,7 +45,7 @@ export default function SearchBar() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getName(name));
-    console.log(name);
+    
     setName("");
   }
 

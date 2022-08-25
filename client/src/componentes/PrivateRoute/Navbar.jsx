@@ -14,6 +14,9 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
+import { useAuth } from "../../context/authContext";
+import { useNavigate } from "react-router-dom";
+
 
 const styles = {
   container:{
@@ -27,14 +30,20 @@ const styles = {
 }
 
 
-export default function Navbar({ user, handleClick }) {
+export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const {user, logout} = useAuth()
+  const navigate = useNavigate()
   const open = Boolean(anchorEl);
   const handlerClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleClick = (e) => {
+    logout();
+    navigate("/");
   };
   return (
     <Box style={styles.container} className="navBar">
@@ -54,7 +63,7 @@ export default function Navbar({ user, handleClick }) {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>P</Avatar>
           </IconButton>
         </Tooltip>
         <Menu
@@ -92,18 +101,18 @@ export default function Navbar({ user, handleClick }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <Link to ='/settings/profile'>
         <MenuItem>
-          <Avatar /> Profile
+          <Avatar /> Perfil
         </MenuItem>
-        <MenuItem>
-          <Avatar /> My account
-        </MenuItem>
+        </Link>
+        
         <Divider />
         <MenuItem>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Configuración
+          <Link to='/settings/edit'>Configuracion</Link>
         </MenuItem>
         <MenuItem onClick={handleClick} >
           <ListItemIcon>

@@ -6,10 +6,7 @@ const getRequest = async (req, res) => {
       await Request.findAll({
         include: {
           model: Services,
-          attributes: ["id", "name"],
-          through: {
-            attributes: [],
-          },
+          as: "services",
         },
       })
     );
@@ -20,15 +17,17 @@ const getRequest = async (req, res) => {
 
 const postRequest = async (req, res) => {
   try {
-    let request = await Request.create({
+    await Request.create({
       state: "pending",
       day: req.body.day,
       hours: req.body.hours,
+      service_id: req.body.service_id,
+      requested_uid: req.body.requested_uid,
     });
 
-    let service = await Services.findOne({ where: { id: req.body.service } });
+    // let service = await Services.findOne({ where: { id: req.body.service } });
 
-    service.addRequest(request);
+    // service.addRequest(request);
 
     res.status(201).send("created");
   } catch (error) {

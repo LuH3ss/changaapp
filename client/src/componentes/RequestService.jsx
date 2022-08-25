@@ -5,14 +5,15 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail, postRequest } from "../redux/actions/index.js";
 import { useEffect } from "react";
+import { useAuth } from "../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
-
-import user from '../../src/user.png'
+import userImg from "../../src/user.png";
 
 export default function RequestService(props) {
+  const { user } = useAuth();
   const [request, setRequest] = useState({
     day: "",
-    hours: ""
+    hours: "",
   });
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,92 +22,97 @@ export default function RequestService(props) {
   useEffect(() => {
     dispatch(getDetail(id));
   }, [dispatch]);
+  console.log(id);
+  console.log(user);
 
   const service = useSelector((state) => state.serviceDetail);
 
-  console.log(service)
   const handleOnChange = (e) => {
     e.preventDefault();
     setRequest({
       ...request,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleDay = (e) => {
-    if(!request.day.includes(e.target.value)){
+    if (!request.day.includes(e.target.value)) {
       setRequest({
         ...request,
-        day: [...request.day, e.target.value]
+        day: [...request.day, e.target.value],
       });
     }
-  }
+  };
 
   const handleSubmit = (e) => {
-    request.day = request.day.join(",")
+    request.day = request.day.join(",");
     e.preventDefault();
-    let requestService = {...request, service:service.id}
+    let requestService = { ...request, service_id: service.id };
     dispatch(postRequest(requestService));
     setRequest({
       day: "",
-      hours: ""
+      hours: "",
     });
     navigate("/home");
   };
 
   const styles = {
-    container:{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100vh',
-      width:'100vw',
-      backgroundColor: '#E5E7EB',
-      color: '#1F2937'
+    container: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "100vh",
+      width: "100vw",
+      backgroundColor: "#E5E7EB",
+      color: "#1F2937",
     },
-    containerRequest:{
-      width: '50%'
+    containerRequest: {
+      width: "50%",
     },
-    containerUser:{
-      display:'flex',
-      justifyContent: 'space-between',
-      alignItems:'center',
-      border: 'solid black 2px',
-      padding: '20px'
+    containerUser: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      border: "solid black 2px",
+      padding: "20px",
     },
-    containerService:{
-      display:'flex',
-      justifyContent: 'center',
-      alignItems:'center',
-      border: 'solid black 2px',
-      marginTop: '20px',
-      padding: '20px'
+    containerService: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      border: "solid black 2px",
+      marginTop: "20px",
+      padding: "20px",
     },
-    containerRequestForm:{
-      display:'flex',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      border: 'solid black 2px',
-      marginTop: '20px',
-      padding: '20px'
+    containerRequestForm: {
+      display: "flex",
+      justifyContent: "center",
+      flexDirection: "column",
+      border: "solid black 2px",
+      marginTop: "20px",
+      padding: "20px",
     },
-    box:{
-      display:'flex',
+    box: {
+      display: "flex",
     },
-    userPic:{
-      width: '50px'
-    }
-  }
+    userPic: {
+      width: "50px",
+    },
+  };
 
   return (
     <Box style={styles.container}>
       <Box style={styles.containerRequest}>
         <Box style={styles.containerUser}>
-          <Typography sx={{textAlign:'center'}} variant="h4">Acá va el usuario</Typography>
-          <img style={styles.userPic} src={user} alt="" />
-        </Box> 
+          <Typography sx={{ textAlign: "center" }} variant="h4">
+            Acá va el usuario
+          </Typography>
+          <img style={styles.userPic} src={userImg} alt="" />
+        </Box>
         <Box style={styles.containerService}>
-          <Typography sx={{textAlign:'center'}} variant="h4">{service.name}</Typography>
+          <Typography sx={{ textAlign: "center" }} variant="h4">
+            {service.name}
+          </Typography>
           <Box style={styles.box}>
             <Typography variant="h7">Description: </Typography>
             <Typography variant="h7">{service.description}</Typography>
@@ -117,9 +123,9 @@ export default function RequestService(props) {
           <Box style={styles.box}>
             <Typography variant="h7">{`Rating: ${service.rating}`} </Typography>
           </Box>
-          </Box>
-          <Box style={styles.containerRequestForm}>
-            <form onSubmit={(e) => handleSubmit(e)}>
+        </Box>
+        <Box style={styles.containerRequestForm}>
+          <form onSubmit={(e) => handleSubmit(e)}>
             {/* <Box style={styles.box}>
               <TextField
                 id="outlined-basic"
@@ -132,13 +138,14 @@ export default function RequestService(props) {
                 onChange={handleOnChange}
               />
             </Box> */}
-            {console.log(request)}
-            
-            {
-              service.day?.split(',').map(el => {
-                return <Button value={el} onClick={(e)=>handleDay(e)}>{el}</Button>
-              })
-            }
+
+            {service.day?.split(",").map((el) => {
+              return (
+                <Button value={el} onClick={(e) => handleDay(e)}>
+                  {el}
+                </Button>
+              );
+            })}
 
             <Box style={styles.box}>
               <TextField
@@ -152,8 +159,7 @@ export default function RequestService(props) {
                 onChange={handleOnChange}
               />
             </Box>
-            
-            
+
             <Box sx={{ display: "flex", justifyContent: "space-around" }}>
               <Button>
                 <Link style={{ textDecoration: "none" }} to="/home">
@@ -165,7 +171,7 @@ export default function RequestService(props) {
               </Button>
             </Box>
           </form>
-          </Box>
+        </Box>
       </Box>
     </Box>
   );
