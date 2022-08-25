@@ -2,39 +2,32 @@ const { Category, Services, Solicitud, User } = require("../db");
 
 const { allUsers } = require("../utils/utils");
 
-
 const register = async (req, res) => {
-  const {
-    firstName,
-    lastName,
-    birthDate,
-    email,
-  } = req.body;
-
+  const { firstName, lastName, age, email, img } = req.body;
 
   const newUser = await User.create({
     firstName,
     lastName,
-    birthDate,
+    age,
     email,
+    img,
   });
   return res.status(201).send(newUser);
-
 };
 
 const getUsers = async (req, res) => {
   // const { email } = req.body;
   const { id } = req.body;
 
-
-  const users = await User.findAll({include: {
-    model: Services,
-    as: 'services'
-  }});
+  const users = await User.findAll({
+    include: {
+      model: Services,
+      as: "services",
+    },
+  });
 
   return res.status(200).send(users);
 };
-
 
 module.exports = {
   register,
