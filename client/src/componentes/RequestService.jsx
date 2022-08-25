@@ -24,7 +24,7 @@ export default function RequestService(props) {
 
   const service = useSelector((state) => state.serviceDetail);
 
-  console.log(service)
+  
   const handleOnChange = (e) => {
     e.preventDefault();
     setRequest({
@@ -132,7 +132,7 @@ export default function RequestService(props) {
                 onChange={handleOnChange}
               />
             </Box> */}
-            {console.log(request)}
+            
             
             {
               service.day?.split(',').map(el => {

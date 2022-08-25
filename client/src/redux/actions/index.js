@@ -8,7 +8,13 @@ export const SORT_SERVICES = "SORT_SERVICES";
 export const FILTER_SERVICES = "FILTER_SERVICES";
 export const SERVICE_NAME = "SERVICE_NAME";
 export const POST_CATEGORY = "POST_CATEGORY";
+
+export const GET_USER = "GET_USER";
+export const FILTER = "FILTER";
+export const UPDATE = "UPDATE";
+
 export const POST_REQUEST = "POST_REQUEST";
+
 const EP = "http://localhost:3001";
 
 export function getDetail(id) {
@@ -103,12 +109,36 @@ export function postCategory(category) {
   };
 }
 
+//PROBANDO COSAS
+
+export function getUserEmail(email) {
+  return async function (dispatch) {
+    await axios.get(`${EP}/user/${email}`).then((detalle) =>
+      dispatch({
+        type: FILTER,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function updateUser(email, data) {
+  return async function (dispatch) {
+    await axios.put(`${EP}/user/${email}`, data).then((detalle) =>
+      dispatch({
+        type: UPDATE,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
 export function postRequest(request) {
   return async function (dispatch) {
     await axios.post(`${EP}/request`, request).then((data) =>
       dispatch({
         type: POST_REQUEST,
-        payload: data.data
+        payload: data.data,
       })
     );
   };
