@@ -71,7 +71,7 @@ const reducer = (state = initialStates, action) => {
       return {
         ...state,
         services: state.servicesAux.filter(
-          (el) => el.categories[0]?.name === action.payload
+          (el) => el.categories?.name === action.payload
         ),
       };
     case REGISTER_USER:

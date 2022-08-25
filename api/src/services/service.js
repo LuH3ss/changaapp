@@ -32,7 +32,10 @@ const getServicebyId = async (req, res) => {
       where: {
         id: id,
       },
-      include: Category
+      include: {
+        model: Category,
+        as: 'category',    
+      }
     });
 
     return res.status(200).send(services);
