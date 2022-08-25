@@ -3,15 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "./Card";
-import Paging from "./Paging";
-import Navbar from "./PrivateRoute/Navbar";
+import Card from "../Card";
+import Paging from "../Paging";
+import Navbar from "../PrivateRoute/Navbar";
 
-import Footer from "./Footer";
+import Footer from "../Footer";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Footer from "../Footer";
 
 import {
   getAllServices,
