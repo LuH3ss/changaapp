@@ -1,10 +1,24 @@
 import { Box, Button, Container, Typography } from '@mui/material'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../css/landing.css'
 import CardLanding from './CardLanding'
+import {useAuth} from '../../context/authContext'
 
 export default function Landing() {
+    const {logAnonymous} = useAuth()
+    const navigate = useNavigate()
+
+    const handleAnonymous = async (e) => {
+        e.preventDefault()
+        try {
+          await logAnonymous()
+          navigate('/home')
+        } catch (error) {
+          console.log('Error anonimo')
+        }
+      }
+  
   return (
     <Container maxWidth='xl' >
         <Box className="landing-welcome" variant="section">
@@ -40,7 +54,8 @@ export default function Landing() {
             <Box variant='div' className='bttns-welcome' sx={{display:'flex', gap:'100px', margin:'60px 0 0', justifyContent:'center', height:'400px'}}>
                 <Link style={{ textDecoration: 'none',
     textTransform: 'none' }} to='/home' >
-                <Typography className='bttns_welcome' sx={{height:'138px'}} variant='h5'>Ingreso sin cuenta</Typography>
+                {/* <Typography className='bttns_welcome' sx={{height:'138px'}} variant='h5'>Ingreso sin cuenta</Typography> */}
+                <button onClick={handleAnonymous}>Ingresar como anonimo</button>
                 </Link>
                 <Link style={{ textDecoration: 'none',
     textTransform: 'none'}}to='/login'>
@@ -59,12 +74,4 @@ export default function Landing() {
 
 
 
-// const handleAnonymous = async (e) => {
-//     e.preventDefault()
-//     try {
-//       await logAnonymous()
-//       navigate('/home')
-//     } catch (error) {
-//       console.log('Error anonimo')
-//     }
-//   }
+

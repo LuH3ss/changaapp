@@ -3,24 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-<<<<<<< HEAD:client/src/componentes/Home/Home.jsx
 import Card from "../Card";
 import Paging from "../Paging";
 import Navbar from "../PrivateRoute/Navbar";
+import Footer from "../Footer";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
-
-=======
-import Card from "./Card";
-import Paging from "./Paging";
-import Navbar from "./PrivateRoute/Navbar";
-import Footer from "./Footer";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
->>>>>>> origin/dev:client/src/componentes/Home.jsx
 
 import {
   getAllServices,
@@ -56,11 +45,6 @@ export default function Home() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  // const handleClick = (e) => {
-  //   logout();
-  //   navigate("/");
-  // };
-
   const handleSort = (e) => {
     setOrder(e.target.value);
     dispatch(sortServices(e.target.value));
@@ -76,7 +60,7 @@ export default function Home() {
     dispatch(getAllServices());
   };
 
-  console.log(allServices);
+  
 
   const styles = {
     containerCards: {
@@ -105,13 +89,10 @@ export default function Home() {
   };
 
   return (
-<<<<<<< HEAD:client/src/componentes/Home/Home.jsx
+
     <Box >
       <Navbar />
-=======
-    <Box>
-      <Navbar user={user} handleClick={handleClick} />
->>>>>>> origin/dev:client/src/componentes/Home.jsx
+
       <Box style={styles.filterSection}>
         <Typography variant="h6">Ordenar por: </Typography>
         <select
@@ -156,7 +137,7 @@ export default function Home() {
                   img={service.img ? service.img : imgDef}
                   description={service.description}
                   price={service.price}
-                  category={service.category.name}
+                  category={service.category?.name}
                 />
                 
               </Link>

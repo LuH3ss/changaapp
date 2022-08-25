@@ -39,7 +39,7 @@ export default function Login() {
       }else if(error.code === 'auth/wrong-password'){
         setError('Usuario o contraseña invalidos')
       }
-      console.log(error.message);
+      
     }
   };
 

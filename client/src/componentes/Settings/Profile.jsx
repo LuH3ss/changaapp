@@ -19,7 +19,7 @@ export default function Profile() {
   const {user} = useAuth()
   const estado = useSelector((state) => state.filter);
   const navigate = useNavigate()
-  console.log(estado)
+  
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
@@ -51,7 +51,7 @@ export default function Profile() {
                   Especialidad: Electricista
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Description: 
+                  Description: Desc
                 </Typography>
               </CardContent>
               

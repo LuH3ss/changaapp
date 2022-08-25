@@ -80,7 +80,7 @@ export default function Register() {
       const data = new FormData();
       data.append("file", file);
       data.append("upload_preset", "changApp");
-      console.log(file);
+      
       const cloudinary = await axios.post(CLODUNIARY_API, data);
 
       setUser({
@@ -127,7 +127,7 @@ export default function Register() {
       if (error.code === "auth/email-already-in-use") {
         setFire("El email ya se encuentra registrado");
       }
-      console.log(error);
+      
     }
   };
 

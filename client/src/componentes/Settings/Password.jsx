@@ -25,7 +25,7 @@ export default function Password(){
             setError(error.message)
         }
     }
-    console.log(email)
+    
     return(
         <div>
             <h1>Recuperar constraseña</h1>

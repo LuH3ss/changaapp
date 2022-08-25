@@ -84,8 +84,6 @@ module.exports = {
   getServicebyId,
   getByName,
   postService,
-<<<<<<< HEAD
+
 };
-=======
-};
->>>>>>> origin/dev
+

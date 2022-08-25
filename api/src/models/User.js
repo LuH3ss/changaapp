@@ -19,6 +19,9 @@ module.exports = (sequelize) => {
       birthDate: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          min: 18,
+        }
       },
       email: {
         type: DataTypes.STRING,

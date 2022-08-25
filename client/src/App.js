@@ -6,7 +6,7 @@ import { AuthProvider } from "./context/authContext";
 
 import Register from "./componentes/Register/Register";
 
-import ServiceDetail from "./componentes/ServiceDetail";
+
 import Servicios from "./componentes/Servicios/Servicios";
 import EditProfile from "./componentes/Settings/EditProfile";
 import Password from "./componentes/Settings/Password";
