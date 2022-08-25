@@ -4,12 +4,12 @@ const { allUsers } = require("../utils/utils");
 
 const register = async (req, res) => {
 
-  const { firstName, lastName, birthDate, email, img } = req.body;
+  const { firstName, lastName, age, email, img } = req.body;
 
   const newUser = await User.create({
     firstName,
     lastName,
-    birthDate,
+    age,
     email,
     img,
   });
