@@ -17,6 +17,7 @@ import Navbar from "./componentes/PrivateRoute/Navbar";
 
 import RequestService from "./componentes/RequestService";
 import Footer from "./componentes/Footer";
+import Stripe from "./componentes/Stripe";
 
 //comentario borrar
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
+        <Route path='/home/services/payment' element={<Stripe />} />
         <Route exact path="/home/services/:id" element={<RequestService />} />
         <Route exact path="/home/createService" element={<Servicios />} />
         <Route path="/settings/" element={<Settings />}>
