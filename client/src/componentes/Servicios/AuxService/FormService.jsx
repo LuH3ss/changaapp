@@ -13,6 +13,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 function validate(service) {
   let error = {};
@@ -102,13 +106,20 @@ export default function FormService() {
 
   //Manejo de días de disponibilidad
   const handleDay = (e) => {
-    if (!service.day.includes(e.target.value)) {
+    if(!service.day.includes(e.target.value)){
+      e.target.style.cssText = 'color: #E5E7EB; background-color: #1F2937';
       setService({
         ...service,
-        day: [...service.day, e.target.value],
+        day: [...service.day, e.target.value]
       });
-    }
-  };
+    }else{
+      e.target.style.cssText = 'color: #1F2937; background-color: #E5E7EB';
+      setService({
+        ...service,
+        day: service.day.filter(el => el !== e.target.value)
+      });
+    } 
+  }
 
   const handleCat = (dato) => {
     if (service.category) {
@@ -134,9 +145,10 @@ export default function FormService() {
 
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
-    service.day = service.day.join(",");
+    
+    service.day = service.day.join(",")
     e.preventDefault();
-    if (service.user_id === "") service.user_id = estado[0].id;
+    if(service.user_id === '') service.user_id = estado[0].id
     disptach(postService(service));
     setService({
       name: "",
@@ -144,7 +156,8 @@ export default function FormService() {
       description: "",
       price: "",
       category: [],
-      day: [],
+      day: []
+      
     });
     navigate("/home");
   };
@@ -159,7 +172,7 @@ export default function FormService() {
       color: "#1F2937",
     },
     containerForm: {
-      width: "40%",
+      width: "50%",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -177,13 +190,21 @@ export default function FormService() {
       width: "100%",
       margin: "10px 0 10px 0",
     },
+    time: {
+      width: '70px',
+      height: '30px',
+      marginTop: '10px',
+      backgroundColor: 'transparent',
+      border: 0,
+      padding: '7px'
+    }
   };
 
   return (
     <div>
       <Box style={styles.container}>
         <Box style={styles.containerForm}>
-          <Typography variant="h4">Servicios</Typography>
+          <Typography variant="h4">Crear Servicio</Typography>
           <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
             <Box style={styles.box}>
               <TextField
@@ -197,22 +218,29 @@ export default function FormService() {
                 onChange={handleOnChange}
               />
             </Box>
-
+  
+            
             <Box style={styles.box}>
-              <Typography variant="h6">Categorías</Typography>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <select onChange={(e) => handleCat(e.target.value)}>
-                  {categories?.map((el) => {
-                    return <option value={el.id} key={el.id}>{el.name}</option>;
-                  })}
-                </select>
-              </Box>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Categoría</InputLabel>
+                <Select
+                  value={service.category}
+                  label="Categoría"
+                  onChange={(e) => handleCat(e.target.value)}
+                >
+                  {
+                    categories?.map(el => {
+                      return <MenuItem value={el.id}>{el.name}</MenuItem>
+                    })
+                  }
+                </Select>
+              </FormControl>
             </Box>
-
+  
             <Box style={styles.box}>
               <TextField
                 id="outlined-basic"
-                label="Descripcón"
+                label="Descripción"
                 variant="outlined"
                 style={styles.input}
                 type="text"
@@ -221,7 +249,7 @@ export default function FormService() {
                 onChange={handleOnChange}
               />
             </Box>
-
+            
             <Box style={styles.box}>
               <TextField
                 id="outlined-basic"
@@ -234,23 +262,48 @@ export default function FormService() {
                 onChange={handleOnChange}
               />
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              {["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"].map(
-                (el) => {
-                  return (
-                    <Button value={el} onClick={(e) => handleDay(e)}>
-                      {el}
+            <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+              <Typography 
+                variant="h7"
+                sx={{textAlign:'center', padding: '10px'}}
+              >
+                Seleccionar días de disponibilidad
+              </Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'row'}}>
+                {
+                  ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'].map(el => {
+                    return <Button 
+                      value={el} 
+                      onClick={(e)=>handleDay(e)}
+                      variant="outlined"
+                      sx={{color: "#1F2937", margin: '5px'}}
+                      >
+                        {el}
                     </Button>
-                  );
+                  })
                 }
-              )}
+              </Box>
+              
             </Box>
+
+            <Box style={styles.box}>
+              <Typography 
+                variant="h7"
+                sx={{textAlign:'center', padding: '10px'}}
+              >
+                Agregar horarios de disponibilidad
+              </Typography>
+              <input type="time" style={styles.time} />
+            </Box>
+
             <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Button>
-                <Link style={{ textDecoration: "none" }} to="/home">
-                  <label style={{ color: "#1F2937" }}>Volver atras</label>
-                </Link>
-              </Button>
+              
+              <Link style={{ textDecoration: "none" }} to="/home">
+                <Button sx={{ color: "#1F2937" }}>
+                  Volver atras
+                </Button>
+              </Link>
+              
               <Button sx={{ color: "#1F2937" }} type="submit" disabled={!btn}>
                 Crear
               </Button>

@@ -3,6 +3,7 @@ const { Category, Services, Solicitud, User, Reviews } = require("../db");
 const { allUsers } = require("../utils/utils");
 
 const register = async (req, res) => {
+
   const { firstName, lastName, birthDate, email, img, offerer, admin, banned } =
     req.body;
 
