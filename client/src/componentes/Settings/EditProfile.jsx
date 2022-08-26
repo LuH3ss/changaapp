@@ -23,7 +23,7 @@ export default function EditProfile() {
   return (
     <div>
       <h1>Modificar perfil</h1>
-      {user?.email === null ? (
+      {user?.email === null || estado[0] === undefined ? (
         <p>
           No tienes acceso a estos datos ya que ingresaste como un usuario
           anonimo. Ve a la seccion de registrar para poder utilizar estos

@@ -7,10 +7,20 @@ const register = async (req, res) => {
     req.body;
 
   try {
-    const allUser = await allUsers();
+    // const allUser = await allUsers();
+    const users = await User.findAll({
+      include: {
+        model: Services,
+        as: "services",
+        include: {
+          model: Category,
+          as: "category",
+        },
+      },
+    });
     if (!firstName || !lastName || !birthDate || !email)
       return res.send("Los datos ingresados estan incompletos");
-    const filterEmail = allUser.filter((e) => e.email === email);
+    const filterEmail = users.filter((e) => e.email === email);
     if (filterEmail[0]) {
       return res.send("El email ya se encuentra registrado");
     } else {
@@ -83,8 +93,18 @@ const updateUser = async (req, res) => {
 const filterUser = async (req, res) => {
   const { email } = req.params;
   if (email) {
-    const alluser = await allUsers();
-    const filterEmail = alluser.filter((e) => e.email === email);
+    // const alluser = await allUsers();
+    const users = await User.findAll({
+      include: {
+        model: Services,
+        as: "services",
+        include: {
+          model: Category,
+          as: "category",
+        },
+      },
+    });
+    const filterEmail = users.filter((e) => e.email === email);
     if (filterEmail) {
       return res.send(filterEmail);
     } else {
