@@ -19,7 +19,6 @@ import PublicServices from "./componentes/Settings/ServicePublic";
 import UpdateService from "./componentes/Settings/UpdateService/UpdateService";
 import Nav from "./componentes/landing/LandingNav";
 
-
 function App() {
   return (
     <AuthProvider>
@@ -28,19 +27,23 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path='/home/services/payment' element={<Stripe />} />
+        <Route path="/home/services/payment" element={<Stripe />} />
         <Route exact path="/home/services/:id" element={<RequestService />} />
-        <Route exact path="/home/createService" element={
-        <PrivateRoute>
-          <Servicios />
-        </PrivateRoute>
-        } />
+        <Route
+          exact
+          path="/home/createService"
+          element={
+            <PrivateRoute>
+              <Servicios />
+            </PrivateRoute>
+          }
+        />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
-          <Route path='services' element={<PublicServices/>}/>
+          <Route path="services" element={<PublicServices />} />
         </Route>
-          <Route path='/settings/updateService/:id' element={<UpdateService/>}/>
+        <Route path="/settings/updateService/:id" element={<UpdateService />} />
         <Route path="/password" element={<Password />} />
       </Routes>
     </AuthProvider>
