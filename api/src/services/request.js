@@ -4,10 +4,20 @@ const getRequest = async (req, res) => {
   try {
     return res.status(200).send(
       await Request.findAll({
-        include: {
-          model: Services,
-          as: "services",
-        },
+        include: [
+          {
+            model: Services,
+            as: "services",
+            include: {
+              model: Category,
+              as: "category",
+            },
+          },
+          {
+            model: User,
+            as: "userRequest",
+          },
+        ],
       })
     );
   } catch (err) {
@@ -36,23 +46,26 @@ const postRequest = async (req, res) => {
 };
 
 const putRequest = async (req, res) => {
-  const {newState, request_id} = req.body
+  const { newState, request_id } = req.body;
   try {
-   await Request.update({
-    state: newState
-   },{
-    where: {
-      id: request_id
-    }
-   });
-   res.status(201).send("updated");
+    await Request.update(
+      {
+        state: newState,
+      },
+      {
+        where: {
+          id: request_id,
+        },
+      }
+    );
+    res.status(201).send("updated");
   } catch (error) {
     res.status(404).send(error);
   }
-}
+};
 
 module.exports = {
   getRequest,
   postRequest,
-  putRequest
+  putRequest,
 };

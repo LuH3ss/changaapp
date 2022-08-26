@@ -53,6 +53,12 @@ Request.belongsTo(Services, { as: "services", foreignKey: "service_id" });
 User.hasMany(Reviews, { as: "reviews", foreignKey: "user_id" });
 Reviews.belongsTo(User, { as: "user", foreignKey: "user_id" });
 
+User.hasMany(Request, { as: "requested", foreignKey: "requester_id" });
+Request.belongsTo(User, { as: "userRequest", foreignKey: "requester_id" });
+
+User.hasMany(Reviews, { as: "reviewer", foreignKey: "author_id" });
+Reviews.belongsTo(User, { as: "author", foreignKey: "author_id" });
+
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

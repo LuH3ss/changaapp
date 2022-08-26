@@ -53,14 +53,12 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
-  let { name, description, review, price, day, hours, category_id, user_id } =
-    req.body;
+  let { name, description, price, day, hours, category_id, user_id } = req.body;
 
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
     description,
-    review,
     price,
     day,
     hours,
