@@ -11,7 +11,8 @@ import {
   FILTER,
   UPDATE,
   POST_REQUEST,
-
+  UPDATE_SERVICE,
+  GET_SERVICE_ID
 } from "../actions/index.js";
 
 const initialStates = {
@@ -23,7 +24,9 @@ const initialStates = {
   registerService: [],
   postCategory: [],
   update: [],
-  filter: []
+  filter: [],
+  updateService: [],
+  filterId: []
 };
 
 const reducer = (state = initialStates, action) => {
@@ -98,22 +101,31 @@ const reducer = (state = initialStates, action) => {
         postCategory: [...state, { ...action.payload }],
       };
 
-    case FILTER: 
-    return {
-      ...state,
-      filter: action.payload
-    }
-    case UPDATE:
-      return{
+    case FILTER:
+      return {
         ...state,
-        update: [...state.update, {...action.payload}]
-      }  
+        filter: action.payload,
+      };
+    case UPDATE:
+      return {
+        ...state,
+        update: [...state.update, { ...action.payload }],
+      };
 
     case POST_REQUEST:
       return {
         ...state,
       };
-
+    case UPDATE_SERVICE:
+      return {
+        ...state,
+        updateService: [...state.updateService, {...action.payload}]
+      }
+    case GET_SERVICE_ID: 
+      return {
+        ...state,
+        filterId: action.payload
+      }   
     default:
       return state;
   }

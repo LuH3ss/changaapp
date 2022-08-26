@@ -1,29 +1,23 @@
-const { STRING } = require("sequelize");
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("services", {
+  sequelize.define("reviews", {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
-      allowNull: false,
       primaryKey: true,
     },
-    name: {
+    message: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    description: {
-      type: DataTypes.STRING,
-    },
-    price: {
+    rate: {
       type: DataTypes.INTEGER,
-    },
-    day: {
-      type: DataTypes.STRING,
-    },
-    hours: {
-      type: DataTypes.ARRAY(STRING),
+      allowNull: false,
+      validate: {
+        max: 5,
+        min: 1,
+      },
     },
   });
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/navBar.css";
 import SearchBar from "../SearchBar";
 import { Link } from "react-router-dom";
@@ -16,6 +16,8 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserEmail } from "../../redux/actions";
 
 const styles = {
   container: {
@@ -43,9 +45,20 @@ export default function Navbar() {
     logout();
     navigate("/");
   };
+
+  //PARA TRAER LA FOTO DEL USUARIO
+  const estado = useSelector((state) => state.filter);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserEmail(user?.email));
+  }, [dispatch, user?.email]);
+
   return (
     <Box style={styles.container} className="navBar">
-      <Typography variant="h4">ChangApp</Typography>
+      <Typography variant="h4">
+        <Link to="/home">ChangApp</Link>
+      </Typography>
+
       <SearchBar style={styles.button} />
       <div>
         <Link style={{ textDecoration: "none" }} to="/home/createService">
@@ -61,7 +74,13 @@ export default function Navbar() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>P</Avatar>
+          <Avatar sx={{ width: 32, height: 32 }}>
+            {estado[0]?.img ? (
+              <img src={estado[0]?.img} alt="?" width="32px" height="32px" />
+            ) : (
+              "?"
+            )}
+          </Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -104,13 +123,8 @@ export default function Navbar() {
             <Avatar /> Perfil
           </MenuItem>
         </Link>
+
         <Divider />
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          <Link to="/settings/edit">Configuracion</Link>
-        </MenuItem>
         <MenuItem onClick={handleClick}>
           <ListItemIcon>
             <Logout fontSize="small" />

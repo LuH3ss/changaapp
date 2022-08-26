@@ -6,6 +6,18 @@ import axios from "axios";
 import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
 
+
+function validate(input) {
+  let error = {}
+
+  if(!/^[a-z ñ]+$/i.test(input.firstName)) error.firstName = 'El nombre solo puede contener letras'
+  else if(!/^[a-z ñ]+$/i.test(input.lastName)) error.lastName = 'El apellido solo puede contener letras'
+  else if(/^[a-z ñ]+$/i.test(input.phone)) error.phone = 'Numero de telefono invalido, solo puedes agregar numeros'
+
+  return error
+}
+
+
 export default function UpdateProfile() {
   const { user } = useAuth();
   //ESTADO PARA ACTUALIZAR
@@ -17,6 +29,7 @@ export default function UpdateProfile() {
     lastName: "",
     phone: "",
   });
+  const [error, setError] = useState('')
 
   const [btn, setBtn] = useState(false);
   const dispatch = useDispatch();
@@ -34,8 +47,12 @@ export default function UpdateProfile() {
       ...input,
       [e.target.name]: e.target.value,
     });
+    setError(validate({
+      ...input,
+      [e.target.name]: e.target.value
+    }))
   };
-
+  console.log(error)
   const handleImage = async (e) => {
     e.preventDefault();
     try {

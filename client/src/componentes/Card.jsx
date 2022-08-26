@@ -1,13 +1,10 @@
 import React from "react";
-import Box from '@mui/material/Box';
+
 import Typography from '@mui/material/Typography';
 import {Card as ServiceCard} from '@mui/material'
 import { CardActionArea } from '@mui/material';
-
-
 import "./css/card.css";
-const imgDef =
-  "https://1.bp.blogspot.com/-OONwIqLJAE0/YCH249Alt2I/AAAAAAAAIzQ/7moXO_wK3pMxyug7CTWW6qZWb05sV3MAACNcBGAsYHQ/s16000/trabajos-mas-demandados-en-brasil-en-2021.jpg";
+
 
   const styles = {
     containerCard:{
