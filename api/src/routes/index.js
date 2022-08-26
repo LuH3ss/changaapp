@@ -14,8 +14,10 @@ const {
   updateService,
 } = require("../services/service");
 const { getCategories, postCategorie } = require("../services/category");
+const {paymentMethod} = require("../services/payment")
 const { getRequest, postRequest, putRequest } = require("../services/request");
 const { getReviews, postReviews } = require("../services/reviews");
+
 
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
@@ -44,8 +46,13 @@ router.post("/request", postRequest);
 router.put("/request", putRequest);
 
 
+//payment routes
+router.post("/payment", paymentMethod);
+
+
 //review routes
 router.get("/reviews", getReviews);
 router.post("/reviews", postReviews);
 
 module.exports = router;
+
