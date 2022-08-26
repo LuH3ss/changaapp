@@ -11,7 +11,7 @@ import {
 import { useEffect } from "react";
 import { useAuth } from "../../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
-import userImg from "../../src/user.png";
+import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
 
 
