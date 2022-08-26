@@ -11,14 +11,13 @@ import Password from "./componentes/ResetPassword/Password";
 import Profile from "./componentes/Settings/Profile";
 import Settings from "./componentes/Settings/Settings";
 import Landing from "./componentes/landing/Landing.jsx";
-import RequestService from "./componentes/RequestService";
+import RequestService from "./componentes/RequestService/RequestService";
 import Footer from "./componentes/Footer";
 import Stripe from "./componentes/Stripe";
 import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
 import PublicServices from "./componentes/Settings/ServicePublic";
 import UpdateService from "./componentes/Settings/UpdateService/UpdateService";
 import Nav from "./componentes/landing/LandingNav";
-
 
 function App() {
   return (
@@ -28,7 +27,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
-        <Route path='/home/services/payment' element={<Stripe />} />
+        <Route path="/home/services/payment" element={<Stripe />} />
         <Route exact path="/home/services/:id" element={<RequestService />} />
         <Route
           exact
