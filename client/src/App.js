@@ -11,7 +11,7 @@ import Password from "./componentes/ResetPassword/Password";
 import Profile from "./componentes/Settings/Profile";
 import Settings from "./componentes/Settings/Settings";
 import Landing from "./componentes/landing/Landing.jsx";
-import RequestService from "./componentes/RequestService/RequestService";
+import RequestService from "./componentes/RequestService";
 import Footer from "./componentes/Footer";
 import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
 import PublicServices from "./componentes/Settings/ServicePublic";
