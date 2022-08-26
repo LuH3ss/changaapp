@@ -3,14 +3,17 @@ import React from "react";
 import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetail, getUserEmail, postRequest } from "../redux/actions/index.js";
+import {
+  getDetail,
+  getUserEmail,
+  postRequest,
+} from "../redux/actions/index.js";
 import { useEffect } from "react";
 import { useAuth } from "../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import userImg from "../../src/user.png";
 
 export default function RequestService(props) {
-
   const { user } = useAuth();
   console.log(useAuth())
 
@@ -37,6 +40,7 @@ export default function RequestService(props) {
 
   const weekDays = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 
+
   const handleOnChange = (e) => {
     e.preventDefault();
     setRequest({
@@ -59,7 +63,11 @@ export default function RequestService(props) {
   const handleSubmit = (e) => {
     request.day = request.day.join(",");
     e.preventDefault();
-    let requestService = { ...request, service_id: service.id, requester_id: userDb[0].id };
+    let requestService = {
+      ...request,
+      service_id: service.id,
+      requester_id: userDb[0].id,
+    };
     dispatch(postRequest(requestService));
     setRequest({
       day: "",

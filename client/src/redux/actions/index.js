@@ -8,11 +8,11 @@ export const SORT_SERVICES = "SORT_SERVICES";
 export const FILTER_SERVICES = "FILTER_SERVICES";
 export const SERVICE_NAME = "SERVICE_NAME";
 export const POST_CATEGORY = "POST_CATEGORY";
-
+export const UPDATE_SERVICE = 'UPDATE_SERVICE'
 export const GET_USER = "GET_USER";
 export const FILTER = "FILTER";
 export const UPDATE = "UPDATE";
-
+export const GET_SERVICE_ID = 'GET_SERVICE_ID'
 export const POST_REQUEST = "POST_REQUEST";
 
 const EP = "http://localhost:3001";
@@ -142,4 +142,24 @@ export function postRequest(request) {
       })
     );
   };
+}
+
+export function updateService(id ,service) {
+  return async function (dispatch){
+    await axios.put(`${EP}/services/${id}`, service)
+    .then(detalle => dispatch({
+      type: UPDATE_SERVICE,
+      payload: detalle.data
+    }))
+  }
+}
+
+export function getServiceById(id) {
+  return async function (dispatch){
+    await axios.get(`${EP}/services/${id}`)
+    .then(detalle => dispatch({
+      type: GET_SERVICE_ID,
+      payload: detalle.data
+    }))
+  }
 }

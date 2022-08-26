@@ -53,14 +53,12 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
-  let { name, description, review, price, day, hours, category_id, user_id } =
-    req.body;
+  let { name, description, price, day, hours, category_id, user_id } = req.body;
 
   let serviceCreated = await Services.create({
     // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
     description,
-    review,
     price,
     day,
     hours,
@@ -83,9 +81,35 @@ const getByName = async (req, res) => {
     res.status(500).end();
   }
 };
+
+const updateService = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { name, description, price, day, hours, user_id, category_id } = req.body;
+    await Services.update({
+      name,
+      description,
+      price,
+      day,
+      hours,
+      user_id: user_id,
+      category_id: category_id,
+    },
+    {
+      where : {
+        id,
+      }
+    }
+    );
+    return res.status(201).send('Servicio actualizado correctamente')
+  } catch (error) {
+    console.log(error)
+  }
+};
 module.exports = {
   getServices,
   getServicebyId,
   getByName,
   postService,
+  updateService
 };

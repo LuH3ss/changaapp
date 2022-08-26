@@ -43,8 +43,7 @@ export default function Home() {
     dispatch(getAllServices());
     dispatch(getAllCategories());
   }, [dispatch]);
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
+  
 
   const handleSort = (e) => {
     setOrder(e.target.value);
@@ -55,13 +54,6 @@ export default function Home() {
     e.preventDefault();
     dispatch(filterByCategory(e.target.value));
   };
-
-  const handlerReload = (e) => {
-    e.preventDefault();
-    dispatch(getAllServices());
-  };
-
-  
 
   const styles = {
     containerCards: {
@@ -117,7 +109,7 @@ export default function Home() {
             return <option value={el.name}>{el.name}</option>;
           })}
         </select>
-        <Button onClick={(e) => handlerReload(e)}>Reload page</Button>
+        
       </Box>
       <Paging
         servicesPerPage={servicesPerPage}

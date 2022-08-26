@@ -60,6 +60,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
+
     <authContext.Provider
       value={{
         user,
@@ -72,6 +73,7 @@ export function AuthProvider({ children }) {
         resetPassword,
       }}
     >
+
       {children}
     </authContext.Provider>
   );

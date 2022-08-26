@@ -1,7 +1,9 @@
 import React from "react";
+import { useAuth } from "../context/authContext";
 import "./css/footer.css";
 
 export default function Footer() {
+  const {user} = useAuth()
   return (
     <div className="footer">
       <div className="footer__nombre">
@@ -45,9 +47,6 @@ export default function Footer() {
         <ul className="footer__lista">
           <p>Desarrollado por</p>
           <li className="footer__lista--item">
-            <p>Franco Fraticelli</p>
-          </li>
-          <li className="footer__lista--item">
             <p>Enrique Gomez Naar</p>
           </li>
           <li className="footer__lista--item">
@@ -74,8 +73,13 @@ export default function Footer() {
             type="text"
             className="formulario__nombre"
             id="name"
-            required=""
-            placeholder="Juan Perez"
+
+            required           
+            data-tipo="name"
+            placeholder={user?.email}
+
+            
+
           />
         </div>
         <div className="formulario__campo">
@@ -84,7 +88,12 @@ export default function Footer() {
             name="message"
             id="message"
             className="formulario__texto"
-            required=""
+
+            required
+            data-tipo="message"
+
+            
+
           ></textarea>
         </div>
         <button className="formulario__boton">Enviar mensaje</button>
