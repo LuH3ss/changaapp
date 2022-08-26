@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { Router } = require("express");
-const {sendEmail} = require("../services/email")
+
 const {
   register,
   getUsers,
