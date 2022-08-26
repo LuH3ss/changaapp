@@ -258,7 +258,7 @@ export default function Servicios() {
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'row'}}>
               {
-                ['Lunes','Martes','Miércoles','Jueves','Viernes'].map(el => {
+                ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'].map(el => {
                   return <Button value={el} onClick={(e)=>handleDay(e)}>{el}</Button>
                 })
               }
