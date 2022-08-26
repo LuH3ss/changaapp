@@ -40,10 +40,16 @@ const getServicebyId = async (req, res) => {
       where: {
         id: id,
       },
-      include: {
-        model: Category,
-        as: "category",
-      },
+      include: [
+        {
+          model: Category,
+          as: "category",
+        },
+        {
+          model: User,
+          as: "user"
+        }
+      ],
     });
 
     return res.status(200).send(services);

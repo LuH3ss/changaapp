@@ -11,17 +11,18 @@ import {
 import { useEffect } from "react";
 import { useAuth } from "../../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
-import userImg from "../../src/user.png";
+import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
 
 
 export default function RequestService(props) {
   const { user } = useAuth();
-  console.log(useAuth())
 
   const [request, setRequest] = useState({
     day: "",
     hours: "",
+    service_id: '',
+    requester_id: ''
   });
 
   const [loading, setLoading] = useState(true)
@@ -33,12 +34,15 @@ export default function RequestService(props) {
   const service = useSelector((state) => state.serviceDetail);
   const userDb = useSelector(state => state.filter)
 
+// console.log(service?.user.img)
+
+
+
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email))
     setLoading(false)
   }, [dispatch, user?.email]);
-  console.log(id, 'ID DE SERVICE');
 
   const weekDays = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 
@@ -63,7 +67,8 @@ export default function RequestService(props) {
   };
 
   const handleSubmit = (e) => {
-    request.day = request.day.join(",");
+    // e.preventDefault()
+    // console.log('dasdasdas')
     e.preventDefault();
     let requestService = {
       ...request,
@@ -126,6 +131,7 @@ export default function RequestService(props) {
     },
     userPic: {
       width: "100px",
+      height: '100px',
       borderRadius: "50%",
       padding: '20px'
     },
@@ -146,7 +152,7 @@ export default function RequestService(props) {
     }
   };
 
-  console.log(userDb)
+  console.log(request)
 
   if(loading) return <h1>loading</h1>
   else return (
@@ -234,15 +240,15 @@ export default function RequestService(props) {
           <Box style={styles.userDetail}>
             <Box style={styles.userName}>
               <Typography variant="h4">
-                {userDb[0]?.firstName}
+                {service?.user?.firstName}
               </Typography>
               <Typography variant="h6">
-                {userDb[0]?.lastName}
+                {service?.user?.lastName}
               </Typography>
             </Box>
             <img
               style={styles.userPic}
-              src={userDb[0]?.img ? userDb[0].img : userImg}
+              src={service?.user?.img ? service?.user?.img : userImg}
               alt="user-pic"
             />
           </Box>
