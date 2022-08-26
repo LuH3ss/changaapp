@@ -16,7 +16,6 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail } from "../../redux/actions";
 
@@ -54,13 +53,12 @@ export default function Navbar() {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
-  
-
   return (
     <Box style={styles.container} className="navBar">
       <Typography variant="h4">
         <Link to="/home">ChangApp</Link>
       </Typography>
+
       <SearchBar style={styles.button} />
       <div>
         <Link style={{ textDecoration: "none" }} to="/home/createService">
@@ -127,7 +125,6 @@ export default function Navbar() {
         </Link>
 
         <Divider />
-
         <MenuItem onClick={handleClick}>
           <ListItemIcon>
             <Logout fontSize="small" />
