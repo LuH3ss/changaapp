@@ -11,9 +11,5 @@ module.exports = (sequelize) => {
     hours: {
       type: DataTypes.STRING,
     },
-    requester_id: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   });
 };
