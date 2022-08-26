@@ -24,12 +24,10 @@ export default function PublicServices() {
         userState[0]?.services.map((e) => {
           return (
             <div>
-              <button>
-                <Link to={`/settings/updateService/${e.id}`}>Modificar Servicio</Link>
-              </button>
+              <Link to={`/settings/updateService/${e.id}`}><button>Modificar Servicio</button></Link>
               <h3>Categoria: {e.category.name}</h3>
               <h5>{e.name}</h5>
-              <p>Dias Disponibles: {e.day}</p>
+              <p>Dias disponibles: {e.day}</p>
               <p>Precio: ${e.price}</p>
               <p>
                 Descripcion del servicio <br />

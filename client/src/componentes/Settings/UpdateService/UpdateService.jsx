@@ -33,7 +33,7 @@ export default function UpdateService() {
     useEffect(() => {
         dispatch(getAllServices())
         dispatch(getServiceById(param.id))
-    }, [dispatch, param.id, error])
+    }, [dispatch, param.id])
     
     //PARA LEER LOS CAMBIOS
     const handleOnChange = (e) => {
