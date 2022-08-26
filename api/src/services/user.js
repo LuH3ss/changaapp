@@ -3,7 +3,8 @@ const { Category, Services, Solicitud, User, Reviews } = require("../db");
 const { allUsers } = require("../utils/utils");
 
 const register = async (req, res) => {
-  const { firstName, lastName, birthDate, email, phone, img } = req.body;
+  const { firstName, lastName, birthDate, email, img, offerer, admin, banned } =
+    req.body;
 
   try {
     const allUser = await allUsers();
@@ -18,8 +19,10 @@ const register = async (req, res) => {
         lastName,
         birthDate,
         email,
-        phone,
         img,
+        offerer,
+        admin,
+        banned,
         // offerer,
         // admin,
         // banned,

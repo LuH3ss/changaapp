@@ -13,7 +13,7 @@ const {
   getByName,
 } = require("../services/service");
 const { getCategories, postCategorie } = require("../services/category");
-const { getRequest, postRequest } = require("../services/request");
+const { getRequest, postRequest, putRequest } = require("../services/request");
 const { getReviews, postReviews } = require("../services/reviews");
 
 // Importar todos los routers;
@@ -39,6 +39,8 @@ router.post("/category", postCategorie);
 //request routes
 router.get("/request", getRequest);
 router.post("/request", postRequest);
+router.put("/request", putRequest);
+
 
 //review routes
 router.get("/reviews", getReviews);

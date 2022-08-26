@@ -16,17 +16,14 @@ module.exports = (sequelize) => {
     description: {
       type: DataTypes.STRING,
     },
-    review: {
-      type: DataTypes.STRING,
-    },
     price: {
       type: DataTypes.INTEGER,
     },
     day: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     hours: {
-      type: DataTypes.ARRAY(STRING)
-    }
+      type: DataTypes.ARRAY(STRING),
+    },
   });
-}
+};
