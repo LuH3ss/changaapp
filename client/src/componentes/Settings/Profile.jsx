@@ -41,8 +41,7 @@ export default function Profile() {
         :  
           (
             estado.length === 1 
-            ? /* SECCION PREGUNTAS FRECUENTES */
-            /* SECCION RESEÑAS Y RAITING */
+            ?
             <Card sx={{ maxWidth: 500 }}>
               <CardMedia component="img" height="200" image={estado[0].img} alt="Profile photo" />
               <CardContent>
@@ -53,7 +52,7 @@ export default function Profile() {
                   Especialidad: {estado[0].services[0]?.category.name ? estado[0].services[0]?.category.name : 'Sin especialidad'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Description: Desc
+                  Description: {estado[0].services[0]?.description}
                 </Typography>
               </CardContent>
               

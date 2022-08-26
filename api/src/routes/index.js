@@ -11,6 +11,7 @@ const {
   getServicebyId,
   postService,
   getByName,
+  updateService,
 } = require("../services/service");
 const { getCategories, postCategorie } = require("../services/category");
 const { getRequest, postRequest, putRequest } = require("../services/request");
@@ -31,6 +32,7 @@ router.post("/services", postService);
 router.get("/services", getServices);
 router.get("/services/search", getByName);
 router.get("/services/:id", getServicebyId);
+router.put('/services/:id', updateService)
 
 //category routes
 router.get("/category", getCategories);

@@ -47,9 +47,6 @@ export default function Footer() {
         <ul className="footer__lista">
           <p>Desarrollado por</p>
           <li className="footer__lista--item">
-            <p>Franco Fraticelli</p>
-          </li>
-          <li className="footer__lista--item">
             <p>Enrique Gomez Naar</p>
           </li>
           <li className="footer__lista--item">

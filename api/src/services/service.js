@@ -83,9 +83,35 @@ const getByName = async (req, res) => {
     res.status(500).end();
   }
 };
+
+const updateService = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const { name, description, price, day, hours, user_id, category_id } = req.body;
+    await Services.update({
+      name,
+      description,
+      price,
+      day,
+      hours,
+      user_id: user_id,
+      category_id: category_id,
+    },
+    {
+      where : {
+        id,
+      }
+    }
+    );
+    return res.status(201).send('Servicio actualizado correctamente')
+  } catch (error) {
+    console.log(error)
+  }
+};
 module.exports = {
   getServices,
   getServicebyId,
   getByName,
   postService,
+  updateService
 };

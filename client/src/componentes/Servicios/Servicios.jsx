@@ -5,7 +5,7 @@ import { getUserEmail } from "../../redux/actions";
 
 import {useAuth} from '../../context/authContext'
 import Navbar from "../PrivateRoute/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import FormService from "./AuxService/FormService";
 
@@ -13,9 +13,9 @@ import FormService from "./AuxService/FormService";
 
 export default function Servicios() {
   const {user} = useAuth()
-  const userState = useSelector(state => state.filter)
+  
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  
 
 
   useEffect(() => {
