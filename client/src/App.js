@@ -27,17 +27,21 @@ function App() {
         <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/home/services/:id" element={<RequestService />} />
-        <Route exact path="/home/createService" element={
-        <PrivateRoute>
-          <Servicios />
-        </PrivateRoute>
-        } />
+        <Route
+          exact
+          path="/home/createService"
+          element={
+            <PrivateRoute>
+              <Servicios />
+            </PrivateRoute>
+          }
+        />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
-          <Route path='services' element={<PublicServices/>}/>
+          <Route path="services" element={<PublicServices />} />
         </Route>
-          <Route path='/settings/updateService/:id' element={<UpdateService/>}/>
+        <Route path="/settings/updateService/:id" element={<UpdateService />} />
         <Route path="/password" element={<Password />} />
       </Routes>
     </AuthProvider>
