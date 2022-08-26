@@ -35,8 +35,8 @@ export default function Landing() {
                 </Box>
                 <Box variant="div" className='primeraPregunta'>
                     <Typography variant='h4'>Queres aumentar tus ingresos?</Typography>
-                    <Typography variant='p'>Decile al mundo quién sos y que hacés y presupuestá tu trabajo.
-                    Escalá en el ranking de profesionales y conectá con más clientes.</Typography>
+                    <Typography variant='p'>Decile al mundo quién sos, que hacés y presupuestá tu trabajo.
+                    Escalá en el ranking de profesionales para conectar con más clientes.</Typography>
                 </Box>
                 <Box variant="div" className='segundaPregunta'>
                     <Typography variant='h4'>Necesitas una solución rápida?</Typography>

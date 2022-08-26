@@ -24,6 +24,8 @@ export default function Profile() {
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
+
+  // console.log(estado[0].services[0].category.name)
   return (
     <div>
       
@@ -39,8 +41,7 @@ export default function Profile() {
         :  
           (
             estado.length === 1 
-            ? /* SECCION PREGUNTAS FRECUENTES */
-            /* SECCION RESEÑAS Y RAITING */
+            ?
             <Card sx={{ maxWidth: 500 }}>
               <CardMedia component="img" height="200" image={estado[0].img} alt="Profile photo" />
               <CardContent>
@@ -48,10 +49,10 @@ export default function Profile() {
                   Nombre y apellido: {estado[0].firstName + ' ' + estado[0].lastName} 
                 </Typography>
                 <Typography gutterBottom variant="h5" component="div">
-                  Especialidad: Electricista
+                  Especialidad: {estado[0].services[0]?.category.name ? estado[0].services[0]?.category.name : 'Sin especialidad'}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  Description: Desc
+                  Description: {estado[0].services[0]?.description}
                 </Typography>
               </CardContent>
               

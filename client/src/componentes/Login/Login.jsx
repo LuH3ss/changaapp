@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../context/authContext";
 import { useNavigate, Link } from "react-router-dom";
-
+import Nav from "../landing/LandingNav";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -16,7 +16,7 @@ export default function Login() {
   });
 
   const [error, setError] = useState("");
-  const { login, loginGoogle, loginFacebook, logAnonymous } = useAuth();
+  const { login, loginGoogle, loginFacebook } = useAuth();
   const navigate = useNavigate();
 
   const handleOnChange = (e) => {
@@ -33,13 +33,11 @@ export default function Login() {
       await login(user.email, user.password);
       navigate("/home");
     } catch (error) {
-      if(error.code === 'auth/user-not-found'){
-
-        setError('El usuario no esta registrado')
-      }else if(error.code === 'auth/wrong-password'){
-        setError('Usuario o contraseña invalidos')
+      if (error.code === "auth/user-not-found") {
+        setError("El usuario no esta registrado");
+      } else if (error.code === "auth/wrong-password") {
+        setError("Usuario o contraseña invalidos");
       }
-      
     }
   };
 
@@ -60,16 +58,6 @@ export default function Login() {
       navigate("/home");
     } catch (error) {
       setError("El e-mail ya se encuentra registrado");
-    }
-  };
-
-  const handleAnonymous = async (e) => {
-    e.preventDefault();
-    try {
-      await logAnonymous();
-      navigate("/home");
-    } catch (error) {
-      console.log("Error anonimo");
     }
   };
 
@@ -105,31 +93,15 @@ export default function Login() {
   };
 
   return (
-    <Box style={styles.container}>
-      
-      <Box mr={4}>
-        <Typography variant="h3">CHANGAPP</Typography>
-        <Typography
-          component="p"
-          mt={4}
-          sx={{
-            width: 480,
-          }}
-        >
-          Changa app es una aplicación web que te ayuda a ofrecer y/o contratar
-          servicios. Decile al mundo quién sos y que hacés y presupuestá tu
-          trabajo. Escalá en el ranking de profesionales y conectá con más
-          clientes. Como cliente vas a encontrar los profesionales más
-          destacados del mercado.
-        </Typography>
-      </Box>
+    <div>
+      <Nav/>
+      <Box style={styles.container}>
       <Box style={styles.login}>
         <Typography variant="h4" sx={{ marginBottom: "30px" }}>
           Login
         </Typography>
-
         <form style={styles.form} onSubmit={(e) => handleSumbit(e)}>
-        {error && <p>{error}</p>}
+          {error && <p>{error}</p>}
           <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
             <TextField
               id="outlined-basic"
@@ -195,8 +167,8 @@ export default function Login() {
         >
           Iniciar Sesion con Facebook
         </Button>
-        <button onClick={handleAnonymous}>Iniciar como Anonimo</button>
       </Box>
     </Box>
+    </div>
   );
 }
