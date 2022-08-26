@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { Router } = require("express");
+const {sendEmail} = require("../services/email")
 const {
   register,
   getUsers,
@@ -45,5 +46,9 @@ router.put("/request", putRequest);
 //review routes
 router.get("/reviews", getReviews);
 router.post("/reviews", postReviews);
+
+//mail routes 
+
+router.put("/email", sendEmail)
 
 module.exports = router;
