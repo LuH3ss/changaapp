@@ -17,6 +17,7 @@ import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
 import PublicServices from "./componentes/Settings/ServicePublic";
 import UpdateService from "./componentes/Settings/UpdateService/UpdateService";
 import Nav from "./componentes/landing/LandingNav";
+import Guardar from "./componentes/Home/Guardar";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={[<Nav />, <Landing />, <Footer />]} />
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/home" element={<Home />} />
+        <Route exact path="/home" element={<Guardar />} />
         <Route path="/register" element={<Register />} />
         <Route exact path="/home/services/:id" element={<RequestService />} />
         <Route exact path="/home/createService" element={
