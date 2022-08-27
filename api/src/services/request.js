@@ -26,6 +26,9 @@ const getRequest = async (req, res) => {
 };
 
 const postRequest = async (req, res) => {
+
+  console.log('dasdasd')
+
   try {
     await Request.create({
       state: "pending",
