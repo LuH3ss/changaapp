@@ -17,6 +17,10 @@ const getServices = async (req, res) => {
         {
           model: Request,
           as: "request",
+          include: {
+            model: User,
+            as: "userRequest",
+          },
         },
       ],
     });
