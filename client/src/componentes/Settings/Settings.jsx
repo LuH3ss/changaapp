@@ -29,6 +29,7 @@ export default function Settings() {
         <Link to="profile">Perfil</Link>
         <Link to="edit">Editar Perfil</Link>
         <Link to='services'>Servicios publicados</Link>
+        <Link to='request'>Estado de los servicio</Link>
         <Link to='/login' onClick={handleClick}>Cerrar Sesion</Link>
         <Outlet />
         </div>

@@ -33,7 +33,7 @@ export default function FilterCategory() {
                             <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/>
                             <p>{e.description}</p>
                             <p>${e.price}</p>
-                            <button>Reservate el lugar capo</button>
+                            <Link to={`/home/services/${e.id}`}><button>Reservate el lugar capo</button></Link>
                         </div>
                         )
                 })
