@@ -13,32 +13,31 @@ import Settings from "./componentes/Settings/Settings";
 import Landing from "./componentes/landing/Landing.jsx";
 import RequestService from "./componentes/RequestService/RequestService";
 import Footer from "./componentes/Footer";
-import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
 import PublicServices from "./componentes/Settings/ServicePublic";
 import UpdateService from "./componentes/Settings/UpdateService/UpdateService";
 import Nav from "./componentes/landing/LandingNav";
 import Guardar from "./componentes/Home/Guardar";
+import FilterCategory from "./componentes/Home/FiltersCategorys/FilterCategory";
+import AllCategorys from "./componentes/Home/FiltersCategorys/AllCategorys";
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route exact path="/" element={[<Nav />, <Landing />, <Footer />]} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/home" element={<Guardar />} />
+        <Route path="/" element={[<Nav />, <Landing />, <Footer />]} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/home" element={<Guardar />} />
+        <Route path="/home/:name" element={<FilterCategory />} />
+        <Route path="/home/todos" element={<AllCategorys />} />
         <Route path="/register" element={<Register />} />
-        <Route exact path="/home/services/:id" element={<RequestService />} />
-        <Route exact path="/home/createService" element={
-        <PrivateRoute>
-          <Servicios />
-        </PrivateRoute>
-        } />
+        <Route path="/home/services/:id" element={<RequestService />} />
+        <Route path="/home/createService" element={<Servicios />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
-          <Route path='services' element={<PublicServices/>}/>
+          <Route path="services" element={<PublicServices />} />
         </Route>
-          <Route path='/settings/updateService/:id' element={<UpdateService/>}/>
+        <Route path="/settings/updateService/:id" element={<UpdateService />} />
         <Route path="/password" element={<Password />} />
       </Routes>
     </AuthProvider>

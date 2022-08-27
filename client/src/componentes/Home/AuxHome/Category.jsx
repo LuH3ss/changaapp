@@ -1,38 +1,45 @@
 import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllCategories, getAllServices } from "../../../redux/actions";
+import { getAllCategories } from "../../../redux/actions";
 
 export default function Category() {
     const category = useSelector(state => state.categories)
     const dispatch = useDispatch()
     const filterCategory = category.slice(0, 3)
-    const services = useSelector(state => state.services)
     const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getAllCategories())
-        dispatch(getAllServices())
     }, [dispatch])
     
     const handleOnClick = (e) => {
         e.preventDefault()
-        const name = e.target.value
-        navigate(`/home/${name}`)
+        navigate(`/home/${e.target.value}`)
     }
 
+    const handleAll = (e) => {
+        e.preventDefault()
+        navigate('/home/todos')
+    }
+    console.log(filterCategory)
     return(
         <div>
-            <h4>Cateogrias mas concurridas</h4>
+            <h4>Categorias mas concurridas</h4>
             {
-                filterCategory && filterCategory.map(e => {
+                filterCategory && filterCategory?.map(e => {
                     return(
-                        <button key={e.id} value={e.name} onClick={handleOnClick}>
-                            {e.name}<br/>
-                            Aca iria la imagen de fondo    <br/>
-                        </button>)
-                })
+                        // <button   value={e.name} onClick={handleOnClick}>
+                        // <h3 value={e.name} onClick={handleOnClick}>{e.name}</h3>
+                        // {/* <img src={e.img} alt={e.name} width='350px' height='250px' /> */}
+                        // </button>
+                        <div>
+                            <h3>{e.name}</h3>
+                            <img src={e.img} alt={e.name} width='350px' height='250px' />
+                            <button value={e.name} onClick={handleOnClick}>Ir</button>
+                        </div>
+                )})
             }
-            <button>+</button>
+            <button onClick={handleAll}>+</button>
         </div>)
 }
