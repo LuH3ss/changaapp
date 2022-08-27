@@ -16,6 +16,7 @@ export const GET_SERVICE_ID = "GET_SERVICE_ID";
 export const POST_REQUEST = "POST_REQUEST";
 export const UPDATE_REQUEST = "UPDATE_REQUEST";
 export const DELETE_REQUEST = "DELETE_REQUEST";
+export const ALL_REQUEST = 'ALL_REQUEST'
 const EP = "http://localhost:3001";
 
 //ACTIONS PARA LOS USUARIOS
@@ -191,4 +192,14 @@ export function deleteRequest() {
       })
     );
   };
+}
+
+export function allRequest() {
+  return async function (dispatch){
+    await axios.get(`${EP}/request`)
+    .then(detalle => dispatch({
+      type: ALL_REQUEST,
+      payload: detalle.data
+    }))
+  }
 }

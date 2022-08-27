@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
-import { deleteRequest, getAllServices, updateRequest } from "../../../redux/actions";
+import { getAllServices, updateRequest } from "../../../redux/actions";
 
 export default function StateRequest() {
     const {user} = useAuth()
@@ -28,17 +28,11 @@ export default function StateRequest() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        // if(btn.state === 'rechazado'){
-        //     dispatch(deleteRequest(e.target.id))
-        //     dispatch(updateRequest(btn))
-        // }else {
-        //     dispatch(updateRequest(btn))
-        // }
         dispatch(updateRequest(btn))
         window.location.reload(true)
     }
     
-    console.log(btn.id)
+    console.log(filterEmail)
     return(
         <div>
             <h1>Estado del Servicio</h1>
@@ -48,7 +42,7 @@ export default function StateRequest() {
                     filterEmail.map(e => {
                         return(
                             
-                                e.request[0]?.state !== 'pending' && e.request[0]?.state !== 'aceptado'  ? console.log('asd') : 
+                                e.request[0]?.state !== 'pending' && e.request[0]?.state !== 'aceptado'  ? <p>Tu servicio {e.name} no recibio solicitudes nuevas</p> : 
                                     <div>
                                         <p>Nombre del servicio: {e.name}</p>
                                         <p>Estado: {e.request[0]?.state}</p>
@@ -63,7 +57,7 @@ export default function StateRequest() {
                                             </div>
                                         </form>
                                     </div>
-                                )
+                        )
                             
                         
                     })

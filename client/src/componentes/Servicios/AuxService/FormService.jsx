@@ -24,7 +24,7 @@ function validate(service) {
   if (!service.name) error.name = "Debes ingresar un nombre al servicio";
   else if (service.name.length < 3)
     error.name = "El nombre debe tener mas de tres caracteres";
-  else if (!/^[a-z ñ]+$/i.test(service.name))
+  else if (!/[a-zA-ZÀ-ÖØ-öø-ÿ]+[a-zA-ZÀ-ÖØ-öø-ÿ]?/.test(service.name))
     error.name = "No puedes asignar numeros/caracteres especiales al nombre";
   //ERROR CATEGORIA
   else if (service.category.length !== 1)

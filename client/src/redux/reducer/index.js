@@ -14,7 +14,8 @@ import {
   UPDATE_SERVICE,
   GET_SERVICE_ID,
   UPDATE_REQUEST,
-  DELETE_REQUEST
+  DELETE_REQUEST,
+  ALL_REQUEST
 } from "../actions/index.js";
 
 const initialStates = {
@@ -30,7 +31,8 @@ const initialStates = {
   updateService: [],
   filterId: [],
   updateRequest: [],
-  deleteRequest: []
+  deleteRequest: [],
+  allRequest: [],
 };
 
 const reducer = (state = initialStates, action) => {
@@ -139,7 +141,12 @@ const reducer = (state = initialStates, action) => {
       return{
         ...state,
         deleteRequest: action.payload
-      }       
+      }
+    case ALL_REQUEST:
+      return{
+        ...state,
+        allRequest: action.payload
+      }         
     default:
       return state;
   }

@@ -21,6 +21,7 @@ import Guardar from "./componentes/Home/Guardar";
 import FilterCategory from "./componentes/Home/FiltersCategorys/FilterCategory";
 import AllCategorys from "./componentes/Home/FiltersCategorys/AllCategorys";
 import StateRequest from "./componentes/Settings/Request/StateRequest";
+import StateRequester from "./componentes/Settings/Request/StateOfer";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route path="profile" element={<Profile />} />
           <Route path="services" element={<PublicServices />} />
           <Route path='request' element={<StateRequest/>}/>
+          <Route path='requester' element={<StateRequester/>}/>
         </Route>
         <Route path="/settings/updateService/:id" element={<UpdateService />} />
          
