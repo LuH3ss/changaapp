@@ -28,13 +28,14 @@ export default function StateRequest() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        if(btn.state === 'rechazado'){
-            dispatch(deleteRequest(e.target.id))
-            dispatch(updateRequest(btn))
-        }else {
-            dispatch(updateRequest(btn))
-        }
-        // window.location.reload(true)
+        // if(btn.state === 'rechazado'){
+        //     dispatch(deleteRequest(e.target.id))
+        //     dispatch(updateRequest(btn))
+        // }else {
+        //     dispatch(updateRequest(btn))
+        // }
+        dispatch(updateRequest(btn))
+        window.location.reload(true)
     }
     
     console.log(btn.id)
