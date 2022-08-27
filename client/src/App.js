@@ -13,6 +13,9 @@ import Settings from "./componentes/Settings/Settings";
 import Landing from "./componentes/landing/Landing.jsx";
 import RequestService from "./componentes/RequestService/RequestService";
 import Footer from "./componentes/Footer";
+import Stripe from "./componentes/Stripe";
+import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
+
 import PublicServices from "./componentes/Settings/ServicePublic";
 import UpdateService from "./componentes/Settings/UpdateService/UpdateService";
 import Nav from "./componentes/landing/LandingNav";
@@ -32,6 +35,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home/services/:id" element={<RequestService />} />
         <Route path="/home/createService" element={<Servicios />} />
+        <Route path="/home/services/payment" element={<Stripe />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
