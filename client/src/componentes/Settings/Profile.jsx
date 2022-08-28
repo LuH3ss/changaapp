@@ -29,7 +29,7 @@ export default function Profile() {
 
   // console.log(estado[0].services[0].category.name)
   if(loading) return <h1>Loading..</h1>
-  else if(user?.email && estado.length) {
+  else if(user?.email && estado?.length) {
     return (
       <div>
         

@@ -5,10 +5,9 @@ import { getAllCategories } from "../../../redux/actions";
 
 export default function Category() {
     const category = useSelector(state => state.categories)
+    console.log(category)
     const dispatch = useDispatch()
-    const filterCategory = category.slice(0, 3)
     const navigate = useNavigate()
-
     useEffect(() => {
         dispatch(getAllCategories())
     }, [dispatch])
@@ -18,21 +17,12 @@ export default function Category() {
         navigate(`/home/${e.target.value}`)
     }
 
-    const handleAll = (e) => {
-        e.preventDefault()
-        navigate('/home/todos')
-    }
-    console.log(filterCategory)
     return(
         <div>
             <h4>Categorias mas concurridas</h4>
             {
-                filterCategory && filterCategory?.map(e => {
+                category && category?.map(e => {
                     return(
-                        // <button   value={e.name} onClick={handleOnClick}>
-                        // <h3 value={e.name} onClick={handleOnClick}>{e.name}</h3>
-                        // {/* <img src={e.img} alt={e.name} width='350px' height='250px' /> */}
-                        // </button>
                         <div>
                             <h3>{e.name}</h3>
                             <img src={e.img} alt={e.name} width='350px' height='250px' />
@@ -40,6 +30,6 @@ export default function Category() {
                         </div>
                 )})
             }
-            <button onClick={handleAll}>+</button>
+            
         </div>)
 }
