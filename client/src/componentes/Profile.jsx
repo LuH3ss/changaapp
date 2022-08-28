@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 const image = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjOMkAMbpBh8B0S8l5dvwrIhlsLqOh-rmOBw&usqp=CAU'
 
-export default function Profile() {
+export default function Profilee() {
   const infoUser = useSelector((state) => state.registerUser);
   console.log(infoUser);
   return (

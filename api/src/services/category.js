@@ -12,9 +12,10 @@ const getCategories = async (req, res) => {
 
 const postCategorie = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, img } = req.body;
       Category.create({
-        name
+        name,
+        img
       })
     
       res.status(201).send("Category created");
