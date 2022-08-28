@@ -27,6 +27,7 @@ const CheckoutForm = () => {
         amount: 10000,
       });
       console.log(data);
+      console.log(paymentMethod)
       elements.getElement(CardElement).clear()
     }
   };
