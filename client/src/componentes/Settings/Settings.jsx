@@ -25,10 +25,13 @@ export default function Settings() {
           </p>
         )
         : <div>
-          <Link to="profile">Perfil</Link>
+        <Link to='/home'>Ir al inicio</Link>
+        <Link to="profile">Perfil</Link>
         <Link to="edit">Editar Perfil</Link>
         <Link to='services'>Servicios publicados</Link>
-        <Link to='/' onClick={handleClick}>Cerrar Sesion</Link>
+        <Link to='request'>Estado de los servicios publicados</Link>
+        <Link to='requester'>Estado de los servicios solicitados</Link>
+        <Link to='/login' onClick={handleClick}>Cerrar Sesion</Link>
         <Outlet />
         </div>
       }

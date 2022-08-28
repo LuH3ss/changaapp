@@ -16,11 +16,12 @@ import Navbar from "../PrivateRoute/Navbar";
 
 export default function RequestService(props) {
   const { user } = useAuth();
-  console.log(useAuth());
 
   const [request, setRequest] = useState({
     day: "",
     hours: "",
+    service_id: '',
+    requester_id: ''
   });
 
   const [loading, setLoading] = useState(true);
@@ -32,12 +33,15 @@ export default function RequestService(props) {
   const service = useSelector((state) => state.serviceDetail);
   const userDb = useSelector((state) => state.filter);
 
+// console.log(service?.user.img)
+
+
+
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
     setLoading(false);
   }, [dispatch, user?.email]);
-  console.log(id, "ID DE SERVICE");
 
   const weekDays = [
     "Lunes",
@@ -68,8 +72,25 @@ export default function RequestService(props) {
     });
   };
 
+  const handleHour = (e) => {
+    if(request.hours === ''){
+      setRequest({
+        ...request,
+        hours: e.target.value
+      });
+    }
+    else if(request.hours !== e.target.value){
+      document.getElementById(request.hours).checked = false;
+      setRequest({
+        ...request,
+        hours: e.target.value
+      });
+    }
+  };
+
   const handleSubmit = (e) => {
-    request.day = request.day.join(",");
+    // e.preventDefault()
+    // console.log('dasdasdas')
     e.preventDefault();
     let requestService = {
       ...request,
@@ -132,6 +153,7 @@ export default function RequestService(props) {
     },
     userPic: {
       width: "100px",
+      height: '100px',
       borderRadius: "50%",
       padding: "20px",
     },
@@ -151,8 +173,6 @@ export default function RequestService(props) {
       backgroundColor: "black",
     },
   };
-
-  console.log(userDb);
 
   if (loading) return <h1>loading</h1>;
   else
@@ -221,28 +241,31 @@ export default function RequestService(props) {
                           );
                       })}
                     </Box>
-                    <Box style={styles.box}>
-                      <TextField
-                        id="outlined-basic"
-                        label="horario"
-                        variant="outlined"
-                        style={styles.input}
-                        type="text"
-                        name="hours"
-                        value={request.hours}
-                        onChange={handleOnChange}
-                      />
+                    <Box sx={{display:'flex', justifyContent:'space-between', padding:'10px'}}>
+                      {
+                        service?.hours?.split(',').map(el => {
+                          return <Box sx={{display:'flex', alignItems:'center', padding:'5px', border:'solid grey 0.5px', borderRadius:'3px'}}>
+                            <Typography>{el}</Typography>
+                            <input 
+                              id={el}
+                              onChange={(e)=>handleHour(e)} 
+                              type="checkbox" 
+                              value={el}
+                            />
+                          </Box>
+                        })
+                      }
                     </Box>
 
                     <Box
-                      sx={{ display: "flex", justifyContent: "space-around" }}
+                      sx={{ display: "flex", justifyContent: "space-around", padding:'30px' }}
                     >
                       <Link style={{ textDecoration: "none" }} to="/home">
-                        <Button style={{ color: "#1F2937" }}>
+                        <Button variant='outlined' style={{ color: "#1F2937" }}>
                           Volver atras
                         </Button>
                       </Link>
-                      <Button sx={{ color: "#1F2937" }} type="submit">
+                      <Button variant='outlined' sx={{ color: "#1F2937" }} type="submit">
                         Solicitar
                       </Button>
                     </Box>
@@ -252,20 +275,22 @@ export default function RequestService(props) {
               <Box style={styles.containerUser}>
                 <Box style={styles.userDetail}>
                   <Box style={styles.userName}>
-                    <Typography variant="h4">{userDb[0]?.firstName}</Typography>
-                    <Typography variant="h6">{userDb[0]?.lastName}</Typography>
+                    <Typography variant="h4">
+                      {service?.user?.firstName}
+                    </Typography>
+                    <Typography variant="h6">
+                      {service?.user?.lastName}
+                    </Typography>
                   </Box>
                   <img
                     style={styles.userPic}
-                    src={userDb[0]?.img ? userDb[0].img : userImg}
+                    src={service?.user?.img ? service?.user?.img : userImg}
                     alt="user-pic"
                   />
                 </Box>
-                <Box style={styles.reviews}>reviews</Box>
               </Box>
             </Box>
-          </Box>
-        )}
-      </div>
-    );
+          </Box>)
+        }
+      </div>);
 }

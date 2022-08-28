@@ -43,7 +43,7 @@ export default function Navbar() {
   };
   const handleClick = (e) => {
     logout();
-    navigate("/");
+    navigate("/login");
   };
 
   //PARA TRAER LA FOTO DEL USUARIO

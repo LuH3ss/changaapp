@@ -26,6 +26,9 @@ const getRequest = async (req, res) => {
 };
 
 const postRequest = async (req, res) => {
+
+  console.log('dasdasd')
+
   try {
     await Request.create({
       state: "pending",
@@ -46,26 +49,42 @@ const postRequest = async (req, res) => {
 };
 
 const putRequest = async (req, res) => {
-  const { newState, request_id } = req.body;
+  const { state, id } = req.body;
   try {
-    await Request.update(
+    const asd = await Request.update(
       {
-        state: newState,
+        state
       },
       {
         where: {
-          id: request_id,
+          id
         },
       }
     );
-    res.status(201).send("updated");
+    console.log(asd)
+    res.status(201).send('Updated');
   } catch (error) {
     res.status(404).send(error);
   }
 };
 
+const deleteRequest = async (req,res) => {
+  const { id } = req.body
+  try {
+    await Request.destroy({
+      where: {
+        id
+      }
+    })
+    res.send('Estado borrado exitosamente')
+  } catch (error) {
+    console.log(error)
+  }
+}
+ 
 module.exports = {
   getRequest,
   postRequest,
   putRequest,
+  deleteRequest
 };
