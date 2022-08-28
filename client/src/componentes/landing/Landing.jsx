@@ -49,20 +49,23 @@ export default function Landing() {
                 <CardLanding />
         </Box>
         <Box variant='section' className='get-started-welcome'>
-            <Typography variant='h3' className='gt-tiitle'>Comenzamos?</Typography>
-            <Typography viariant='p'>Ingresa con cualquiera de estos botones y/o inicia sesion con tu cuenta nueva o ya registrada</Typography>
-            <Box variant='div' className='bttns-welcome' sx={{display:'flex', gap:'100px', margin:'60px 0 0', justifyContent:'center', height:'400px'}}>
-                <Link style={{ textDecoration: 'none',
-    textTransform: 'none' }} to='/home' >
+            <Typography sx={{padding:'60px'}} variant='h3' className='gt-tiitle'>Comenzamos?</Typography>
+            <Typography sx={{padding:'10px'}} viariant='p'>Ingresa con cualquiera de estos botones y/o inicia sesion con tu cuenta nueva o ya registrada</Typography>
+            <Box sx={{display:'flex', gap:'100px', justifyContent:'center', height:'200px'}}>
+                <Link style={{ display:'flex', alignItems:'center', textDecoration: 'none', textTransform: 'none' }} to='/home' >
                 {/* <Typography className='bttns_welcome' sx={{height:'138px'}} variant='h5'>Ingreso sin cuenta</Typography> */}
-                <button onClick={handleAnonymous}>Ingresar como anonimo</button>
+                <Box variant='div' className='bttns_welcome'>
+                <Typography s variant='h5' 
+                        style={{cursor:'pointer'}} 
+                        onClick={handleAnonymous}
+                    >
+                        Ingresar como anonimo
+                    </Typography>
+                </Box>
                 </Link>
-                <Link style={{ textDecoration: 'none',
-    textTransform: 'none'}}to='/login'>
+                <Link style={{ display:'flex', alignItems:'center', textDecoration: 'none', textTransform: 'none'}}to='/login'>
                     <Box variant='div' className='bttns_welcome'>
-                    <Typography s variant='h5'>Registrate</Typography>
-                    <Typography variant='h5'>O</Typography>
-                    <Typography variant='h5'>Ingresa con tu cuenta</Typography>
+                    <Typography s variant='h5'>Registrate o inicia sesion</Typography>
                     </Box>
                 </Link>
             </Box>
