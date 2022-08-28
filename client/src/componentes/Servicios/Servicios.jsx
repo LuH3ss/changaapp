@@ -7,6 +7,7 @@ import {useAuth} from '../../context/authContext'
 import Navbar from "../PrivateRoute/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import FormService from "./AuxService/FormService";
+import { Box } from "@mui/system";
 
 
 
@@ -24,18 +25,20 @@ export default function Servicios() {
     
 
   return (
-    <div>
+    <Box>
       <Navbar/>
       {
         user?.email === null 
-        ? <p>
-        No tienes acceso a estos datos ya que ingresaste como un usuario
-        anonimo. Ve a la seccion de registrar para poder utilizar estos
-        servicios.
-        <Link to="/register">Registrarse</Link>
-      </p>
+        ?
+          <p>
+            No tienes acceso a estos datos ya que ingresaste como un usuario
+            anonimo. Ve a la seccion de registrar para poder utilizar estos
+            servicios.
+            <Link to="/register">Registrarse</Link>
+          </p>
+        
         : <FormService/>
       }
-    </div>
+    </Box>
   );
 }
