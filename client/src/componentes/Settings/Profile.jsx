@@ -65,7 +65,7 @@ export default function Profile() {
               <Box variant='section' className="profile-container" sx={{ padding: '10%'}}>
                 <Box sx={{display:'flex', flexDirection: 'column', gap:'20px', height: '300px',
     width: '300px'}}>
-                  <Box sx={{display: 'flex', gap: '80px', alignItems:'center'}} >
+                  <Box sx={{display: 'flex', gap: '98px', alignItems:'center'}} >
                     <Avatar sx={{ width: 90, height: 90 }} alt="Profile photo" src={estado[0].img} />
                     <Typography variant="h5">Perfil</Typography>
                   </Box>
