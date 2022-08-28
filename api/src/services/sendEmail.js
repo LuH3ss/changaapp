@@ -25,7 +25,7 @@ const sendEmail = async (req, res) => {
     if (error) {
       return res.status(400).send(console.log(error.message));
     } else {
-      res.status(200).send("Mail send");
+      res.status(200).send("Mail send" + info.response);
     }
   });
 };

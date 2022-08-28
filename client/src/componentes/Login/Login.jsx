@@ -94,81 +94,83 @@ export default function Login() {
 
   return (
     <div>
-      <Nav/>
+      <Nav />
       <Box style={styles.container}>
-      <Box style={styles.login}>
-        <Typography variant="h4" sx={{ marginBottom: "30px" }}>
-          Login
-        </Typography>
-        <form style={styles.form} onSubmit={(e) => handleSumbit(e)}>
-          {error && <p>{error}</p>}
-          <Box sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              style={styles.input}
-              type="email"
-              name="email"
-              value={user.email}
-              onChange={handleOnChange}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Contraseña"
-              variant="outlined"
-              style={styles.input}
-              type="password"
-              name="password"
-              value={user.password}
-              onChange={handleOnChange}
-            />
-            <Button style={styles.button} type="submit">
-              Iniciar Sesion
-            </Button>
-          </Box>
-        </form>
-        <Box
-          sx={{
-            display: "flex",
-          }}
-        >
-          <Typography mr={4} variant="h6">
-            Aun no te has registrado?
+        <Box style={styles.login}>
+          <Typography variant="h4" sx={{ marginBottom: "30px" }}>
+            Login
           </Typography>
-          <Link style={{ textDecoration: "none" }} to="/register">
-            <Button variant="contained">Registrar</Button>
-          </Link>
-          <p>
-            <Link to="/password">¿Olvidaste la constraseña?</Link>
-          </p>
+          <form style={styles.form} onSubmit={(e) => handleSumbit(e)}>
+            {error && <p>{error}</p>}
+            <Box
+              sx={{ width: "100%", display: "flex", flexDirection: "column" }}
+            >
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                variant="outlined"
+                style={styles.input}
+                type="email"
+                name="email"
+                value={user.email}
+                onChange={handleOnChange}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Contraseña"
+                variant="outlined"
+                style={styles.input}
+                type="password"
+                name="password"
+                value={user.password}
+                onChange={handleOnChange}
+              />
+              <Button style={styles.button} type="submit">
+                Iniciar Sesion
+              </Button>
+            </Box>
+          </form>
+          <Box
+            sx={{
+              display: "flex",
+            }}
+          >
+            <Typography mr={4} variant="h6">
+              Aun no te has registrado?
+            </Typography>
+            <Link style={{ textDecoration: "none" }} to="/register">
+              <Button variant="contained">Registrar</Button>
+            </Link>
+            <p>
+              <Link to="/password">¿Olvidaste la constraseña?</Link>
+            </p>
+          </Box>
+          <Button
+            sx={{
+              backgroundColor: "#030303",
+              color: "#E5E7EB",
+              "&:hover": {
+                color: "primary.main",
+              },
+            }}
+            variant="outlined"
+            startIcon={<GoogleIcon />}
+            style={styles.button}
+            onClick={handleGoogle}
+          >
+            Iniciar Sesion con Google
+          </Button>
+          <Button
+            sx={{ backgroundColor: "#030303" }}
+            variant="outlined"
+            startIcon={<FacebookIcon />}
+            style={styles.button}
+            onClick={handleFacebook}
+          >
+            Iniciar Sesion con Facebook
+          </Button>
         </Box>
-        <Button
-          sx={{
-            backgroundColor: "#030303",
-            color: "#E5E7EB",
-            "&:hover": {
-              color: "primary.main",
-            },
-          }}
-          variant="outlined"
-          startIcon={<GoogleIcon />}
-          style={styles.button}
-          onClick={handleGoogle}
-        >
-          Iniciar Sesion con Google
-        </Button>
-        <Button
-          sx={{ backgroundColor: "#030303" }}
-          variant="outlined"
-          startIcon={<FacebookIcon />}
-          style={styles.button}
-          onClick={handleFacebook}
-        >
-          Iniciar Sesion con Facebook
-        </Button>
       </Box>
-    </Box>
     </div>
   );
 }
