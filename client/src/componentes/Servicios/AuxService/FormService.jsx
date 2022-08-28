@@ -8,6 +8,7 @@ import {
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
+import styles from './style'
 //MATERIAL UI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -24,7 +25,7 @@ function validate(service) {
   if (!service.name) error.name = "Debes ingresar un nombre al servicio";
   else if (service.name.length < 3)
     error.name = "El nombre debe tener mas de tres caracteres";
-  else if (!/^[a-z ñ]+$/i.test(service.name))
+  else if (!/[a-zA-ZÀ-ÖØ-öø-ÿ]+[a-zA-ZÀ-ÖØ-öø-ÿ]?/.test(service.name))
     error.name = "No puedes asignar numeros/caracteres especiales al nombre";
   //ERROR CATEGORIA
   else if (service.category.length !== 1)
@@ -32,9 +33,9 @@ function validate(service) {
   //ERROR DESCRIPCION
   else if (!service.description)
     error.description = "Debes ingresar una descripcion del servicio";
-  else if (service.description < 10)
+  else if (service.description.length < 10)
     error.description = "La descripcion es muy corta";
-  else if (service.description > 150)
+  else if (service.description.length > 150)
     error.description = "La descripcion es muy larga";
   //ERROR PRECIO
   // else if (!/^[0-9]$/.test(error.price)) error.price = 'Solo puedes ingresar numeros enteros'
@@ -141,6 +142,8 @@ export default function FormService() {
   }
 
   const handleCat = (dato) => {
+    document.getElementById("categoryLabel").style.display = 'none'
+
     if (service.category) {
       if (service.category.includes(dato)) {
         console.log("ya lo agregaste");
@@ -181,62 +184,6 @@ export default function FormService() {
     navigate("/home");
   };
 
-  const styles = {
-    container: {
-      padding:'20px',
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "#E5E7EB",
-      color: "#1F2937",
-    },
-    containerForm: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    box: {
-      display: "flex",
-      flexDirection: "column",
-      width: "100%",
-    },
-    form: {
-      alignItems: "center",
-      width: "100%",
-      display:'flex',
-      flexDirection:'column'
-    },
-    input: {
-      width: "100%",
-      margin: "10px 0 10px 0",
-      
-    },
-    time: {
-      width: '70px',
-      height: '30px',
-      backgroundColor: 'transparent',
-      border: 'solid grey 0.5px',
-      borderRadius:'3px',
-      padding: '7px',
-      outline:'none'
-    },
-    hourAdded: {
-      width:'70%', 
-      borderRadius:'10px', 
-      border:'solid grey 0.5px', 
-      display:'flex'
-    },
-    bottomButtons: {
-      display: "flex", 
-      justifyContent: "space-around", 
-      padding:'50px', 
-      width:'50%'
-    }
-  };
-
-  console.log(service)
 
   return (
       <Box style={styles.container}>
@@ -261,10 +208,9 @@ export default function FormService() {
                 
                 <Box style={styles.box}>
                   <FormControl fullWidth sx={{padding:'7px 0'}}>
-                    <InputLabel>Categoría</InputLabel>
+                    <InputLabel id="categoryLabel">Categoría</InputLabel>
                     <Select
                       value={service.category}
-                      label={"Categoría"}
                       onChange={(e) => handleCat(e.target.value)}
                     >
                       {
