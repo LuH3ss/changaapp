@@ -27,7 +27,7 @@ export default function StateRequester(){
                         return(
                             <div>
                                 <h3>{e.services?.name}</h3>
-                                <p>El servicio lo solictaste para el dia {e.day} a las {e.hours}hs</p>
+                                <p>El servicio esta solicitado para el dia {e.day} a las {e.hours}hs</p>
                                 <p>Estado: {e.state}</p>
                                 {
                                     e.state === 'rechazado' ? <button>Eliminar</button> 
