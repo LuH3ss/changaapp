@@ -13,6 +13,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
 
 function validate(service) {
   let error = {};
@@ -48,7 +52,8 @@ export default function FormService() {
     price: "",
     category: [],
     day: [],
-    category_id: "",
+    hours: [],
+    category_id: ""
   });
 
   const disptach = useDispatch();
@@ -102,13 +107,38 @@ export default function FormService() {
 
   //Manejo de días de disponibilidad
   const handleDay = (e) => {
-    if (!service.day.includes(e.target.value)) {
+    if(!service.day.includes(e.target.value)){
+      e.target.style.cssText = 'color: #E5E7EB; background-color: #1F2937';
       setService({
         ...service,
-        day: [...service.day, e.target.value],
+        day: [...service.day, e.target.value]
       });
+    }else{
+      e.target.style.cssText = 'color: #1F2937; background-color: #E5E7EB';
+      setService({
+        ...service,
+        day: service.day.filter(el => el !== e.target.value)
+      });
+    } 
+  }
+
+  //manejo de horarios de disponibilidad
+  const handleTime = (e) => {
+    let inputValue = document.getElementById('time');
+    if(inputValue.value !== '' && !service.hours.includes(inputValue.value)){
+      setService({
+        ...service,
+        hours: [...service.hours, inputValue.value]
+      })
     }
-  };
+  }
+
+  const handleDeleteTime = (e) => {
+    setService({
+      ...service,
+      hours: service.hours.filter(el => el !== e.target.value)
+    })
+  }
 
   const handleCat = (dato) => {
     if (service.category) {
@@ -134,9 +164,10 @@ export default function FormService() {
 
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
-    service.day = service.day.join(",");
     e.preventDefault();
-    if (service.user_id === "") service.user_id = estado[0].id;
+    service.day = service.day.join(",")
+    service.hours = service.hours.join(',')
+    if(service.user_id === '') service.user_id = estado[0].id
     disptach(postService(service));
     setService({
       name: "",
@@ -145,21 +176,22 @@ export default function FormService() {
       price: "",
       category: [],
       day: [],
+      hours:[]
     });
     navigate("/home");
   };
 
   const styles = {
     container: {
+      padding:'20px',
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      height: "100vh",
       backgroundColor: "#E5E7EB",
       color: "#1F2937",
     },
     containerForm: {
-      width: "40%",
+      width: "100%",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -171,93 +203,189 @@ export default function FormService() {
       width: "100%",
     },
     form: {
+      alignItems: "center",
       width: "100%",
+      display:'flex',
+      flexDirection:'column'
     },
     input: {
       width: "100%",
       margin: "10px 0 10px 0",
+      
     },
+    time: {
+      width: '70px',
+      height: '30px',
+      backgroundColor: 'transparent',
+      border: 'solid grey 0.5px',
+      borderRadius:'3px',
+      padding: '7px',
+      outline:'none'
+    },
+    hourAdded: {
+      width:'70%', 
+      borderRadius:'10px', 
+      border:'solid grey 0.5px', 
+      display:'flex'
+    },
+    bottomButtons: {
+      display: "flex", 
+      justifyContent: "space-around", 
+      padding:'50px', 
+      width:'50%'
+    }
   };
 
+  console.log(service)
+
   return (
-    <div>
       <Box style={styles.container}>
         <Box style={styles.containerForm}>
-          <Typography variant="h4">Servicios</Typography>
+          <Typography sx={{margin:'20px'}} variant="h4">Publicá tu servicio</Typography>
           <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
-            <Box style={styles.box}>
-              <TextField
-                id="outlined-basic"
-                label="Nombre del Servicio"
-                variant="outlined"
-                style={styles.input}
-                type="text"
-                name="name"
-                value={service.name}
-                onChange={handleOnChange}
-              />
-            </Box>
-
-            <Box style={styles.box}>
-              <Typography variant="h6">Categorías</Typography>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <select onChange={(e) => handleCat(e.target.value)}>
-                  {categories?.map((el) => {
-                    return <option value={el.id} key={el.id}>{el.name}</option>;
-                  })}
-                </select>
+            <Box sx={{width:'100%', display:'flex'}}>
+              <Box sx={{width:'50%', padding:'20px 10px 0 20px'}}>
+                <Box style={styles.box}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Nombre del Servicio"
+                    variant="outlined"
+                    style={styles.input}
+                    type="text"
+                    name="name"
+                    value={service.name}
+                    onChange={handleOnChange}
+                  />
+                </Box>
+      
+                
+                <Box style={styles.box}>
+                  <FormControl fullWidth sx={{padding:'7px 0'}}>
+                    <InputLabel>Categoría</InputLabel>
+                    <Select
+                      value={service.category}
+                      label={"Categoría"}
+                      onChange={(e) => handleCat(e.target.value)}
+                    >
+                      {
+                        categories?.map(el => {
+                          return <MenuItem value={el.id}>{el.name}</MenuItem>
+                        })
+                      }
+                    </Select>
+                  </FormControl>
+                </Box>
+      
+                <Box style={styles.box}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Descripción"
+                    variant="outlined"
+                    style={styles.input}
+                    type="text"
+                    name="description"
+                    value={service.description}
+                    onChange={handleOnChange}
+                  />
+                </Box>
+                
+                <Box style={styles.box}>
+                  <TextField
+                    id="outlined-basic"
+                    label="Precio del servicio"
+                    variant="outlined"
+                    style={styles.input}
+                    type="number"
+                    name="price"
+                    value={service.price}
+                    onChange={handleOnChange}
+                  />
+                </Box>
               </Box>
-            </Box>
+            <Box sx={{width:'50%', padding:'20px 20px 0 10px'}}>
+              <Box sx={{ display: 'flex', flexDirection: 'column'}}>
+                <Typography 
+                  variant="h7"
+                  sx={{textAlign:'center', padding: '30px'}}
+                >
+                  Seleccioná días de disponibilidad
+                </Typography>
+                <Box sx={{ display: 'flex', flexDirection: 'row'}}>
+                  {
+                    ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'].map(el => {
+                      return <Button 
+                        value={el} 
+                        onClick={(e)=>handleDay(e)}
+                        variant="outlined"
+                        sx={{color: "#1F2937", margin: '5px', padding:'5px'}}
+                        >
+                          {el}
+                      </Button>
+                    })
+                  }
+                </Box>
+                
+              </Box>
 
-            <Box style={styles.box}>
-              <TextField
-                id="outlined-basic"
-                label="Descripcón"
-                variant="outlined"
-                style={styles.input}
-                type="text"
-                name="description"
-                value={service.description}
-                onChange={handleOnChange}
-              />
-            </Box>
-
-            <Box style={styles.box}>
-              <TextField
-                id="outlined-basic"
-                label="Precio del servicio"
-                variant="outlined"
-                style={styles.input}
-                type="number"
-                name="price"
-                value={service.price}
-                onChange={handleOnChange}
-              />
-            </Box>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              {["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"].map(
-                (el) => {
-                  return (
-                    <Button value={el} onClick={(e) => handleDay(e)}>
-                      {el}
+              <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                <Typography 
+                  variant="h7"
+                  sx={{textAlign:'center', padding: '30px'}}
+                >
+                  Agregá horarios de disponibilidad
+                </Typography>
+                <Box sx={{display:'flex', width:'100%'}}>
+                  <Box sx={{display:'flex', alignItems:'center', width:'30%'}}>
+                    <input id="time" type="time" style={styles.time} />
+                    <Button
+                      onClick={handleTime}
+                      sx={{ width: '40px',height: '45px',outline: 'none' }}
+                      variant='outlined'
+                    >
+                      ➕
                     </Button>
-                  );
-                }
-              )}
+                  </Box>
+                  <Box style={styles.hourAdded}>
+                    {
+                      service?.hours.map(el=>{
+                        return <Box sx={{display:'flex', alignItems:'center', padding:'5px'}}>
+                          <Typography>{el}</Typography>
+                          <Button 
+                          value={el} 
+                          onClick={(e)=>handleDeleteTime(e)} 
+                          sx={{minWidth:'20px',padding:'0'}}
+                          >
+                            ✖
+                          </Button>
+                        </Box>
+                      })
+                    }
+                  </Box>
+                </Box>
+              </Box>
+
+              
             </Box>
-            <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Button>
+            </Box>
+              <Box style={styles.bottomButtons}>
+                
                 <Link style={{ textDecoration: "none" }} to="/home">
-                  <label style={{ color: "#1F2937" }}>Volver atras</label>
+                  <Button sx={{ color: "#1F2937"}} variant='outlined'>
+                    Volver atras
+                  </Button>
                 </Link>
-              </Button>
-              <Button sx={{ color: "#1F2937" }} type="submit" disabled={!btn}>
-                Crear
-              </Button>
-            </Box>
+
+                <Button 
+                  sx={{ color: "#1F2937" }} 
+                  type="submit" 
+                  disabled={!btn}
+                  variant='outlined'
+                >
+                  Crear
+                </Button>
+              </Box>
           </form>
         </Box>
       </Box>
-    </div>
   );
 }
