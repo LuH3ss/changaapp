@@ -72,6 +72,22 @@ export default function RequestService(props) {
     });
   };
 
+  const handleHour = (e) => {
+    if(request.hours === ''){
+      setRequest({
+        ...request,
+        hours: e.target.value
+      });
+    }
+    else if(request.hours !== e.target.value){
+      document.getElementById(request.hours).checked = false;
+      setRequest({
+        ...request,
+        hours: e.target.value
+      });
+    }
+  };
+
   const handleSubmit = (e) => {
     // e.preventDefault()
     // console.log('dasdasdas')
@@ -225,28 +241,31 @@ export default function RequestService(props) {
                           );
                       })}
                     </Box>
-                    <Box style={styles.box}>
-                      <TextField
-                        id="outlined-basic"
-                        label="horario"
-                        variant="outlined"
-                        style={styles.input}
-                        type="text"
-                        name="hours"
-                        value={request.hours}
-                        onChange={handleOnChange}
-                      />
+                    <Box sx={{display:'flex', justifyContent:'space-between', padding:'10px'}}>
+                      {
+                        service?.hours?.split(',').map(el => {
+                          return <Box sx={{display:'flex', alignItems:'center', padding:'5px', border:'solid grey 0.5px', borderRadius:'3px'}}>
+                            <Typography>{el}</Typography>
+                            <input 
+                              id={el}
+                              onChange={(e)=>handleHour(e)} 
+                              type="checkbox" 
+                              value={el}
+                            />
+                          </Box>
+                        })
+                      }
                     </Box>
 
                     <Box
-                      sx={{ display: "flex", justifyContent: "space-around" }}
+                      sx={{ display: "flex", justifyContent: "space-around", padding:'30px' }}
                     >
                       <Link style={{ textDecoration: "none" }} to="/home">
-                        <Button style={{ color: "#1F2937" }}>
+                        <Button variant='outlined' style={{ color: "#1F2937" }}>
                           Volver atras
                         </Button>
                       </Link>
-                      <Button sx={{ color: "#1F2937" }} type="submit">
+                      <Button variant='outlined' sx={{ color: "#1F2937" }} type="submit">
                         Solicitar
                       </Button>
                     </Box>

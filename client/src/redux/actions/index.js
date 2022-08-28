@@ -14,9 +14,45 @@ export const FILTER = "FILTER";
 export const UPDATE = "UPDATE";
 export const GET_SERVICE_ID = "GET_SERVICE_ID";
 export const POST_REQUEST = "POST_REQUEST";
-
+export const UPDATE_REQUEST = "UPDATE_REQUEST";
+export const DELETE_REQUEST = "DELETE_REQUEST";
+export const ALL_REQUEST = "ALL_REQUEST";
 const EP = "http://localhost:3001";
 
+//ACTIONS PARA LOS USUARIOS
+export function registerUser(user) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/user`, user).then((detalle) =>
+      dispatch({
+        type: REGISTER_USER,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+export function getUserEmail(email) {
+  return async function (dispatch) {
+    await axios.get(`${EP}/user/${email}`).then((detalle) =>
+      dispatch({
+        type: FILTER,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function updateUser(email, data) {
+  return async function (dispatch) {
+    await axios.put(`${EP}/user/${email}`, data).then((detalle) =>
+      dispatch({
+        type: UPDATE,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+//ACTION PARA LOS SERVICIOS
 export function getDetail(id) {
   return async function (dispatch) {
     try {
@@ -29,17 +65,6 @@ export function getDetail(id) {
     } catch (error) {
       console.log(error);
     }
-  };
-}
-
-export function registerUser(user) {
-  return async function (dispatch) {
-    await axios.post(`${EP}/user`, user).then((detalle) =>
-      dispatch({
-        type: REGISTER_USER,
-        payload: detalle.data,
-      })
-    );
   };
 }
 
@@ -70,13 +95,6 @@ export function sortServices(payload) {
   };
 }
 
-export function filterByCategory(payload) {
-  return {
-    type: FILTER_SERVICES,
-    payload: payload,
-  };
-}
-
 export function getName(name) {
   return async (dispatch) => {
     const dataDb = await axios(`${EP}/services/search?name=` + name);
@@ -98,52 +116,6 @@ export function postService(service) {
   };
 }
 
-export function postCategory(category) {
-  return async function (dispatch) {
-    await axios.post(`${EP}/category`, category).then((detalle) =>
-      dispatch({
-        type: POST_CATEGORY,
-        payload: detalle.data,
-      })
-    );
-  };
-}
-
-//PROBANDO COSAS
-
-export function getUserEmail(email) {
-  return async function (dispatch) {
-    await axios.get(`${EP}/user/${email}`).then((detalle) =>
-      dispatch({
-        type: FILTER,
-        payload: detalle.data,
-      })
-    );
-  };
-}
-
-export function updateUser(email, data) {
-  return async function (dispatch) {
-    await axios.put(`${EP}/user/${email}`, data).then((detalle) =>
-      dispatch({
-        type: UPDATE,
-        payload: detalle.data,
-      })
-    );
-  };
-}
-
-export function postRequest(request) {
-  return async function (dispatch) {
-    await axios.post(`${EP}/request`, request).then((data) =>
-      dispatch({
-        type: POST_REQUEST,
-        payload: data.data,
-      })
-    );
-  };
-}
-
 export function updateService(id, service) {
   return async function (dispatch) {
     await axios.put(`${EP}/services/${id}`, service).then((detalle) =>
@@ -160,6 +132,70 @@ export function getServiceById(id) {
     await axios.get(`${EP}/services/${id}`).then((detalle) =>
       dispatch({
         type: GET_SERVICE_ID,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+//ACTION PARA LAS CATEGORIAS
+export function filterByCategory(payload) {
+  return {
+    type: FILTER_SERVICES,
+    payload: payload,
+  };
+}
+
+export function postCategory(category) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/category`, category).then((detalle) =>
+      dispatch({
+        type: POST_CATEGORY,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+//ACTION PARA LAS REQUEST
+export function postRequest(request) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/request`, request).then((data) =>
+      dispatch({
+        type: POST_REQUEST,
+        payload: data.data,
+      })
+    );
+  };
+}
+
+export function updateRequest(state) {
+  return async function (dispatch) {
+    await axios.put(`${EP}/request`, state).then((detalle) =>
+      dispatch({
+        type: UPDATE_REQUEST,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function deleteRequest() {
+  return async function (dispatch) {
+    await axios.delete(`${EP}/request`).then((detalle) =>
+      dispatch({
+        type: DELETE_REQUEST,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function allRequest() {
+  return async function (dispatch) {
+    await axios.get(`${EP}/request`).then((detalle) =>
+      dispatch({
+        type: ALL_REQUEST,
         payload: detalle.data,
       })
     );
