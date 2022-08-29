@@ -79,8 +79,11 @@ const getByName = async (req, res) => {
   try {
     const { name } = req.query;
     const response = await Services.findAll({
-      where: { name: { [Op.startsWith]: name } },
-      include: Category,
+      where: { name: { [Op.iLike]: `%${name}%` } },
+      include: {
+        model: Category,
+        as: 'category'
+      },
     });
     res.send(response);
   } catch (error) {

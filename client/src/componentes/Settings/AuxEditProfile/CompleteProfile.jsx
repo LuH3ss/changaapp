@@ -19,7 +19,7 @@ export default function CompleteProfile() {
     img: "",
     firstName: "",
     lastName: "",
-    phone: "",
+   
     birthDate: "",
   });
   const [btn, setBtn] = useState(false);
@@ -90,7 +90,7 @@ export default function CompleteProfile() {
           />
         </div>
         <div>
-          <label>Fecha de nacimiento: </label>
+          <label>Edad: </label>
           <input
             type="number"
             name="birthDate"
@@ -98,15 +98,7 @@ export default function CompleteProfile() {
             onChange={handleOnChange}
           />
         </div>
-        <div>
-          <label>Numero de telefono: </label>
-          <input
-            type="tel"
-            name="phone"
-            value={fire.phone}
-            onChange={handleOnChange}
-          />
-        </div>
+    
         <button type="submit" disabled={btn}>
           Cargar Datos
         </button>
