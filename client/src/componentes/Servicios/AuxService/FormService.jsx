@@ -210,12 +210,12 @@ export default function FormService() {
                   <FormControl fullWidth sx={{padding:'7px 0'}}>
                     <InputLabel id="categoryLabel">Categoría</InputLabel>
                     <Select
-                      value={service.category}
+                      value={''}
                       onChange={(e) => handleCat(e.target.value)}
                     >
                       {
                         categories?.map(el => {
-                          return <MenuItem value={el.id}>{el.name}</MenuItem>
+                          return <MenuItem key={el} value={el.id}>{el.name}</MenuItem>
                         })
                       }
                     </Select>
@@ -260,6 +260,7 @@ export default function FormService() {
                   {
                     ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'].map(el => {
                       return <Button 
+                        key={el}
                         value={el} 
                         onClick={(e)=>handleDay(e)}
                         variant="outlined"
