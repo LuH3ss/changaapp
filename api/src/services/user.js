@@ -1,4 +1,5 @@
 const { Category, Services, Solicitud, User, Reviews } = require("../db");
+const sendEmail = require("./Emails/registerMail");
 
 const { allUsers } = require("../utils/utils");
 
@@ -37,11 +38,12 @@ const register = async (req, res) => {
         // admin,
         // banned,
       });
-      return res.status(201).send(newUser);
+      res.status(201).send(newUser);
     }
   } catch (error) {
     return res.status(400).send(console.log(error.message));
   }
+  sendEmail.sendEmail(email);
 };
 
 const getUsers = async (req, res) => {

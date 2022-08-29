@@ -22,7 +22,9 @@ function validate(user) {
   //ERROR FECHA DE NACIMIENTO
   else if (!user.birthDate)
     error.birthDate = "Debes ingresar una fecha de nacimiento";
-  else if(user.birthDate < 18) error.date = 'Para registrarte a esta plataforma debes ser mayor de 18 años'
+  else if (user.birthDate < 18)
+    error.date =
+      "Para registrarte a esta plataforma debes ser mayor de 18 años";
   //ERROR NUMERO DE TELEFONO
   else if (!/^[0-9]/.test(user.phone))
     error.phone = "No puedes ingresar letras, unicamente numeros";
@@ -80,7 +82,7 @@ export default function Register() {
       const data = new FormData();
       data.append("file", file);
       data.append("upload_preset", "changApp");
-      
+
       const cloudinary = await axios.post(CLODUNIARY_API, data);
 
       setUser({
@@ -127,10 +129,8 @@ export default function Register() {
       if (error.code === "auth/email-already-in-use") {
         setFire("El email ya se encuentra registrado");
       }
-      
     }
   };
-
 
   const styles = {
     container: {
@@ -147,26 +147,22 @@ export default function Register() {
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: 'rgba(26, 155, 241, 0.143) ',
-      padding:'20px',
-      borderRadius: '15px',
-      
+      backgroundColor: "rgba(26, 155, 241, 0.143) ",
+      padding: "20px",
+      borderRadius: "15px",
     },
     box: {
       display: "flex",
       flexDirection: "column",
       width: "100%",
-      
     },
     form: {
       width: "100%",
-      display: 'flex',
-      flexDirection: 'column',
-      gap:'15px',
-      alignItems: 'center',
-      marginBottom: '15px',
-      
-
+      display: "flex",
+      flexDirection: "column",
+      gap: "15px",
+      alignItems: "center",
+      marginBottom: "15px",
     },
     input: {
       width: "100%",
@@ -176,92 +172,89 @@ export default function Register() {
 
   return (
     <Box style={styles.container}>
+      <div style={styles.containerForm}>
+        <h1>Registrarse</h1>
+        {fire && <p>{fire}</p>}
+        <form style={styles.form} onSubmit={(e) => handleOnSubmit(e)}>
+          <div>
+            <label>Nombre: </label>
+            <input
+              type="text"
+              name="firstName"
+              value={user.firstName}
+              onChange={handleOnChange}
+            />
+            {error.name && <p>{error.name}</p>}
+          </div>
+          <div>
+            <label>Apellido</label>
+            <input
+              type="text"
+              name="lastName"
+              value={user.lastName}
+              onChange={handleOnChange}
+            />
+            {error.lastname && <p>{error.lastname}</p>}
+          </div>
+          <div>
+            <label>Fecha de Nacimiento: </label>
+            <input
+              type="number"
+              value={user.birthDate}
+              name="birthDate"
+              onChange={handleOnChange}
+            />
+            {error.birthDate && <p>{error.birthDate}</p>}
+          </div>
+          <div>
+            <label>Telefono / Celular: </label>
+            <input
+              type="text"
+              value={user.phone}
+              name="phone"
+              onChange={handleOnChange}
+            />
+            {error.phone && <p>{error.phone}</p>}
+          </div>
+          <div>
+            <label>Foto de perfil</label>
+            <input
+              type="file"
+              accept="image/jpeg"
+              name="img"
+              onChange={handleImage}
+            />
+            {error.photo && <p>{error.photo}</p>}
+          </div>
+          <div>
+            <label htmlFor="email">Email: </label>
+            <input
+              type="email"
+              name="email"
+              value={user.email}
+              onChange={handleOnChange}
+            />
+            {error.email && <p>{error.email}</p>}
+          </div>
+          <div>
+            <label>Password: </label>
+            <input
+              type="password"
+              name="password"
+              value={user.password}
+              onChange={handleOnChange}
+            />
+            {error.password && <p>{error.password}</p>}
+          </div>
 
-    <div style={styles.containerForm}>
-      <h1>Registrarse</h1>
-      {fire && <p>{fire}</p>}
-      <form style={styles.form}  onSubmit={(e) => handleOnSubmit(e)}>
-        <div>
-          <label>Nombre: </label>
-          <input
-            type="text"
-            name="firstName"
-            value={user.firstName}
-            onChange={handleOnChange}
-          />
-          {error.name && <p>{error.name}</p>}
-        </div>
-        <div>
-          <label>Apellido</label>
-          <input
-            type="text"
-            name="lastName"
-            value={user.lastName}
-            onChange={handleOnChange}
-            />
-          {error.lastname && <p>{error.lastname}</p>}
-        </div>
-        <div>
-          <label>Fecha de Nacimiento: </label>
-          <input
-            type="number"
-            value={user.birthDate}
-            name="birthDate"
-            onChange={handleOnChange}
-            />
-          {error.birthDate && <p>{error.birthDate}</p>}
-        </div>
-        <div>
-          <label>Telefono / Celular: </label>
-          <input
-            type="text"
-            value={user.phone}
-            name="phone"
-            onChange={handleOnChange}
-          />
-          {error.phone && <p>{error.phone}</p>}
-        </div>
-        <div>
-          <label>Foto de perfil</label>
-          <input
-            type="file"
-            accept="image/jpeg"
-            name="img"
-            onChange={handleImage}
-            />
-          {error.photo && <p>{error.photo}</p>}
-        </div>
-        <div>
-          <label htmlFor="email">Email: </label>
-          <input
-            type="email"
-            name="email"
-            value={user.email}
-            onChange={handleOnChange}
-            />
-          {error.email && <p>{error.email}</p>}
-        </div>
-        <div>
-          <label>Password: </label>
-          <input
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={handleOnChange}
-          />
-          {error.password && <p>{error.password}</p>}
-        </div>
-
-        <Button variant="outlined" type="submit" disabled={!boton}>
-          Registrarse
-        </Button>
-      </form>
-      <Link style={{textDecoration: 'none'}} to="/">
-        <Button  variant="contained">
-          Volver
+          <Button variant="outlined" type="submit" disabled={!boton}>
+            Registrarse
           </Button>
-          </Link>
-    </div>
-            </Box>
+        </form>
+        <Link style={{ textDecoration: "none" }} to="/">
+          <Button variant="contained">Volver</Button>
+        </Link>
+      </div>
+    </Box>
   );
 }

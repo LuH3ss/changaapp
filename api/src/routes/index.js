@@ -13,10 +13,15 @@ const {
   getByName,
   updateService,
 } = require("../services/service");
-const { sendEmail } = require("../services/sendEmail");
+const { sendEmail } = require("../services/Emails/registerMail");
 const { getCategories, postCategorie } = require("../services/category");
 const { paymentMethod } = require("../services/payment");
-const { getRequest, postRequest, putRequest, deleteRequest } = require("../services/request");
+const {
+  getRequest,
+  postRequest,
+  putRequest,
+  deleteRequest,
+} = require("../services/request");
 const { getReviews, postReviews } = require("../services/reviews");
 
 // Importar todos los routers;
@@ -45,7 +50,7 @@ router.post("/category", postCategorie);
 router.get("/request", getRequest);
 router.post("/request", postRequest);
 router.put("/request", putRequest);
-router.delete('/request', deleteRequest)
+router.delete("/request", deleteRequest);
 
 //payment routes
 router.post("/payment", paymentMethod);
@@ -55,6 +60,6 @@ router.get("/reviews", getReviews);
 router.post("/reviews", postReviews);
 
 //sendEmail routes
-router.put("/sendemail", sendEmail);
+router.post("/sendemail", sendEmail);
 
 module.exports = router;
