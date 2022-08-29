@@ -1,14 +1,11 @@
 const { Category, Services, Solicitud, User, Reviews } = require("../db");
 const sendEmail = require("./Emails/registerMail");
 
-const { allUsers } = require("../utils/utils");
-
 const register = async (req, res) => {
   const { firstName, lastName, birthDate, email, img, offerer, admin, banned } =
     req.body;
 
   try {
-    // const allUser = await allUsers();
     const users = await User.findAll({
       include: {
         model: Services,
@@ -34,9 +31,6 @@ const register = async (req, res) => {
         offerer,
         admin,
         banned,
-        // offerer,
-        // admin,
-        // banned,
       });
       res.status(201).send(newUser);
     }
@@ -47,7 +41,6 @@ const register = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-  // const { email } = req.body;
   const { id } = req.body;
 
   const users = await User.findAll({
@@ -95,7 +88,6 @@ const updateUser = async (req, res) => {
 const filterUser = async (req, res) => {
   const { email } = req.params;
   if (email) {
-    // const alluser = await allUsers();
     const users = await User.findAll({
       include: {
         model: Services,
@@ -118,7 +110,6 @@ const filterUser = async (req, res) => {
 module.exports = {
   register,
   getUsers,
-
   updateUser,
   filterUser,
 };

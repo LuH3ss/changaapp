@@ -13,7 +13,7 @@ import { useAuth } from "../../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
-import styles from './style'
+import styles from "./style";
 
 export default function RequestService(props) {
   const { user } = useAuth();
@@ -21,8 +21,8 @@ export default function RequestService(props) {
   const [request, setRequest] = useState({
     day: "",
     hours: "",
-    service_id: '',
-    requester_id: ''
+    service_id: "",
+    requester_id: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -34,9 +34,7 @@ export default function RequestService(props) {
   const service = useSelector((state) => state.serviceDetail);
   const userDb = useSelector((state) => state.filter);
 
-// console.log(service?.user.img)
-
-
+  // console.log(service?.user.img)
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -74,17 +72,16 @@ export default function RequestService(props) {
   };
 
   const handleHour = (e) => {
-    if(request.hours === ''){
+    if (request.hours === "") {
       setRequest({
         ...request,
-        hours: e.target.value
+        hours: e.target.value,
       });
-    }
-    else if(request.hours !== e.target.value){
+    } else if (request.hours !== e.target.value) {
       document.getElementById(request.hours).checked = false;
       setRequest({
         ...request,
-        hours: e.target.value
+        hours: e.target.value,
       });
     }
   };
@@ -105,7 +102,6 @@ export default function RequestService(props) {
     });
     navigate("/home");
   };
-
 
   if (loading) return <h1>loading</h1>;
   else
@@ -175,30 +171,38 @@ export default function RequestService(props) {
                       })}
                     </Box>
                     <Box style={styles.containerHours}>
-                      {
-                        service?.hours?.split(',').map(el => {
-                          return <Box style={styles.hours}>
+                      {service?.hours?.split(",").map((el) => {
+                        return (
+                          <Box style={styles.hours}>
                             <Typography>{el}</Typography>
-                            <input 
+                            <input
                               id={el}
-                              onChange={(e)=>handleHour(e)} 
-                              type="checkbox" 
+                              onChange={(e) => handleHour(e)}
+                              type="checkbox"
                               value={el}
                             />
                           </Box>
-                        })
-                      }
+                        );
+                      })}
                     </Box>
 
                     <Box
-                      sx={{ display: "flex", justifyContent: "space-around", padding:'30px' }}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-around",
+                        padding: "30px",
+                      }}
                     >
                       <Link style={{ textDecoration: "none" }} to="/home">
-                        <Button variant='outlined' style={{ color: "#1F2937" }}>
+                        <Button variant="outlined" style={{ color: "#1F2937" }}>
                           Volver atras
                         </Button>
                       </Link>
-                      <Button variant='outlined' sx={{ color: "#1F2937" }} type="submit">
+                      <Button
+                        variant="outlined"
+                        sx={{ color: "#1F2937" }}
+                        type="submit"
+                      >
                         Solicitar
                       </Button>
                     </Box>
@@ -223,7 +227,8 @@ export default function RequestService(props) {
                 </Box>
               </Box>
             </Box>
-          </Box>)
-        }
-      </div>);
+          </Box>
+        )}
+      </div>
+    );
 }

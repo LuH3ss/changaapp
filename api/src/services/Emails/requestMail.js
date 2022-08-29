@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 const { PASSWORD, EMAIL } = process.env;
 
-function sendEmail(email) {
+function requestMail(email) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -15,8 +15,8 @@ function sendEmail(email) {
   var mailOptions = {
     from: `${EMAIL}`,
     to: `${email}`,
-    subject: "Registro Usuario",
-    text: "Bienvenido a ChangaApp. Su usuario ha sido registrado exitosamente",
+    subject: "Solicitud de servicio",
+    text: "Tiene una nueva solicitud de servicio en ChangaApp",
   };
 
   transporter.sendMail(mailOptions, function (error, info) {
@@ -29,5 +29,5 @@ function sendEmail(email) {
 }
 
 module.exports = {
-  sendEmail,
+  requestMail,
 };

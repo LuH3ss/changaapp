@@ -1,4 +1,5 @@
 const { Category, Services, Request, User } = require("../db");
+const sendEmail = require("./Emails/requestMail");
 
 const getRequest = async (req, res) => {
   try {
@@ -14,6 +15,14 @@ const getRequest = async (req, res) => {
             },
           },
           {
+            model: Services,
+            as: "services",
+            include: {
+              model: User,
+              as: "user",
+            },
+          },
+          {
             model: User,
             as: "userRequest",
           },
@@ -26,9 +35,6 @@ const getRequest = async (req, res) => {
 };
 
 const postRequest = async (req, res) => {
-
-  console.log('dasdasd')
-
   try {
     await Request.create({
       state: "pending",
@@ -37,11 +43,6 @@ const postRequest = async (req, res) => {
       service_id: req.body.service_id,
       requester_id: req.body.requester_id,
     });
-
-    // let service = await Services.findOne({ where: { id: req.body.service } });
-
-    // service.addRequest(request);
-
     res.status(201).send("created");
   } catch (error) {
     res.status(404).send(error);
@@ -53,38 +54,38 @@ const putRequest = async (req, res) => {
   try {
     const asd = await Request.update(
       {
-        state
+        state,
       },
       {
         where: {
-          id
+          id,
         },
       }
     );
-    console.log(asd)
-    res.status(201).send('Updated');
+    console.log(asd);
+    res.status(201).send("Updated");
   } catch (error) {
     res.status(404).send(error);
   }
 };
 
-const deleteRequest = async (req,res) => {
-  const { id } = req.body
+const deleteRequest = async (req, res) => {
+  const { id } = req.body;
   try {
     await Request.destroy({
       where: {
-        id
-      }
-    })
-    res.send('Estado borrado exitosamente')
+        id,
+      },
+    });
+    res.send("Estado borrado exitosamente");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
- 
+};
+
 module.exports = {
   getRequest,
   postRequest,
   putRequest,
-  deleteRequest
+  deleteRequest,
 };

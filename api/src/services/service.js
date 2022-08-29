@@ -37,9 +37,6 @@ const getServices = async (req, res) => {
 const getServicebyId = async (req, res) => {
   const { id } = req.params;
   try {
-    // let servicios = await Servicios.findAll();
-    // res.status(200).send(servicios.find((el) => el.id === id));
-
     const services = await Services.findOne({
       where: {
         id: id,
@@ -51,8 +48,8 @@ const getServicebyId = async (req, res) => {
         },
         {
           model: User,
-          as: "user"
-        }
+          as: "user",
+        },
       ],
     });
 
@@ -66,7 +63,6 @@ const postService = async (req, res) => {
   let { name, description, price, day, hours, category_id, user_id } = req.body;
 
   let serviceCreated = await Services.create({
-    // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
     description,
     price,
