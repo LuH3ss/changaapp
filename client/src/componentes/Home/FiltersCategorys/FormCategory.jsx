@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { getAllCategories } from "../../../redux/actions";
 
 export default function FormCategory(){
@@ -21,7 +21,9 @@ export default function FormCategory(){
     
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        
+        if(cat === '') {
+           return navigate(`/home/todos`)
+        }
         navigate(`/home/${cat}`)
     }
 
@@ -42,7 +44,7 @@ export default function FormCategory(){
                         )
                     })
                 }
-                <button>Filtrar</button>
+                <button type="submit">Filtrar</button>
             </form>
         </div>)
 }

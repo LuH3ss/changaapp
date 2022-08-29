@@ -29,7 +29,7 @@ const postRequest = async (req, res) => {
 
   try {
     await Request.create({
-      state: "pending",
+      state: "pendiente",
       day: req.body.day,
       hours: req.body.hours,
       service_id: req.body.service_id,
@@ -68,7 +68,7 @@ const putRequest = async (req, res) => {
 };
 
 const deleteRequest = async (req,res) => {
-  const { id } = req.body
+  const { id } = req.params
   try {
     await Request.destroy({
       where: {

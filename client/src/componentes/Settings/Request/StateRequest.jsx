@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import { getAllServices, updateRequest } from "../../../redux/actions";
+import {Link} from 'react-router-dom'
 
 export default function StateRequest() {
     const {user} = useAuth()
@@ -12,7 +13,7 @@ export default function StateRequest() {
         state: '',
         id: ''
     })
-    
+    console.log(filterEmail)
     useEffect(() => {
         dispatch(getAllServices())
     }, [dispatch])
@@ -32,16 +33,18 @@ export default function StateRequest() {
         window.location.reload(true)
     }
     
-    console.log(filterEmail[0])
     return(
         <div>
             <h1>Estado del Servicio</h1>
             {
-                filterEmail.length === 0 ? <p>No tienes estados pendientes de servicios</p>
+                filterEmail.length === 0 ? <p>Para ver los estados del servicio, primero debes publicar uno, dirigete a la seccion <Link to='/home/createService'>publicar servicio</Link></p>
+                : filterEmail?.map(p => {
+                    return p.request.length === 0 ? <p>No tienes estados pendientes de servicios</p>
+                
                 : (
-                    filterEmail[0]?.request.map(e => {
+                    p.request?.map(e => {
                          return (
-                            e.state === 'rechazado' ? <p>La orden #{e.id} del servicio fue rechazada</p> 
+                            e.state === 'rechazado' ? <p>La orden #{e.id} del servicio {filterEmail[0].name} fue rechazada</p> 
                             : <div>
                             <p>Nombre del servicio: {filterEmail[0]?.name}</p>
                             <p>Estado: {e.state}</p>
@@ -71,32 +74,8 @@ export default function StateRequest() {
                         
                     })
                 )
-            }
+            })
+                }
         </div>)
 }
 
-// return(
-                            
-//     e.request[0]?.state !== 'pending' && e.request[0]?.state !== 'aceptado' ? <p>Tu servicio {e.name} no recibio solicitudes nuevas</p> : 
-//         <div>
-//             <p>Nombre del servicio: {e.name}</p>
-//             <p>Estado: {e.request[0]?.state}</p>
-//             <p>Trabajo solicitado para el dia {e.request[0]?.day} a las {e.request[0]?.hours}hs</p>
-//             {
-//                 e.request[0]?.state === 'aceptado' 
-//                 ? <form onSubmit={e => handleOnSubmit(e)}>
-//                     <input type="checkbox" name='rechazado' id={e.request[0]?.id} onChange={handleOnClick}/>
-//                     <button type="submit">Actualizar</button>
-//                   </form>
-//                 : <form onSubmit={e => handleOnSubmit(e)}>
-//                 <label>Aceptar</label>
-//                  <input type="checkbox" name='aceptado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
-//                 <label>Rechazar</label>
-//                  <input type="checkbox" name='rechazado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
-//                  <div>
-//                      <button>Confirmar</button>
-//                  </div>
-//              </form>
-//             }
-//         </div>
-// )

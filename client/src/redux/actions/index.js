@@ -17,6 +17,7 @@ export const POST_REQUEST = "POST_REQUEST";
 export const UPDATE_REQUEST = "UPDATE_REQUEST";
 export const DELETE_REQUEST = "DELETE_REQUEST";
 export const ALL_REQUEST = 'ALL_REQUEST'
+export const DELETE_SERVICES = 'DELETE_SERVICES'
 const EP = "http://localhost:3001";
 
 //ACTIONS PARA LOS USUARIOS
@@ -140,6 +141,16 @@ export function getServiceById(id) {
   };
 }
 
+export function deleteService(id){ 
+  return async function(dispatch){
+    await axios.delete(`${EP}/services/${id}`)
+    .then(detalle => dispatch({
+      type: DELETE_SERVICES,
+      payload: detalle.data
+    }))
+  }
+}
+
 //ACTION PARA LAS CATEGORIAS
 export function filterByCategory(payload) {
   return {
@@ -183,9 +194,9 @@ export function updateRequest(state) {
   };
 }
 
-export function deleteRequest() {
+export function deleteRequest(id) {
   return async function (dispatch) {
-    await axios.delete(`${EP}/request`).then((detalle) =>
+    await axios.delete(`${EP}/request/${id}`).then((detalle) =>
       dispatch({
         type: DELETE_REQUEST,
         payload: detalle.data,
