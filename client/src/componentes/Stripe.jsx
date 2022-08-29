@@ -17,7 +17,9 @@ const stripePromise = loadStripe(publicUrl);
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const service = useSelector(state => state.serviceDetail)
+  const service = useSelector((state) => state.serviceDetail);
+  const request = useSelector((state) => state.allRequest);
+  console.log(request)
   const handlerSubmit = async (e) => {
     e.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -28,22 +30,28 @@ const CheckoutForm = () => {
       const { id } = paymentMethod;
       const { data } = await axios.post("http://www.localhost:3001/payment", {
         id,
-        amount: 10000,
+        amount: service.price,
       });
       console.log(data);
       console.log(paymentMethod);
       elements.getElement(CardElement).clear();
+      alert(data.message);
     }
   };
   return (
     <div className="container-flex">
       <form onSubmit={handlerSubmit} className="input">
-      <img src="https://seeklogo.com/images/V/VISA-logo-62D5B26FE1-seeklogo.com.png" className="logo-card"/>
-        <CardElement/>
-        <button className="proceed"><svg className="sendicon" width="24" height="24" viewBox="0 0 24 24">
-  <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
-</svg></button>
-        {/* <h3>{service.price}</h3> */}
+        <img
+          src="https://seeklogo.com/images/V/VISA-logo-62D5B26FE1-seeklogo.com.png"
+          className="logo-card"
+        />
+        <CardElement />
+        <button className="proceed">
+          <svg className="sendicon" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+          </svg>
+        </button>
+        <h3>Price: {service.price}</h3>
       </form>
     </div>
   );
