@@ -10,7 +10,7 @@ import EditProfile from "./componentes/Settings/EditProfile";
 import Password from "./componentes/ResetPassword/Password";
 import Profile from "./componentes/Settings/Profile";
 import Settings from "./componentes/Settings/Settings";
-import Landing from "./componentes/landing/Landing";
+import Landing from "./componentes/landing/Landing.jsx";
 import RequestService from "./componentes/RequestService/RequestService";
 import Footer from "./componentes/Footer";
 import Stripe from "./componentes/Stripe";
@@ -27,8 +27,9 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route exact path="/" element={[<Nav />, <Landing/>, <Footer />]} />
-        <Route exact path="/login" element={<Login />} />
+
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/password" element={<Password />} />
         <Route path="/home" element={<Guardar />} />

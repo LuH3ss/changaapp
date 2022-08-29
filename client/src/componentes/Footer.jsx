@@ -1,28 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../context/authContext";
+import { getAllCategories } from "../redux/actions";
 import "./css/footer.css";
 
 export default function Footer() {
-  const {user} = useAuth()
+  const { user } = useAuth();
+  let category = useSelector((state) => state.categories);
+  const dispatch = useDispatch();
+  category = category.slice(0, 4);
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
+
+  console.log(category);
+
   return (
     <div className="footer">
       <div className="footer__nombre">
         <h1>ChangaApp</h1>
       </div>
       <div className="seccion__footer--lista">
-        <ul className="footer__lista">
+        <ul>
           <p>Categorias</p>
+          {category &&
+            category.map((c) => {
+              return (
+                <div>
+                  <li className="footer__lista--item">
+                    <p>{c.name}</p>
+                  </li>
+                </div>
+              );
+            })}
           <li className="footer__lista--item">
-            <p>Electricidad</p>
-          </li>
-          <li className="footer__lista--item">
-            <p>Agua</p>
-          </li>
-          <li className="footer__lista--item">
-            <p>Jardineria</p>
-          </li>
-          <li className="footer__lista--item">
-            <p>Gas</p>
+            <p>Otras</p>
           </li>
         </ul>
       </div>
@@ -73,13 +85,9 @@ export default function Footer() {
             type="text"
             className="formulario__nombre"
             id="name"
-
-            required           
+            required
             data-tipo="name"
             placeholder={user?.email}
-
-            
-
           />
         </div>
         <div className="formulario__campo">
@@ -88,12 +96,8 @@ export default function Footer() {
             name="message"
             id="message"
             className="formulario__texto"
-
             required
             data-tipo="message"
-
-            
-
           ></textarea>
         </div>
         <button className="formulario__boton">Enviar mensaje</button>

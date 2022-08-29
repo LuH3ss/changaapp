@@ -6,6 +6,7 @@ import { getUserEmail } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import CompleteProfile from "./AuxEditProfile/CompleteProfile";
 import UpdateProfile from "./AuxEditProfile/UpdateProfile";
+import { Box } from "@mui/material";
 
 export default function EditProfile() {
   const { user } = useAuth();
@@ -33,9 +34,9 @@ export default function EditProfile() {
       ) : estado.length === 1 ? (
         <UpdateProfile />
       ) : (
-        <div>
+        <Box>
           <CompleteProfile />
-        </div>
+        </Box>
       )}
     </div>
   );
