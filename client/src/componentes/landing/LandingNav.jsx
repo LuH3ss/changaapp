@@ -12,14 +12,19 @@ const styles = {
     },
     button: {
       color: 'white'
+    },
+    asd: {
+      textDecoration: 'none',
+      color: '#fff'
     }
+
   }
 
 export default function Nav() {
     return(
         <div style={{width:'100%'}}>
             <Box style={styles.container} className="navBar">
-                <Link to='/'><Typography variant="h4">ChangApp</Typography></Link>
+                <Link  style={styles.asd} to='/'><Typography variant="h4">ChangApp</Typography></Link>
             </Box>
         </div>)
 }

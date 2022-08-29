@@ -28,6 +28,10 @@ const styles = {
   button: {
     color: "white",
   },
+  asd: {
+    textDecoration: 'none',
+    color: '#fff'
+  }
 };
 
 export default function Navbar() {
@@ -56,7 +60,7 @@ export default function Navbar() {
   return (
     <Box style={styles.container} className="navBar">
       <Typography variant="h4">
-        <Link to="/home">ChangApp</Link>
+        <Link style={styles.asd} to="/home">ChangApp</Link>
       </Typography>
 
       <SearchBar style={styles.button} />

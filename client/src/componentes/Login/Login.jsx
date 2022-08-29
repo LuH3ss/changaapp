@@ -69,11 +69,13 @@ export default function Login() {
       justifyContent: "center",
       backgroundColor: "#E5E7EB",
       color: "#1F2937",
+      height: '100vh'
     },
     login: {
       display: "flex",
       flexDirection: "column",
       width: "40%",
+      
       alignItems: "center",
       border: "solid 3px lightblue",
       borderRadius: "15px",
