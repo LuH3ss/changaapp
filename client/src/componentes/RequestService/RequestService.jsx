@@ -13,6 +13,7 @@ import { useAuth } from "../../context/authContext";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
+import styles from './style'
 
 export default function RequestService(props) {
   const { user } = useAuth();
@@ -72,6 +73,22 @@ export default function RequestService(props) {
     });
   };
 
+  const handleHour = (e) => {
+    if(request.hours === ''){
+      setRequest({
+        ...request,
+        hours: e.target.value
+      });
+    }
+    else if(request.hours !== e.target.value){
+      document.getElementById(request.hours).checked = false;
+      setRequest({
+        ...request,
+        hours: e.target.value
+      });
+    }
+  };
+
   const handleSubmit = (e) => {
     // e.preventDefault()
     // console.log('dasdasdas')
@@ -89,74 +106,6 @@ export default function RequestService(props) {
     navigate("/home");
   };
 
-  const styles = {
-    container: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      height: "100vh",
-      width: "100vw",
-      backgroundColor: "#E5E7EB",
-      color: "#1F2937",
-    },
-    containerRequest: {
-      width: "60%",
-      margin: "20px 10px 20px 20px",
-    },
-    containerUser: {
-      margin: "20px 20px 20px 10px",
-      flexDirection: "column",
-      width: "40%",
-      display: "flex",
-    },
-    userDetail: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      width: "100%",
-      border: "solid black 2px",
-    },
-    containerService: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      border: "solid black 2px",
-      padding: "20px",
-    },
-    containerRequestForm: {
-      display: "flex",
-      justifyContent: "center",
-      flexDirection: "column",
-      border: "solid black 2px",
-      marginTop: "20px",
-      padding: "20px",
-    },
-    box: {
-      display: "flex",
-    },
-    userPic: {
-      width: "100px",
-      height: '100px',
-      borderRadius: "50%",
-      padding: "20px",
-    },
-    userName: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      padding: "20px",
-    },
-    reviews: {
-      width: "100%",
-      border: "solid black 2px",
-      marginTop: "20px",
-    },
-    selectedButton: {
-      color: "white",
-      backgroundColor: "black",
-    },
-  };
 
   if (loading) return <h1>loading</h1>;
   else
@@ -225,28 +174,31 @@ export default function RequestService(props) {
                           );
                       })}
                     </Box>
-                    <Box style={styles.box}>
-                      <TextField
-                        id="outlined-basic"
-                        label="horario"
-                        variant="outlined"
-                        style={styles.input}
-                        type="text"
-                        name="hours"
-                        value={request.hours}
-                        onChange={handleOnChange}
-                      />
+                    <Box style={styles.containerHours}>
+                      {
+                        service?.hours?.split(',').map(el => {
+                          return <Box style={styles.hours}>
+                            <Typography>{el}</Typography>
+                            <input 
+                              id={el}
+                              onChange={(e)=>handleHour(e)} 
+                              type="checkbox" 
+                              value={el}
+                            />
+                          </Box>
+                        })
+                      }
                     </Box>
 
                     <Box
-                      sx={{ display: "flex", justifyContent: "space-around" }}
+                      sx={{ display: "flex", justifyContent: "space-around", padding:'30px' }}
                     >
                       <Link style={{ textDecoration: "none" }} to="/home">
-                        <Button style={{ color: "#1F2937" }}>
+                        <Button variant='outlined' style={{ color: "#1F2937" }}>
                           Volver atras
                         </Button>
                       </Link>
-                      <Button sx={{ color: "#1F2937" }} type="submit">
+                      <Button variant='outlined' sx={{ color: "#1F2937" }} type="submit">
                         Solicitar
                       </Button>
                     </Box>

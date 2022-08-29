@@ -23,7 +23,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     hours: {
-      type: DataTypes.ARRAY(STRING),
+      type: DataTypes.STRING,
     },
   });
 };
