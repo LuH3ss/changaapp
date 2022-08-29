@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import { getAllServices, updateRequest } from "../../../redux/actions";
 import {Link} from 'react-router-dom'
+import { Button } from "@mui/material";
 
 export default function StateRequest() {
     const {user} = useAuth()
@@ -67,7 +68,7 @@ export default function StateRequest() {
                                         <input type="checkbox" name='rechazado' value={e.id} onChange={handleOnClick}/>
 
                                     </div>
-                                    <button type="submit">Actualizar</button>
+                                    <Button type="submit">Actualizar</Button>
                                   </form>
                                 : <form onSubmit={e => handleOnSubmit(e)}>
                                 <label>Aceptar</label>

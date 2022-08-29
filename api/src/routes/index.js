@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { Router } = require("express");
+
 const {
   register,
   getUsers,
@@ -56,7 +57,9 @@ router.post("/payment", paymentMethod);
 router.get("/reviews", getReviews);
 router.post("/reviews", postReviews);
 
+
 //sendEmail routes
 router.put("/sendemail", sendEmail);
+
 
 module.exports = router;

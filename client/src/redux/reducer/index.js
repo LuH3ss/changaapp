@@ -107,7 +107,6 @@ const reducer = (state = initialStates, action) => {
         ...state,
         postCategory: [...state, { ...action.payload }],
       };
-
     case FILTER:
       return {
         ...state,
@@ -132,11 +131,6 @@ const reducer = (state = initialStates, action) => {
       return {
         ...state,
         filterId: action.payload
-      }
-    case UPDATE_REQUEST:
-      return{
-        ...state,
-        updateRequest: [...state.updateRequest, {...action.payload}]
       }
     case DELETE_REQUEST:
       return{

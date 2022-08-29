@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import { allRequest, deleteRequest, getUserEmail } from "../../../redux/actions";
 import { Link } from 'react-router-dom'
+import { Button } from "@mui/material";
 
 export default function StateRequester(){
     const { user } = useAuth()
@@ -46,15 +47,15 @@ export default function StateRequester(){
                                 <p>El servicio esta solicitado para el dia {e.day} a las {e.hours}hs</p>
                                 <p>Estado: {e.state}</p>
                                 {
-                                    e.state === 'rechazado' ? <button id={e.id} onClick={handleClear}>Eliminar</button> 
+                                    e.state === 'rechazado' ? <Button id={e.id} onClick={handleClear}>Eliminar</Button> 
                                     : <div>
                                         {
                                             e.state === 'aceptado' ? <div>
                                                 <p>Para pagar el servicio accede al siguiente <Link to='/home/services/payment'>link</Link></p>
-                                                <p>Si quieres cancelar la solicitud aprieta el siguiente boton <button id={e.id} onClick={handleOnClick}>Cancelar</button></p>
+                                                <p>Si quieres cancelar la solicitud aprieta el siguiente boton <Button id={e.id} onClick={handleOnClick}>Cancelar</Button></p>
                                             </div>
                                             
-                                            : <p>Si quieres cancelar la solicitud aprieta el siguiente boton <button id={e.id} onClick={handleOnClick}>Cancelar</button></p>
+                                            : <p>Si quieres cancelar la solicitud aprieta el siguiente boton <Button id={e.id} onClick={handleOnClick}>Cancelar</Button></p>
                                         }
                                         
                                     </div> 
