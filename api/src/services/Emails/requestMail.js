@@ -21,9 +21,9 @@ function requestMail(email) {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      return res.status(400).send(console.log(error.message));
+      console.log(error.message);
     } else {
-      res.status(200).send("Mail send" + info.response);
+      console.log("Mail send" + info.response);
     }
   });
 }

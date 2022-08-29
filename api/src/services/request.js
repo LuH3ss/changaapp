@@ -47,6 +47,7 @@ const postRequest = async (req, res) => {
   } catch (error) {
     res.status(404).send(error);
   }
+  sendEmail.requestMail();
 };
 
 const putRequest = async (req, res) => {
