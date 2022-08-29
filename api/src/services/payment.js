@@ -9,7 +9,6 @@ const paymentMethod = async (req, res) => {
     const payment = await stripe.paymentIntents.create({
       amount,
       currency: "ARS",
-      description : "Plomero",
       payment_method: id,
       confirm: true,
     });

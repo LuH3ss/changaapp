@@ -7,6 +7,7 @@ import {
   getUserEmail,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 export default function StateRequester() {
   const { user } = useAuth();
@@ -53,9 +54,9 @@ export default function StateRequester() {
               </p>
               <p>Estado: {e.state}</p>
               {e.state === "rechazado" ? (
-                <button id={e.id} onClick={handleClear}>
+                <Button id={e.id} onClick={handleClear}>
                   Eliminar
-                </button>
+                </Button>
               ) : (
                 <div>
                   {e.state === "aceptado" ? (
@@ -67,18 +68,18 @@ export default function StateRequester() {
                       <p>
                         Si quieres cancelar la solicitud aprieta el siguiente
                         boton{" "}
-                        <button id={e.id} onClick={handleOnClick}>
+                        <Button id={e.id} onClick={handleOnClick}>
                           Cancelar
-                        </button>
+                        </Button>
                       </p>
                     </div>
                   ) : (
                     <p>
                       Si quieres cancelar la solicitud aprieta el siguiente
                       boton{" "}
-                      <button id={e.id} onClick={handleOnClick}>
+                      <Button id={e.id} onClick={handleOnClick}>
                         Cancelar
-                      </button>
+                      </Button>
                     </p>
                   )}
                 </div>

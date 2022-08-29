@@ -107,7 +107,6 @@ const reducer = (state = initialStates, action) => {
         ...state,
         postCategory: [...state, { ...action.payload }],
       };
-
     case FILTER:
       return {
         ...state,
