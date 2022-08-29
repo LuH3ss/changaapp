@@ -64,16 +64,16 @@ export default function StateRequest() {
                                 ? <form onSubmit={e => handleOnSubmit(e)}>
                                     <div>
                                         <label>Cancelar</label>
-                                        <input type="checkbox" name='rechazado' id={e.id} onChange={handleOnClick}/>
+                                        <input type="checkbox" name='rechazado' value={e.id} onChange={handleOnClick}/>
 
                                     </div>
                                     <button type="submit">Actualizar</button>
                                   </form>
                                 : <form onSubmit={e => handleOnSubmit(e)}>
                                 <label>Aceptar</label>
-                                 <input type="checkbox" name='aceptado' id={e.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+                                 <input type="checkbox" id='aceptado' name='aceptado' value={e.id} onChange={handleOnClick} />
                                 <label>Rechazar</label>
-                                 <input type="checkbox" name='rechazado' id={e.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+                                 <input type="checkbox" id='rechazado' name='rechazado' value={e.id} onChange={handleOnClick} />
                                  <div>
                                      <button>Confirmar</button>
                                  </div>

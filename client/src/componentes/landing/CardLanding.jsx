@@ -27,30 +27,6 @@ export default function CardLanding() {
     }
   });
 
-
-    // const images = [
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1618522284999-3430d5f5f2da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    //       title: 'Electricidad',
-    //       width: '25%',
-    //     },
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1637531347055-4fa8aa80c111?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-    //       title: 'Jardineria',
-    //       width: '25%',
-    //     },
-    //     {
-    //       url: 'https://images.unsplash.com/photo-1518276779712-dfdcb9daa7a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-    //       title: 'Gas',
-    //       width: '25%',
-    //     },
-    //     {
-    //         url: 'https://images.unsplash.com/photo-1505281147415-f688150c9b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80',
-    //         title: 'Fontanería',
-    //         width: '25%'
-    //     }
-    //   ];
-
       const ImageButton = styled(ButtonBase)(({ theme }) => ({
         position: 'relative',
         height: 200,
@@ -115,7 +91,7 @@ export default function CardLanding() {
         transition: theme.transitions.create('opacity'),
       }));
 
-
+      
   return (
     <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%', height: 'fitContent' }}>
       {images.map((image) => (
@@ -131,6 +107,7 @@ export default function CardLanding() {
           <ImageBackdrop className="MuiImageBackdrop-root" />
           <Image>
             <Typography
+            key={image.title}
               component="span"
               variant="subtitle1"
               color="inherit"

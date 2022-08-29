@@ -23,7 +23,7 @@ export default function Category() {
             {
                 category && category?.map(e => {
                     return(
-                        <div>
+                        <div key={e.id}>
                             <h3>{e.name}</h3>
                             <img src={e.img} alt={e.name} width='350px' height='250px' />
                             <button value={e.name} onClick={handleOnClick}>Ir</button>
