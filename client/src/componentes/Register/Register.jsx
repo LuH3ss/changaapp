@@ -224,7 +224,7 @@ export default function Register() {
           <Box sx={{display:'flex', width:'100%', justifyContent:'space-around', alignItems:'center'}}>
             <Typography variant='h6'>Foto de Perfil: </Typography>
             <label for="inputTag">
-              <img style={{width:'60px', height:'60px', cursor:'pointer'}} src={camera} alt="" />
+              <img style={{width:'60px', height:'60px', cursor:'pointer'}} src={user.img !== '' ? user.img : camera} alt="" />
               <input
                 id="inputTag"
                 style={styles.imgInput}
