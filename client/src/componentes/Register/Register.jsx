@@ -175,110 +175,92 @@ export default function Register() {
   };
 
   return (
-      <div>
-        <Nav/>
-    <Box style={styles.container}>
-
-      <Box style={styles.containerForm}>
-        <Typography variant="h4" sx={{padding:'10px'}}>Registrarse</Typography>
-        {fire && <p>{fire}</p>}
-        <form style={styles.form}  onSubmit={(e) => handleOnSubmit(e)}>
-
-          <TextField
-            id="outlined-basic"
-            label="Nombre"
-            variant="outlined"
-            style={styles.input}
-            type="text"
-            name="firstName"
-            value={user.firstName}
-            onChange={handleOnChange}
-          />
-          {error.name && <p>{error.name}</p>}
-
-
-          <TextField
-            id="outlined-basic"
-            label="Apellido"
-            variant="outlined"
-            style={styles.input}
-            type="text"
-            name="lastName"
-            value={user.lastName}
-            onChange={handleOnChange}
-          />
-          {error.lastname && <p>{error.lastname}</p>}
-
-          <TextField
-            id="outlined-basic"
-            label="Edad"
-            variant="outlined"
-            style={styles.input}
-            type="number"
-            name="birthDate"
-            value={user.birthDate}
-            onChange={handleOnChange}
-          />
-          {error.birthDate && <p>{error.birthDate}</p>}
-
-          <Box sx={{display:'flex', width:'100%', justifyContent:'space-around', alignItems:'center'}}>
-            <Typography variant='h6'>Foto de Perfil: </Typography>
-            <label for="inputTag">
-              <img style={{width:'60px', height:'60px', cursor:'pointer'}} src={user.img !== '' ? user.img : camera} alt="" />
+    <div>
+      <Nav />
+      <Box style={styles.container}>
+        <div style={styles.containerForm}>
+          <h1>Registrarse</h1>
+          {fire && <p>{fire}</p>}
+          <form style={styles.form} onSubmit={(e) => handleOnSubmit(e)}>
+            <div>
+              <label>Nombre: </label>
               <input
-                id="inputTag"
-                style={styles.imgInput}
+                type="text"
+                name="firstName"
+                value={user.firstName}
+                onChange={handleOnChange}
+              />
+              {error.name && <p>{error.name}</p>}
+            </div>
+            <div>
+              <label>Apellido</label>
+              <input
+                type="text"
+                name="lastName"
+                value={user.lastName}
+                onChange={handleOnChange}
+              />
+              {error.lastname && <p>{error.lastname}</p>}
+            </div>
+            <div>
+              <label>Fecha de Nacimiento: </label>
+              <input
+                type="number"
+                value={user.birthDate}
+                name="birthDate"
+                onChange={handleOnChange}
+              />
+              {error.birthDate && <p>{error.birthDate}</p>}
+            </div>
+            <div>
+              <label>Telefono / Celular: </label>
+              <input
+                type="text"
+                value={user.phone}
+                name="phone"
+                onChange={handleOnChange}
+              />
+              {error.phone && <p>{error.phone}</p>}
+            </div>
+            <div>
+              <label>Foto de perfil</label>
+              <input
                 type="file"
                 accept="image/jpeg"
                 name="img"
                 onChange={handleImage}
-                />
-            </label>
-          </Box>
-            
-            
-          {/* {error.photo && <p>{error.photo}</p>} */}
-          
-          <TextField
-            id="outlined-basic"
-            label="Email"
-            variant="outlined"
-            style={styles.input}
-            type="email"
-            name="email"
-            value={user.email}
-            onChange={handleOnChange}
-          />
-          {error.email && <p>{error.email}</p>}
-          
-          <TextField
-            id="outlined-basic"
-            label="Contraseña"
-            variant="outlined"
-            style={styles.input}
-            type="password"
-            name="password"
-            value={user.password}
-            onChange={handleOnChange}
-          />
-          {error.password && <p>{error.password}</p>}
-
-          <Box sx={{width:'100%',display:'flex', justifyContent:'space-around'}}>
+              />
+              {error.photo && <p>{error.photo}</p>}
+            </div>
+            <div>
+              <label htmlFor="email">Email: </label>
+              <input
+                type="email"
+                name="email"
+                value={user.email}
+                onChange={handleOnChange}
+              />
+              {error.email && <p>{error.email}</p>}
+            </div>
+            <div>
+              <label>Password: </label>
+              <input
+                type="password"
+                name="password"
+                value={user.password}
+                onChange={handleOnChange}
+              />
+              {error.password && <p>{error.password}</p>}
+            </div>
             <Button variant="outlined" type="submit" disabled={!boton}>
               Registrarse
             </Button>
-            <Link style={{textDecoration: 'none'}} to="/login">
-              <Button  variant="contained">
-                Volver
-              </Button>
-            </Link>
-          </Box>
-        </form>
-        <Link style={{ textDecoration: "none" }} to="/">
-          <Button variant="contained">Volver</Button>
-        </Link>
-      </div>
-    </Box>
-  </div>
+          </form>
+          <Link style={{ textDecoration: "none" }} to="/">
+            <Button variant="contained">Volver</Button>
+          </Link>
+        </div>
+      </Box>
+    </div>
   );
 }
