@@ -47,7 +47,7 @@ export default function Navbar() {
   };
   const handleClick = (e) => {
     logout();
-    navigate("/login");
+    navigate("/");
   };
 
   //PARA TRAER LA FOTO DEL USUARIO

@@ -4,6 +4,8 @@ import { getAllServices } from "../../../redux/actions";
 import Navbar from "../../PrivateRoute/Navbar";
 import FormCategory from "./FormCategory";
 import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { Box } from "@mui/system";
 
 export default function AllCategorys(){
     const services = useSelector(state => state.services)
@@ -16,20 +18,23 @@ export default function AllCategorys(){
         <div>
             <Navbar/>
             <FormCategory/>
+            <Box sx={{border:'solid red 1px', display:'grid',gridTemplateColumns:'1fr 1fr 1fr' }}>
+
             {
                 services && services?.map(e => {
                     return(
                         
-                            <div key={e.id}>
+                        <Box key={e.id}>
                                 <h3>Servicio: {e.name}</h3>
                                 <h4>{e.user?.firstName}</h4>
-                                <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/>
+                                {/* <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/> */}
                                 <p>{e.description}</p>
                                 <p>${e.price}</p>
-                                <Link to={`/home/services/${e.id}`}><button>Haz tu reserva</button></Link>
-                            </div>
+                                <Button><Link to={`/home/services/${e.id}`}>Haz tu reserva</Link></Button>
+                            </Box>
                         )
-                })
-            }
+                    })
+                }
+                </Box>
         </div>)
 }

@@ -20,7 +20,7 @@ export default function RenderCard(){
                     return(
                         <div key={e.id}>
                             <h4>{e.user?.firstName}</h4>
-                            <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/>
+                       
                             <p>{e.description}</p>
                             <p>${e.price}</p>
                         </div>

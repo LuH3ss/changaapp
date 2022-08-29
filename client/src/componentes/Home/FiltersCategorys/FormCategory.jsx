@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate} from "react-router-dom";
@@ -33,8 +34,8 @@ export default function FormCategory(){
     }
 
     return(
-        <div>
-            <form onSubmit={e => handleOnSubmit(e)}>
+        <div style={{ textAlign: 'center'}}>
+            <form onSubmit={e => handleOnSubmit(e)} style={{ textAlign: 'center', display: 'flex', justifyContent:'center', gap: '10px', alignItems:'baseline'}}>
                 <div>
                     <label>Todos</label>
                     <input id="todos" type="radio" value='todos' onChange={(e)=>handleOnClick(e)}/>
@@ -49,7 +50,7 @@ export default function FormCategory(){
                         )
                     })
                 }
-                <button type="submit">Filtrar</button>
+                <Button type="submit">Filtrar</Button>
             </form>
         </div>)
 }

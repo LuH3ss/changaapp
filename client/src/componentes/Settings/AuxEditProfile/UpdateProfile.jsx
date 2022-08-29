@@ -145,7 +145,7 @@ export default function UpdateProfile() {
           <Typography>Imagen de perfil</Typography>
           <Button variant="outlined" component="label">
   Cargar
-  <input hidden accept="image/*" multiple type="file" />
+  <input onChange={handleImage} hidden accept="image/*" multiple type="file" />
 </Button>
 
         </Box>
@@ -167,7 +167,7 @@ export default function UpdateProfile() {
           />
 
         </Box>
-          <Button disabled={btn}>Guardar Cambios</Button>
+          <Button type='submit' disabled={btn}>Guardar Cambios</Button>
 
       </form>
     </Box>
