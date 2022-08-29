@@ -29,7 +29,6 @@ function App() {
       <Routes>
         <Route exact path="/" element={[<Nav />, <Landing/>, <Footer />]} />
         <Route exact path="/login" element={<Login />} />
-        <Route exact path="/home" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/password" element={<Password />} />
         <Route path="/home" element={<Guardar />} />
