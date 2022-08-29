@@ -37,7 +37,7 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send(console.log(error.message));
   }
-  sendEmail.sendEmail(email);
+  sendEmail.registerMail(email);
 };
 
 const getUsers = async (req, res) => {

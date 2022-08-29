@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 const { PASSWORD, EMAIL } = process.env;
 
-function sendEmail(email) {
+function registerMail(email) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -29,5 +29,5 @@ function sendEmail(email) {
 }
 
 module.exports = {
-  sendEmail,
+  registerMail,
 };

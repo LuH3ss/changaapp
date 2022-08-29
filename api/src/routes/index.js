@@ -13,7 +13,7 @@ const {
   getByName,
   updateService,
 } = require("../services/service");
-const { sendEmail } = require("../services/Emails/registerMail");
+const { registerMail } = require("../services/Emails/registerMail");
 const { requestMail } = require("../services/Emails/requestMail");
 const { getCategories, postCategorie } = require("../services/category");
 const { paymentMethod } = require("../services/payment");
@@ -60,7 +60,7 @@ router.get("/reviews", getReviews);
 router.post("/reviews", postReviews);
 
 //sendEmail routes
-router.post("/sendemail", sendEmail);
+router.post("/sendemail", registerMail);
 router.post("/sendemail", requestMail);
 
 module.exports = router;
