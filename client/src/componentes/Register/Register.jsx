@@ -24,7 +24,7 @@ function validate(user) {
   else if (!user.birthDate)
     error.birthDate = "Debes ingresar una fecha de nacimiento";
   else if (user.birthDate < 18)
-    error.date =
+    error.birthDate =
       "Para registrarte a esta plataforma debes ser mayor de 18 años";
   //ERROR EMAIL
   else if (!/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(user.email))
@@ -249,7 +249,6 @@ export default function Register() {
             />
             {error.password && <p>{error.password}</p>}
           </div>
-
           <Button variant="outlined" type="submit" disabled={!boton}>
             Registrarse
           </Button>

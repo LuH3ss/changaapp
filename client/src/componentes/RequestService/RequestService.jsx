@@ -34,8 +34,6 @@ export default function RequestService(props) {
   const service = useSelector((state) => state.serviceDetail);
   const userDb = useSelector((state) => state.filter);
 
-  // console.log(service?.user.img)
-
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
@@ -52,13 +50,13 @@ export default function RequestService(props) {
     "Domingo",
   ];
 
-  const handleOnChange = (e) => {
-    e.preventDefault();
-    setRequest({
-      ...request,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleOnChange = (e) => {
+  //   e.preventDefault();
+  //   setRequest({
+  //     ...request,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
 
   const handleDay = (e) => {
     if (request.day !== "") {
@@ -87,20 +85,22 @@ export default function RequestService(props) {
   };
 
   const handleSubmit = (e) => {
-    // e.preventDefault()
-    // console.log('dasdasdas')
     e.preventDefault();
-    let requestService = {
-      ...request,
-      service_id: service.id,
-      requester_id: userDb[0].id,
-    };
-    dispatch(postRequest(requestService));
-    setRequest({
-      day: "",
-      hours: "",
-    });
-    navigate("/home");
+    if (userDb[0]?.id === service.user.id) {
+      alert("No puedes hacer un pedido a un servicio que publicaste.");
+    } else {
+      let requestService = {
+        ...request,
+        service_id: service.id,
+        requester_id: userDb[0].id,
+      };
+      dispatch(postRequest(requestService));
+      setRequest({
+        day: "",
+        hours: "",
+      });
+      navigate("/home");
+    }
   };
 
   if (loading) return <h1>loading</h1>;

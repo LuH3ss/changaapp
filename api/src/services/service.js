@@ -114,10 +114,26 @@ const updateService = async (req, res) => {
     console.log(error);
   }
 };
+
+const deleteService = async (req, res) => {
+  try {
+    const { id } = req.params
+    await Services.destroy({
+      where: {
+        id
+      }
+    })
+    res.status(201).send('Servicio borrado')
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   getServices,
   getServicebyId,
   getByName,
   postService,
   updateService,
+  deleteService
 };

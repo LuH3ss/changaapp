@@ -43,8 +43,8 @@ function App() {
           <Route path="services" element={<PublicServices />} />
           <Route path='request' element={<StateRequest/>}/>
           <Route path='requester' element={<StateRequester/>}/>
+          <Route path="updateService/:id" element={<UpdateService />} />
         </Route>
-        <Route path="/settings/updateService/:id" element={<UpdateService />} />
          
       </Routes>
     </AuthProvider>

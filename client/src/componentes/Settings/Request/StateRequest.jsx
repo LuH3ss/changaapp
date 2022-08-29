@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import { getAllServices, updateRequest } from "../../../redux/actions";
+import { Link } from "react-router-dom";
 
 export default function StateRequest() {
   const { user } = useAuth();
   const serviceState = useSelector((state) => state.services);
   const dispatch = useDispatch();
-  const filterEmail = serviceState.filter((e) => e.user?.email === user?.email);
+  const filterEmail = serviceState.filter(
+    (state) => state.user?.email === user?.email
+  );
   const [btn, setBtn] = useState({
     state: "",
     id: "",
   });
+  console.log(filterEmail);
+  useEffect(() => {
+    dispatch(getAllServices());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getAllServices());

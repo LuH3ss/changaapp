@@ -73,7 +73,6 @@ export default function UpdateService() {
 
     return(
         <div>
-            <Navbar/>
             <h3>Modificar servicio</h3>
             {error && <p>{error.name}</p>}
             <form onSubmit={e => handleSubmit(e)}>
