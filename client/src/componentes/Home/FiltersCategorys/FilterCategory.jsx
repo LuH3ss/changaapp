@@ -29,11 +29,12 @@ export default function FilterCategory() {
                 : filterUsers?.map(e => {
                     return(
                         <div key={e.id}>
+                            <h3>Servicio: {e.name}</h3>
                             <h4>{e.user?.firstName}</h4>
                             <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/>
                             <p>{e.description}</p>
                             <p>${e.price}</p>
-                            <Link to={`/home/services/${e.id}`}><button>Reservate el lugar capo</button></Link>
+                            <Link to={`/home/services/${e.id}`}><button>Haz tu reserva</button></Link>
                         </div>
                         )
                 })
