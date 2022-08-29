@@ -8,6 +8,7 @@ import axios from "axios";
 import { Box } from "@mui/system";
 import { Button, Typography, TextField } from "@mui/material";
 import camera from "../../pngwing.com.png";
+import Nav from "../landing/LandingNav";
 
 function validate(user) {
   let error = {};
@@ -177,8 +178,9 @@ export default function Register() {
   };
 
   return (
+      <div>
+        <Nav/>
     <Box style={styles.container}>
-
       <Box style={styles.containerForm}>
         <Typography variant="h4" sx={{padding:'10px'}}>Registrarse</Typography>
         {fire && <p>{fire}</p>}
@@ -279,5 +281,6 @@ export default function Register() {
       </Box>
 
     </Box>
+      </div>
   );
 }

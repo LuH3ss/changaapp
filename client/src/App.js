@@ -27,7 +27,7 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={[<Nav />, <Landing />, <Footer />]} />
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/password" element={<Password />} />

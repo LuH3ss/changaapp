@@ -19,7 +19,7 @@ export default function AllCategorys(){
             {
                 services && services?.map(e => {
                     return(
-                        <div >
+                        
                             <div key={e.id}>
                                 <h3>Servicio: {e.name}</h3>
                                 <h4>{e.user?.firstName}</h4>
@@ -28,7 +28,7 @@ export default function AllCategorys(){
                                 <p>${e.price}</p>
                                 <Link to={`/home/services/${e.id}`}><button>Haz tu reserva</button></Link>
                             </div>
-                        </div>)
+                        )
                 })
             }
         </div>)
