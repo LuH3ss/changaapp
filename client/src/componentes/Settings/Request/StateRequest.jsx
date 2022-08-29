@@ -7,7 +7,7 @@ export default function StateRequest() {
     const {user} = useAuth()
     const serviceState = useSelector(state => state.services)
     const dispatch = useDispatch()
-    const filterEmail = serviceState.filter(e => e.user?.email === user?.email)
+    const filterEmail = serviceState.filter(state => state.user?.email === user?.email)
     const [btn, setBtn] = useState({
         state: '',
         id: ''
@@ -18,18 +18,28 @@ export default function StateRequest() {
     }, [dispatch])
 
     const handleOnClick = (e) => {
-        e.preventDefault()
-        setBtn({
-            ...btn,
-            state: e.target.name,
-            id: e.target.id
-        })
+        if(btn.state === ''){
+            setBtn({
+                state:e.target.name,
+                id:e.target.value
+            });
+            console.log(btn)
+        }
+        else if(btn.state !== e.target.name){
+            document.getElementById(btn.state).checked = false;
+            setBtn({
+                state:e.target.name,
+                id:e.target.value
+            });
+        }
     }
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        dispatch(updateRequest(btn))
-        window.location.reload(true)
+        if(btn.state !== ''){
+            dispatch(updateRequest(btn))
+            window.location.reload(true)
+        }
     }
     
     console.log(filterEmail)
@@ -39,19 +49,19 @@ export default function StateRequest() {
             {
                 filterEmail.length === 0 ? <p>No tiene estados pendientes de servicios</p>
                 : (
-                    filterEmail.map(e => {
+                    filterEmail.map(el => {
                         return(
                             
-                                e.request[0]?.state !== 'pending' && e.request[0]?.state !== 'aceptado'  ? <p>Tu servicio {e.name} no recibio solicitudes nuevas</p> : 
+                                el.request[0]?.state !== 'pending' && el.request[0]?.state !== 'aceptado'  ? <p>Tu servicio {el.name} no recibio solicitudes nuevas</p> : 
                                     <div>
-                                        <p>Nombre del servicio: {e.name}</p>
-                                        <p>Estado: {e.request[0]?.state}</p>
-                                        <p>Trabajo solicitado para el dia {e.request[0]?.day} a las {e.request[0]?.hours}hs</p>
+                                        <p>Nombre del servicio: {el.name}</p>
+                                        <p>Estado: {el.request[0]?.state}</p>
+                                        <p>Trabajo solicitado para el dia {el.request[0]?.day} a las {el.request[0]?.hours}hs</p>
                                         <form onSubmit={e => handleOnSubmit(e)}>
                                             <label>Aceptar</label>
-                                            <input type="checkbox" name='aceptado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+                                            <input id="aceptado" type="checkbox" name='aceptado' value={el.request[0]?.id} onChange={(e)=>handleOnClick(e)}/>
                                             <label>Rechazar</label>
-                                            <input type="checkbox" name='rechazado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+                                            <input id="rechazado" type="checkbox" name='rechazado' value={el.request[0]?.id} onChange={(e)=>handleOnClick(e)}/>
                                             <div>
                                                 <button>Confirmar</button>
                                             </div>
