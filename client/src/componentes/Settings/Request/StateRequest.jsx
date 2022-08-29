@@ -32,32 +32,41 @@ export default function StateRequest() {
         window.location.reload(true)
     }
     
-    console.log(filterEmail)
+    console.log(filterEmail[0])
     return(
         <div>
             <h1>Estado del Servicio</h1>
             {
-                filterEmail.length === 0 ? <p>No tiene estados pendientes de servicios</p>
+                filterEmail.length === 0 ? <p>No tienes estados pendientes de servicios</p>
                 : (
-                    filterEmail.map(e => {
-                        return(
-                            
-                                e.request[0]?.state !== 'pending' && e.request[0]?.state !== 'aceptado'  ? <p>Tu servicio {e.name} no recibio solicitudes nuevas</p> : 
+                    filterEmail[0]?.request.map(e => {
+                         return (
+                            e.state === 'rechazado' ? <p>La orden #{e.id} del servicio fue rechazada</p> 
+                            : <div>
+                            <p>Nombre del servicio: {filterEmail[0]?.name}</p>
+                            <p>Estado: {e.state}</p>
+                            <p>Trabajo solicitado para el dia {e.day} a las {e.hours}hs</p>
+                            {
+                                e.state === 'aceptado' 
+                                ? <form onSubmit={e => handleOnSubmit(e)}>
                                     <div>
-                                        <p>Nombre del servicio: {e.name}</p>
-                                        <p>Estado: {e.request[0]?.state}</p>
-                                        <p>Trabajo solicitado para el dia {e.request[0]?.day} a las {e.request[0]?.hours}hs</p>
-                                        <form onSubmit={e => handleOnSubmit(e)}>
-                                            <label>Aceptar</label>
-                                            <input type="checkbox" name='aceptado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
-                                            <label>Rechazar</label>
-                                            <input type="checkbox" name='rechazado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
-                                            <div>
-                                                <button>Confirmar</button>
-                                            </div>
-                                        </form>
+                                        <label>Cancelar</label>
+                                        <input type="checkbox" name='rechazado' id={e.id} onChange={handleOnClick}/>
                                     </div>
-                        )
+                                    <button type="submit">Actualizar</button>
+                                  </form>
+                                : <form onSubmit={e => handleOnSubmit(e)}>
+                                <label>Aceptar</label>
+                                 <input type="checkbox" name='aceptado' id={e.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+                                <label>Rechazar</label>
+                                 <input type="checkbox" name='rechazado' id={e.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+                                 <div>
+                                     <button>Confirmar</button>
+                                 </div>
+                             </form>
+                            }
+                        </div>
+                         )
                             
                         
                     })
@@ -66,3 +75,28 @@ export default function StateRequest() {
         </div>)
 }
 
+// return(
+                            
+//     e.request[0]?.state !== 'pending' && e.request[0]?.state !== 'aceptado' ? <p>Tu servicio {e.name} no recibio solicitudes nuevas</p> : 
+//         <div>
+//             <p>Nombre del servicio: {e.name}</p>
+//             <p>Estado: {e.request[0]?.state}</p>
+//             <p>Trabajo solicitado para el dia {e.request[0]?.day} a las {e.request[0]?.hours}hs</p>
+//             {
+//                 e.request[0]?.state === 'aceptado' 
+//                 ? <form onSubmit={e => handleOnSubmit(e)}>
+//                     <input type="checkbox" name='rechazado' id={e.request[0]?.id} onChange={handleOnClick}/>
+//                     <button type="submit">Actualizar</button>
+//                   </form>
+//                 : <form onSubmit={e => handleOnSubmit(e)}>
+//                 <label>Aceptar</label>
+//                  <input type="checkbox" name='aceptado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+//                 <label>Rechazar</label>
+//                  <input type="checkbox" name='rechazado' id={e.request[0]?.id} onChange={handleOnClick} checked={btn === 'rechazado' ? true : false}/>
+//                  <div>
+//                      <button>Confirmar</button>
+//                  </div>
+//              </form>
+//             }
+//         </div>
+// )

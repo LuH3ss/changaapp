@@ -27,8 +27,6 @@ const getRequest = async (req, res) => {
 
 const postRequest = async (req, res) => {
 
-  console.log('dasdasd')
-
   try {
     await Request.create({
       state: "pending",
@@ -64,6 +62,7 @@ const putRequest = async (req, res) => {
     console.log(asd)
     res.status(201).send('Updated');
   } catch (error) {
+    console.log(error)
     res.status(404).send(error);
   }
 };
