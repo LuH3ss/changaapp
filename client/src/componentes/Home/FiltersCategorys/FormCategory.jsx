@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { getAllCategories } from "../../../redux/actions";
 
 export default function FormCategory(){
@@ -15,13 +15,20 @@ export default function FormCategory(){
 
 
     const handleOnClick = (e) => {
-        e.preventDefault()
-        setCat(e.target.value)
+        if(cat === ''){
+            setCat(e.target.value);
+        }
+        else if(cat !== e.target.value){
+            document.getElementById(cat).checked = false;
+            setCat(e.target.value);
+        }
     }
     
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        
+        if(cat === '') {
+           return navigate(`/home/todos`)
+        }
         navigate(`/home/${cat}`)
     }
 
@@ -30,19 +37,19 @@ export default function FormCategory(){
             <form onSubmit={e => handleOnSubmit(e)}>
                 <div>
                     <label>Todos</label>
-                    <input type="radio" value='todos' onChange={handleOnClick} checked={cat === 'todos' ? true : false}/>
+                    <input id="todos" type="radio" value='todos' onChange={(e)=>handleOnClick(e)}/>
                 </div>
                 {
-                    categoryState.map(e => {
+                    categoryState.map(el => {
                         return(
-                            <div key={e.id}>
-                                <label>{e.name}</label>
-                                <input type="radio" value={e.name} name={e.name} onChange={handleOnClick} checked={cat === e.name ? true : false}/>
+                            <div key={el.id}>
+                                <label>{el.name}</label>
+                                <input id={el.name} type="radio" value={el.name} name={el.name} onChange={(e)=>handleOnClick(e)}/>
                             </div>
                         )
                     })
                 }
-                <button>Filtrar</button>
+                <button type="submit">Filtrar</button>
             </form>
         </div>)
 }

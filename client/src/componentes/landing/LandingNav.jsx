@@ -1,7 +1,7 @@
 import React from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
+import { Link } from "react-router-dom";
 
 const styles = {
     container:{
@@ -17,9 +17,9 @@ const styles = {
 
 export default function Nav() {
     return(
-        <div>
+        <div style={{width:'100%'}}>
             <Box style={styles.container} className="navBar">
-                <Typography variant="h4">ChangApp</Typography>
+                <Link to='/'><Typography variant="h4">ChangApp</Typography></Link>
             </Box>
         </div>)
 }

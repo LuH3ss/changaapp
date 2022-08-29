@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllCategories,
+  getAllServices,
   getUserEmail,
   postService,
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
+import styles from './style'
 //MATERIAL UI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -32,9 +34,9 @@ function validate(service) {
   //ERROR DESCRIPCION
   else if (!service.description)
     error.description = "Debes ingresar una descripcion del servicio";
-  else if (service.description < 10)
+  else if (service.description.length < 10)
     error.description = "La descripcion es muy corta";
-  else if (service.description > 150)
+  else if (service.description.length > 150)
     error.description = "La descripcion es muy larga";
   //ERROR PRECIO
   // else if (!/^[0-9]$/.test(error.price)) error.price = 'Solo puedes ingresar numeros enteros'
@@ -55,6 +57,11 @@ export default function FormService() {
     hours: [],
     category_id: ""
   });
+  //TRAER DATOS DEL USUARIO 
+  const serviceState = useSelector(state => state.services)
+  const filtroParaNoRepetir = serviceState.filter(e => e.user_id === estado[0]?.id)
+  
+  console.log(filtroParaNoRepetir)
 
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
@@ -64,6 +71,7 @@ export default function FormService() {
   useEffect(() => {
     disptach(getAllCategories());
     disptach(getUserEmail(user?.email));
+    disptach(getAllServices())
   }, [disptach, user?.email]);
 
   const handleOnChange = (e) => {
@@ -141,6 +149,8 @@ export default function FormService() {
   }
 
   const handleCat = (dato) => {
+    document.getElementById("categoryLabel").style.display = 'none'
+
     if (service.category) {
       if (service.category.includes(dato)) {
         console.log("ya lo agregaste");
@@ -165,78 +175,26 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
-    service.day = service.day.join(",")
-    service.hours = service.hours.join(',')
     if(service.user_id === '') service.user_id = estado[0].id
-    disptach(postService(service));
-    setService({
-      name: "",
-      img: "",
-      description: "",
-      price: "",
-      category: [],
-      day: [],
-      hours:[]
-    });
-    navigate("/home");
-  };
-
-  const styles = {
-    container: {
-      padding:'20px',
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: "#E5E7EB",
-      color: "#1F2937",
-    },
-    containerForm: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    box: {
-      display: "flex",
-      flexDirection: "column",
-      width: "100%",
-    },
-    form: {
-      alignItems: "center",
-      width: "100%",
-      display:'flex',
-      flexDirection:'column'
-    },
-    input: {
-      width: "100%",
-      margin: "10px 0 10px 0",
-      
-    },
-    time: {
-      width: '70px',
-      height: '30px',
-      backgroundColor: 'transparent',
-      border: 'solid grey 0.5px',
-      borderRadius:'3px',
-      padding: '7px',
-      outline:'none'
-    },
-    hourAdded: {
-      width:'70%', 
-      borderRadius:'10px', 
-      border:'solid grey 0.5px', 
-      display:'flex'
-    },
-    bottomButtons: {
-      display: "flex", 
-      justifyContent: "space-around", 
-      padding:'50px', 
-      width:'50%'
+    if(service.name === filtroParaNoRepetir[0]?.name){
+      alert('Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil')
+    }else {
+      service.day = service.day.join(",")
+      service.hours = service.hours.join(',')
+      disptach(postService(service));
+      setService({
+        name: "",
+        img: "",
+        description: "",
+        price: "",
+        category: [],
+        day: [],
+        hours:[]
+      });
+      navigate("/home");
     }
   };
 
-  console.log(service)
 
   return (
       <Box style={styles.container}>
@@ -261,10 +219,9 @@ export default function FormService() {
                 
                 <Box style={styles.box}>
                   <FormControl fullWidth sx={{padding:'7px 0'}}>
-                    <InputLabel>Categoría</InputLabel>
+                    <InputLabel id="categoryLabel">Categoría</InputLabel>
                     <Select
                       value={service.category}
-                      label={"Categoría"}
                       onChange={(e) => handleCat(e.target.value)}
                     >
                       {
@@ -347,7 +304,7 @@ export default function FormService() {
                   </Box>
                   <Box style={styles.hourAdded}>
                     {
-                      service?.hours.map(el=>{
+                      service?.hours?.map(el=>{
                         return <Box sx={{display:'flex', alignItems:'center', padding:'5px'}}>
                           <Typography>{el}</Typography>
                           <Button 

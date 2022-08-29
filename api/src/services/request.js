@@ -27,11 +27,9 @@ const getRequest = async (req, res) => {
 
 const postRequest = async (req, res) => {
 
-  console.log('dasdasd')
-
   try {
     await Request.create({
-      state: "pending",
+      state: "pendiente",
       day: req.body.day,
       hours: req.body.hours,
       service_id: req.body.service_id,
@@ -64,12 +62,13 @@ const putRequest = async (req, res) => {
     console.log(asd)
     res.status(201).send('Updated');
   } catch (error) {
+    console.log(error)
     res.status(404).send(error);
   }
 };
 
 const deleteRequest = async (req,res) => {
-  const { id } = req.body
+  const { id } = req.params
   try {
     await Request.destroy({
       where: {

@@ -63,17 +63,17 @@ export default function Login() {
 
   const styles = {
     container: {
+      padding:'20px',
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      height: "100vh",
       backgroundColor: "#E5E7EB",
       color: "#1F2937",
     },
     login: {
       display: "flex",
       flexDirection: "column",
-      width: "30%",
+      width: "40%",
       alignItems: "center",
       border: "solid 3px lightblue",
       borderRadius: "15px",
@@ -84,7 +84,7 @@ export default function Login() {
     },
     button: {
       width: "100%",
-      margin: "12px",
+      margin:'10px 0'
     },
     input: {
       width: "100%",
@@ -123,25 +123,29 @@ export default function Login() {
               value={user.password}
               onChange={handleOnChange}
             />
-            <Button style={styles.button} type="submit">
+            <Button variant="contained" style={styles.button} type="submit">
               Iniciar Sesion
             </Button>
           </Box>
         </form>
         <Box
           sx={{
-            display: "flex",
+            display: "flex", flexDirection:'column', width:'100%'
           }}
         >
-          <Typography mr={4} variant="h6">
-            Aun no te has registrado?
+          <Typography sx={{textAlign:'center', fontWeight:'bold', margin:'0'}} mr={4} variant="h7">
+            ¿Aún no te has registrado?
           </Typography>
           <Link style={{ textDecoration: "none" }} to="/register">
-            <Button variant="contained">Registrar</Button>
+            <Button style={styles.button} variant="contained">Registrar</Button>
           </Link>
-          <p>
-            <Link to="/password">¿Olvidaste la constraseña?</Link>
-          </p>
+          
+          <Link style={{ textDecoration: "none", color:'black', textAlign:'center', padding:'3px' }} to="/password">
+            <Typography sx={{fontWeight:'bold', margin:'0'}} mr={4} variant="h7">
+              ¿Olvidaste la constraseña?
+            </Typography>
+          </Link>
+
         </Box>
         <Button
           sx={{

@@ -3,30 +3,53 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+
+
+import { getAllCategories } from "../../redux/actions";
 
 export default function CardLanding() {
-    const images = [
-        {
-          url: 'https://images.unsplash.com/photo-1618522284999-3430d5f5f2da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-          title: 'Electricidad',
-          width: '25%',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1637531347055-4fa8aa80c111?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-          title: 'Jardineria',
-          width: '25%',
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1518276779712-dfdcb9daa7a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
-          title: 'Gas',
-          width: '25%',
-        },
-        {
-            url: 'https://images.unsplash.com/photo-1505281147415-f688150c9b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80',
-            title: 'Fontanería',
-            width: '25%'
-        }
-      ];
+
+  const dispatch = useDispatch();
+
+  const allCategories = useSelector((state) => state.categories).slice(0,4);
+
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, [dispatch]);
+
+  const images = allCategories.map(el => {
+    return {
+      url: el.img,
+      title: el.name,
+      width: '25%'
+    }
+  });
+
+
+    // const images = [
+    //     {
+    //       url: 'https://images.unsplash.com/photo-1618522284999-3430d5f5f2da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    //       title: 'Electricidad',
+    //       width: '25%',
+    //     },
+    //     {
+    //       url: 'https://images.unsplash.com/photo-1637531347055-4fa8aa80c111?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    //       title: 'Jardineria',
+    //       width: '25%',
+    //     },
+    //     {
+    //       url: 'https://images.unsplash.com/photo-1518276779712-dfdcb9daa7a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
+    //       title: 'Gas',
+    //       width: '25%',
+    //     },
+    //     {
+    //         url: 'https://images.unsplash.com/photo-1505281147415-f688150c9b9b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80',
+    //         title: 'Fontanería',
+    //         width: '25%'
+    //     }
+    //   ];
 
       const ImageButton = styled(ButtonBase)(({ theme }) => ({
         position: 'relative',
