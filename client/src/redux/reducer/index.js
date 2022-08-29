@@ -16,10 +16,7 @@ import {
   UPDATE_REQUEST,
   DELETE_REQUEST,
   ALL_REQUEST,
-<<<<<<< HEAD
-=======
-  DELETE_SERVICES
->>>>>>> origin/dev
+  DELETE_SERVICES,
 } from "../actions/index.js";
 
 const initialStates = {
@@ -149,18 +146,13 @@ const reducer = (state = initialStates, action) => {
     case ALL_REQUEST:
       return {
         ...state,
-<<<<<<< HEAD
         allRequest: action.payload,
       };
-=======
-        allRequest: action.payload
-      }
-    case DELETE_SERVICES: 
+    case DELETE_SERVICES:
       return {
         ...state,
-        services: action.payload
-      }           
->>>>>>> origin/dev
+        services: action.payload,
+      };
     default:
       return state;
   }
