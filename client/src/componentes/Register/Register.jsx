@@ -6,7 +6,8 @@ import { registerUser } from "../../redux/actions";
 import { CLODUNIARY_API } from "../../Secret/Secret.js";
 import axios from "axios";
 import { Box } from "@mui/system";
-import { Button } from "@mui/material";
+import { Button, Typography, TextField } from "@mui/material";
+import camera from "../../pngwing.com.png";
 
 function validate(user) {
   let error = {};
@@ -25,9 +26,6 @@ function validate(user) {
   else if (user.birthDate < 18)
     error.date =
       "Para registrarte a esta plataforma debes ser mayor de 18 años";
-  //ERROR NUMERO DE TELEFONO
-  else if (!/^[0-9]/.test(user.phone))
-    error.phone = "No puedes ingresar letras, unicamente numeros";
   //ERROR EMAIL
   else if (!/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(user.email))
     error.email = "El formato ingresado es invalido";
@@ -100,7 +98,6 @@ export default function Register() {
       !error.firstName &&
       !error.lastName &&
       !error.birthDate &&
-      !error.phone &&
       !error.img &&
       !error.email &&
       !error.password &&
@@ -134,22 +131,24 @@ export default function Register() {
 
   const styles = {
     container: {
+      padding: "20px",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      height: "100vh",
+      minHeight: "100vh",
       backgroundColor: "#E5E7EB",
       color: "#1F2937",
     },
     containerForm: {
-      width: "70%",
+      width: "40%",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: "rgba(26, 155, 241, 0.143) ",
-      padding: "20px",
+
+      border: "solid 3px lightblue",
       borderRadius: "15px",
+      padding: "35px",
     },
     box: {
       display: "flex",
@@ -166,7 +165,11 @@ export default function Register() {
     },
     input: {
       width: "100%",
-      margin: "10px 0 10px 0",
+      margin: "3px 0",
+    },
+    imgInput: {
+      width: "100%",
+      display: "none",
     },
   };
 

@@ -63,17 +63,17 @@ export default function Login() {
 
   const styles = {
     container: {
+      padding: "20px",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      height: "100vh",
       backgroundColor: "#E5E7EB",
       color: "#1F2937",
     },
     login: {
       display: "flex",
       flexDirection: "column",
-      width: "30%",
+      width: "40%",
       alignItems: "center",
       border: "solid 3px lightblue",
       borderRadius: "15px",
@@ -84,7 +84,7 @@ export default function Login() {
     },
     button: {
       width: "100%",
-      margin: "12px",
+      margin: "10px 0",
     },
     input: {
       width: "100%",
