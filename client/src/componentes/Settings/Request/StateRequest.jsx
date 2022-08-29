@@ -8,7 +8,7 @@ export default function StateRequest() {
     const {user} = useAuth()
     const serviceState = useSelector(state => state.services)
     const dispatch = useDispatch()
-    const filterEmail = serviceState.filter(e => e.user?.email === user?.email)
+    const filterEmail = serviceState.filter(state => state.user?.email === user?.email)
     const [btn, setBtn] = useState({
         state: '',
         id: ''
@@ -19,18 +19,28 @@ export default function StateRequest() {
     }, [dispatch])
 
     const handleOnClick = (e) => {
-        e.preventDefault()
-        setBtn({
-            ...btn,
-            state: e.target.name,
-            id: e.target.id
-        })
+        if(btn.state === ''){
+            setBtn({
+                state:e.target.name,
+                id:e.target.value
+            });
+            console.log(btn)
+        }
+        else if(btn.state !== e.target.name){
+            document.getElementById(btn.state).checked = false;
+            setBtn({
+                state:e.target.name,
+                id:e.target.value
+            });
+        }
     }
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        dispatch(updateRequest(btn))
-        window.location.reload(true)
+        if(btn.state !== ''){
+            dispatch(updateRequest(btn))
+            window.location.reload(true)
+        }
     }
     
     return(
@@ -55,6 +65,7 @@ export default function StateRequest() {
                                     <div>
                                         <label>Cancelar</label>
                                         <input type="checkbox" name='rechazado' id={e.id} onChange={handleOnClick}/>
+
                                     </div>
                                     <button type="submit">Actualizar</button>
                                   </form>

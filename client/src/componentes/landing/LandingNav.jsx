@@ -17,7 +17,7 @@ const styles = {
 
 export default function Nav() {
     return(
-        <div>
+        <div style={{width:'100%'}}>
             <Box style={styles.container} className="navBar">
                 <Link to='/'><Typography variant="h4">ChangApp</Typography></Link>
             </Box>
