@@ -1,5 +1,6 @@
 const styles = {
     container: {
+      height:`calc(100vh - 82px)`,
       padding:'20px',
       display: "flex",
       alignItems: "center",
