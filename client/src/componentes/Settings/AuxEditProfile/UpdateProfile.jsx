@@ -5,6 +5,7 @@ import { getUserEmail, updateUser } from "../../../redux/actions";
 import axios from "axios";
 import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 
 function validate(input) {
@@ -93,50 +94,82 @@ export default function UpdateProfile() {
     }
   }, [input]);
   return (
-    <div>
+    // <div>
+    //   <form onSubmit={(e) => handleSubmit(e)}>
+    //     <div>
+    //       <label>Imagen:</label>
+
+    //       <input type="file" onChange={handleImage} placeholder="asd" />
+    //       {/* <img src={estado[0].img} alt="No se encontro" placeholder="asd" /> */}
+    //     </div>
+    //     <div>
+    //       <label>Nombre de Usuario: </label>
+
+    //       <input
+    //         type="text"
+    //         value={input.firstName}
+    //         // defaultValue={estado[0].firstName}
+    //         placeholder={estado[0].firstName}
+    //         name="firstName"
+    //         onChange={handleChange}
+    //       />
+    //     </div>
+    //     <div>
+    //       <label>Apellido del Usuario:</label>
+
+    //       <input
+    //         type="text"
+    //         placeholder={estado[0].lastName}
+    //         value={input.lastName}
+    //         name="lastName"
+    //         onChange={handleChange}
+    //       />
+    //     </div>
+    //     <div>
+    //       <label>Numero de Contacto: </label>
+
+    //       <input
+    //         type="tel"
+    //         placeholder={estado[0].phone}
+    //         value={input.phone}
+    //         name="phone"
+    //         onChange={handleChange}
+    //       />
+    //     </div>
+    //     <button disabled={btn}>Guardar Cambios</button>
+    //   </form>
+    // </div>
+    <Box component='div'>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Imagen:</label>
+        <Box component='div' sx={{display: 'flex', gap: '50px', marginBottom: '25px'}}>
+          <Typography>Imagen de perfil</Typography>
+          <Button variant="outlined" component="label">
+  Cargar
+  <input hidden accept="image/*" multiple type="file" />
+</Button>
 
-          <input type="file" onChange={handleImage} placeholder="asd" />
-          {/* <img src={estado[0].img} alt="No se encontro" placeholder="asd" /> */}
-        </div>
-        <div>
-          <label>Nombre de Usuario: </label>
-
-          <input
-            type="text"
-            value={input.firstName}
-            // defaultValue={estado[0].firstName}
-            placeholder={estado[0].firstName}
-            name="firstName"
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Apellido del Usuario:</label>
-
-          <input
+        </Box>
+        <Box component='div' sx={{display: 'flex', gap: '20px', marginBottom: '25px'}}>
+          <Typography>Nombre de Usuario: </Typography>
+          <TextField type="text"
+            value={input.firstName} placeholder={estado[0].firstName}
+                    name="firstName"
+                    onChange={handleChange}/>
+        </Box>
+        <Box component='div' sx={{display: 'flex', gap: '15px', marginBottom: '25px'}}>
+          <Typography>Apellido del Usuario: </Typography>
+          <TextField
             type="text"
             placeholder={estado[0].lastName}
             value={input.lastName}
             name="lastName"
             onChange={handleChange}
           />
-        </div>
-        <div>
-          <label>Numero de Contacto: </label>
 
-          <input
-            type="tel"
-            placeholder={estado[0].phone}
-            value={input.phone}
-            name="phone"
-            onChange={handleChange}
-          />
-        </div>
-        <button disabled={btn}>Guardar Cambios</button>
+        </Box>
+          <Button disabled={btn}>Guardar Cambios</Button>
+
       </form>
-    </div>
+    </Box>
   );
 }
