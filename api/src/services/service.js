@@ -17,6 +17,10 @@ const getServices = async (req, res) => {
         {
           model: Request,
           as: "request",
+          include: {
+            model: User,
+            as: "userRequest",
+          },
         },
       ],
     });
@@ -33,9 +37,6 @@ const getServices = async (req, res) => {
 const getServicebyId = async (req, res) => {
   const { id } = req.params;
   try {
-    // let servicios = await Servicios.findAll();
-    // res.status(200).send(servicios.find((el) => el.id === id));
-
     const services = await Services.findOne({
       where: {
         id: id,
@@ -47,8 +48,8 @@ const getServicebyId = async (req, res) => {
         },
         {
           model: User,
-          as: "user"
-        }
+          as: "user",
+        },
       ],
     });
 
@@ -62,7 +63,6 @@ const postService = async (req, res) => {
   let { name, description, price, day, hours, category_id, user_id } = req.body;
 
   let serviceCreated = await Services.create({
-    // name: name.charAt(0).toUpperCase() + name.slice(1),
     name,
     description,
     price,
@@ -79,8 +79,11 @@ const getByName = async (req, res) => {
   try {
     const { name } = req.query;
     const response = await Services.findAll({
-      where: { name: { [Op.startsWith]: name } },
-      include: Category,
+      where: { name: { [Op.iLike]: `%${name}%` } },
+      include: {
+        model: Category,
+        as: 'category'
+      },
     });
     res.send(response);
   } catch (error) {
@@ -114,10 +117,26 @@ const updateService = async (req, res) => {
     console.log(error);
   }
 };
+
+const deleteService = async (req, res) => {
+  try {
+    const { id } = req.params
+    await Services.destroy({
+      where: {
+        id
+      }
+    })
+    res.status(201).send('Servicio borrado')
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   getServices,
   getServicebyId,
   getByName,
   postService,
   updateService,
+  deleteService
 };

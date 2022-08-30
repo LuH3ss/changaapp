@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllCategories,
+  getAllServices,
   getUserEmail,
   postService,
 } from "../../../redux/actions";
@@ -56,6 +57,11 @@ export default function FormService() {
     hours: [],
     category_id: ""
   });
+  //TRAER DATOS DEL USUARIO 
+  const serviceState = useSelector(state => state.services)
+  const filtroParaNoRepetir = serviceState.filter(e => e.user_id === estado[0]?.id)
+  
+  console.log(filtroParaNoRepetir)
 
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
@@ -65,6 +71,7 @@ export default function FormService() {
   useEffect(() => {
     disptach(getAllCategories());
     disptach(getUserEmail(user?.email));
+    disptach(getAllServices())
   }, [disptach, user?.email]);
 
   const handleOnChange = (e) => {
@@ -168,20 +175,24 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
-    service.day = service.day.join(",")
-    service.hours = service.hours.join(',')
     if(service.user_id === '') service.user_id = estado[0].id
-    disptach(postService(service));
-    setService({
-      name: "",
-      img: "",
-      description: "",
-      price: "",
-      category: [],
-      day: [],
-      hours:[]
-    });
-    navigate("/home");
+    if(service.name === filtroParaNoRepetir[0]?.name){
+      alert('Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil')
+    }else {
+      service.day = service.day.join(",")
+      service.hours = service.hours.join(',')
+      disptach(postService(service));
+      setService({
+        name: "",
+        img: "",
+        description: "",
+        price: "",
+        category: [],
+        day: [],
+        hours:[]
+      });
+      navigate("/home");
+    }
   };
 
 
@@ -215,7 +226,9 @@ export default function FormService() {
                     >
                       {
                         categories?.map(el => {
-                          return <MenuItem key={el} value={el.id}>{el.name}</MenuItem>
+
+                          return <MenuItem key={el.id} value={el.id}>{el.name}</MenuItem>
+
                         })
                       }
                     </Select>
@@ -259,8 +272,9 @@ export default function FormService() {
                 <Box sx={{ display: 'flex', flexDirection: 'row'}}>
                   {
                     ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'].map(el => {
-                      return <Button 
-                        key={el}
+
+                      return <Button
+                        key={el.id} 
                         value={el} 
                         onClick={(e)=>handleDay(e)}
                         variant="outlined"
@@ -294,7 +308,7 @@ export default function FormService() {
                   </Box>
                   <Box style={styles.hourAdded}>
                     {
-                      service?.hours.map(el=>{
+                      service?.hours?.map(el=>{
                         return <Box sx={{display:'flex', alignItems:'center', padding:'5px'}}>
                           <Typography>{el}</Typography>
                           <Button 

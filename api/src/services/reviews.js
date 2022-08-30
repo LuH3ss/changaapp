@@ -30,10 +30,6 @@ const postReviews = async (req, res) => {
       author_id: req.body.author_id,
     });
 
-    // let service = await Services.findOne({ where: { id: req.body.service } });
-
-    // service.addRequest(request);
-
     res.status(201).send("created");
   } catch (error) {
     res.status(404).send(error);

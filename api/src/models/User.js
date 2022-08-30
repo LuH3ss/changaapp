@@ -31,14 +31,19 @@ module.exports = (sequelize) => {
     img: {
       type: DataTypes.STRING,
     },
-    offerer: {
-      type: DataTypes.BOOLEAN,
+    location: {
+      type: DataTypes.STRING,
+    },
+    description: {
+      type: DataTypes.STRING,
     },
     admin: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     banned: {
       type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   });
 };

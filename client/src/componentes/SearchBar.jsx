@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getName } from "../redux/actions/index.js";
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
@@ -34,7 +34,7 @@ export default function SearchBar() {
 
   const dispatch = useDispatch();
   const [name, setName] = useState("");
-
+  // const services = useSelector()
   function handleInput(e) {
     e.preventDefault();
     const value = e.target.value;

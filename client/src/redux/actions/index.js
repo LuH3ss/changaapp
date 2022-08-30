@@ -16,7 +16,8 @@ export const GET_SERVICE_ID = "GET_SERVICE_ID";
 export const POST_REQUEST = "POST_REQUEST";
 export const UPDATE_REQUEST = "UPDATE_REQUEST";
 export const DELETE_REQUEST = "DELETE_REQUEST";
-export const ALL_REQUEST = 'ALL_REQUEST'
+export const ALL_REQUEST = "ALL_REQUEST";
+export const DELETE_SERVICES = "DELETE_SERVICES";
 const EP = "http://localhost:3001";
 
 //ACTIONS PARA LOS USUARIOS
@@ -68,7 +69,6 @@ export function getDetail(id) {
   };
 }
 
-
 export function getAllServices() {
   return async function (dispatch) {
     const dataDb = await axios(`${EP}/services`);
@@ -96,7 +96,6 @@ export function sortServices(payload) {
   };
 }
 
-
 export function getName(name) {
   return async (dispatch) => {
     const dataDb = await axios(`${EP}/services/search?name=` + name);
@@ -110,10 +109,10 @@ export function getName(name) {
 export function postService(service) {
   return async function (dispatch) {
     await axios.post(`${EP}/services`, service).then((detalle) =>
-    dispatch({
-      type: REGISTER_SERVICE,
-      payload: detalle.data,
-    })
+      dispatch({
+        type: REGISTER_SERVICE,
+        payload: detalle.data,
+      })
     );
   };
 }
@@ -121,10 +120,10 @@ export function postService(service) {
 export function updateService(id, service) {
   return async function (dispatch) {
     await axios.put(`${EP}/services/${id}`, service).then((detalle) =>
-    dispatch({
-      type: UPDATE_SERVICE,
-      payload: detalle.data,
-    })
+      dispatch({
+        type: UPDATE_SERVICE,
+        payload: detalle.data,
+      })
     );
   };
 }
@@ -132,10 +131,21 @@ export function updateService(id, service) {
 export function getServiceById(id) {
   return async function (dispatch) {
     await axios.get(`${EP}/services/${id}`).then((detalle) =>
-    dispatch({
-      type: GET_SERVICE_ID,
-      payload: detalle.data,
-    })
+      dispatch({
+        type: GET_SERVICE_ID,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function deleteService(id) {
+  return async function (dispatch) {
+    await axios.delete(`${EP}/services/${id}`).then((detalle) =>
+      dispatch({
+        type: DELETE_SERVICES,
+        payload: detalle.data,
+      })
     );
   };
 }
@@ -171,7 +181,6 @@ export function postRequest(request) {
   };
 }
 
-
 export function updateRequest(state) {
   return async function (dispatch) {
     await axios.put(`${EP}/request`, state).then((detalle) =>
@@ -183,9 +192,9 @@ export function updateRequest(state) {
   };
 }
 
-export function deleteRequest() {
+export function deleteRequest(id) {
   return async function (dispatch) {
-    await axios.delete(`${EP}/request`).then((detalle) =>
+    await axios.delete(`${EP}/request/${id}`).then((detalle) =>
       dispatch({
         type: DELETE_REQUEST,
         payload: detalle.data,
@@ -195,11 +204,12 @@ export function deleteRequest() {
 }
 
 export function allRequest() {
-  return async function (dispatch){
-    await axios.get(`${EP}/request`)
-    .then(detalle => dispatch({
-      type: ALL_REQUEST,
-      payload: detalle.data
-    }))
-  }
+  return async function (dispatch) {
+    await axios.get(`${EP}/request`).then((detalle) =>
+      dispatch({
+        type: ALL_REQUEST,
+        payload: detalle.data,
+      })
+    );
+  };
 }

@@ -27,7 +27,8 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={[<Nav />, <Landing />, <Footer />]} />
+
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/password" element={<Password />} />
@@ -43,8 +44,8 @@ function App() {
           <Route path="services" element={<PublicServices />} />
           <Route path='request' element={<StateRequest/>}/>
           <Route path='requester' element={<StateRequester/>}/>
+          <Route path="updateService/:id" element={<UpdateService />} />
         </Route>
-        <Route path="/settings/updateService/:id" element={<UpdateService />} />
          
       </Routes>
     </AuthProvider>

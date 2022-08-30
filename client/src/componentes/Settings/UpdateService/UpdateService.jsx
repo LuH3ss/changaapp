@@ -2,8 +2,9 @@ import React, { useEffect, useState} from "react";
 import Navbar from "../../PrivateRoute/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllServices, getServiceById, updateService } from "../../../redux/actions";
-import { useNavigate, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 function validate(service) {
     let error = {}
@@ -72,33 +73,32 @@ export default function UpdateService() {
     }
 
     return(
-        <div>
-            <Navbar/>
-            <h3>Modificar servicio</h3>
+        <Box sx={{display: 'flex', flexDirection:'column', gap: '20px'}}>
+            <Typography variant="h6">Modificar servicio</Typography>
             {error && <p>{error.name}</p>}
-            <form onSubmit={e => handleSubmit(e)}>
-                <div>
+            <form onSubmit={e => handleSubmit(e)} style={{display: 'flex', flexDirection:'column', gap: '20px'}}>
+                <Box sx={{display: 'flex', gap: '20px'}}>
                     <label>Nombre del servicio</label>
-                    <input type="text" name="name"  placeholder={idService[0]?.name} value={service.name} onChange={handleOnChange}/>
-                </div>
-                <div>
+                    <TextField type="text" name="name"  placeholder={idService[0]?.name} value={service.name} onChange={handleOnChange}/>
+                </Box>
+                <Box sx={{display: 'flex', gap: '20px', flexWrap:'warp'}}>
                     <label>Dias disponibles</label>
                     {
-                        ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabados', 'Domingos'].map(e => {
-                            return <button onClick={handleOnClick} value={e} type="button" key={e}>{e}</button>
+                        ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'].map(e => {
+                            return <Button sx={{maxWidth: '100px'}} onClick={handleOnClick} value={e} type="button" key={e}>{e}</Button>
                         })
                     }
-                </div>
-                <div>
+                </Box>
+                <Box sx={{display: 'flex', gap: '120px'}}>
                     <label>Precio</label>
-                    <input type="number"  name='price' placeholder={idService[0]?.price} value={service.price} onChange={handleOnChange}/>
-                </div>
-                <div>
+                    <TextField type="number"  name='price' placeholder={idService[0]?.price} value={service.price} onChange={handleOnChange}/>
+                </Box>
+                <Box sx={{display: 'flex', gap: '80px'}}>
                     <label>Descripcion</label>
                     <textarea  name="description" cols="40" rows="4" placeholder={idService[0]?.description} value={service.description} onChange={handleOnChange}/>
-                </div>
-                <button type="submit">Cargar cambios</button>
+                </Box>
+                <Button type="submit">Cargar cambios</Button>
             </form>
-            <Link to='/settings/services'>Volver Atras</Link>
-        </div>)
+            <NavLink style={{textDecoration: 'none'}} to='/settings/services'><Button>Volver Atras</Button></NavLink>
+        </Box>)
 }
