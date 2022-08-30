@@ -15,8 +15,9 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const publicUrl =
-  "pk_test_51Lb2ZIKO72YUdcCNim89I44LXzpgG2vz57CjEn0ZAqmTZVW4D1o9y1ea5rzYeeH3dMFE4CAclOjOUqfc5NXncwMe00Zzkr0H1d";
-const stripePromise = loadStripe(publicUrl);
+  // "pk_test_51Lb2ZIKO72YUdcCNim89I44LXzpgG2vz57CjEn0ZAqmTZVW4D1o9y1ea5rzYeeH3dMFE4CAclOjOUqfc5NXncwMe00Zzkr0H1d";
+  "pk_test_51LcCp7EP7te43QfZonBS2RqbKWsTKbNBmbkMorrHb15gVD77njcZSf4s5wJA0HODv5PJGG0Mgp5XFzV6iHOsdcG000iasugbYl"
+  const stripePromise = loadStripe(publicUrl);
 // const appearance = {
 
 //         fontFamily: "Work Sans, sansSerif",

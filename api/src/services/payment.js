@@ -1,6 +1,7 @@
 const Stripe = require("stripe")
 const stripe = new Stripe(
-  "sk_test_51Lb2ZIKO72YUdcCNms5TiiqU5bIrmzLzFNgZgmQKxdRkc6xw7v039b2peRu9zTnH15bpt4L39cWmFZ9KzoFgCCJT00mF6RRlOa"
+  // "sk_test_51Lb2ZIKO72YUdcCNms5TiiqU5bIrmzLzFNgZgmQKxdRkc6xw7v039b2peRu9zTnH15bpt4L39cWmFZ9KzoFgCCJT00mF6RRlOa"
+  "sk_test_51LcCp7EP7te43QfZE6MuPkgfb9GjW9ExMhKnMn1tZN8jPcwec1N9k07m2e66FvpRTCokPmb167adKo5emqqBLsrv00VXmB7WKQ"
 );
 
 const paymentMethod = async (req, res) => {
