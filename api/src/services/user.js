@@ -1,9 +1,18 @@
-const { Category, Services, Solicitud, User, Reviews } = require("../db");
-const sendEmail = require("./Emails/registerMail");
+const { Category, Services, User, Reviews } = require("../db");
+const registerMail = require("./Emails/sendEmails");
 
 const register = async (req, res) => {
-  const { firstName, lastName, birthDate, email, img, offerer, admin, banned } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    birthDate,
+    email,
+    img,
+    description,
+    location,
+    admin,
+    banned,
+  } = req.body;
 
   try {
     const users = await User.findAll({
@@ -28,7 +37,8 @@ const register = async (req, res) => {
         birthDate,
         email,
         img,
-        offerer,
+        description,
+        location,
         admin,
         banned,
       });
@@ -37,7 +47,10 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send(console.log(error.message));
   }
-  sendEmail.registerMail(email);
+  const asunto = "Registro Usuario";
+  const mensaje =
+    "Bienvenido a ChangaApp. Su usuario ha sido registrado exitosamente";
+  registerMail.email(email, asunto, mensaje);
 };
 
 const getUsers = async (req, res) => {

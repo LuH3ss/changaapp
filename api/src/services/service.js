@@ -19,7 +19,7 @@ const getServices = async (req, res) => {
           as: "request",
           include: {
             model: User,
-            as: "userRequest",
+            as: "userRequester",
           },
         },
       ],
@@ -82,7 +82,7 @@ const getByName = async (req, res) => {
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: {
         model: Category,
-        as: 'category'
+        as: "category",
       },
     });
     res.send(response);
@@ -120,17 +120,15 @@ const updateService = async (req, res) => {
 
 const deleteService = async (req, res) => {
   try {
-    const { id } = req.params
+    const { id } = req.params;
     await Services.destroy({
       where: {
-        id
-      }
-    })
-    res.status(201).send('Servicio borrado')
-  } catch (error) {
-    
-  }
-}
+        id,
+      },
+    });
+    res.status(201).send("Servicio borrado");
+  } catch (error) {}
+};
 
 module.exports = {
   getServices,
@@ -138,5 +136,5 @@ module.exports = {
   getByName,
   postService,
   updateService,
-  deleteService
+  deleteService,
 };

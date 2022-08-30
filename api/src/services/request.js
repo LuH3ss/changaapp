@@ -1,5 +1,4 @@
 const { Category, Services, Request, User } = require("../db");
-const sendEmail = require("./Emails/requestMail");
 
 const getRequest = async (req, res) => {
   try {
@@ -24,7 +23,7 @@ const getRequest = async (req, res) => {
           },
           {
             model: User,
-            as: "userRequest",
+            as: "userRequester",
           },
         ],
       })
@@ -47,7 +46,6 @@ const postRequest = async (req, res) => {
   } catch (error) {
     res.status(404).send(error);
   }
-  sendEmail.requestMail();
 };
 
 const putRequest = async (req, res) => {

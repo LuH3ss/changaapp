@@ -1,17 +1,17 @@
-const { User, Reviews } = require("../db");
+const { User, Notifications } = require("../db");
 
-const getReviews = async (req, res) => {
+const getNotifications = async (req, res) => {
   try {
     return res.status(200).send(
-      await Reviews.findAll({
+      await Notifications.findAll({
         include: [
           {
             model: User,
-            as: "user",
+            as: "userNotification",
           },
           {
             model: User,
-            as: "author",
+            as: "userNotificated",
           },
         ],
       })
@@ -21,13 +21,12 @@ const getReviews = async (req, res) => {
   }
 };
 
-const postReviews = async (req, res) => {
+const postNotifications = async (req, res) => {
   try {
-    await Reviews.create({
+    await Notifications.create({
       message: req.body.message,
-      rate: req.body.rate,
-      user_id: req.body.user_id,
-      author_id: req.body.author_id,
+      userNotification_id: req.body.userNotification_id,
+      userNotificated_id: req.body.userNotificated_id,
     });
 
     res.status(201).send("created");
@@ -37,6 +36,6 @@ const postReviews = async (req, res) => {
 };
 
 module.exports = {
-  getReviews,
-  postReviews,
+  getNotifications,
+  postNotifications,
 };

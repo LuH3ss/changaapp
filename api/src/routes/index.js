@@ -15,8 +15,11 @@ const {
   updateService,
   deleteService,
 } = require("../services/service");
-const { registerMail } = require("../services/Emails/registerMail");
-const { requestMail } = require("../services/Emails/requestMail");
+const { email } = require("../services/Emails/sendEmails");
+const {
+  getNotifications,
+  postNotifications,
+} = require("../services/notifications");
 const { getCategories, postCategorie } = require("../services/category");
 const { paymentMethod } = require("../services/payment");
 const {
@@ -62,10 +65,11 @@ router.post("/payment", paymentMethod);
 router.get("/reviews", getReviews);
 router.post("/reviews", postReviews);
 
-
 //sendEmail routes
-router.post("/sendemail", registerMail);
-router.post("/sendemail", requestMail);
+router.post("/sendemail", email);
 
+//notifications routes
+router.get("/notifications", getNotifications);
+router.post("/notifications", postNotifications);
 
 module.exports = router;

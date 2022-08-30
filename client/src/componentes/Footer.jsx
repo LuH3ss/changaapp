@@ -79,7 +79,7 @@ export default function Footer() {
       <form className="formulario">
         <h3 className="formulario__titulo">Contactanos</h3>
         <div className="formulario__campo">
-          <label>Nombre</label>
+          <label>Email</label>
           <input
             name="name"
             type="text"
