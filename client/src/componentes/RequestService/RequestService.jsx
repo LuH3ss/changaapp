@@ -83,9 +83,12 @@ export default function RequestService(props) {
       });
     }
   };
-
+  console.log(userDb)
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(userDb.length === 0) {
+      alert('Para solicitar un servicio, primero debes completar los datos de tu perfil. Dirigete hacia tu perfil.')
+    }
     if (userDb[0]?.id === service.user.id) {
       alert("No puedes hacer un pedido a un servicio que publicaste.");
     } else {

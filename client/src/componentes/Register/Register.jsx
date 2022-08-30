@@ -27,6 +27,8 @@ function validate(user) {
   else if (user.birthDate < 18)
     error.birthDate =
       "Para registrarte a esta plataforma debes ser mayor de 18 años";
+  // ERROR UBICACION
+  else if (!/^[a-z ñ , ]+$/i.test(user.location)) error.location = 'La direccion debe ser valida'     
   //ERROR EMAIL
   else if (!/^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(user.email))
     error.email = "El formato ingresado es invalido";
@@ -48,9 +50,10 @@ export default function Register() {
     lastName: "",
     email: "",
     birthDate: "",
-    phone: "",
     img: "",
     password: "",
+    description: '',
+    location: '',
   });
   const [boton, setBoton] = useState(false);
   const { signUp } = useAuth();
@@ -102,11 +105,13 @@ export default function Register() {
       !error.img &&
       !error.email &&
       !error.password &&
+      !error.location &&
       user.firstName &&
       user.lastName &&
       user.birthDate &&
       user.email &&
-      user.password
+      user.password &&
+      user.location
     ) {
       setBoton(true);
     } else {
@@ -183,6 +188,31 @@ export default function Register() {
           </Typography>
           {fire && <p>{fire}</p>}
           <form style={styles.form} onSubmit={(e) => handleOnSubmit(e)}>
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-around",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="h6">Foto de Perfil: </Typography>
+              <label for="inputTag">
+                <img
+                  style={{ width: "60px", height: "60px", cursor: "pointer" }}
+                  src={user.img !== "" ? user.img : camera}
+                  alt=""
+                />
+                <input
+                  id="inputTag"
+                  style={styles.imgInput}
+                  type="file"
+                  accept="image/jpeg"
+                  name="img"
+                  onChange={handleImage}
+                />
+              </label>
+            </Box>
             <TextField
               id="outlined-basic"
               label="Nombre"
@@ -219,33 +249,30 @@ export default function Register() {
             />
             {error.birthDate && <p>{error.birthDate}</p>}
 
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "space-around",
-                alignItems: "center",
-              }}
-            >
-              <Typography variant="h6">Foto de Perfil: </Typography>
-              <label for="inputTag">
-                <img
-                  style={{ width: "60px", height: "60px", cursor: "pointer" }}
-                  src={user.img !== "" ? user.img : camera}
-                  alt=""
-                />
-                <input
-                  id="inputTag"
-                  style={styles.imgInput}
-                  type="file"
-                  accept="image/jpeg"
-                  name="img"
-                  onChange={handleImage}
-                />
-              </label>
-            </Box>
 
             {/* {error.photo && <p>{error.photo}</p>} */}
+            <TextField
+              id="outlined-basic"
+              label="Descripcion"
+              variant="outlined"
+              style={styles.input}
+              type="textarea"
+              name="description"
+              value={user.description}
+              onChange={handleOnChange}
+            />  
+
+<TextField
+              id="outlined-basic"
+              label="Ubicacion"
+              variant="outlined"
+              style={styles.input}
+              type="textarea"
+              name="location"
+              value={user.location}
+              onChange={handleOnChange}
+            /> 
+             {error.location && <p>{error.location}</p>}
 
             <TextField
               id="outlined-basic"
@@ -270,7 +297,6 @@ export default function Register() {
               onChange={handleOnChange}
             />
             {error.password && <p>{error.password}</p>}
-
             <Box
               sx={{
                 width: "100%",

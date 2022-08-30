@@ -6,8 +6,23 @@ import { getUserEmail, registerUser } from "../../../redux/actions";
 function validate(fire) {
   let error = {};
 
-  if (fire.birthDate < 18) error.birthDate = "Debes ser mayor de edad";
-  // else if(typeof fire.phone !== 'number') error.phone = 'El numero ingresado es invalido'
+  if (!fire.firstName) error.name = "Debes ingresar un nombre";
+  else if (!/^[a-z ñ]+$/i.test(fire.firstName))
+    error.name = "El nombre no puede contener numeros ni caracteres especiales";
+  //ERROR APELLIDO
+  else if (!fire.lastName) error.lastname = "Debes ingresar un apellido";
+  else if (!/^[a-z ñ]+$/i.test(fire.lastName))
+    error.lastname =
+      "El apellido no puede contener numeros ni caracteres especiales";
+  //ERROR FECHA DE NACIMIENTO
+  else if (!fire.birthDate)
+    error.birthDate = "Debes ingresar una fecha de nacimiento";
+  else if (fire.birthDate < 18)
+    error.birthDate =
+      "Para registrarte a esta plataforma debes ser mayor de 18 años";
+  // ERROR UBICACION
+  else if (!/^[a-z ñ , ]+$/i.test(fire.location))
+    error.location = "La direccion debe ser valida";
 
   return error;
 }
@@ -19,8 +34,9 @@ export default function CompleteProfile() {
     img: "",
     firstName: "",
     lastName: "",
-   
+    description: "",
     birthDate: "",
+    location: "",
   });
   const [btn, setBtn] = useState(false);
   const [error, setError] = useState("");
@@ -36,9 +52,12 @@ export default function CompleteProfile() {
       fire.lastName &&
       fire.firstName &&
       fire.birthDate &&
-      fire.phone &&
+      fire.location &&
       !error.birthDate &&
-      !error.phone
+      !error.firstName &&
+      !error.lastName &&
+      !error.description &&
+      !error.location
     ) {
       setBtn(false);
     } else {
@@ -98,7 +117,24 @@ export default function CompleteProfile() {
             onChange={handleOnChange}
           />
         </div>
-    
+        <div>
+          <label>Ubicacion:</label>
+          <input
+            type="text"
+            name="location"
+            value={fire.location}
+            onChange={handleOnChange}
+          />
+        </div>
+        <div>
+          <label>Descripcion:</label>
+          <input
+            type="textarea"
+            name="description"
+            value={fire.description}
+            onChange={handleOnChange}
+          />
+        </div>
         <button type="submit" disabled={btn}>
           Cargar Datos
         </button>

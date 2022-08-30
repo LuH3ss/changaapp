@@ -175,10 +175,14 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(estado?.length === 0){
+      alert(`Para crear un servicio, primero debes cargar todos tus datos. Dirigete a la opcion de editar perfil, desde tu perfil.`)
+    }
     if(service.user_id === '') service.user_id = estado[0].id
     if(service.name === filtroParaNoRepetir[0]?.name){
       alert('Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil')
-    }else {
+    }
+    else {
       service.day = service.day.join(",")
       service.hours = service.hours.join(',')
       disptach(postService(service));
