@@ -18,6 +18,7 @@ export const UPDATE_REQUEST = "UPDATE_REQUEST";
 export const DELETE_REQUEST = "DELETE_REQUEST";
 export const ALL_REQUEST = "ALL_REQUEST";
 export const DELETE_SERVICES = "DELETE_SERVICES";
+export const ALL_USERS = 'ALL_USERS'
 const EP = "http://localhost:3001";
 
 //ACTIONS PARA LOS USUARIOS
@@ -51,6 +52,16 @@ export function updateUser(email, data) {
       })
     );
   };
+}
+
+export function allUsers () {
+  return async function(dispatch){
+    await axios.get(`${EP}/user`)
+    .then(detalle => dispatch({
+      type: ALL_USERS,
+      payload: detalle.data
+    }))
+  }
 }
 
 //ACTION PARA LOS SERVICIOS

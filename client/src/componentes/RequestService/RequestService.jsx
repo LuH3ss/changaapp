@@ -14,6 +14,7 @@ import { Box, Typography, Button, TextField } from "@mui/material";
 import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
 import styles from "./style";
+import Footer from '../Footer'
 
 export default function RequestService(props) {
   const { user } = useAuth();
@@ -232,6 +233,7 @@ export default function RequestService(props) {
             </Box>
           </Box>
         )}
+        <Footer/>
       </div>
     );
 }

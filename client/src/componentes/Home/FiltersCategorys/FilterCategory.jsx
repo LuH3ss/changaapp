@@ -16,12 +16,14 @@ export default function FilterCategory() {
     dispatch(getAllServices());
   }, [dispatch]);
 
-  console.log(filterUsers);
+  
 
   return (
     <div>
       <Navbar />
+      
       <FormCategory />
+      <h4>{param.name} {' > '}</h4>
       {filterUsers.length === 0 ? (
         <p>
           No se encuentra ningun servicio para esta categoria{" "}
@@ -46,7 +48,7 @@ export default function FilterCategory() {
               <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/>
               <p>{e.description}</p>
               <p>${e.price}</p>
-              <Link to={`/home/services/${e.id}`}>
+              <Link to={`/home/user/${e.name}`}>
                 <button>Haz tu reserva</button>
               </Link>
             </div>
