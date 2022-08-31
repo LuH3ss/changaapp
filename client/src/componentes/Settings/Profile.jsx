@@ -29,17 +29,23 @@ export default function Profile() {
   }, [dispatch, user?.email, setLoading]);
 
   // console.log(estado[0].services[0].category.name)
-  if (loading) return <h1>Loading..</h1>;
+
+  if (loading)
+    return (
+      <Box sx={{ width: "70%" }}>
+        <h1>Loading..</h1>
+      </Box>
+    );
   else if (user?.email && estado?.length) {
     return (
-      <div>
+      <Box sx={{ width: "70%" }}>
         {user?.email === null ? (
-          <p>
+          <Box sx={{ display: "flex" }}>
             No tienes acceso a estos datos ya que ingresaste como un usuario
             anonimo. Ve a la seccion de registrar para poder utilizar estos
             servicios.
             <Link to="/register">Registrarse</Link>
-          </p>
+          </Box>
         ) : estado?.length === 1 ? (
           // <Card sx={{ maxWidth: 500 }}>
           //   <CardMedia component="img" height="200" image={estado[0].img} alt="Profile photo" />
@@ -58,7 +64,7 @@ export default function Profile() {
           <Box
             variant="section"
             className="profile-container"
-            sx={{ padding: "10%" }}
+            sx={{ width: "100%", padding: "10%" }}
           >
             <Box
               sx={{
@@ -100,7 +106,7 @@ export default function Profile() {
         ) : (
           navigate("/settings/edit")
         )}
-      </div>
+      </Box>
     );
   }
 }

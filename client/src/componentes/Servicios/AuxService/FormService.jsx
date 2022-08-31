@@ -9,6 +9,7 @@ import {
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
+import Snackbar from "./Snackbar";
 import styles from "./style";
 //MATERIAL UI
 import Box from "@mui/material/Box";
@@ -19,6 +20,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import "../../css/profile.css";
 
 function validate(service) {
   let error = {};
@@ -143,6 +148,49 @@ export default function FormService() {
     }
   };
 
+  const handlePlusTime = (e) => {
+    let element = document.getElementById("time");
+    if (!element.value) element.value = "00:00";
+    let input = document.getElementById("time").value;
+    input = input.split(":");
+
+    if (element.value === "23:30") {
+      element.value = "00:00";
+    } else {
+      if (input[1] == 30) {
+        input[1] = "00";
+        input[0] = (Number(input[0]) + 1).toString();
+        input[0] = input[0] < 10 ? "0".concat(input[0]) : input[0];
+      } else if (input[1] !== 30) {
+        input[1] = "30";
+      } else if (element.value === "23:30") {
+        element.value = "00:00";
+      }
+
+      element.value = input.join(":");
+    }
+  };
+
+  const handleLessTime = (e) => {
+    let element = document.getElementById("time");
+    if (!element.value) element.value = "00:00";
+    let input = document.getElementById("time").value;
+    input = input.split(":");
+
+    if (element.value === "00:00") {
+      element.value = "23:30";
+    } else {
+      if (input[1] === "00") {
+        input[1] = "30";
+        input[0] = (Number(input[0]) - 1).toString();
+        input[0] = input[0] < 10 ? "0".concat(input[0]) : input[0];
+      } else if (input[1] !== "00") {
+        input[1] = "00";
+      }
+      element.value = input.join(":");
+    }
+  };
+
   const handleDeleteTime = (e) => {
     setService({
       ...service,
@@ -209,6 +257,7 @@ export default function FormService() {
           <Box sx={{ width: "100%", display: "flex" }}>
             <Box sx={{ width: "50%", padding: "20px 10px 0 20px" }}>
               <Box style={styles.box}>
+                <Snackbar></Snackbar>
                 <TextField
                   id="outlined-basic"
                   label="Nombre del Servicio"
@@ -225,7 +274,7 @@ export default function FormService() {
                 <FormControl fullWidth sx={{ padding: "7px 0" }}>
                   <InputLabel id="categoryLabel">Categoría</InputLabel>
                   <Select
-                    value={service.category}
+                    value={""}
                     onChange={(e) => handleCat(e.target.value)}
                   >
                     {categories?.map((el) => {
@@ -311,19 +360,48 @@ export default function FormService() {
                 >
                   Agregá horarios de disponibilidad
                 </Typography>
-                <Box sx={{ display: "flex", width: "100%" }}>
-                  <Box
-                    sx={{ display: "flex", alignItems: "center", width: "30%" }}
-                  >
-                    <input id="time" type="time" style={styles.time} />
-                    <Button
-                      onClick={handleTime}
-                      sx={{ width: "40px", height: "45px", outline: "none" }}
-                      variant="outlined"
-                    >
-                      ➕
-                    </Button>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "30%",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box sx={{ display: "flex" }}>
+                    <input
+                      style={styles.time}
+                      id="time"
+                      type="time"
+                      step={1800}
+                    />
+
+                    <Box sx={{ display: "flex" }}>
+                      <Button
+                        variant="outlined"
+                        onClick={(e) => handlePlusTime(e)}
+                        sx={{ minWidth: "30px" }}
+                      >
+                        <ExpandLessIcon />
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={(e) => handleLessTime(e)}
+                        sx={{ minWidth: "30px" }}
+                      >
+                        <ExpandMoreIcon />
+                      </Button>
+                    </Box>
                   </Box>
+                  <Button
+                    onClick={handleTime}
+                    sx={{ width: "40px", height: "45px", outline: "none" }}
+                    variant="outlined"
+                  >
+                    ➕
+                  </Button>
+                </Box>
+                <Box sx={{ display: "flex", width: "100%" }}>
                   <Box style={styles.hourAdded}>
                     {service?.hours?.map((el) => {
                       return (

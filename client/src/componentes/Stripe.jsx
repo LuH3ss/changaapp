@@ -11,33 +11,27 @@ import {
 } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
-import { allRequest } from "../redux/actions";
+import { allRequest, getAllServices } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 const publicUrl =
   "pk_test_51Lb2ZIKO72YUdcCNim89I44LXzpgG2vz57CjEn0ZAqmTZVW4D1o9y1ea5rzYeeH3dMFE4CAclOjOUqfc5NXncwMe00Zzkr0H1d";
 const stripePromise = loadStripe(publicUrl);
-// const appearance = {
 
-//         fontFamily: "Work Sans, sansSerif",
-//         background: "transparent",
-//         border: "none",
-//         borderBottom: "1px solid transparent",
-//         color: "#dbdce0",
-//         transition: "border-bottom 0.4s",
-
-// }
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  //   const elementss = stripe.elements({appearance});
+  const { id } = useParams();
   const dispatch = useDispatch();
-  const service = useSelector((state) => state.serviceDetail);
+  let service = useSelector((state) => state.services);
   const request = useSelector((state) => state.allRequest);
+  service = service.filter((p) => p.id === id);
   console.log(request);
+  console.log(service, "soy service");
   useEffect(() => {
     dispatch(allRequest());
+    dispatch(getAllServices());
   }, [dispatch]);
   const handlerSubmit = async (e) => {
     e.preventDefault();
@@ -51,12 +45,17 @@ const CheckoutForm = () => {
         id,
         amount: request[0]?.services.price,
       });
+      //   const actualRequest = request.filter(p=> {
+      //     p.services.id === p.service_id
+      //   })
+      //   console.log(actualRequest, "asadasssd")
       console.log(data);
       console.log(paymentMethod);
       elements.getElement(CardElement).clear();
       alert(data.message);
     }
   };
+
   return (
     <div className="container-flex">
       <form onSubmit={handlerSubmit} className="input">
@@ -74,7 +73,8 @@ const CheckoutForm = () => {
         </button>
 
         <h3>
-          {<br />}Price: ${request[0]?.services.price}
+          {console.log(request, "soy request")}
+          {<br />}Amount:  ${service[0]?.price}
         </h3>
       </form>
     </div>
@@ -83,13 +83,15 @@ const CheckoutForm = () => {
 
 export default function Stripe() {
   return (
-    <Elements stripe={stripePromise}>
-      <Link style={{ textDecoration: "none" }} to="/settings/requester">
-        <Button sx={{ color: "#1F2937" }} variant="outlined">
-          Volver atras
-        </Button>
-      </Link>
-      <CheckoutForm />
-    </Elements>
+    <div className="pay-container">
+      <Elements stripe={stripePromise}>
+        <Link style={{ textDecoration: "none" }} to="/settings/requester">
+          <Button sx={{ color: "#1F2937" }} variant="outlined">
+            Volver atras
+          </Button>
+        </Link>
+        <CheckoutForm />
+      </Elements>
+    </div>
   );
 }

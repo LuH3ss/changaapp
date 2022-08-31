@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import { getAllServices, updateRequest } from "../../../redux/actions";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 
 export default function StateRequest() {
   const { user } = useAuth();
@@ -46,7 +46,7 @@ export default function StateRequest() {
   };
 
   return (
-    <div>
+    <Box sx={{width:'70%'}}>
       <h1>Estado del Servicio</h1>
       {filterEmail.length === 0 ? (
         <p>
@@ -116,6 +116,6 @@ export default function StateRequest() {
           );
         })
       )}
-    </div>
+    </Box>
   );
 }

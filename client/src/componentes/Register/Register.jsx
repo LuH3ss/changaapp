@@ -9,6 +9,7 @@ import { Box } from "@mui/system";
 import { Button, Typography, TextField } from "@mui/material";
 import camera from "../../pngwing.com.png";
 import Nav from "../landing/LandingNav";
+import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 function validate(user) {
   let error = {};
@@ -229,11 +230,15 @@ export default function Register() {
             >
               <Typography variant="h6">Foto de Perfil: </Typography>
               <label for="inputTag">
-                <img
+                {
+                  user.img ? <img
                   style={{ width: "60px", height: "60px", cursor: "pointer" }}
-                  src={user.img !== "" ? user.img : camera}
+                  src={user.img}
                   alt=""
-                />
+                /> :
+                <AddAPhotoOutlinedIcon sx={{cursor:'pointer', fontSize:'60px'}}/>
+                }
+
                 <input
                   id="inputTag"
                   style={styles.imgInput}

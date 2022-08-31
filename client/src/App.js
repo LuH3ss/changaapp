@@ -37,7 +37,7 @@ function App() {
         <Route path="/home/todos" element={<AllCategorys />} />
         <Route path="/home/createService" element={<Servicios />} />
         <Route path="/home/services/:id" element={<RequestService />} />
-        <Route path="/home/services/payment" element={<Stripe />} />
+        <Route path="/home/services/payment/:id" element={<Stripe />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />

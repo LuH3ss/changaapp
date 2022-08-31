@@ -15,6 +15,7 @@ export default function Settings() {
   return (
     <div>
       <Navbar />
+
       {user?.email === null || user?.undefined ? (
         <p>
           No tienes acceso a estos datos ya que ingresaste como un usuario
@@ -26,7 +27,8 @@ export default function Settings() {
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
+            width: "100%",
+            alignItems: "start",
             justifyContent: "center",
             margin: "50px",
             gap: "20px",
@@ -36,6 +38,7 @@ export default function Settings() {
           <Box
             sx={{
               display: "flex",
+              width: "30%",
               flexDirection: "column",
               borderRight: "solid grey 1px",
               paddingRight: "5%",
