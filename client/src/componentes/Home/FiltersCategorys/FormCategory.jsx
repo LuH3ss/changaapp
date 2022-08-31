@@ -2,16 +2,18 @@ import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate} from "react-router-dom";
-import { getAllCategories } from "../../../redux/actions";
+import { getAllCategories, getAllServices, sortServices } from "../../../redux/actions";
 
 export default function FormCategory(){
     const categoryState = useSelector(state => state.categories)
+    const services = useSelector(state => state.services)
     const dispatch = useDispatch()
-    const [cat, setCat] = useState('')    
+    const [cat, setCat] = useState('')
+    const [select, setSelect] = useState('')    
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(getAllCategories())
-        
+        dispatch(getAllServices())
     }, [dispatch])
 
 
@@ -33,8 +35,18 @@ export default function FormCategory(){
         navigate(`/home/${cat}`)
     }
 
+    const handleSort = (e) => {
+        setSelect(e.target.value);
+        dispatch(sortServices(e.target.value));
+      };
+    
     return(
         <div style={{ textAlign: 'center'}}>
+            <select name="precios" onChange={handleSort}>
+                <option value="neutro">Precios</option>
+                <option value="mayor">Mayor precio</option>
+                <option value="menor">Menor precio</option>
+            </select>
             <form onSubmit={e => handleOnSubmit(e)} style={{ textAlign: 'center', display: 'flex', justifyContent:'center', gap: '10px', alignItems:'baseline'}}>
                 <div>
                     <label>Todos</label>

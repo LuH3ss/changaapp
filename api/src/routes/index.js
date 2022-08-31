@@ -26,6 +26,7 @@ const {
   deleteRequest,
 } = require("../services/request");
 const { getReviews, postReviews } = require("../services/reviews");
+const { getNotifications, postNotifications, deleteNotification } = require("../services/notifications");
 
 // Importar todos los routers;
 
@@ -66,6 +67,11 @@ router.post("/reviews", postReviews);
 //sendEmail routes
 router.post("/sendemail", registerMail);
 router.post("/sendemail", requestMail);
+
+//notifications routes
+router.get("/notifications", getNotifications);
+router.post("/notifications", postNotifications);
+router.delete('/notifications/:id', deleteNotification)
 
 
 module.exports = router;

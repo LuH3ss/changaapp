@@ -17,7 +17,11 @@ import {
   DELETE_REQUEST,
   ALL_REQUEST,
   DELETE_SERVICES,
+  ALL_NOTIFICATIONS,
+  POST_NOTIFICATION,
+  DELETE_NOTIFICATION,
   ALL_USERS
+
 } from "../actions/index.js";
 
 const initialStates = {
@@ -36,6 +40,10 @@ const initialStates = {
   deleteRequest: [],
   allRequest: [],
   users: [],
+  allNotifications: [],
+  postNotification: [],
+  deleteNotification: [],
+
 };
 
 const reducer = (state = initialStates, action) => {
@@ -62,27 +70,25 @@ const reducer = (state = initialStates, action) => {
         services: action.payload,
       };
     case SORT_SERVICES:
-      let sorted;
-      if (action.payload.includes("Price")) {
-        sorted = state.services.sort(function (a, b) {
-          return a.price - b.price;
-        });
-        if (action.payload === "PriceDes") {
-          sorted = sorted.reverse();
-        }
-      } else {
-        sorted = state.services.sort(function (a, b) {
-          if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
-          if (a.name.toUpperCase() < b.name.toUpperCase()) return -1;
+      let allSer = [...state.services];
+      let filterServices = [];
+      if (action.payload === "menor") {
+        filterServices = allSer.sort((a, b) => {
+          if (a.price > b.price) return 1;
+          if (a.price < b.price) return -1;
           return 0;
         });
-        if (action.payload === "AlphabeticalDes") {
-          sorted = sorted.reverse();
-        }
+      }
+      if (action.payload === "mayor") {
+        filterServices = allSer.sort((a, b) => {
+          if (a.price > b.price) return -1;
+          if (a.price < b.price) return 1;
+          return 0;
+        });
       }
       return {
         ...state,
-        services: sorted,
+        services: filterServices,
       };
     case FILTER_SERVICES:
       return {
@@ -157,8 +163,24 @@ const reducer = (state = initialStates, action) => {
     case ALL_USERS:
       return {
         ...state,
-        users: action.payload
-      }
+        users: action.payload,
+      };
+    case ALL_NOTIFICATIONS:
+      return {
+        ...state,
+        allNotifications: action.payload,
+      };
+    case POST_NOTIFICATION:
+      return {
+        ...state,
+        postNotification: [...state.postNotification, { ...action.payload }],
+      };
+    case DELETE_NOTIFICATION:
+      return {
+        ...state,
+        deleteNotification: action.payload,
+      };
+
     default:
       return state;
   }

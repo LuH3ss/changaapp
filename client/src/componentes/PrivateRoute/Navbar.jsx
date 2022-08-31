@@ -13,6 +13,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Logout from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -69,6 +70,7 @@ export default function Navbar() {
           <Button style={styles.button}>Crear Servicio</Button>
         </Link>
       </div>
+      <Link to='/settings/notifications'><NotificationsActiveIcon/></Link>
       <Tooltip title="Account settings">
         <IconButton
           onClick={handlerClick}
