@@ -1,4 +1,5 @@
 const { Category, Services, Request, User } = require("../db");
+const requestMail = require("./Emails/sendEmails");
 
 const getRequest = async (req, res) => {
   try {
@@ -34,22 +35,27 @@ const getRequest = async (req, res) => {
 };
 
 const postRequest = async (req, res) => {
+  const { day, hours, service_id, requester_id, email } = req.body;
   try {
     await Request.create({
       state: "pendiente",
-      day: req.body.day,
-      hours: req.body.hours,
-      service_id: req.body.service_id,
-      requester_id: req.body.requester_id,
+      day,
+      hours,
+      service_id,
+      requester_id,
+      email,
     });
     res.status(201).send("created");
   } catch (error) {
     res.status(404).send(error);
   }
+  const asunto = "Solicitud de Servicio";
+  const mensaje = "Tiene una nueva solicitud de servicio en ChangaApp";
+  requestMail.email(email, asunto, mensaje);
 };
 
 const putRequest = async (req, res) => {
-  const { state, id } = req.body;
+  const { state, id, email } = req.body;
   try {
     const asd = await Request.update(
       {
@@ -59,6 +65,9 @@ const putRequest = async (req, res) => {
         where: {
           id,
         },
+      },
+      {
+        email,
       }
     );
     console.log(asd);
@@ -67,6 +76,10 @@ const putRequest = async (req, res) => {
     console.log(error);
     res.status(404).send(error);
   }
+  const asunto = "Novedades en su solicitud de Servicio";
+  const mensaje =
+    "Su solicitud de servicio de ChangaApp ha sido aceptada/rechazada";
+  requestMail.email(email, asunto, mensaje);
 };
 
 const deleteRequest = async (req, res) => {

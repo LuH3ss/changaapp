@@ -62,6 +62,7 @@ const CheckoutForm = () => {
         <img
           src="https://seeklogo.com/images/V/VISA-logo-62D5B26FE1-seeklogo.com.png"
           className="logo-card"
+          alt="Not found"
         />
 
         <CardElement />

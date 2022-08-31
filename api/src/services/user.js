@@ -1,4 +1,4 @@
-const { Category, Services, User, Reviews } = require("../db");
+const { Category, Services, User, Reviews, Request } = require("../db");
 const registerMail = require("./Emails/sendEmails");
 
 const register = async (req, res) => {
@@ -54,8 +54,6 @@ const register = async (req, res) => {
 };
 
 const getUsers = async (req, res) => {
-  const { id } = req.body;
-
   const users = await User.findAll({
     include: [
       {
@@ -64,6 +62,14 @@ const getUsers = async (req, res) => {
         include: {
           model: Category,
           as: "category",
+        },
+      },
+      {
+        model: Services,
+        as: "services",
+        include: {
+          model: Request,
+          as: "request",
         },
       },
       {
