@@ -18,32 +18,30 @@ import styles from "./style";
 import Footer from '../Footer'
 
 export default function RequestService(props) {
-<<<<<<< HEAD
-  const { user } = useAuth();
-=======
+
   const { user } = useAuth(); // author
 
->>>>>>> origin/dev
+
   const [request, setRequest] = useState({
     day: "",
     hours: "",
     service_id: "",
     requester_id: "",
   });
-<<<<<<< HEAD
-=======
+
 
   // const [userEmail, setUserEmail] = useState(service.user.email)
 
->>>>>>> origin/dev
+
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
   const service = useSelector((state) => state.serviceDetail);
-<<<<<<< HEAD
-  const userDb = useSelector((state) => state.filter);
 
+
+  const userDb = useSelector((state) => state.filter); // duthor
+  console.log(service)
   // PARA MANDAR UNA NOTIFICACION
   
   const [noti] = useState({
@@ -56,10 +54,7 @@ export default function RequestService(props) {
     userNotification_id: userDb[0]?.id,
     userNotificated_id: userDb[0]?.id
   })
-=======
-  const userDb = useSelector((state) => state.filter); // duthor
-console.log(service)
->>>>>>> origin/dev
+
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
