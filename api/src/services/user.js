@@ -114,7 +114,7 @@ const updateUser = async (req, res) => {
     }
   );
 
-  return res.status(201).send("Usuario actualizado");
+  return res.status(201).send("User updated");
 };
 
 const filterUser = async (req, res) => {
@@ -134,7 +134,7 @@ const filterUser = async (req, res) => {
     if (filterEmail) {
       return res.send(filterEmail);
     } else {
-      return res.send("No se encontro el email solicitado");
+      return res.send("Email not found");
     }
   }
 };
@@ -155,7 +155,7 @@ const userLocation = async (req, res) => {
   if (filterLocation) {
     return res.send(filterLocation);
   } else {
-    return res.send("No se encontro la zona");
+    return res.send("Location not found");
   }
 };
 

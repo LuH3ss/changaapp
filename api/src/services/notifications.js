@@ -29,7 +29,7 @@ const postNotifications = async (req, res) => {
       userNotificated_id: req.body.userNotificated_id,
     });
 
-    res.status(201).send("created");
+    res.status(201).send("Notification created");
   } catch (error) {
     res.status(404).send(error);
   }

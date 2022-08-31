@@ -45,7 +45,7 @@ const postRequest = async (req, res) => {
       requester_id,
       email,
     });
-    res.status(201).send("created");
+    res.status(201).send("Request created");
   } catch (error) {
     res.status(404).send(error);
   }
@@ -71,7 +71,7 @@ const putRequest = async (req, res) => {
       }
     );
     console.log(asd);
-    res.status(201).send("Updated");
+    res.status(201).send("Request updated");
   } catch (error) {
     console.log(error);
     res.status(404).send(error);
@@ -90,7 +90,7 @@ const deleteRequest = async (req, res) => {
         id,
       },
     });
-    res.send("Estado borrado exitosamente");
+    res.send("Request deleted");
   } catch (error) {
     console.log(error);
   }

@@ -112,7 +112,7 @@ const updateService = async (req, res) => {
         },
       }
     );
-    return res.status(201).send("Servicio actualizado correctamente");
+    return res.status(201).send("Service Updated");
   } catch (error) {
     console.log(error);
   }
@@ -126,7 +126,7 @@ const deleteService = async (req, res) => {
         id,
       },
     });
-    res.status(201).send("Servicio borrado");
+    res.status(201).send("Service deleted");
   } catch (error) {}
 };
 

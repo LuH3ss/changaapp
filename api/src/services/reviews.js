@@ -30,7 +30,7 @@ const postReviews = async (req, res) => {
       author_id: req.body.author_id,
     });
 
-    res.status(201).send("created");
+    res.status(201).send("Review created");
   } catch (error) {
     res.status(404).send(error);
   }

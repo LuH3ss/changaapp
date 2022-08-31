@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "../css/navBar.css";
 import SearchBar from "../SearchBar";
@@ -29,9 +30,9 @@ const styles = {
     color: "white",
   },
   asd: {
-    textDecoration: 'none',
-    color: '#fff'
-  }
+    textDecoration: "none",
+    color: "#fff",
+  },
 };
 
 export default function Navbar() {
@@ -60,7 +61,9 @@ export default function Navbar() {
   return (
     <Box style={styles.container} className="navBar">
       <Typography variant="h4">
-        <Link style={styles.asd} to="/home">ChangApp</Link>
+        <Link style={styles.asd} to="/home">
+          ChangApp
+        </Link>
       </Typography>
 
       <SearchBar style={styles.button} />
