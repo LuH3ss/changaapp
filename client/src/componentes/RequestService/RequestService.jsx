@@ -39,11 +39,14 @@ export default function RequestService(props) {
     userNotification_id: userDb[0]?.id,
     userNotificated_id: service.user?.id
   })
-  
+  const [asd] = useState({
+    message: `Servicio solicitado, dirigete a tu perfil para mas informacion.`,
+    userNotification_id: userDb[0]?.id,
+    userNotificated_id: userDb[0]?.id
+  })
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
-    
     setLoading(false);
   }, [dispatch, user?.email]);
 
@@ -101,6 +104,7 @@ export default function RequestService(props) {
         service_id: service.id,
         requester_id: userDb[0].id,
       };
+      dispatch(postNotification(asd))
       dispatch(postNotification(noti))
       dispatch(postRequest(requestService));
       setRequest({

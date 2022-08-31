@@ -41,6 +41,7 @@ export default function CompleteProfile() {
   const [btn, setBtn] = useState(false);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
+  
   //PARA TRAER LA DATA DE BASE DE DATOS
   useEffect(() => {
     dispatch(getUserEmail(user?.email));

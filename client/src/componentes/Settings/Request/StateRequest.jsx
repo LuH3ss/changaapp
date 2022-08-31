@@ -15,8 +15,9 @@ export default function StateRequest() {
   const [btn, setBtn] = useState({
     state: "",
     id: "",
+    email: ''
   });
-  console.log(filterEmail);
+  // console.log(filterEmail);
   //ESTADO PARA LA NOTIFICACION AUTOMATICA
   const [noti, setNoti] = useState({
     message: '',
@@ -32,6 +33,7 @@ export default function StateRequest() {
   const handleOnClick = (e) => {
     if (btn.state === "") {
       setBtn({
+        ...btn,
         state: e.target.name,
         id: e.target.value,
       });
@@ -41,16 +43,17 @@ export default function StateRequest() {
         userNotification_id: filterEmail[0]?.user.id,
         userNotificated_id: e.target.className
       })
-      console.log(btn);
+      // console.log(btn);
     } else if (btn.state !== e.target.name) {
       document.getElementById(btn.state).checked = false;
       setBtn({
+        ...btn,
         state: e.target.name,
         id: e.target.value,
       });
       //ESTO ES PARA ENVIAR LA NOTIFICACION AUTOMATICA
       setNoti({
-        message: `Tu pedido del trabajo ${filterEmail[0].name} fue rechazado.`,
+        message: `Tu pedido del trabajo ${filterEmail[0]?.name} fue rechazado.`,
         userNotification_id: filterEmail[0]?.user.id,
         userNotificated_id: e.target.className
       })
@@ -65,7 +68,7 @@ export default function StateRequest() {
       window.location.reload(true);
     }
   };
-  
+  console.log(btn)
   return (
     <div>
       <h1>Estado del Servicio</h1>
@@ -139,6 +142,7 @@ export default function StateRequest() {
           );
         })
       )}
+
     </div>
   );
 }

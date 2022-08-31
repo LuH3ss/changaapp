@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail, updateUser } from "../../../redux/actions";
+import {
+  getUserEmail,
+  postNotification,
+  updateUser,
+} from "../../../redux/actions";
 import axios from "axios";
 import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
@@ -29,13 +33,17 @@ export default function UpdateProfile() {
     firstName: "",
     lastName: "",
     description: "",
-    location: '',
+    location: "",
   });
   const [error, setError] = useState("");
-
-  // const [btn, setBtn] = useState(false);
+  const [btn, setBtn] = useState(false);
   const dispatch = useDispatch();
-
+  //PARA MANDAR UNA NOTIFICACION AUTOMATICA
+  const [noti] = useState({
+    message: `Perfil actualizado.`,
+    userNotification_id: estado[0]?.id,
+    userNotificated_id: estado[0]?.id,
+  });
   //PARA TRAER LA DATA DESDE LA BASE DE DATOS
 
   useEffect(() => {
@@ -56,7 +64,7 @@ export default function UpdateProfile() {
       })
     );
   };
-  console.log(error);
+
   const handleImage = async (e) => {
     e.preventDefault();
     try {
@@ -64,9 +72,7 @@ export default function UpdateProfile() {
       const data = new FormData();
       data.append("file", file);
       data.append("upload_preset", "changApp");
-
       const cloudinary = await axios.post(CLODUNIARY_API, data);
-
       setInput({
         ...input,
         img: cloudinary.data.secure_url,
@@ -83,19 +89,21 @@ export default function UpdateProfile() {
     if (input.lastName === "") input.lastName = estado[0].lastName;
     if (input.firstName === "") input.firstName = estado[0].firstName;
     if (input.description === "") input.description = estado[0].description;
+
     dispatch(updateUser(user?.email, input));
+    dispatch(postNotification(noti));
     alert("Cambios guardados con exito");
     navigate("/settings/profile");
   };
 
   //PARA CONTROLAR QUE SI NO INGRESO NINGUN DATO NO PUEDA GUARDAR LOS CAMBIOS
-  // useEffect(() => {
-  //   if (input.img || input.firstName || input.lastName) {
-  //     setBtn(false);
-  //   } else {
-  //     setBtn(true);
-  //   }
-  // }, [input]);
+  useEffect(() => {
+    if (input.img || input.firstName || input.lastName) {
+      setBtn(false);
+    } else {
+      setBtn(true);
+    }
+  }, [input]);
   return (
     // <div>
     //   <form onSubmit={(e) => handleSubmit(e)}>
@@ -212,7 +220,9 @@ export default function UpdateProfile() {
             onChange={handleChange}
           />
         </Box>
-        <Button type="submit">Guardar Cambios</Button>
+        <Button type="submit" disabled={btn}>
+          Guardar Cambios
+        </Button>
       </form>
     </Box>
   );

@@ -37,7 +37,7 @@ export default function StateRequester() {
     dispatch(deleteRequest(e.target.id));
     window.location.reload(true);
   };
-
+  
   return (
     <div>
       <h1>Estado de los servicios solicitados</h1>
@@ -63,7 +63,7 @@ export default function StateRequester() {
                     <div>
                       <p>
                         Para pagar el servicio accede al siguiente{" "}
-                        <Link to={`/home/services/payment/${e.services.id}`}>link</Link>
+                        <Link to={`/home/services/payment/${e.services?.id}`}>link</Link>
                       </p>
                       <p>
                         Si quieres cancelar la solicitud aprieta el siguiente

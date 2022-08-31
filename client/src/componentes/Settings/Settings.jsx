@@ -36,7 +36,7 @@ export default function Settings() {
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='requester'>Estado de los servicios solicitados</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='/login' onClick={handleClick}>Cerrar Sesion</NavLink>
             </Box>
-               <Outlet />
+            <Outlet />
         </Box>
       }
     </div>
