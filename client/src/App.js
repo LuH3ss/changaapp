@@ -7,7 +7,7 @@ import Register from "./componentes/Register/Register";
 import Servicios from "./componentes/Servicios/Servicios";
 import EditProfile from "./componentes/Settings/EditProfile";
 import Password from "./componentes/ResetPassword/Password";
-import Profile from "./componentes/Settings/PrivateProfile";
+import Profile from "./componentes/Settings/Profile";
 import Settings from "./componentes/Settings/Settings";
 import Landing from "./componentes/landing/Landing.jsx";
 import RequestService from "./componentes/RequestService/RequestService";
