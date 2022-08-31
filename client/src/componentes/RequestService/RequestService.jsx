@@ -37,8 +37,6 @@ export default function RequestService(props) {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const service = useSelector((state) => state.serviceDetail);
-  const userDb = useSelector((state) => state.filter); // duthor
   console.log(service);
 
   useEffect(() => {
