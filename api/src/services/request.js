@@ -57,7 +57,7 @@ const postRequest = async (req, res) => {
 const putRequest = async (req, res) => {
   const { state, id, email } = req.body;
   try {
-    const asd = await Request.update(
+    await Request.update(
       {
         state,
       },
@@ -70,7 +70,6 @@ const putRequest = async (req, res) => {
         email,
       }
     );
-    console.log(asd);
     res.status(201).send("Request updated");
   } catch (error) {
     console.log(error);

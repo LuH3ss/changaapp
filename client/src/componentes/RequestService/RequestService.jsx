@@ -18,12 +18,15 @@ import styles from "./style";
 
 export default function RequestService(props) {
   const { user } = useAuth();
+  const service = useSelector((state) => state.serviceDetail);
+  const userDb = useSelector((state) => state.filter);
 
   const [request, setRequest] = useState({
     day: "",
     hours: "",
     service_id: "",
     requester_id: "",
+    email: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -31,9 +34,6 @@ export default function RequestService(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-
-  const service = useSelector((state) => state.serviceDetail);
-  const userDb = useSelector((state) => state.filter);
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -94,6 +94,7 @@ export default function RequestService(props) {
         ...request,
         service_id: service.id,
         requester_id: userDb[0].id,
+        email: service?.user.email,
       };
       dispatch(postRequest(requestService));
       setRequest({
