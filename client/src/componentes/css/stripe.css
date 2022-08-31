@@ -1,3 +1,7 @@
+.pay-container{
+  background: rgb(199, 199, 199);
+  min-height: 100vh;
+}
 .container-flex {
   background: #ff8502;
   border-radius: 14px;
@@ -26,6 +30,10 @@
   color: white;
   transition: box-shadow 0.2s, transform 0.4s;
   cursor: pointer;
+}
+.proceed:hover {
+  background-color: #28ab91;
+  outline: none;
 }
 .proceed:active {
   outline: none;

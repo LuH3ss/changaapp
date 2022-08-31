@@ -21,15 +21,15 @@ const stripePromise = loadStripe(publicUrl);
 const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const {id} = useParams();
+  const { id } = useParams();
   const dispatch = useDispatch();
   let service = useSelector((state) => state.services);
   const request = useSelector((state) => state.allRequest);
-    service = service.filter(p=> p.id === id)
+  service = service.filter((p) => p.id === id);
   console.log(request);
-  console.log(service, "soy service")
+  console.log(service, "soy service");
   useEffect(() => {
-    dispatch(allRequest())
+    dispatch(allRequest());
     dispatch(getAllServices());
   }, [dispatch]);
   const handlerSubmit = async (e) => {
@@ -44,10 +44,10 @@ const CheckoutForm = () => {
         id,
         amount: request[0]?.services.price,
       });
-    //   const actualRequest = request.filter(p=> {
-    //     p.services.id === p.service_id
-    //   })
-    //   console.log(actualRequest, "asadasssd")
+      //   const actualRequest = request.filter(p=> {
+      //     p.services.id === p.service_id
+      //   })
+      //   console.log(actualRequest, "asadasssd")
       console.log(data);
       console.log(paymentMethod);
       elements.getElement(CardElement).clear();
@@ -71,8 +71,8 @@ const CheckoutForm = () => {
         </button>
 
         <h3>
-           { console.log(request, "soy request")}
-          {<br />}Price: ${service[0]?.price}
+          {console.log(request, "soy request")}
+          {<br />}Amount:  ${service[0]?.price}
         </h3>
       </form>
     </div>
@@ -81,13 +81,15 @@ const CheckoutForm = () => {
 
 export default function Stripe() {
   return (
-    <Elements stripe={stripePromise}>
-      <Link style={{ textDecoration: "none" }} to="/settings/requester">
-        <Button sx={{ color: "#1F2937" }} variant="outlined">
-          Volver atras
-        </Button>
-      </Link>
-      <CheckoutForm />
-    </Elements>
+    <div className="pay-container">
+      <Elements stripe={stripePromise}>
+        <Link style={{ textDecoration: "none" }} to="/settings/requester">
+          <Button sx={{ color: "#1F2937" }} variant="outlined">
+            Volver atras
+          </Button>
+        </Link>
+        <CheckoutForm />
+      </Elements>
+    </div>
   );
 }
