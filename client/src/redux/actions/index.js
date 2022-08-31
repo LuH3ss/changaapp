@@ -18,6 +18,7 @@ export const UPDATE_REQUEST = "UPDATE_REQUEST";
 export const DELETE_REQUEST = "DELETE_REQUEST";
 export const ALL_REQUEST = "ALL_REQUEST";
 export const DELETE_SERVICES = "DELETE_SERVICES";
+export const USER_LOCATION = "USER_LOCATION";
 const EP = "http://localhost:3001";
 
 //ACTIONS PARA LOS USUARIOS
@@ -36,6 +37,17 @@ export function getUserEmail(email) {
     await axios.get(`${EP}/user/${email}`).then((detalle) =>
       dispatch({
         type: FILTER,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function getUserLocation(location) {
+  return async function (dispatch) {
+    await axios.get(`${EP}/user/${location}`).then((detalle) =>
+      dispatch({
+        type: USER_LOCATION,
         payload: detalle.data,
       })
     );

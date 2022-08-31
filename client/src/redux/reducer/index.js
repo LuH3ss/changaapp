@@ -17,6 +17,7 @@ import {
   DELETE_REQUEST,
   ALL_REQUEST,
   DELETE_SERVICES,
+  USER_LOCATION,
 } from "../actions/index.js";
 
 const initialStates = {
@@ -29,6 +30,7 @@ const initialStates = {
   postCategory: [],
   update: [],
   filter: [],
+  userLocation: [],
   updateService: [],
   filterId: [],
   updateRequest: [],
@@ -111,6 +113,11 @@ const reducer = (state = initialStates, action) => {
       return {
         ...state,
         filter: action.payload,
+      };
+    case USER_LOCATION:
+      return {
+        ...state,
+        userLocation: action.payload,
       };
     case UPDATE:
       return {

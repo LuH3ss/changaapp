@@ -6,6 +6,7 @@ const {
   getUsers,
   updateUser,
   filterUser,
+  userLocation,
 } = require("../services/user");
 const {
   getServices,
@@ -39,6 +40,7 @@ router.post("/user", register);
 router.get("/user", getUsers);
 router.put("/user/:email", updateUser);
 router.get("/user/:email", filterUser);
+router.get("/user", userLocation);
 
 //services routes
 router.post("/services", postService);

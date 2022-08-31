@@ -77,7 +77,16 @@ const getUsers = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { firstName, lastName, birthDate, phone, img } = req.body;
+  const {
+    firstName,
+    lastName,
+    birthDate,
+    img,
+    description,
+    location,
+    admin,
+    banned,
+  } = req.body;
   const { email } = req.params;
 
   await User.update(
@@ -85,8 +94,12 @@ const updateUser = async (req, res) => {
       firstName,
       lastName,
       birthDate,
-      phone,
+      email,
       img,
+      description,
+      location,
+      admin,
+      banned,
     },
     {
       where: {
@@ -120,9 +133,30 @@ const filterUser = async (req, res) => {
   }
 };
 
+const userLocation = async (req, res) => {
+  const { location } = req.params;
+  const userLocation = await User.findAll({
+    include: {
+      model: Services,
+      as: "services",
+      include: {
+        model: Category,
+        as: "category",
+      },
+    },
+  });
+  const filterLocation = userLocation.filter((e) => e.location === location);
+  if (filterLocation) {
+    return res.send(filterLocation);
+  } else {
+    return res.send("No se encontro la zona");
+  }
+};
+
 module.exports = {
   register,
   getUsers,
   updateUser,
   filterUser,
+  userLocation,
 };
