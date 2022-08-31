@@ -71,12 +71,11 @@ export default function FormService() {
   const [error, setError] = useState("");
   const [btn, setBtn] = useState(false);
   //ESTADO PARA LA NOTIFICACION AUTOMATICA
-  const [noti] = useState({
-    message: `Servicio creado correctamente.`,
+  const [noti,] = useState({
+    message: `Servicio creado exitosamente.`,
     userNotification_id: estado[0]?.id,
     userNotificated_id: estado[0]?.id
   })
-
 
   useEffect(() => {
     disptach(getAllCategories());

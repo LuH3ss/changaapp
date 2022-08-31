@@ -57,13 +57,10 @@ export default function RequestService(props) {
     "Domingo",
   ];
 
-  // const handleOnChange = (e) => {
-  //   e.preventDefault();
-  //   setRequest({
-  //     ...request,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const handlePrev = (e) => {
+    e.preventDefault()
+    window.history.back()
+  }
 
   const handleDay = (e) => {
     if (request.day !== "") {
@@ -204,11 +201,11 @@ export default function RequestService(props) {
                         padding: "30px",
                       }}
                     >
-                      <Link style={{ textDecoration: "none" }} to="/home">
-                        <Button variant="outlined" style={{ color: "#1F2937" }}>
+                      
+                        <Button  onClick={handlePrev} variant="outlined" style={{ color: "#1F2937" }}>
                           Volver atras
                         </Button>
-                      </Link>
+                      
                       <Button
                         variant="outlined"
                         sx={{ color: "#1F2937" }}
