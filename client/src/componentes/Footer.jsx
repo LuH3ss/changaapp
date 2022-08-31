@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../context/authContext";
 import { getAllCategories } from "../redux/actions";
+import { Link } from "react-router-dom";
 import "./css/footer.css";
 
 export default function Footer() {
@@ -24,11 +25,13 @@ export default function Footer() {
           {category &&
             category.map((c) => {
               return (
-                <div key={c.id}>
-                  <li className="footer__lista--item">
-                    <p>{c.name}</p>
-                  </li>
-                </div>
+                <Link key={c.id} to="/home/todos">
+                  <div>
+                    <li className="footer__lista--item">
+                      <p>{c.name}</p>
+                    </li>
+                  </div>
+                </Link>
               );
             })}
           <li className="footer__lista--item">
@@ -49,7 +52,9 @@ export default function Footer() {
             <p>Programa de Fidelidad</p>
           </li>
           <li className="footer__lista--item">
-            <p>Anuncie Aqui</p>
+            <Link to="/home/createService">
+              <p>Anuncie Aqui</p>
+            </Link>
           </li>
         </ul>
       </div>
@@ -57,19 +62,44 @@ export default function Footer() {
         <ul className="footer__lista">
           <p>Desarrollado por</p>
           <li className="footer__lista--item">
-            <p>Enrique Gomez Naar</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/enrique-gomez-naar-fullstackdeveloper/"
+            >
+              Enrique Gomez Naar
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Lucas Hess</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/lucas-axel-hess/"
+            >
+              Lucas Hess
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Juan Pablo Cuadrelli</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/juan-pablo-cuadrelli-full-stack-dev/"
+            >
+              Juan Pablo Cuadrelli
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Agop Chorbadjian</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/agop-chorbadjian-369767218/"
+            >
+              Agop Chorbadjian
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Claudio Amaya</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/claudio-amaya-fullstack/"
+            >
+              Claudio Amaya
+            </a>
           </li>
         </ul>
       </div>
