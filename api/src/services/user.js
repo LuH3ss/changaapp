@@ -7,11 +7,12 @@ const register = async (req, res) => {
     lastName,
     birthDate,
     email,
-    img,
     description,
-    location,
+    img,
+    offerer,
     admin,
     banned,
+    location,
   } = req.body;
 
   try {

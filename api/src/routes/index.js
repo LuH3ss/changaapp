@@ -17,10 +17,6 @@ const {
   deleteService,
 } = require("../services/service");
 const { email } = require("../services/Emails/sendEmails");
-const {
-  getNotifications,
-  postNotifications,
-} = require("../services/notifications");
 const { getCategories, postCategorie } = require("../services/category");
 const { paymentMethod } = require("../services/payment");
 const {
@@ -78,7 +74,6 @@ router.post("/sendemail", email);
 //notifications routes
 router.get("/notifications", getNotifications);
 router.post("/notifications", postNotifications);
-
 router.delete("/notifications/:id", deleteNotification);
 
 module.exports = router;
