@@ -29,11 +29,17 @@ export default function RequestService(props) {
     email: "",
   });
 
+  // const [userEmail, setUserEmail] = useState(service.user.email)
+
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const service = useSelector((state) => state.serviceDetail);
+  const userDb = useSelector((state) => state.filter); // duthor
+  console.log(service);
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -187,7 +193,6 @@ export default function RequestService(props) {
                         );
                       })}
                     </Box>
-
                     <Box
                       sx={{
                         display: "flex",

@@ -72,7 +72,7 @@ const putRequest = async (req, res) => {
     );
     res.status(201).send("Request updated");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(404).send(error);
   }
   const asunto = "Novedades en su solicitud de Servicio";
