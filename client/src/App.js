@@ -21,6 +21,7 @@ import StateRequest from "./componentes/Settings/Request/StateRequest";
 import StateRequester from "./componentes/Settings/Request/StateOfer";
 import PreService from "./componentes/Home/RenderProfile/PreService";
 import PublicProfile from "./componentes/Home/RenderProfile/PublicProfile";
+import Notifications from "./componentes/Settings/Notifications";
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
         <Route path="/home/todos" element={<AllCategorys />} />
         <Route path="/home/createService" element={<Servicios />} />
         <Route path="/home/services/:id" element={<RequestService />} />
-        <Route path="/home/services/payment" element={<Stripe />} />
+        <Route path="/home/services/payment/:id" element={<Stripe />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
@@ -46,6 +47,7 @@ function App() {
           <Route path='request' element={<StateRequest/>}/>
           <Route path='requester' element={<StateRequester/>}/>
           <Route path="updateService/:id" element={<UpdateService />} />
+          <Route path='notifications' element={<Notifications/>}/>
         </Route>
          
       </Routes>

@@ -19,11 +19,11 @@ export default function PreService(){
         e.preventDefault()
         window.history.back();
     }
-
+    
     return(
         <div>
             <Navbar/>
-            <h5>{userState[0]?.category.name} {' > '} {userState[0]?.name}</h5>
+            <h5><span onClick={handleOnClic}>{userState[0]?.category.name}</span> {' > '} {userState[0]?.name}</h5>
             <h3>Descripcion general</h3>
             <div>
                 <div>

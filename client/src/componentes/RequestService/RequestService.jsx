@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getDetail,
   getUserEmail,
+  postNotification,
   postRequest,
 } from "../../redux/actions/index.js";
 import { useEffect } from "react";
@@ -18,26 +19,31 @@ import Footer from '../Footer'
 
 export default function RequestService(props) {
   const { user } = useAuth();
-
   const [request, setRequest] = useState({
     day: "",
     hours: "",
     service_id: "",
     requester_id: "",
   });
-
   const [loading, setLoading] = useState(true);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-
   const service = useSelector((state) => state.serviceDetail);
   const userDb = useSelector((state) => state.filter);
 
+  // PARA MANDAR UNA NOTIFICACION
+  
+  const [noti] = useState({
+    message: 'Recibiste una solicitud de servicio, dirigete a tu casilla para confirmar.',
+    userNotification_id: userDb[0]?.id,
+    userNotificated_id: service.user?.id
+  })
+  
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
+    
     setLoading(false);
   }, [dispatch, user?.email]);
 
@@ -98,6 +104,7 @@ export default function RequestService(props) {
         service_id: service.id,
         requester_id: userDb[0].id,
       };
+      dispatch(postNotification(noti))
       dispatch(postRequest(requestService));
       setRequest({
         day: "",

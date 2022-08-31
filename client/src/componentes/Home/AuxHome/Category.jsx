@@ -22,8 +22,8 @@ export default function Category() {
             {
                 category && category?.map(e => {
                     return(
-                        <Link to={`/home/${e.name}`}>
-                        <div key={e.id} style={{margin:'50px',border:'solid black 1px', maxWidth: '370px', textAlign:'center'}}>
+                        <Link key={e.id} to={`/home/${e.name}`}>
+                        <div  style={{margin:'50px',border:'solid black 1px', maxWidth: '370px', textAlign:'center'}}>
                             <h3>{e.name}</h3>
                             <img src={e.img} alt={e.name} width='350px' height='250px' />
                             {/* <Button value={e.name} onClick={handleOnClick}>Ir</Button> */}

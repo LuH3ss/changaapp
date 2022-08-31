@@ -19,6 +19,9 @@ export const DELETE_REQUEST = "DELETE_REQUEST";
 export const ALL_REQUEST = "ALL_REQUEST";
 export const DELETE_SERVICES = "DELETE_SERVICES";
 export const ALL_USERS = 'ALL_USERS'
+export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS'
+export const POST_NOTIFICATION = 'POST_NOTIFICATION'
+export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
 const EP = "http://localhost:3001";
 
 //ACTIONS PARA LOS USUARIOS
@@ -223,4 +226,36 @@ export function allRequest() {
       })
     );
   };
+}
+
+// NOTIFICACIONES
+
+export function allNotifications(){
+  return async function (dispatch){
+    await axios.get(`${EP}/notifications`)
+    .then(detalle => dispatch({
+      type: ALL_NOTIFICATIONS,
+      payload: detalle.data
+    }))
+  }
+}
+
+export function postNotification(noti) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/notifications`, noti)
+    .then(detalle => dispatch({
+      type: POST_NOTIFICATION,
+      payload: detalle.data
+    }))
+  }
+}
+
+export function deleteNotification(id) {
+  return async function (dispatch) {
+    await axios.delete(`${EP}/notifications/${id}`)
+    .then(detalle => dispatch({
+      type: DELETE_NOTIFICATION,
+      payload: detalle.data
+    }))
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
-import { getAllServices, updateRequest } from "../../../redux/actions";
+import { getAllServices, postNotification, updateRequest } from "../../../redux/actions";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 
@@ -17,16 +17,30 @@ export default function StateRequest() {
     id: "",
   });
   console.log(filterEmail);
+  //ESTADO PARA LA NOTIFICACION AUTOMATICA
+  const [noti, setNoti] = useState({
+    message: '',
+    userNotification_id: '',
+    userNotificated_id: ''
+  })
+  //PARA TRAER LOS SERVICIOS
   useEffect(() => {
     dispatch(getAllServices());
   }, [dispatch]);
 
+  //PARA CAMBIAR EL VALOR DEL ESTADO
   const handleOnClick = (e) => {
     if (btn.state === "") {
       setBtn({
         state: e.target.name,
         id: e.target.value,
       });
+      //ESTO ES PARA ENVIAR LA NOTIFICACION AUTOMATICA
+      setNoti({
+        message: `Tu pedido del trabajo ${filterEmail[0].name} fue aceptado.`,
+        userNotification_id: filterEmail[0]?.user.id,
+        userNotificated_id: e.target.className
+      })
       console.log(btn);
     } else if (btn.state !== e.target.name) {
       document.getElementById(btn.state).checked = false;
@@ -34,17 +48,24 @@ export default function StateRequest() {
         state: e.target.name,
         id: e.target.value,
       });
+      //ESTO ES PARA ENVIAR LA NOTIFICACION AUTOMATICA
+      setNoti({
+        message: `Tu pedido del trabajo ${filterEmail[0].name} fue rechazado.`,
+        userNotification_id: filterEmail[0]?.user.id,
+        userNotificated_id: e.target.className
+      })
     }
   };
-
+  // PARA ENVIAR EL FORMULARIO AL BACK
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (btn.state !== "") {
+      dispatch(postNotification(noti))
       dispatch(updateRequest(btn));
       window.location.reload(true);
     }
   };
-
+  
   return (
     <div>
       <h1>Estado del Servicio</h1>
@@ -91,6 +112,7 @@ export default function StateRequest() {
 
                       <input
                         type="checkbox"
+                        className={e.requester_id}
                         id="aceptado"
                         name="aceptado"
                         value={e.id}
@@ -99,6 +121,7 @@ export default function StateRequest() {
                       <label>Rechazar</label>
                       <input
                         type="checkbox"
+                        className={e.requester_id}
                         id="rechazado"
                         name="rechazado"
                         value={e.id}
