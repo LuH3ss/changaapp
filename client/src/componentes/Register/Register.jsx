@@ -9,6 +9,7 @@ import { Box } from "@mui/system";
 import { Button, Typography, TextField } from "@mui/material";
 import camera from "../../pngwing.com.png";
 import Nav from "../landing/LandingNav";
+import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 
 function validate(user) {
   let error = {};
@@ -248,9 +249,7 @@ export default function Register() {
               onChange={handleOnChange}
             />
             {error.birthDate && <p>{error.birthDate}</p>}
-
-
-            {/* {error.photo && <p>{error.photo}</p>} */}
+          
             <TextField
               id="outlined-basic"
               label="Descripcion"

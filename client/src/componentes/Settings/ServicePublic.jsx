@@ -24,7 +24,7 @@ export default function PublicServices() {
   }
   
   return (
-    <div>
+    <Box sx={{width:'70%'}}>
       <h1>Servicios publicados</h1>
       {userState[0]?.services?.length === 0 ? (
         <div>
@@ -74,6 +74,6 @@ export default function PublicServices() {
           );
         })
       )}
-    </div>
+    </Box>
   );
 }
