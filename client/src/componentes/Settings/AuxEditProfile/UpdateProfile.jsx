@@ -1,40 +1,49 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../../context/authContext";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail, updateUser } from "../../../redux/actions";
+import {
+  getUserEmail,
+  postNotification,
+  updateUser,
+} from "../../../redux/actions";
 import axios from "axios";
 import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
-
 function validate(input) {
-  let error = {}
+  let error = {};
 
-  if(!/^[a-z ñ]+$/i.test(input.firstName)) error.firstName = 'El nombre solo puede contener letras'
-  else if(!/^[a-z ñ]+$/i.test(input.lastName)) error.lastName = 'El apellido solo puede contener letras'
-  else if(/^[a-z ñ]+$/i.test(input.phone)) error.phone = 'Numero de telefono invalido, solo puedes agregar numeros'
+  if (!/^[a-z ñ]+$/i.test(input.firstName))
+    error.firstName = "El nombre solo puede contener letras";
+  else if (!/^[a-z ñ]+$/i.test(input.lastName))
+    error.lastName = "El apellido solo puede contener letras";
+  // else if(/^[a-z ñ]+$/i.test(input.phone)) error.phone = 'Numero de telefono invalido, solo puedes agregar numeros'
 
-  return error
+  return error;
 }
-
 
 export default function UpdateProfile() {
   const { user } = useAuth();
   //ESTADO PARA ACTUALIZAR
   const estado = useSelector((state) => state.filter);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [input, setInput] = useState({
     img: "",
     firstName: "",
     lastName: "",
-    phone: "",
+    description: "",
+    location: "",
   });
-  const [error, setError] = useState('')
-
+  const [error, setError] = useState("");
   const [btn, setBtn] = useState(false);
   const dispatch = useDispatch();
-
+  //PARA MANDAR UNA NOTIFICACION AUTOMATICA
+  const [noti] = useState({
+    message: `Perfil actualizado.`,
+    userNotification_id: estado[0]?.id,
+    userNotificated_id: estado[0]?.id,
+  });
   //PARA TRAER LA DATA DESDE LA BASE DE DATOS
 
   useEffect(() => {
@@ -48,12 +57,14 @@ export default function UpdateProfile() {
       ...input,
       [e.target.name]: e.target.value,
     });
-    setError(validate({
-      ...input,
-      [e.target.name]: e.target.value
-    }))
+    setError(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
   };
-  console.log(error)
+
   const handleImage = async (e) => {
     e.preventDefault();
     try {
@@ -61,9 +72,7 @@ export default function UpdateProfile() {
       const data = new FormData();
       data.append("file", file);
       data.append("upload_preset", "changApp");
-
       const cloudinary = await axios.post(CLODUNIARY_API, data);
-
       setInput({
         ...input,
         img: cloudinary.data.secure_url,
@@ -79,15 +88,17 @@ export default function UpdateProfile() {
     if (input.img === "") input.img = estado[0].img;
     if (input.lastName === "") input.lastName = estado[0].lastName;
     if (input.firstName === "") input.firstName = estado[0].firstName;
-    if (input.phone === "") input.phone = estado[0].phone;
+    if (input.description === "") input.description = estado[0].description;
+
     dispatch(updateUser(user?.email, input));
+    dispatch(postNotification(noti));
     alert("Cambios guardados con exito");
-    navigate('/settings/profile')
+    navigate("/settings/profile");
   };
 
   //PARA CONTROLAR QUE SI NO INGRESO NINGUN DATO NO PUEDA GUARDAR LOS CAMBIOS
   useEffect(() => {
-    if (input.img || input.firstName || input.lastName || input.phone) {
+    if (input.img || input.firstName || input.lastName) {
       setBtn(false);
     } else {
       setBtn(true);
@@ -139,24 +150,41 @@ export default function UpdateProfile() {
     //     <button disabled={btn}>Guardar Cambios</button>
     //   </form>
     // </div>
-    <Box component='div'>
+    <Box component="div">
       <form onSubmit={(e) => handleSubmit(e)}>
-        <Box component='div' sx={{display: 'flex', gap: '50px', marginBottom: '25px'}}>
+        <Box
+          component="div"
+          sx={{ display: "flex", gap: "50px", marginBottom: "25px" }}
+        >
           <Typography>Imagen de perfil</Typography>
           <Button variant="outlined" component="label">
-  Cargar
-  <input onChange={handleImage} hidden accept="image/*" multiple type="file" />
-</Button>
-
+            Cargar
+            <input
+              onChange={handleImage}
+              hidden
+              accept="image/*"
+              multiple
+              type="file"
+            />
+          </Button>
         </Box>
-        <Box component='div' sx={{display: 'flex', gap: '20px', marginBottom: '25px'}}>
+        <Box
+          component="div"
+          sx={{ display: "flex", gap: "20px", marginBottom: "25px" }}
+        >
           <Typography>Nombre de Usuario: </Typography>
-          <TextField type="text"
-            value={input.firstName} placeholder={estado[0].firstName}
-                    name="firstName"
-                    onChange={handleChange}/>
+          <TextField
+            type="text"
+            value={input.firstName}
+            placeholder={estado[0].firstName}
+            name="firstName"
+            onChange={handleChange}
+          />
         </Box>
-        <Box component='div' sx={{display: 'flex', gap: '15px', marginBottom: '25px'}}>
+        <Box
+          component="div"
+          sx={{ display: "flex", gap: "15px", marginBottom: "25px" }}
+        >
           <Typography>Apellido del Usuario: </Typography>
           <TextField
             type="text"
@@ -165,10 +193,36 @@ export default function UpdateProfile() {
             name="lastName"
             onChange={handleChange}
           />
-
         </Box>
-          <Button type='submit' disabled={btn}>Guardar Cambios</Button>
-
+        <Box
+          component="div"
+          sx={{ display: "flex", gap: "15px", marginBottom: "25px" }}
+        >
+          <Typography>Ubicacion: </Typography>
+          <TextField
+            type="textArea"
+            placeholder={estado[0].location}
+            value={input.location}
+            name="location"
+            onChange={handleChange}
+          />
+        </Box>
+        <Box
+          component="div"
+          sx={{ display: "flex", gap: "15px", marginBottom: "25px" }}
+        >
+          <Typography>Descripcion: </Typography>
+          <TextField
+            type="text"
+            placeholder={estado[0].description}
+            value={input.description}
+            name="description"
+            onChange={handleChange}
+          />
+        </Box>
+        <Button type="submit" disabled={btn}>
+          Guardar Cambios
+        </Button>
       </form>
     </Box>
   );

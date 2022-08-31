@@ -30,12 +30,13 @@ export default function Settings() {
               <NavLink className='link' style={{textDecoration:'none', color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='/home'>Ir al inicio</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to="profile">Perfil</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to="edit">Editar Perfil</NavLink>
+              <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='notifications'>Notificaciones</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='services'>Servicios publicados</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}}to='request'>Estado de los servicios publicados</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='requester'>Estado de los servicios solicitados</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='/login' onClick={handleClick}>Cerrar Sesion</NavLink>
             </Box>
-               <Outlet />
+            <Outlet />
         </Box>
       }
     </div>

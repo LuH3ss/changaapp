@@ -5,6 +5,7 @@ import {
   getAllCategories,
   getAllServices,
   getUserEmail,
+  postNotification,
   postService,
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
@@ -65,14 +66,22 @@ export default function FormService() {
   //TRAER DATOS DEL USUARIO 
   const serviceState = useSelector(state => state.services)
   const filtroParaNoRepetir = serviceState.filter(e => e.user_id === estado[0]?.id)
+  const servicioRepetido = filtroParaNoRepetir.filter(e => e.name === service?.name)
   
-  console.log(filtroParaNoRepetir)
 
+  //MANEJO DE ESTADOS
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [btn, setBtn] = useState(false);
+  //ESTADO PARA LA NOTIFICACION AUTOMATICA
+  const [noti,] = useState({
+    message: `Servicio creado exitosamente.`,
+    userNotification_id: estado[0]?.id,
+    userNotificated_id: estado[0]?.id
+  })
+
   useEffect(() => {
     disptach(getAllCategories());
     disptach(getUserEmail(user?.email));
@@ -222,14 +231,19 @@ export default function FormService() {
   };
 
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if(estado?.length === 0){
+      alert(`Para crear un servicio, primero debes cargar todos tus datos. Dirigete a la opcion de editar perfil, desde tu perfil.`)
+    }
     if(service.user_id === '') service.user_id = estado[0].id
-    if(service.name === filtroParaNoRepetir[0]?.name){
+    if(servicioRepetido.length > 0){
       alert('Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil')
-    }else {
+    }
+    else {
       service.day = service.day.join(",")
       service.hours = service.hours.join(',')
+      disptach(postNotification(noti))
       disptach(postService(service));
       setService({
         name: "",
@@ -243,8 +257,8 @@ export default function FormService() {
       navigate("/home");
     }
   };
-
-
+  
+  
   return (
       <Box style={styles.container}>
         <Box style={styles.containerForm}>

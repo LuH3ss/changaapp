@@ -2,8 +2,18 @@ const { Category, Services, Solicitud, User, Reviews } = require("../db");
 const sendEmail = require("./Emails/registerMail");
 
 const register = async (req, res) => {
-  const { firstName, lastName, birthDate, email, img, offerer, admin, banned } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    birthDate,
+    email,
+    description,
+    img,
+    offerer,
+    admin,
+    banned,
+    location
+  } = req.body;
 
   try {
     const users = await User.findAll({
@@ -28,6 +38,8 @@ const register = async (req, res) => {
         birthDate,
         email,
         img,
+        description,
+        location,
         offerer,
         admin,
         banned,
@@ -64,7 +76,7 @@ const getUsers = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { firstName, lastName, birthDate, phone, img } = req.body;
+  const { firstName, lastName, birthDate, description, img, location } = req.body;
   const { email } = req.params;
 
   await User.update(
@@ -72,8 +84,9 @@ const updateUser = async (req, res) => {
       firstName,
       lastName,
       birthDate,
-      phone,
+      description,
       img,
+      location
     },
     {
       where: {

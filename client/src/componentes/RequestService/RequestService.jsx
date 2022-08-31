@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getDetail,
   getUserEmail,
+  postNotification,
   postRequest,
 } from "../../redux/actions/index.js";
 import { useEffect } from "react";
@@ -14,9 +15,12 @@ import { Box, Typography, Button, TextField } from "@mui/material";
 import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
 import styles from "./style";
+import Footer from '../Footer'
 
 export default function RequestService(props) {
-  const { user } = useAuth();
+
+  const { user } = useAuth(); // author
+
 
   const [request, setRequest] = useState({
     day: "",
@@ -25,14 +29,31 @@ export default function RequestService(props) {
     requester_id: "",
   });
 
-  const [loading, setLoading] = useState(true);
 
+  // const [userEmail, setUserEmail] = useState(service.user.email)
+
+
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-
   const service = useSelector((state) => state.serviceDetail);
-  const userDb = useSelector((state) => state.filter);
+
+
+  const userDb = useSelector((state) => state.filter); // duthor
+  console.log(service)
+  // PARA MANDAR UNA NOTIFICACION
+  
+  const [noti] = useState({
+    message: 'Recibiste una solicitud de servicio, dirigete a tu casilla para confirmar.',
+    userNotification_id: userDb[0]?.id,
+    userNotificated_id: service.user?.id
+  })
+  const [asd] = useState({
+    message: `Servicio solicitado, dirigete a tu perfil para mas informacion.`,
+    userNotification_id: userDb[0]?.id,
+    userNotificated_id: userDb[0]?.id
+  })
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -50,13 +71,10 @@ export default function RequestService(props) {
     "Domingo",
   ];
 
-  // const handleOnChange = (e) => {
-  //   e.preventDefault();
-  //   setRequest({
-  //     ...request,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
+  const handlePrev = (e) => {
+    e.preventDefault()
+    window.history.back()
+  }
 
   const handleDay = (e) => {
     if (request.day !== "") {
@@ -83,9 +101,12 @@ export default function RequestService(props) {
       });
     }
   };
-
+  console.log(userDb)
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(userDb.length === 0) {
+      alert('Para solicitar un servicio, primero debes completar los datos de tu perfil. Dirigete hacia tu perfil.')
+    }
     if (userDb[0]?.id === service.user.id) {
       alert("No puedes hacer un pedido a un servicio que publicaste.");
     } else {
@@ -94,6 +115,8 @@ export default function RequestService(props) {
         service_id: service.id,
         requester_id: userDb[0].id,
       };
+      dispatch(postNotification(asd))
+      dispatch(postNotification(noti))
       dispatch(postRequest(requestService));
       setRequest({
         day: "",
@@ -185,7 +208,6 @@ export default function RequestService(props) {
                         );
                       })}
                     </Box>
-
                     <Box
                       sx={{
                         display: "flex",
@@ -193,11 +215,11 @@ export default function RequestService(props) {
                         padding: "30px",
                       }}
                     >
-                      <Link style={{ textDecoration: "none" }} to="/home">
-                        <Button variant="outlined" style={{ color: "#1F2937" }}>
+                      
+                        <Button  onClick={handlePrev} variant="outlined" style={{ color: "#1F2937" }}>
                           Volver atras
                         </Button>
-                      </Link>
+                      
                       <Button
                         variant="outlined"
                         sx={{ color: "#1F2937" }}
@@ -229,6 +251,7 @@ export default function RequestService(props) {
             </Box>
           </Box>
         )}
+        <Footer/>
       </div>
     );
 }

@@ -13,8 +13,6 @@ export default function Footer() {
     dispatch(getAllCategories());
   }, [dispatch]);
 
-  console.log(category);
-
   return (
     <div className="footer">
       <div className="footer__nombre">
@@ -26,7 +24,7 @@ export default function Footer() {
           {category &&
             category.map((c) => {
               return (
-                <div>
+                <div key={c.id}>
                   <li className="footer__lista--item">
                     <p>{c.name}</p>
                   </li>
