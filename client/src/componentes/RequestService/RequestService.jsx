@@ -16,7 +16,7 @@ import Navbar from "../PrivateRoute/Navbar";
 import styles from "./style";
 
 export default function RequestService(props) {
-  const { user } = useAuth();
+  const { user } = useAuth(); // author
 
   const [request, setRequest] = useState({
     day: "",
@@ -25,6 +25,8 @@ export default function RequestService(props) {
     requester_id: "",
   });
 
+  // const [userEmail, setUserEmail] = useState(service.user.email)
+
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -32,8 +34,8 @@ export default function RequestService(props) {
   const { id } = useParams();
 
   const service = useSelector((state) => state.serviceDetail);
-  const userDb = useSelector((state) => state.filter);
-
+  const userDb = useSelector((state) => state.filter); // duthor
+console.log(service)
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
@@ -185,7 +187,6 @@ export default function RequestService(props) {
                         );
                       })}
                     </Box>
-
                     <Box
                       sx={{
                         display: "flex",

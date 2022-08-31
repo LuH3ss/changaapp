@@ -17,6 +17,7 @@ import {
   DELETE_REQUEST,
   ALL_REQUEST,
   DELETE_SERVICES,
+  ALL_USERS
 } from "../actions/index.js";
 
 const initialStates = {
@@ -34,6 +35,7 @@ const initialStates = {
   updateRequest: [],
   deleteRequest: [],
   allRequest: [],
+  users: [],
 };
 
 const reducer = (state = initialStates, action) => {
@@ -105,7 +107,7 @@ const reducer = (state = initialStates, action) => {
     case POST_CATEGORY:
       return {
         ...state,
-        postCategory: [...state, { ...action.payload }],
+        postCategory: [...state.postCategory, { ...action.payload }],
       };
     case FILTER:
       return {
@@ -152,6 +154,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         services: action.payload,
       };
+    case ALL_USERS:
+      return {
+        ...state,
+        users: action.payload
+      }
     default:
       return state;
   }

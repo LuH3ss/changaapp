@@ -22,7 +22,12 @@ import FilterCategory from "./componentes/Home/FiltersCategorys/FilterCategory";
 import AllCategorys from "./componentes/Home/FiltersCategorys/AllCategorys";
 import StateRequest from "./componentes/Settings/Request/StateRequest";
 import StateRequester from "./componentes/Settings/Request/StateOfer";
+import Admin from "./componentes/admin/Admin";
 
+import Adminnavbar from "./componentes/admin/Admin-navbar";
+import Users from "./componentes/admin/Users";
+import Categories from "./componentes/admin/Categories";
+import CreateCategory from "./componentes/admin/CreateCategory";
 function App() {
   return (
     <AuthProvider>
@@ -46,7 +51,11 @@ function App() {
           <Route path='requester' element={<StateRequester/>}/>
           <Route path="updateService/:id" element={<UpdateService />} />
         </Route>
-         
+        <Route path="/admin/" element={<Adminnavbar />} >
+          <Route path="users" element={<Users />} />  
+          <Route path="categories" element={<Categories />} />  
+          <Route path="createCategory" element={<CreateCategory />} />
+        </Route> 
       </Routes>
     </AuthProvider>
   );
