@@ -1,17 +1,20 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import Nav from '../landing/LandingNav';
+import {postCategory} from '../../redux/actions/index.js'
 
 export default function CreateCategory() {
     const [category, setCategory] = useState({
         name: "",
-        image: "",
+        img: "",
       });
     
       const [error, setError] = useState("");
      
       const navigate = useNavigate();
+      const dispatch = useDispatch()
     
       const handleOnChange = (e) => {
         setCategory({
@@ -22,7 +25,9 @@ export default function CreateCategory() {
     
       const handleSumbit = async (e) => {
         e.preventDefault();
+        dispatch(postCategory(category))
         setError("");
+        navigate('/admin/categories')
        
       };
 
@@ -64,7 +69,7 @@ export default function CreateCategory() {
     
       return (
         <div>
-          <Nav />
+      
           <Box style={styles.container}>
             <Box style={styles.login}>
               <Typography variant="h4" sx={{ marginBottom: "30px" }}>
@@ -91,12 +96,12 @@ export default function CreateCategory() {
                     variant="outlined"
                     style={styles.input}
                     type="text"
-                    name="image"
-                    value={category.image}
+                    name="img"
+                    value={category.img}
                     onChange={handleOnChange}
                   />
                   <Button variant="contained" style={styles.button} type="submit">
-                    Iniciar Sesion
+                    Crear
                   </Button>
                 </Box>
               </form>

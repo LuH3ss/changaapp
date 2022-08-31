@@ -49,7 +49,9 @@ console.log(usersDb)
       rows={usersDb}
       pageSize={5}
       rowsPerPageOptions={[5]}
-    
+      options={{
+        search: true}
+      }
     />
     
   </div>
