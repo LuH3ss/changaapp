@@ -1,14 +1,12 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
-import Navbar from "../../PrivateRoute/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAllServices,
   getServiceById,
+  postNotification,
   updateService,
 } from "../../../redux/actions";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 function validate(service) {
@@ -42,6 +40,13 @@ export default function UpdateService() {
     dispatch(getServiceById(param.id));
   }, [dispatch, param.id]);
 
+  //PARA RECIBIR NOTIFICACION AUTOMATICA
+  const [noti] = useState({
+    message: `Publicacion actualizada.`,
+    userNotification_id: idService[0]?.user_id,
+    userNotificated_id: idService[0]?.user_id,
+  });
+
   //PARA LEER LOS CAMBIOS
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -56,6 +61,7 @@ export default function UpdateService() {
       })
     );
   };
+
   //AGREGAR DIAS DISPONIBLES
   const handleOnClick = (e) => {
     if (!service.day.includes(e.target.value)) {
@@ -67,6 +73,7 @@ export default function UpdateService() {
       console.log("Ya lo agregaste");
     }
   };
+
   //ENVIAR DATA DEL FORMULARIO
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,6 +84,7 @@ export default function UpdateService() {
       service.description = idService[0]?.description;
     if (service.day === "") service.day = idService[0]?.day;
     dispatch(updateService(param.id, service));
+    dispatch(postNotification(noti));
     navigate("/settings/services");
   };
 

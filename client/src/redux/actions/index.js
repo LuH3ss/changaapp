@@ -20,6 +20,9 @@ export const ALL_REQUEST = "ALL_REQUEST";
 export const DELETE_SERVICES = "DELETE_SERVICES";
 export const USER_LOCATION = "USER_LOCATION";
 export const ALL_USERS = "ALL_USERS";
+export const ALL_NOTIFICATIONS = "ALL_NOTIFICATIONS";
+export const POST_NOTIFICATION = "POST_NOTIFICATION";
+export const DELETE_NOTIFICATION = "DELETE_NOTIFICATION";
 
 const EP = "http://localhost:3001";
 
@@ -66,6 +69,16 @@ export function updateUser(email, data) {
     );
   };
 }
+
+// export function allUsers () {
+//   return async function(dispatch){
+//     await axios.get(`${EP}/user`)
+//     .then(detalle => dispatch({
+//       type: ALL_USERS,
+//       payload: detalle.data
+//     }))
+//   }
+// }
 
 //ACTION PARA LOS SERVICIOS
 export function getDetail(id) {
@@ -222,6 +235,41 @@ export function allRequest() {
     await axios.get(`${EP}/request`).then((detalle) =>
       dispatch({
         type: ALL_REQUEST,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+// NOTIFICACIONES
+
+export function allNotifications() {
+  return async function (dispatch) {
+    await axios.get(`${EP}/notifications`).then((detalle) =>
+      dispatch({
+        type: ALL_NOTIFICATIONS,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function postNotification(noti) {
+  return async function (dispatch) {
+    await axios.post(`${EP}/notifications`, noti).then((detalle) =>
+      dispatch({
+        type: POST_NOTIFICATION,
+        payload: detalle.data,
+      })
+    );
+  };
+}
+
+export function deleteNotification(id) {
+  return async function (dispatch) {
+    await axios.delete(`${EP}/notifications/${id}`).then((detalle) =>
+      dispatch({
+        type: DELETE_NOTIFICATION,
         payload: detalle.data,
       })
     );

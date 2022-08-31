@@ -5,7 +5,7 @@ import Footer from "../Footer";
 import Paging from "../Paging";
 import Navbar from "../PrivateRoute/Navbar";
 import Category from "./AuxHome/Category";
-import SearchBar from "./AuxHome/SearchBar";
+
 
 export default function Guardar() {
   const [loading, setLoading] = useState(true);

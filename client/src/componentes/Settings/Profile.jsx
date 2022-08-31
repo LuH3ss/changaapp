@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
@@ -29,7 +28,6 @@ export default function Profile() {
   }, [dispatch, user?.email, setLoading]);
 
   // console.log(estado[0].services[0].category.name)
-
   if (loading)
     return (
       <Box sx={{ width: "70%" }}>
@@ -97,9 +95,8 @@ export default function Profile() {
                 variant="div"
               >
                 <Typography variant="h6">Descripción</Typography>
-                <Typography variant="h6">
-                  {estado[0].services[0]?.description}
-                </Typography>
+
+                <Typography variant="h6">{estado[0].description}</Typography>
               </Box>
             </Box>
           </Box>

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail } from "../../redux/actions";
 
+import Footer from "../Footer";
 import { useAuth } from "../../context/authContext";
 import Navbar from "../PrivateRoute/Navbar";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +12,9 @@ import { Box } from "@mui/system";
 
 export default function Servicios() {
   const { user } = useAuth();
-
+  const userState = useSelector((state) => state.filter);
+  const navigate = useNavigate();
+  console.log(userState);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -31,6 +34,7 @@ export default function Servicios() {
       ) : (
         <FormService />
       )}
+      <Footer />
     </Box>
   );
 }

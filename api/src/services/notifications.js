@@ -35,7 +35,22 @@ const postNotifications = async (req, res) => {
   }
 };
 
+const deleteNotification = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await Notifications.destroy({
+      where: {
+        id,
+      },
+    });
+    res.send("Notification deleted");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   getNotifications,
   postNotifications,
+  deleteNotification,
 };

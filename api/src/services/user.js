@@ -39,6 +39,7 @@ const register = async (req, res) => {
         img,
         description,
         location,
+        offerer,
         admin,
         banned,
       });
@@ -93,6 +94,7 @@ const updateUser = async (req, res) => {
     admin,
     banned,
   } = req.body;
+
   const { email } = req.params;
 
   await User.update(

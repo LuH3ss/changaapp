@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Box, Button } from "@mui/material";
 import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
@@ -15,7 +14,6 @@ export default function Settings() {
   return (
     <div>
       <Navbar />
-
       {user?.email === null || user?.undefined ? (
         <p>
           No tienes acceso a estos datos ya que ingresaste como un usuario
@@ -82,6 +80,19 @@ export default function Settings() {
               to="edit"
             >
               Editar Perfil
+            </NavLink>
+            <NavLink
+              className="link"
+              style={{
+                textDecoration: "none",
+                color: "black",
+                height: "40px",
+                padding: "5% 4% 0 4%",
+                width: "250px",
+              }}
+              to="notifications"
+            >
+              Notificaciones
             </NavLink>
             <NavLink
               className="link"

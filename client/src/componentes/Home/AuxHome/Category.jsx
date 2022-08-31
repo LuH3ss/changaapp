@@ -2,22 +2,17 @@
 import { Box, Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getAllCategories } from "../../../redux/actions";
 
 export default function Category() {
   const category = useSelector((state) => state.categories);
-  console.log(category);
+
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
-
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    navigate(`/home/${e.target.value}`);
-  };
 
   return (
     <>
@@ -26,9 +21,8 @@ export default function Category() {
         {category &&
           category?.map((e) => {
             return (
-              <Link to={`/home/${e.name}`}>
+              <Link key={e.id} to={`/home/${e.name}`}>
                 <div
-                  key={e.id}
                   style={{
                     margin: "50px",
                     border: "solid black 1px",
