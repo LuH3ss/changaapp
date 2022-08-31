@@ -63,10 +63,14 @@ const putRequest = async (req, res) => {
         },
       }
     );
+<<<<<<< HEAD
     
+=======
+    // console.log(asd);
+>>>>>>> origin/dev
     res.status(201).send("Updated");
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(404).send(error);
   }
 };
