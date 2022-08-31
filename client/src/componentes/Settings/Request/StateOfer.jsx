@@ -7,7 +7,7 @@ import {
   getUserEmail,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 
 export default function StateRequester() {
   const { user } = useAuth();
@@ -39,7 +39,7 @@ export default function StateRequester() {
   };
 
   return (
-    <div>
+    <Box sx={{width:'70%'}}>
       <h1>Estado de los servicios solicitados</h1>
       {filterById.length === 0 ? (
         <p>Aun no has realizado ninguna solicitud</p>
@@ -88,6 +88,6 @@ export default function StateRequester() {
           );
         })
       )}
-    </div>
+    </Box>
   );
 }

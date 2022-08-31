@@ -1,5 +1,7 @@
 const styles = {
     container: {
+      padding:'30px',
+      minHeight:'100vh',
       height:`calc(100vh - 82px)`,
       padding:'20px',
       display: "flex",
@@ -9,6 +11,7 @@ const styles = {
       color: "#1F2937",
     },
     containerForm: {
+      padding:'30px',
       width: "100%",
       display: "flex",
       flexDirection: "column",
@@ -32,16 +35,20 @@ const styles = {
       
     },
     time: {
-      width: '70px',
+      width: '80px',
+      fontSize:'2em',
       height: '30px',
       backgroundColor: 'transparent',
       border: 'solid grey 0.5px',
       borderRadius:'3px',
       padding: '7px',
       outline:'none'
+      
     },
     hourAdded: {
-      width:'70%', 
+      height:'50px',
+      margin:'10px',
+      width:'100%', 
       borderRadius:'10px', 
       border:'solid grey 0.5px', 
       display:'flex'

@@ -25,8 +25,8 @@ export default function Settings() {
             <Link to="/register">Registrarse</Link>
           </p>
         )
-        : <Box sx={{display:'flex', alignItems:'center', justifyContent:'center', margin:'50px', gap:'20px'}} variant='section'>
-            <Box sx={{display:'flex', flexDirection:'column', borderRight:'solid grey 1px', paddingRight:'5%'}}>
+        : <Box sx={{display:'flex', width:'100%', alignItems:'start', justifyContent:'center', margin:'50px', gap:'20px'}} variant='section'>
+            <Box sx={{display:'flex',width:'30%', flexDirection:'column', borderRight:'solid grey 1px', paddingRight:'5%'}}>
               <NavLink className='link' style={{textDecoration:'none', color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to='/home'>Ir al inicio</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to="profile">Perfil</NavLink>
               <NavLink className='link' style={{textDecoration:'none' , color: 'black', height:'40px', padding:'5% 4% 0 4%', width:'250px'}} to="edit">Editar Perfil</NavLink>
