@@ -1,5 +1,7 @@
 const styles = {
     container: {
+      padding:'30px',
+      minHeight:'100vh',
       height:`calc(100vh - 82px)`,
       padding:'20px',
       display: "flex",
@@ -9,6 +11,7 @@ const styles = {
       color: "#1F2937",
     },
     containerForm: {
+      padding:'30px',
       width: "100%",
       display: "flex",
       flexDirection: "column",

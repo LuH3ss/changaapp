@@ -9,6 +9,7 @@ import {
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
+import Snackbar from './Snackbar'
 import styles from './style'
 //MATERIAL UI
 import Box from "@mui/material/Box";
@@ -252,6 +253,7 @@ export default function FormService() {
             <Box sx={{width:'100%', display:'flex'}}>
               <Box sx={{width:'50%', padding:'20px 10px 0 20px'}}>
                 <Box style={styles.box}>
+                  <Snackbar></Snackbar>
                   <TextField
                     id="outlined-basic"
                     label="Nombre del Servicio"

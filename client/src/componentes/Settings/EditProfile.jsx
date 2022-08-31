@@ -22,7 +22,7 @@ export default function EditProfile() {
   }, [dispatch, user?.email]);
 
   return (
-    <div>
+    <Box sx={{width:'70%'}}>
       <h1>Modificar perfil</h1>
       {user?.email === null ? (
         <p>
@@ -38,6 +38,6 @@ export default function EditProfile() {
           <CompleteProfile />
         </Box>
       )}
-    </div>
+    </Box>
   );
 }
