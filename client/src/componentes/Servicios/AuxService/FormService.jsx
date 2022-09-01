@@ -277,7 +277,7 @@ export default function FormService() {
                 <FormControl fullWidth sx={{ padding: "7px 0" }}>
                   <InputLabel id="categoryLabel">Categoría</InputLabel>
                   <Select
-                    value={""}
+                    value={service.category}
                     onChange={(e) => handleCat(e.target.value)}
                   >
                     {categories?.map((el) => {
