@@ -15,12 +15,10 @@ import { Box, Typography, Button, TextField } from "@mui/material";
 import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
 import styles from "./style";
-import Footer from '../Footer'
+import Footer from "../Footer";
 
 export default function RequestService(props) {
-
   const { user } = useAuth(); // author
-
 
   const [request, setRequest] = useState({
     day: "",
@@ -29,9 +27,7 @@ export default function RequestService(props) {
     requester_id: "",
   });
 
-
   // const [userEmail, setUserEmail] = useState(service.user.email)
-
 
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -39,21 +35,20 @@ export default function RequestService(props) {
   const { id } = useParams();
   const service = useSelector((state) => state.serviceDetail);
 
-
   const userDb = useSelector((state) => state.filter); // duthor
-  console.log(service)
+  console.log(service);
   // PARA MANDAR UNA NOTIFICACION
-  
+
   const [noti] = useState({
-    message: 'Recibiste una solicitud de servicio, dirigete a tu casilla para confirmar.',
-    userNotification_id: userDb[0]?.id,
-    userNotificated_id: service.user?.id
-  })
-  const [asd] = useState({
-    message: `Servicio solicitado, dirigete a tu perfil para mas informacion.`,
-    userNotification_id: userDb[0]?.id,
-    userNotificated_id: userDb[0]?.id
-  })
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
+  });
+  const [solicitador] = useState({
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
+  });
 
   useEffect(() => {
     dispatch(getDetail(id));
@@ -72,9 +67,9 @@ export default function RequestService(props) {
   ];
 
   const handlePrev = (e) => {
-    e.preventDefault()
-    window.history.back()
-  }
+    e.preventDefault();
+    window.history.back();
+  };
 
   const handleDay = (e) => {
     if (request.day !== "") {
@@ -101,11 +96,13 @@ export default function RequestService(props) {
       });
     }
   };
-  console.log(userDb)
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(userDb.length === 0) {
-      alert('Para solicitar un servicio, primero debes completar los datos de tu perfil. Dirigete hacia tu perfil.')
+    if (userDb.length === 0) {
+      alert(
+        "Para solicitar un servicio, primero debes completar los datos de tu perfil. Dirigete hacia tu perfil."
+      );
     }
     if (userDb[0]?.id === service.user.id) {
       alert("No puedes hacer un pedido a un servicio que publicaste.");
@@ -115,8 +112,23 @@ export default function RequestService(props) {
         service_id: service.id,
         requester_id: userDb[0].id,
       };
-      dispatch(postNotification(asd))
-      dispatch(postNotification(noti))
+      if (
+        noti.message === "" &&
+        noti.userNotification_id === "" &&
+        noti.userNotificated_id === "" &&
+        solicitador.message === "" &&
+        solicitador.userNotification_id === "" &&
+        solicitador.userNotificated_id === ""
+      ) {
+        noti.message = `Recibiste una solicitud de servicio, dirigete a tu casilla para confirmar.`;
+        noti.userNotification_id = userDb[0]?.id;
+        noti.userNotificated_id = service.user?.id;
+        solicitador.message = `Servicio solicitado, dirigete a tu perfil para mas informacion.`;
+        solicitador.userNotification_id = userDb[0]?.id;
+        solicitador.userNotificated_id = userDb[0]?.id;
+      }
+      dispatch(postNotification(solicitador));
+      dispatch(postNotification(noti));
       dispatch(postRequest(requestService));
       setRequest({
         day: "",
@@ -215,11 +227,14 @@ export default function RequestService(props) {
                         padding: "30px",
                       }}
                     >
-                      
-                        <Button  onClick={handlePrev} variant="outlined" style={{ color: "#1F2937" }}>
-                          Volver atras
-                        </Button>
-                      
+                      <Button
+                        onClick={handlePrev}
+                        variant="outlined"
+                        style={{ color: "#1F2937" }}
+                      >
+                        Volver atras
+                      </Button>
+
                       <Button
                         variant="outlined"
                         sx={{ color: "#1F2937" }}
@@ -251,7 +266,7 @@ export default function RequestService(props) {
             </Box>
           </Box>
         )}
-        <Footer/>
+        <Footer />
       </div>
     );
 }

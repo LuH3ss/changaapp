@@ -36,9 +36,9 @@ export default function UpdateService() {
 
     //PARA RECIBIR NOTIFICACION AUTOMATICA
     const [noti] = useState({
-        message: `Publicacion actualizada.`,
-        userNotification_id: idService[0]?.user_id,
-        userNotificated_id: idService[0]?.user_id,
+        message: '',
+        userNotification_id: '',
+        userNotificated_id: ''
       });
 
     //PARA LEER LOS CAMBIOS
@@ -75,11 +75,16 @@ export default function UpdateService() {
         if(service.price === '') service.price = idService[0]?.price
         if(service.description === '') service.description = idService[0]?.description
         if(service.day === '') service.day = idService[0]?.day
-        dispatch(updateService(param.id,service))
+        if(noti.message === '' && noti.userNotification_id === '' && noti.userNotificated_id === ''){
+            noti.message = `Publicacion actualizada.`
+            noti.userNotification_id = idService[0]?.user_id
+            noti.userNotificated_id = idService[0]?.user_id
+        }
         dispatch(postNotification(noti))
+        dispatch(updateService(param.id,service))
         navigate('/settings/services')
     }
-
+    console.log(noti)
     return(
         <Box sx={{display: 'flex', flexDirection:'column', gap: '20px'}}>
             <Typography variant="h6">Modificar servicio</Typography>

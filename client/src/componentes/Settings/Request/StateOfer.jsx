@@ -1,13 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import {
   allRequest,
   deleteRequest,
   getUserEmail,
+  postNotification,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
 import { Button, Box } from "@mui/material";
+import styles from "./style.js";
+import Dialog from "@mui/material/Dialog";
 
 export default function StateRequester() {
   const { user } = useAuth();
@@ -32,14 +35,55 @@ export default function StateRequester() {
     window.location.reload(true);
   };
 
+  //PARA ENVIAR NOTIFIACION CON MENSAJE PERSONALIZADO
+  const [noti, setNoti] = useState({
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
+  });
+
+  const [del, setDel] = useState({
+    id: 0,
+  });
+
+  const [hide, setHide] = useState(true);
+
+  const handleClic = (e) => {
+    e.preventDefault(e);
+    setNoti({
+      ...noti,
+      userNotificated_id: e.target.name,
+    });
+    setDel({
+      id: e.target.id,
+    });
+    setHide(!hide);
+  };
+
+  const handleNotification = (e) => {
+    e.preventDefault();
+    setNoti({
+      ...noti,
+      message: e.target.value,
+      userNotification_id: userState[0]?.id,
+    });
+  };
+
   const handleClear = (e) => {
+    e.preventDefault();
+    dispatch(postNotification(noti));
+    dispatch(deleteRequest(del.id));
+    window.location.reload(true);
+  };
+
+  const handleDele = (e) => {
     e.preventDefault();
     dispatch(deleteRequest(e.target.id));
     window.location.reload(true);
-  };
-  
+  }
+
   return (
-    <Box sx={{width:'70%'}}>
+    <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
       <h1>Estado de los servicios solicitados</h1>
       {filterById.length === 0 ? (
         <p>Aun no has realizado ninguna solicitud</p>
@@ -54,7 +98,7 @@ export default function StateRequester() {
               </p>
               <p>Estado: {e.state}</p>
               {e.state === "rechazado" ? (
-                <Button id={e.id} onClick={handleClear}>
+                <Button id={e.id} onClick={handleDele}>
                   Eliminar
                 </Button>
               ) : (
@@ -63,26 +107,86 @@ export default function StateRequester() {
                     <div>
                       <p>
                         Para pagar el servicio accede al siguiente{" "}
-
-                        <Link to={`/home/services/payment/${e.services?.id}`}> link</Link>
-
+                        <Link to={`/home/services/payment/${e.services?.id}`}>
+                          {" "}
+                          link
+                        </Link>
                       </p>
                       <p>
                         Si quieres cancelar la solicitud aprieta el siguiente
                         boton{" "}
-                        <Button id={e.id} onClick={handleOnClick}>
+                        <Button name={e.services?.user_id}
+                        id={e.id}
+                        onClick={handleClic}>
                           Cancelar
                         </Button>
+                        <div>
+                        <Dialog open={!hide}>
+                        <div
+                          style={hide === true ? styles.hide : styles.nohide}
+                        >
+                          <form onSubmit={(p) => handleClear(p)}>
+                            <label>
+                              Deja un mensaje explicando el motivo de
+                              cancelacion
+                            </label>
+                            <br />
+                            <input
+                              type="text"
+                              name="message"
+                              value={noti.message}
+                              onChange={handleNotification}
+                            />
+                            <br />
+                            <button type="submit" id={e.id}>
+                              Enviar
+                            </button>
+                          </form>
+                          <button onClick={handleClic}>Cerrar</button>
+                        </div>
+                      </Dialog>
+                        </div>
                       </p>
                     </div>
                   ) : (
-                    <p>
-                      Si quieres cancelar la solicitud aprieta el siguiente
-                      boton{" "}
-                      <Button id={e.id} onClick={handleOnClick}>
-                        Cancelar
-                      </Button>
-                    </p>
+                    <div>
+                      {
+                        e.state === 'Pagado' ? <Link to='/laputamadre'><button>Dejar review</button></Link>
+                        : <div>
+                        <button
+                          name={e.services?.user_id}
+                          id={e.id}
+                          onClick={handleClic}
+                        >
+                          Cancelar Servicio
+                        </button>
+                        <Dialog open={!hide}>
+                          <div
+                            style={hide === true ? styles.hide : styles.nohide}
+                          >
+                            <form onSubmit={(p) => handleClear(p)}>
+                              <label>
+                                Deja un mensaje explicando el motivo de
+                                cancelacion
+                              </label>
+                              <br />
+                              <input
+                                type="text"
+                                name="message"
+                                value={noti.message}
+                                onChange={handleNotification}
+                              />
+                              <br />
+                              <button type="submit" id={e.id}>
+                                Enviar
+                              </button>
+                            </form>
+                            <button onClick={handleClic}>Cerrar</button>
+                          </div>
+                        </Dialog>
+                      </div>
+                      }
+                    </div>
                   )}
                 </div>
               )}

@@ -24,7 +24,7 @@ export default function EditProfile() {
   return (
 
     <Box sx={{width:'70%'}}>
-      <h1>Modificar perfil</h1>
+      {/* <h1>Modificar perfil</h1>  */}
 
       {user?.email === null ? (
         <p>

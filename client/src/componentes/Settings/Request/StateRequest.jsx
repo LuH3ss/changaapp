@@ -17,7 +17,6 @@ export default function StateRequest() {
     id: "",
     email: ''
   });
-  // console.log(filterEmail);
   //ESTADO PARA LA NOTIFICACION AUTOMATICA
   const [noti, setNoti] = useState({
     message: '',
@@ -43,7 +42,6 @@ export default function StateRequest() {
         userNotification_id: filterEmail[0]?.user.id,
         userNotificated_id: e.target.className
       })
-      // console.log(btn);
     } else if (btn.state !== e.target.name) {
       document.getElementById(btn.state).checked = false;
       setBtn({
@@ -68,7 +66,7 @@ export default function StateRequest() {
       window.location.reload(true);
     }
   };
-  console.log(btn)
+  console.log(filterEmail)
   return (
     <Box sx={{width:'70%'}}>
       <h1>Estado del Servicio</h1>
@@ -92,6 +90,8 @@ export default function StateRequest() {
               ) : (
                 <div>
                   <p>Nombre del servicio: {filterEmail[0]?.name}</p>
+                  <p>Reservado por: {e.userRequest?.firstName} </p>
+                  <img src={e.userRequest?.img} alt="asd" />
                   <p>Estado: {e.state}</p>
                   <p>
                     Trabajo solicitado para el dia {e.day} a las {e.hours}hs

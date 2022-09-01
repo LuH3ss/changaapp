@@ -18,7 +18,7 @@ import Logout from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail } from "../../redux/actions";
+import { allNotifications, getUserEmail } from "../../redux/actions";
 
 const styles = {
   container: {
@@ -32,6 +32,37 @@ const styles = {
   asd: {
     textDecoration: 'none',
     color: '#fff'
+  },
+  divPrueba: {
+    position: 'relative'
+  },
+  prueba: {
+    display: 'none'
+  },
+  prueba2: {
+    display: 'block',
+    backgroundColor: "#1F2937",
+    textAlign: 'center',
+    position: 'absolute',
+    right: '-60px',
+    borderRadius: '5px',
+    width: '150px',
+    height: '150px',
+    fontSize: '14px'
+  },
+  asdd: {
+    margin: '15px 5px',
+    backgroundColor: '#fff'
+  },
+  link: {
+    textDecoration: 'none',
+    color: '#000',
+  },
+  cero: {
+    backgroundColor: '#fff',
+    textAlign: 'center',
+    color: '#000',
+    margin: '15px 5px',
   }
 };
 
@@ -53,10 +84,21 @@ export default function Navbar() {
 
   //PARA TRAER LA FOTO DEL USUARIO
   const estado = useSelector((state) => state.filter);
+  let notifications = useSelector(state => state.allNotifications)
+  notifications = notifications.filter(e => e.userNotificated_id === estado[0]?.id)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
+    dispatch(allNotifications())
   }, [dispatch, user?.email]);
+  console.log(notifications)
+  //PROBANDO 
+  const [noti, setNoti] = useState(true)
+  const handleNotification = (e) => {
+    e.preventDefault()
+    setNoti(!noti)
+  }
+
 
   return (
     <Box style={styles.container} className="navBar">
@@ -70,7 +112,27 @@ export default function Navbar() {
           <Button style={styles.button}>Crear Servicio</Button>
         </Link>
       </div>
-      <Link to='/settings/notifications'><NotificationsActiveIcon/></Link>
+      {/* <Link to='/settings/notifications'> */}
+        <div style={styles.divPrueba}>
+        <NotificationsActiveIcon value={noti} onClick={handleNotification}/>
+        <div style={noti ? styles.prueba : styles.prueba2}>
+          {
+            notifications.length === 0 ? <p style={styles.cero}>No hay notificaciones nuevas</p>
+            : notifications.map(e => {
+              return (
+                <div key={e.id} style={styles.asdd}>
+                  
+                  <p><Link style={styles.link} to='/settings/notifications'>Nueva Notificacion</Link></p>
+                  
+                  
+                </div>
+              )
+            })
+          }
+        </div>
+        </div>
+        
+        {/* </Link> */}
       <Tooltip title="Account settings">
         <IconButton
           onClick={handlerClick}

@@ -28,81 +28,60 @@ export default function Profile() {
   }, [dispatch, user?.email, setLoading]);
 
   // console.log(estado[0].services[0].category.name)
-  if (loading)
-    return (
-      <Box sx={{ width: "70%" }}>
-        <h1>Loading..</h1>
-      </Box>
-    );
-  else if (user?.email && estado?.length) {
-    return (
-      <Box sx={{ width: "70%" }}>
-        {user?.email === null ? (
-          <Box sx={{ display: "flex" }}>
-            No tienes acceso a estos datos ya que ingresaste como un usuario
-            anonimo. Ve a la seccion de registrar para poder utilizar estos
-            servicios.
-            <Link to="/register">Registrarse</Link>
-          </Box>
-        ) : estado?.length === 1 ? (
-          // <Card sx={{ maxWidth: 500 }}>
-          //   <CardMedia component="img" height="200" image={estado[0].img} alt="Profile photo" />
-          //   <CardContent>
-          //     <Typography gutterBottom variant="h5" component="div">
-          //       Nombre y apellido: {estado[0].firstName + ' ' + estado[0].lastName}
-          //     </Typography>
-          //     <Typography gutterBottom variant="h5" component="div">
-          //       Especialidad: {estado[0].services[0]?.category.name ? estado[0].services[0]?.category.name : 'Sin especialidad'}
-          //     </Typography>
-          //     <Typography variant="body2" color="text.secondary">
-          //       Description: {estado[0].services[0]?.description}
-          //     </Typography>
-          //   </CardContent>
-          // </Card>
+
+  return (
+    <Box sx={{ width: "70%" }}>
+      {user?.email === null ? (
+        <Box sx={{ display: "flex" }}>
+          No tienes acceso a estos datos ya que ingresaste como un usuario
+          anonimo. Ve a la seccion de registrar para poder utilizar estos
+          servicios.
+          <Link to="/register">Registrarse</Link>
+        </Box>
+      ) : estado?.length === 1 ? (
+        <Box
+          variant="section"
+          className="profile-container"
+          sx={{ width: "100%", padding: "10%" }}
+        >
           <Box
-            variant="section"
-            className="profile-container"
-            sx={{ width: "100%", padding: "10%" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              height: "300px",
+              width: "300px",
+            }}
           >
+            <Box sx={{ display: "flex", gap: "98px", alignItems: "center" }}>
+              <Avatar
+                sx={{ width: 90, height: 90 }}
+                alt="Profile photo"
+                src={estado[0].img}
+              />
+              <Typography variant="h5">Perfil</Typography>
+            </Box>
             <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-                height: "300px",
-                width: "300px",
-              }}
+              sx={{ display: "flex", alignItems: "baseline", gap: "20px" }}
+              variant="div"
             >
-              <Box sx={{ display: "flex", gap: "98px", alignItems: "center" }}>
-                <Avatar
-                  sx={{ width: 90, height: 90 }}
-                  alt="Profile photo"
-                  src={estado[0].img}
-                />
-                <Typography variant="h5">Perfil</Typography>
-              </Box>
-              <Box
-                sx={{ display: "flex", alignItems: "baseline", gap: "20px" }}
-                variant="div"
-              >
-                <Typography variant="h6">Nombre y Apellido</Typography>
-                <Typography variant="h6">
-                  {estado[0].firstName + " " + estado[0].lastName}
-                </Typography>
-              </Box>
-              <Box
-                sx={{ display: "flex", alignItems: "baseline", gap: "80px" }}
-                variant="div"
-              >
-                <Typography variant="h6">Descripción</Typography>
-                <Typography variant="h6">{estado[0].description}</Typography>
-              </Box>
+              <Typography variant="h6">Nombre y Apellido</Typography>
+              <Typography variant="h6">
+                {estado[0].firstName + " " + estado[0].lastName}
+              </Typography>
+            </Box>
+            <Box
+              sx={{ display: "flex", alignItems: "baseline", gap: "80px" }}
+              variant="div"
+            >
+              <Typography variant="h6">Descripción</Typography>
+              <Typography variant="h6">{estado[0].description}</Typography>
             </Box>
           </Box>
-        ) : (
-          navigate("/settings/edit")
-        )}
-      </Box>
-    );
-  }
+        </Box>
+      ) : (
+        navigate("/settings/edit")
+      )}
+    </Box>
+  );
 }
