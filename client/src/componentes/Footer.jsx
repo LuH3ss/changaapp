@@ -14,6 +14,17 @@ export default function Footer() {
     dispatch(getAllCategories());
   }, [dispatch]);
 
+  const sendMail = (e) => {
+    e.preventDefault();
+    let body = document.getElementById("message");
+    let subjetLine = "Formulario de Contacto";
+    window.location.href =
+      "mailto:pfhenrychangapp@gmail.com?subject=" +
+      subjetLine +
+      "&body=" +
+      body;
+  };
+
   return (
     <div className="footer">
       <div className="footer__nombre">
@@ -65,6 +76,8 @@ export default function Footer() {
             <a
               className="footer__linkedIn"
               href="https://www.linkedin.com/in/enrique-gomez-naar-fullstackdeveloper/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Enrique Gomez Naar
             </a>
@@ -73,6 +86,8 @@ export default function Footer() {
             <a
               className="footer__linkedIn"
               href="https://www.linkedin.com/in/lucas-axel-hess/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Lucas Hess
             </a>
@@ -81,6 +96,8 @@ export default function Footer() {
             <a
               className="footer__linkedIn"
               href="https://www.linkedin.com/in/juan-pablo-cuadrelli-full-stack-dev/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Juan Pablo Cuadrelli
             </a>
@@ -89,6 +106,8 @@ export default function Footer() {
             <a
               className="footer__linkedIn"
               href="https://www.linkedin.com/in/agop-chorbadjian-369767218/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Agop Chorbadjian
             </a>
@@ -97,6 +116,8 @@ export default function Footer() {
             <a
               className="footer__linkedIn"
               href="https://www.linkedin.com/in/claudio-amaya-fullstack/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Claudio Amaya
             </a>
@@ -128,7 +149,13 @@ export default function Footer() {
             data-tipo="message"
           ></textarea>
         </div>
-        <button className="formulario__boton">Enviar mensaje</button>
+        <button
+          className="formulario__boton"
+          type="button"
+          onSubmit={(e) => sendMail(e)}
+        >
+          Enviar mensaje
+        </button>
       </form>
     </div>
   );
