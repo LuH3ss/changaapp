@@ -29,7 +29,7 @@ const postNotifications = async (req, res) => {
       userNotificated_id: req.body.userNotificated_id,
     });
 
-    res.status(201).send("created");
+    res.status(201).send("Notification created");
   } catch (error) {
     res.status(404).send(error);
   }
@@ -37,20 +37,20 @@ const postNotifications = async (req, res) => {
 
 const deleteNotification = async (req, res) => {
   try {
-    const { id } = req.params
+    const { id } = req.params;
     await Notifications.destroy({
       where: {
-        id
-      }
-    })
-    res.send('Notification borrada')
+        id,
+      },
+    });
+    res.send("Notification deleted");
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 module.exports = {
   getNotifications,
   postNotifications,
-  deleteNotification
+  deleteNotification,
 };
