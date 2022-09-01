@@ -28,7 +28,6 @@ const CheckoutForm = () => {
   const request = useSelector((state) => state.allRequest);
   service = service.filter((p) => p.id === id);
   console.log(request);
-  console.log(service, "soy service");
   useEffect(() => {
     dispatch(allRequest());
     dispatch(getAllServices());
@@ -40,10 +39,12 @@ const CheckoutForm = () => {
       card: elements.getElement(CardElement),
     });
     if (!error) {
+      const email = service[0].user.email;
       const { id } = paymentMethod;
       const { data } = await axios.post("http://www.localhost:3001/payment", {
         id,
         amount: request[0]?.services.price,
+        email: email,
       });
       //   const actualRequest = request.filter(p=> {
       //     p.services.id === p.service_id
@@ -74,7 +75,7 @@ const CheckoutForm = () => {
 
         <h3>
           {console.log(request, "soy request")}
-          {<br />}Amount:  ${service[0]?.price}
+          {<br />}Amount: ${service[0]?.price}
         </h3>
       </form>
     </div>
