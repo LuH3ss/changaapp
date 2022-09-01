@@ -63,7 +63,6 @@ export default function FormService() {
     hours: [],
     category_id: "",
   });
-
   //TRAER DATOS DEL USUARIO
   const serviceState = useSelector((state) => state.services);
   const filtroParaNoRepetir = serviceState.filter(
@@ -236,7 +235,6 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (estado?.length === 0) {
       alert(
         `Para crear un servicio, primero debes cargar todos tus datos. Dirigete a la opcion de editar perfil, desde tu perfil.`
@@ -292,7 +290,7 @@ export default function FormService() {
                 <FormControl fullWidth sx={{ padding: "7px 0" }}>
                   <InputLabel id="categoryLabel">Categoría</InputLabel>
                   <Select
-                    value={service.category}
+                    value={""}
                     onChange={(e) => handleCat(e.target.value)}
                   >
                     {categories?.map((el) => {

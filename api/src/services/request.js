@@ -56,6 +56,9 @@ const postRequest = async (req, res) => {
 
 const putRequest = async (req, res) => {
   const { state, id, email } = req.body;
+
+  console.log(email);
+
   try {
     await Request.update(
       {
