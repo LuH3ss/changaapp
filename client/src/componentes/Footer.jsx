@@ -125,7 +125,7 @@ export default function Footer() {
         </ul>
       </div>
 
-      <form className="formulario">
+      <form onSubmit={(e) => sendMail(e)} className="formulario">
         <h3 className="formulario__titulo">Contactanos</h3>
         <div className="formulario__campo">
           <label>Email</label>
@@ -149,11 +149,7 @@ export default function Footer() {
             data-tipo="message"
           ></textarea>
         </div>
-        <button
-          className="formulario__boton"
-          type="button"
-          onSubmit={(e) => sendMail(e)}
-        >
+        <button className="formulario__boton" type="submit">
           Enviar mensaje
         </button>
       </form>

@@ -60,6 +60,7 @@ export default function FormService() {
     day: [],
     hours: [],
     category_id: "",
+    email: "",
   });
   //TRAER DATOS DEL USUARIO
   const serviceState = useSelector((state) => state.services);
@@ -156,7 +157,7 @@ export default function FormService() {
     if (element.value === "23:30") {
       element.value = "00:00";
     } else {
-      if (input[1] == 30) {
+      if (input[1] === 30) {
         input[1] = "00";
         input[0] = (Number(input[0]) + 1).toString();
         input[0] = input[0] < 10 ? "0".concat(input[0]) : input[0];
@@ -224,6 +225,10 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
+    setService({
+      ...service,
+      email: user?.email,
+    });
     if (service.user_id === "") service.user_id = estado[0].id;
     if (service.name === filtroParaNoRepetir[0]?.name) {
       alert(
@@ -245,6 +250,8 @@ export default function FormService() {
       navigate("/home");
     }
   };
+
+  console.log(user.email, "SERVICE");
 
   return (
     <Box style={styles.container}>

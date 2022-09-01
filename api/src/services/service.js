@@ -1,5 +1,6 @@
 const { Category, Services, Request, User } = require("../db");
 const { Op } = require("sequelize");
+const serviceMail = require("./Emails/sendEmails");
 
 const getServices = async (req, res) => {
   const { category } = req.query;
@@ -60,7 +61,8 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
-  let { name, description, price, day, hours, category_id, user_id } = req.body;
+  const { name, description, price, day, hours, category_id, user_id, email } =
+    req.body;
 
   let serviceCreated = await Services.create({
     name,
@@ -70,9 +72,14 @@ const postService = async (req, res) => {
     hours,
     user_id: user_id,
     category_id: category_id,
+    email,
   });
   console.log(serviceCreated);
   res.send("Service Created");
+  const asunto = "Creacion de Servicio";
+  const mensaje =
+    "Su servicio se ha creado exitosamente en ChangaApp. Felicitaciones.";
+  serviceMail.email(email, asunto, mensaje);
 };
 
 const getByName = async (req, res) => {

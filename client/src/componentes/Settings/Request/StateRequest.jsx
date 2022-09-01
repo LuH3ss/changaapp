@@ -16,7 +16,6 @@ export default function StateRequest() {
   const filterEmail = serviceState.filter(
     (state) => state.user?.email === user?.email
   );
-  console.log(filterEmail);
   const [btn, setBtn] = useState({
     state: "",
     id: "",
@@ -65,15 +64,16 @@ export default function StateRequest() {
     }
   };
   // PARA ENVIAR EL FORMULARIO AL BACK
-  const handleOnSubmit = (e, email) => {
+  const handleOnSubmit = (e) => {
     e.preventDefault();
     if (btn.state !== "") {
       dispatch(postNotification(noti));
-      dispatch(updateRequest({ ...btn, email: email }));
+      dispatch(updateRequest({ ...btn, email: e.target.name }));
       window.location.reload(true);
     }
   };
 
+  console.log(btn);
   return (
     <Box sx={{ width: "70%" }}>
       <h1>Estado del Servicio</h1>
@@ -98,12 +98,14 @@ export default function StateRequest() {
                 <div>
                   <p>Nombre del servicio: {filterEmail[0]?.name}</p>
                   <p>Estado: {e.state}</p>
-                  {console.log(e.userRequest.email)}
                   <p>
                     Trabajo solicitado para el dia {e.day} a las {e.hours}hs
                   </p>
                   {e.state === "aceptado" ? (
-                    <form onSubmit={(e) => handleOnSubmit(e)}>
+                    <form
+                      name={e.userRequester.email}
+                      onSubmit={(e) => handleOnSubmit(e)}
+                    >
                       <div>
                         <label>Cancelar</label>
                         <input
@@ -117,9 +119,8 @@ export default function StateRequest() {
                     </form>
                   ) : (
                     <form
-                      onSubmit={(event) =>
-                        handleOnSubmit(event, e.userRequest.email)
-                      }
+                      name={e.userRequester.email}
+                      onSubmit={(e) => handleOnSubmit(e)}
                     >
                       <label>Aceptar</label>
 
@@ -137,6 +138,7 @@ export default function StateRequest() {
                         className={e.requester_id}
                         id="rechazado"
                         name="rechazado"
+                        email={e.userRequester.email}
                         value={e.id}
                         onChange={handleOnClick}
                       />
