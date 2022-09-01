@@ -1,5 +1,6 @@
 const { Category, Services, Request, User } = require("../db");
 const { Op } = require("sequelize");
+const serviceMail = require("./Emails/sendEmails");
 
 const getServices = async (req, res) => {
   const { category } = req.query;
@@ -19,7 +20,7 @@ const getServices = async (req, res) => {
           as: "request",
           include: {
             model: User,
-            as: "userRequest",
+            as: "userRequester",
           },
         },
       ],
@@ -60,7 +61,8 @@ const getServicebyId = async (req, res) => {
 };
 
 const postService = async (req, res) => {
-  let { name, description, price, day, hours, category_id, user_id } = req.body;
+  const { name, description, price, day, hours, category_id, user_id, email } =
+    req.body;
 
   let serviceCreated = await Services.create({
     name,
@@ -70,9 +72,14 @@ const postService = async (req, res) => {
     hours,
     user_id: user_id,
     category_id: category_id,
+    email,
   });
   console.log(serviceCreated);
   res.send("Service Created");
+  const asunto = "Creacion de Servicio";
+  const mensaje =
+    "Su servicio se ha creado exitosamente en ChangaApp. Felicitaciones.";
+  serviceMail.email(email, asunto, mensaje);
 };
 
 const getByName = async (req, res) => {
@@ -82,7 +89,7 @@ const getByName = async (req, res) => {
       where: { name: { [Op.iLike]: `%${name}%` } },
       include: {
         model: Category,
-        as: 'category'
+        as: "category",
       },
     });
     res.send(response);
@@ -112,7 +119,7 @@ const updateService = async (req, res) => {
         },
       }
     );
-    return res.status(201).send("Servicio actualizado correctamente");
+    return res.status(201).send("Service Updated");
   } catch (error) {
     console.log(error);
   }
@@ -120,17 +127,15 @@ const updateService = async (req, res) => {
 
 const deleteService = async (req, res) => {
   try {
-    const { id } = req.params
+    const { id } = req.params;
     await Services.destroy({
       where: {
-        id
-      }
-    })
-    res.status(201).send('Servicio borrado')
-  } catch (error) {
-    
-  }
-}
+        id,
+      },
+    });
+    res.status(201).send("Service deleted");
+  } catch (error) {}
+};
 
 module.exports = {
   getServices,
@@ -138,5 +143,5 @@ module.exports = {
   getByName,
   postService,
   updateService,
-  deleteService
+  deleteService,
 };

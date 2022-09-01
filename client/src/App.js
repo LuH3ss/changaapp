@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/authContext";
@@ -36,7 +37,6 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -53,17 +53,19 @@ function App() {
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
           <Route path="services" element={<PublicServices />} />
-          <Route path='request' element={<StateRequest/>}/>
-          <Route path='requester' element={<StateRequester/>}/>
+          <Route path="request" element={<StateRequest />} />
+          <Route path="requester" element={<StateRequester />} />
           <Route path="updateService/:id" element={<UpdateService />} />
           <Route path='notifications' element={<Notifications/>}/>
         </Route>
+
         <Route path="/admin/" element={<PrivateRoute><Adminnavbar/></PrivateRoute>} >
           <Route path="users" element={<PrivateRoute><Users/></PrivateRoute>} />  
           <Route path="categories" element={<PrivateRoute><Categories/></PrivateRoute>} />  
           <Route path="createCategory" element={<PrivateRoute><CreateCategory/></PrivateRoute>} />
         </Route> 
         {/* <Route path='/admin' element={<PrivateRoute><Adminnavbar/></PrivateRoute>}/> */}
+
       </Routes>
     </AuthProvider>
   );

@@ -5,8 +5,8 @@ import {
   getAllCategories,
   getAllServices,
   getUserEmail,
-  postNotification,
   postService,
+  postNotification
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,7 +21,11 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+
 import toast, { Toaster } from "react-hot-toast";
+
+
+
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import "../../css/profile.css";
@@ -62,22 +66,26 @@ export default function FormService() {
     day: [],
     hours: [],
     category_id: "",
+    email: "",
+
   });
   //TRAER DATOS DEL USUARIO
   const serviceState = useSelector((state) => state.services);
   const filtroParaNoRepetir = serviceState.filter(
     (e) => e.user_id === estado[0]?.id
   );
+
   const servicioRepetido = filtroParaNoRepetir.filter(
     (e) => e.name === service?.name
   );
 
-  //MANEJO DE ESTADOS
+
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [btn, setBtn] = useState(false);
+
   //ESTADO PARA LA NOTIFICACION AUTOMATICA
   const [noti] = useState({
     message: "",
@@ -167,7 +175,8 @@ export default function FormService() {
     if (element.value === "23:30") {
       element.value = "00:00";
     } else {
-      if (input[1] == 30) {
+
+      if (input[1] === 30) {
         input[1] = "00";
         input[0] = (Number(input[0]) + 1).toString();
         input[0] = input[0] < 10 ? "0".concat(input[0]) : input[0];
@@ -223,6 +232,7 @@ export default function FormService() {
       ...service,
       category: service.category,
       category_id: dato,
+      email: user?.email,
     });
     setError(
       validate({
@@ -233,8 +243,9 @@ export default function FormService() {
   };
 
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+
     if (estado?.length === 0) {
       toast.error(
         `Para crear un servicio, primero debes cargar todos tus datos. Dirigete a la opcion de editar perfil, desde tu perfil.`
@@ -249,6 +260,7 @@ export default function FormService() {
     } else {
       service.day = service.day.join(",");
       service.hours = service.hours.join(",");
+
       if (
         noti.message === "" &&
         noti.userNotification_id === "" &&
@@ -259,6 +271,7 @@ export default function FormService() {
         noti.userNotificated_id = estado[0]?.id;
       }
       disptach(postNotification(noti));
+
       disptach(postService(service));
       setService({
         name: "",
@@ -268,16 +281,19 @@ export default function FormService() {
         category: [],
         day: [],
         hours: [],
+        email: "",
       });
       // navigate("/home");
     }
   };
+
 
   return (
     <Box style={styles.container}>
       <div>
         <Toaster position="top-center" reverseOrder={false} />
       </div>
+
       <Box style={styles.containerForm}>
         <Typography sx={{ margin: "20px" }} variant="h4">
           Publicá tu servicio
@@ -286,7 +302,6 @@ export default function FormService() {
           <Box sx={{ width: "100%", display: "flex" }}>
             <Box sx={{ width: "50%", padding: "20px 10px 0 20px" }}>
               <Box style={styles.box}>
-                <Snackbar></Snackbar>
                 <TextField
                   id="outlined-basic"
                   label="Nombre del Servicio"
@@ -303,7 +318,9 @@ export default function FormService() {
                 <FormControl fullWidth sx={{ padding: "7px 0" }}>
                   <InputLabel id="categoryLabel">Categoría</InputLabel>
                   <Select
-                    value={""}
+
+                    value={service.category}
+
                     onChange={(e) => handleCat(e.target.value)}
                   >
                     {categories?.map((el) => {

@@ -30,11 +30,10 @@ const CheckoutForm = () => {
   let request = useSelector((state) => state.allRequest);
 
   service = service.filter((p) => p.id === id);
-  console.log(service)
   request = request.filter(p => p.service_id === id)
-  console.log(request)
   const navigate = useNavigate()
   
+
   useEffect(() => {
     dispatch(allRequest());
     dispatch(getAllServices());
@@ -52,11 +51,13 @@ const CheckoutForm = () => {
       card: elements.getElement(CardElement),
     });
     if (!error) {
+      const email = service[0].user.email;
       const { id } = paymentMethod;
       dispatch(updateRequest({...reque, id: request[0]?.id}))
       const { data } = await axios.post("http://www.localhost:3001/payment", {
         id,
         amount: request[0]?.services.price,
+        email: email,
       });
       
       elements.getElement(CardElement).clear();
@@ -72,7 +73,8 @@ const CheckoutForm = () => {
         <img
           src="https://seeklogo.com/images/V/VISA-logo-62D5B26FE1-seeklogo.com.png"
           className="logo-card"
-          alt="asd"
+          alt="Not found"
+
         />
 
         <CardElement />
@@ -84,6 +86,7 @@ const CheckoutForm = () => {
         </button>
 
         <h3>
+
           {<br />}Amount: ${service[0]?.price}
         </h3>
       </form>

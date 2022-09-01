@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useState } from "react";
@@ -25,6 +26,7 @@ export default function RequestService(props) {
     hours: "",
     service_id: "",
     requester_id: "",
+    email: "",
   });
 
   // const [userEmail, setUserEmail] = useState(service.user.email)
@@ -33,6 +35,7 @@ export default function RequestService(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+
   const service = useSelector((state) => state.serviceDetail);
 
   const userDb = useSelector((state) => state.filter); // duthor
@@ -40,6 +43,7 @@ export default function RequestService(props) {
   // PARA MANDAR UNA NOTIFICACION
 
   const [noti] = useState({
+
     message: "",
     userNotification_id: "",
     userNotificated_id: "",
@@ -48,6 +52,7 @@ export default function RequestService(props) {
     message: "",
     userNotification_id: "",
     userNotificated_id: "",
+
   });
 
   useEffect(() => {
@@ -96,7 +101,7 @@ export default function RequestService(props) {
       });
     }
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userDb.length === 0) {
@@ -111,7 +116,9 @@ export default function RequestService(props) {
         ...request,
         service_id: service.id,
         requester_id: userDb[0].id,
+        email: service?.user.email,
       };
+
       if (
         noti.message === "" &&
         noti.userNotification_id === "" &&
@@ -128,6 +135,7 @@ export default function RequestService(props) {
         solicitador.userNotificated_id = userDb[0]?.id;
       }
       dispatch(postNotification(solicitador));
+
       dispatch(postNotification(noti));
       dispatch(postRequest(requestService));
       setRequest({

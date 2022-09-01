@@ -17,11 +17,11 @@ import {
   DELETE_REQUEST,
   ALL_REQUEST,
   DELETE_SERVICES,
+  USER_LOCATION,
   ALL_NOTIFICATIONS,
   POST_NOTIFICATION,
   DELETE_NOTIFICATION,
-  ALL_USERS
-
+  ALL_USERS,
 } from "../actions/index.js";
 
 const initialStates = {
@@ -34,6 +34,7 @@ const initialStates = {
   postCategory: [],
   update: [],
   filter: [],
+  userLocation: [],
   updateService: [],
   filterId: [],
   updateRequest: [],
@@ -43,7 +44,6 @@ const initialStates = {
   allNotifications: [],
   postNotification: [],
   deleteNotification: [],
-
 };
 
 const reducer = (state = initialStates, action) => {
@@ -120,6 +120,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         filter: action.payload,
       };
+    case USER_LOCATION:
+      return {
+        ...state,
+        userLocation: action.payload,
+      };
     case UPDATE:
       return {
         ...state,
@@ -165,6 +170,7 @@ const reducer = (state = initialStates, action) => {
         ...state,
         users: action.payload,
       };
+
     case ALL_NOTIFICATIONS:
       return {
         ...state,
@@ -180,7 +186,6 @@ const reducer = (state = initialStates, action) => {
         ...state,
         deleteNotification: action.payload,
       };
-
     default:
       return state;
   }

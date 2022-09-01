@@ -1,5 +1,5 @@
 const { Category, Services, Request, User } = require("../db");
-const sendEmail = require("./Emails/requestMail");
+const requestMail = require("./Emails/sendEmails");
 
 const getRequest = async (req, res) => {
   try {
@@ -24,7 +24,7 @@ const getRequest = async (req, res) => {
           },
           {
             model: User,
-            as: "userRequest",
+            as: "userRequester",
           },
         ],
       })
@@ -35,25 +35,32 @@ const getRequest = async (req, res) => {
 };
 
 const postRequest = async (req, res) => {
+  const { day, hours, service_id, requester_id, email } = req.body;
   try {
     await Request.create({
       state: "pendiente",
-      day: req.body.day,
-      hours: req.body.hours,
-      service_id: req.body.service_id,
-      requester_id: req.body.requester_id,
+      day,
+      hours,
+      service_id,
+      requester_id,
+      email,
     });
-    res.status(201).send("created");
+    res.status(201).send("Request created");
   } catch (error) {
     res.status(404).send(error);
   }
-  sendEmail.requestMail();
+  const asunto = "Solicitud de Servicio";
+  const mensaje = "Tiene una nueva solicitud de servicio en ChangaApp";
+  requestMail.email(email, asunto, mensaje);
 };
 
 const putRequest = async (req, res) => {
-  const { state, id } = req.body;
+  const { state, id, email } = req.body;
+
+  console.log(email);
+
   try {
-     await Request.update(
+    await Request.update(
       {
         state,
       },
@@ -61,13 +68,20 @@ const putRequest = async (req, res) => {
         where: {
           id,
         },
+      },
+      {
+        email,
       }
-    );   
-    res.status(201).send("Updated");
+    );
+    res.status(201).send("Request updated");
   } catch (error) {
     // console.log(error);
     res.status(404).send(error);
   }
+  const asunto = "Novedades en su solicitud de Servicio";
+  const mensaje =
+    "Su solicitud de servicio de ChangaApp ha sido aceptada/rechazada";
+  requestMail.email(email, asunto, mensaje);
 };
 
 const deleteRequest = async (req, res) => {
@@ -78,7 +92,7 @@ const deleteRequest = async (req, res) => {
         id,
       },
     });
-    res.send("Estado borrado exitosamente");
+    res.send("Request deleted");
   } catch (error) {
     console.log(error);
   }
