@@ -63,6 +63,12 @@ const styles = {
     textAlign: 'center',
     color: '#000',
     margin: '15px 5px',
+  },
+  noAdmin: {
+    display: 'none'
+  },
+  admin: {
+    display: 'block'
   }
 };
 
@@ -112,7 +118,7 @@ export default function Navbar() {
           <Button style={styles.button}>Crear Servicio</Button>
         </Link>
       </div>
-      {/* <Link to='/settings/notifications'> */}
+      <Link style={user?.email === 'pow.chorba@hotmail.com' ? styles.admin : styles.noAdmin} to='/admin'><button>Seccion Admin</button></Link>
         <div style={styles.divPrueba}>
         <NotificationsActiveIcon value={noti} onClick={handleNotification}/>
         <div style={noti ? styles.prueba : styles.prueba2}>
