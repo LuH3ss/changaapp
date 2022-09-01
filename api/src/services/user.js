@@ -120,9 +120,39 @@ const filterUser = async (req, res) => {
   }
 };
 
+
+const userById = async (req, res) => {
+  const {id} = req.params 
+  if (id) {
+
+    try {
+      const user = await User.findAll({
+      // include: {
+      //   model: Services,
+      //   as: "services",
+      //   include: {
+      //     model: Category,
+      //     as: "category",
+      //   },
+      // },
+      where: {
+        id
+      }
+    });
+    if(user) {
+      return res.json(user)
+    }
+    } catch (error) {
+      return res.send("No se encontro el usuario solicitado");
+    }
+  }
+
+}
+
 module.exports = {
   register,
   getUsers,
   updateUser,
   filterUser,
+  userById
 };

@@ -20,7 +20,8 @@ import {
   ALL_NOTIFICATIONS,
   POST_NOTIFICATION,
   DELETE_NOTIFICATION,
-  ALL_USERS
+  ALL_USERS,
+  USER_BY_ID
 
 } from "../actions/index.js";
 
@@ -43,6 +44,7 @@ const initialStates = {
   allNotifications: [],
   postNotification: [],
   deleteNotification: [],
+  user: []
 
 };
 
@@ -180,6 +182,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         deleteNotification: action.payload,
       };
+    case USER_BY_ID:
+      return {
+        ...state,
+        user: action.payload
+      }
 
     default:
       return state;

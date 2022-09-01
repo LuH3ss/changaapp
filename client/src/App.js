@@ -31,6 +31,7 @@ import Adminnavbar from "./componentes/admin/Admin-navbar";
 import Users from "./componentes/admin/Users";
 import Categories from "./componentes/admin/Categories";
 import CreateCategory from "./componentes/admin/CreateCategory";
+import UserDetail from "./componentes/admin/UserDetail";
 function App() {
   return (
     <AuthProvider>
@@ -58,10 +59,11 @@ function App() {
           <Route path='notifications' element={<Notifications/>}/>
         </Route>
         <Route path="/admin/" element={<Adminnavbar />} >
-          <Route path="users" element={<Users />} />  
-          <Route path="categories" element={<Categories />} />  
+          <Route path="users" element={<Users />} />
+          <Route path="users/:id" element={<UserDetail />} />
+          <Route path="categories" element={<Categories />} />
           <Route path="createCategory" element={<CreateCategory />} />
-        </Route> 
+        </Route>
       </Routes>
     </AuthProvider>
   );

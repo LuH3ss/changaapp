@@ -19,6 +19,7 @@ export const DELETE_REQUEST = "DELETE_REQUEST";
 export const ALL_REQUEST = "ALL_REQUEST";
 export const DELETE_SERVICES = "DELETE_SERVICES";
 export const ALL_USERS = 'ALL_USERS'
+export const USER_BY_ID = 'USER_BY_ID'
 
 export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS'
 export const POST_NOTIFICATION = 'POST_NOTIFICATION'
@@ -272,4 +273,18 @@ export function allUsers() {
     });
   };
 }
+
+
+export function userById(userId) {
+  
+  return async function (dispatch) {
+    const dataDb = await axios(`${EP}/users/${userId}`)
+    return dispatch ({
+      type: USER_BY_ID,
+      payload: dataDb.data
+    })
+  }
+}
+
+
 
