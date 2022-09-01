@@ -25,7 +25,7 @@ const {
   putRequest,
   deleteRequest,
 } = require("../services/request");
-const { getReviews, postReviews } = require("../services/reviews");
+const { getReviews, postReviews, getUserReview } = require("../services/reviews");
 
 // Importar todos los routers;
 
@@ -60,6 +60,7 @@ router.post("/payment", paymentMethod);
 
 //review routes
 router.get("/reviews", getReviews);
+router.get("/reviews/user/:user_id", getUserReview);
 router.post("/reviews", postReviews);
 
 

@@ -22,6 +22,7 @@ import FilterCategory from "./componentes/Home/FiltersCategorys/FilterCategory";
 import AllCategorys from "./componentes/Home/FiltersCategorys/AllCategorys";
 import StateRequest from "./componentes/Settings/Request/StateRequest";
 import StateRequester from "./componentes/Settings/Request/StateOfer";
+import Review from "./componentes/Review";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/home/createService" element={<Servicios />} />
         <Route path="/home/services/:id" element={<RequestService />} />
         <Route path="/home/services/payment/:id" element={<Stripe />} />
+        <Route path="/home/services/review" element={<Review />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />

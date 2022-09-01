@@ -22,21 +22,37 @@ const getReviews = async (req, res) => {
 };
 
 const postReviews = async (req, res) => {
+  let {message, rate, user_id, author_id} = req.body
   try {
-    await Reviews.create({
-      message: req.body.message,
-      rate: req.body.rate,
-      user_id: req.body.user_id,
-      author_id: req.body.author_id,
+    let reviewCreated = await Reviews.create({
+      message,
+      rate,
+      user_id: user_id,
+      author_id: author_id,
     });
+    console.log(reviewCreated)
 
     res.status(201).send("created");
   } catch (error) {
     res.status(404).send(error);
+    console.log(error)
   }
 };
+
+const getUserReview = async (req,res) =>{
+  const {user_id} = req.params
+  try {
+    const userReview =  await Reviews.findAll({
+      where: {user_id : user_id}
+    })
+    res.status(200).send(userReview)
+  } catch (error) {
+    console.log(error)
+  }
+} 
 
 module.exports = {
   getReviews,
   postReviews,
+  getUserReview
 };
