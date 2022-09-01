@@ -18,7 +18,7 @@ const paymentMethod = async (req, res) => {
     res.send({ message: "Successful payment" });
     const asunto = "Pago del servicio";
     const mensaje =
-      "Se ha realizado el pago de su servicio con exito. Felicitaciones.";
+      "Ha recibido el pago de su servicio con exito. Felicitaciones.";
     paymentMail.email(email, asunto, mensaje);
   } catch (error) {
     res.send({ message: error.raw.message });
