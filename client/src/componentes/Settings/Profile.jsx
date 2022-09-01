@@ -95,6 +95,7 @@ export default function Profile() {
                 variant="div"
               >
                 <Typography variant="h6">Descripción</Typography>
+
                 <Typography variant="h6">{estado[0].description}</Typography>
               </Box>
             </Box>

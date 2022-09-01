@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createContext, useContext, useEffect, useState } from "react";
 import {
   signInWithEmailAndPassword,
@@ -60,7 +61,6 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-
     <authContext.Provider
       value={{
         user,
@@ -73,7 +73,6 @@ export function AuthProvider({ children }) {
         resetPassword,
       }}
     >
-
       {children}
     </authContext.Provider>
   );
