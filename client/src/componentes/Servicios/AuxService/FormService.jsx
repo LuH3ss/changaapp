@@ -213,6 +213,7 @@ export default function FormService() {
       ...service,
       category: service.category,
       category_id: dato,
+      email: user?.email,
     });
     setError(
       validate({
@@ -225,10 +226,6 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
-    setService({
-      ...service,
-      email: user?.email,
-    });
     if (service.user_id === "") service.user_id = estado[0].id;
     if (service.name === filtroParaNoRepetir[0]?.name) {
       alert(
@@ -246,6 +243,7 @@ export default function FormService() {
         category: [],
         day: [],
         hours: [],
+        email: "",
       });
       navigate("/home");
     }
