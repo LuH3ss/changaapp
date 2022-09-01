@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../context/authContext";
 import { getAllCategories } from "../redux/actions";
+import { Link } from "react-router-dom";
 import "./css/footer.css";
 
 export default function Footer() {
@@ -13,7 +14,16 @@ export default function Footer() {
     dispatch(getAllCategories());
   }, [dispatch]);
 
-  console.log(category);
+  const sendMail = (e) => {
+    e.preventDefault();
+    let body = document.getElementById("message");
+    let subjetLine = "Formulario de Contacto";
+    window.location.href =
+      "mailto:pfhenrychangapp@gmail.com?subject=" +
+      subjetLine +
+      "&body=" +
+      body;
+  };
 
   return (
     <div className="footer">
@@ -26,11 +36,13 @@ export default function Footer() {
           {category &&
             category.map((c) => {
               return (
-                <div>
-                  <li className="footer__lista--item">
-                    <p>{c.name}</p>
-                  </li>
-                </div>
+                <Link key={c.id} to="/home/todos">
+                  <div>
+                    <li className="footer__lista--item">
+                      <p>{c.name}</p>
+                    </li>
+                  </div>
+                </Link>
               );
             })}
           <li className="footer__lista--item">
@@ -51,7 +63,9 @@ export default function Footer() {
             <p>Programa de Fidelidad</p>
           </li>
           <li className="footer__lista--item">
-            <p>Anuncie Aqui</p>
+            <Link to="/home/createService">
+              <p>Anuncie Aqui</p>
+            </Link>
           </li>
         </ul>
       </div>
@@ -59,27 +73,62 @@ export default function Footer() {
         <ul className="footer__lista">
           <p>Desarrollado por</p>
           <li className="footer__lista--item">
-            <p>Enrique Gomez Naar</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/enrique-gomez-naar-fullstackdeveloper/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Enrique Gomez Naar
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Lucas Hess</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/lucas-axel-hess/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Lucas Hess
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Juan Pablo Cuadrelli</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/juan-pablo-cuadrelli-full-stack-dev/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Juan Pablo Cuadrelli
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Agop Chorbadjian</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/agop-chorbadjian-369767218/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Agop Chorbadjian
+            </a>
           </li>
           <li className="footer__lista--item">
-            <p>Claudio Amaya</p>
+            <a
+              className="footer__linkedIn"
+              href="https://www.linkedin.com/in/claudio-amaya-fullstack/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Claudio Amaya
+            </a>
           </li>
         </ul>
       </div>
 
-      <form className="formulario">
+      <form onSubmit={(e) => sendMail(e)} className="formulario">
         <h3 className="formulario__titulo">Contactanos</h3>
         <div className="formulario__campo">
-          <label>Nombre</label>
+          <label>Email</label>
           <input
             name="name"
             type="text"
@@ -100,7 +149,9 @@ export default function Footer() {
             data-tipo="message"
           ></textarea>
         </div>
-        <button className="formulario__boton">Enviar mensaje</button>
+        <button className="formulario__boton" type="submit">
+          Enviar mensaje
+        </button>
       </form>
     </div>
   );

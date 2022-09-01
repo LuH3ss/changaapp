@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
-import { getAllServices, updateRequest } from "../../../redux/actions";
+import {
+  getAllServices,
+  postNotification,
+  updateRequest,
+} from "../../../redux/actions";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 
 export default function StateRequest() {
   const { user } = useAuth();
@@ -15,38 +19,63 @@ export default function StateRequest() {
   const [btn, setBtn] = useState({
     state: "",
     id: "",
+    email: "",
   });
-  console.log(filterEmail);
+  // console.log(filterEmail);
+  //ESTADO PARA LA NOTIFICACION AUTOMATICA
+  const [noti, setNoti] = useState({
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
+  });
+  //PARA TRAER LOS SERVICIOS
   useEffect(() => {
     dispatch(getAllServices());
   }, [dispatch]);
 
+  //PARA CAMBIAR EL VALOR DEL ESTADO
   const handleOnClick = (e) => {
     if (btn.state === "") {
       setBtn({
+        ...btn,
         state: e.target.name,
         id: e.target.value,
       });
-      console.log(btn);
+      //ESTO ES PARA ENVIAR LA NOTIFICACION AUTOMATICA
+      setNoti({
+        message: `Tu pedido del trabajo ${filterEmail[0].name} fue aceptado.`,
+        userNotification_id: filterEmail[0]?.user.id,
+        userNotificated_id: e.target.className,
+      });
+      // console.log(btn);
     } else if (btn.state !== e.target.name) {
       document.getElementById(btn.state).checked = false;
       setBtn({
+        ...btn,
         state: e.target.name,
         id: e.target.value,
       });
+      //ESTO ES PARA ENVIAR LA NOTIFICACION AUTOMATICA
+      setNoti({
+        message: `Tu pedido del trabajo ${filterEmail[0]?.name} fue rechazado.`,
+        userNotification_id: filterEmail[0]?.user.id,
+        userNotificated_id: e.target.className,
+      });
     }
   };
-
+  // PARA ENVIAR EL FORMULARIO AL BACK
   const handleOnSubmit = (e) => {
     e.preventDefault();
     if (btn.state !== "") {
-      dispatch(updateRequest(btn));
+      dispatch(postNotification(noti));
+      dispatch(updateRequest({ ...btn, email: e.target.name }));
       window.location.reload(true);
     }
   };
 
+  console.log(btn);
   return (
-    <div>
+    <Box sx={{ width: "70%" }}>
       <h1>Estado del Servicio</h1>
       {filterEmail.length === 0 ? (
         <p>
@@ -73,7 +102,10 @@ export default function StateRequest() {
                     Trabajo solicitado para el dia {e.day} a las {e.hours}hs
                   </p>
                   {e.state === "aceptado" ? (
-                    <form onSubmit={(e) => handleOnSubmit(e)}>
+                    <form
+                      name={e.userRequester.email}
+                      onSubmit={(e) => handleOnSubmit(e)}
+                    >
                       <div>
                         <label>Cancelar</label>
                         <input
@@ -86,11 +118,15 @@ export default function StateRequest() {
                       <Button type="submit">Actualizar</Button>
                     </form>
                   ) : (
-                    <form onSubmit={(e) => handleOnSubmit(e)}>
+                    <form
+                      name={e.userRequester.email}
+                      onSubmit={(e) => handleOnSubmit(e)}
+                    >
                       <label>Aceptar</label>
 
                       <input
                         type="checkbox"
+                        className={e.requester_id}
                         id="aceptado"
                         name="aceptado"
                         value={e.id}
@@ -99,8 +135,10 @@ export default function StateRequest() {
                       <label>Rechazar</label>
                       <input
                         type="checkbox"
+                        className={e.requester_id}
                         id="rechazado"
                         name="rechazado"
+                        email={e.userRequester.email}
                         value={e.id}
                         onChange={handleOnClick}
                       />
@@ -116,6 +154,6 @@ export default function StateRequest() {
           );
         })
       )}
-    </div>
+    </Box>
   );
 }

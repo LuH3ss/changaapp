@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
 import "../css/navBar.css";
 import SearchBar from "../SearchBar";
@@ -13,6 +14,7 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Logout from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -29,9 +31,9 @@ const styles = {
     color: "white",
   },
   asd: {
-    textDecoration: 'none',
-    color: '#fff'
-  }
+    textDecoration: "none",
+    color: "#fff",
+  },
 };
 
 export default function Navbar() {
@@ -60,7 +62,9 @@ export default function Navbar() {
   return (
     <Box style={styles.container} className="navBar">
       <Typography variant="h4">
-        <Link style={styles.asd} to="/home">ChangApp</Link>
+        <Link style={styles.asd} to="/home">
+          ChangApp
+        </Link>
       </Typography>
 
       <SearchBar style={styles.button} />
@@ -69,6 +73,7 @@ export default function Navbar() {
           <Button style={styles.button}>Crear Servicio</Button>
         </Link>
       </div>
+      <Link to='/settings/notifications'><NotificationsActiveIcon/></Link>
       <Tooltip title="Account settings">
         <IconButton
           onClick={handlerClick}

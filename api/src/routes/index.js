@@ -6,6 +6,7 @@ const {
   getUsers,
   updateUser,
   filterUser,
+  userLocation,
 } = require("../services/user");
 const {
   getServices,
@@ -15,8 +16,7 @@ const {
   updateService,
   deleteService,
 } = require("../services/service");
-const { registerMail } = require("../services/Emails/registerMail");
-const { requestMail } = require("../services/Emails/requestMail");
+const { email } = require("../services/Emails/sendEmails");
 const { getCategories, postCategorie } = require("../services/category");
 const { paymentMethod } = require("../services/payment");
 const {
@@ -25,7 +25,18 @@ const {
   putRequest,
   deleteRequest,
 } = require("../services/request");
-const { getReviews, postReviews, getUserReview } = require("../services/reviews");
+
+const {
+  getReviews,
+  postReviews,
+  getUserReview,
+} = require("../services/reviews");
+
+const {
+  getNotifications,
+  postNotifications,
+  deleteNotification,
+} = require("../services/notifications");
 
 // Importar todos los routers;
 
@@ -36,6 +47,7 @@ router.post("/user", register);
 router.get("/user", getUsers);
 router.put("/user/:email", updateUser);
 router.get("/user/:email", filterUser);
+router.get("/user", userLocation);
 
 //services routes
 router.post("/services", postService);
@@ -63,10 +75,12 @@ router.get("/reviews", getReviews);
 router.get("/reviews/user/:user_id", getUserReview);
 router.post("/reviews", postReviews);
 
-
 //sendEmail routes
-router.post("/sendemail", registerMail);
-router.post("/sendemail", requestMail);
+router.post("/sendemail", email);
 
+//notifications routes
+router.get("/notifications", getNotifications);
+router.post("/notifications", postNotifications);
+router.delete("/notifications/:id", deleteNotification);
 
 module.exports = router;

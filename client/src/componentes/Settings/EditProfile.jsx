@@ -12,7 +12,7 @@ export default function EditProfile() {
   const { user } = useAuth();
   //ESTADO PARA ACTUALIZAR
   const estado = useSelector((state) => state.filter);
-  
+
   const dispatch = useDispatch();
 
   //PARA TRAER LA DATA DESDE LA BASE DE DATOS
@@ -22,8 +22,10 @@ export default function EditProfile() {
   }, [dispatch, user?.email]);
 
   return (
-    <div>
+
+    <Box sx={{width:'70%'}}>
       <h1>Modificar perfil</h1>
+
       {user?.email === null ? (
         <p>
           No tienes acceso a estos datos ya que ingresaste como un usuario
@@ -32,12 +34,15 @@ export default function EditProfile() {
           <Link to="/register">Registrarse</Link>
         </p>
       ) : estado.length === 1 ? (
-        <UpdateProfile />
+        <Box>
+          <h1>Modificar perfil</h1>
+          <UpdateProfile />
+        </Box>
       ) : (
         <Box>
           <CompleteProfile />
         </Box>
       )}
-    </div>
+    </Box>
   );
 }

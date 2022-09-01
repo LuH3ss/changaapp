@@ -1,16 +1,15 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import Footer from "../Footer";
 import Paging from "../Paging";
 import Navbar from "../PrivateRoute/Navbar";
 import Category from "./AuxHome/Category";
-import SearchBar from "./AuxHome/SearchBar";
 
 
 export default function Guardar() {
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
-  
 
   useEffect(() => {
     if (user) setLoading(false);

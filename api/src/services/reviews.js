@@ -1,4 +1,4 @@
-const { Category, Services, Request, User, Reviews } = require("../db");
+const { User, Reviews } = require("../db");
 
 const getReviews = async (req, res) => {
   try {
@@ -32,7 +32,7 @@ const postReviews = async (req, res) => {
     });
     console.log(reviewCreated)
 
-    res.status(201).send("created");
+    res.status(201).send("Review created");
   } catch (error) {
     res.status(404).send(error);
     console.log(error)

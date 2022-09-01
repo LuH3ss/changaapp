@@ -1,9 +1,19 @@
-const { Category, Services, Solicitud, User, Reviews } = require("../db");
-const sendEmail = require("./Emails/registerMail");
+const { Category, Services, User, Reviews, Request } = require("../db");
+const registerMail = require("./Emails/sendEmails");
 
 const register = async (req, res) => {
-  const { firstName, lastName, birthDate, email, img, offerer, admin, banned } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    birthDate,
+    email,
+    description,
+    img,
+    offerer,
+    admin,
+    banned,
+    location,
+  } = req.body;
 
   try {
     const users = await User.findAll({
@@ -28,6 +38,8 @@ const register = async (req, res) => {
         birthDate,
         email,
         img,
+        description,
+        location,
         offerer,
         admin,
         banned,
@@ -37,12 +49,13 @@ const register = async (req, res) => {
   } catch (error) {
     return res.status(400).send(console.log(error.message));
   }
-  sendEmail.registerMail(email);
+  const asunto = "Registro Usuario";
+  const mensaje =
+    "Bienvenido a ChangaApp. Su usuario ha sido registrado exitosamente";
+  registerMail.email(email, asunto, mensaje);
 };
 
 const getUsers = async (req, res) => {
-  const { id } = req.body;
-
   const users = await User.findAll({
     include: [
       {
@@ -51,6 +64,14 @@ const getUsers = async (req, res) => {
         include: {
           model: Category,
           as: "category",
+        },
+      },
+      {
+        model: Services,
+        as: "services",
+        include: {
+          model: Request,
+          as: "request",
         },
       },
       {
@@ -64,7 +85,17 @@ const getUsers = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  const { firstName, lastName, birthDate, phone, img } = req.body;
+  const {
+    firstName,
+    lastName,
+    birthDate,
+    img,
+    description,
+    location,
+    admin,
+    banned,
+  } = req.body;
+
   const { email } = req.params;
 
   await User.update(
@@ -72,8 +103,12 @@ const updateUser = async (req, res) => {
       firstName,
       lastName,
       birthDate,
-      phone,
+      email,
       img,
+      description,
+      location,
+      admin,
+      banned,
     },
     {
       where: {
@@ -82,7 +117,7 @@ const updateUser = async (req, res) => {
     }
   );
 
-  return res.status(201).send("Usuario actualizado");
+  return res.status(201).send("User updated");
 };
 
 const filterUser = async (req, res) => {
@@ -102,8 +137,28 @@ const filterUser = async (req, res) => {
     if (filterEmail) {
       return res.send(filterEmail);
     } else {
-      return res.send("No se encontro el email solicitado");
+      return res.send("Email not found");
     }
+  }
+};
+
+const userLocation = async (req, res) => {
+  const { location } = req.params;
+  const userLocation = await User.findAll({
+    include: {
+      model: Services,
+      as: "services",
+      include: {
+        model: Category,
+        as: "category",
+      },
+    },
+  });
+  const filterLocation = userLocation.filter((e) => e.location === location);
+  if (filterLocation) {
+    return res.send(filterLocation);
+  } else {
+    return res.send("Location not found");
   }
 };
 
@@ -112,4 +167,5 @@ module.exports = {
   getUsers,
   updateUser,
   filterUser,
+  userLocation,
 };

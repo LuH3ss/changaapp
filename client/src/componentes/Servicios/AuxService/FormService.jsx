@@ -9,7 +9,7 @@ import {
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
-import styles from './style'
+import styles from "./style";
 //MATERIAL UI
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -19,6 +19,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import "../../css/profile.css";
 
 function validate(service) {
   let error = {};
@@ -55,13 +59,16 @@ export default function FormService() {
     category: [],
     day: [],
     hours: [],
-    category_id: ""
+    category_id: "",
+    email: "",
   });
-  //TRAER DATOS DEL USUARIO 
-  const serviceState = useSelector(state => state.services)
-  const filtroParaNoRepetir = serviceState.filter(e => e.user_id === estado[0]?.id)
-  
-  console.log(filtroParaNoRepetir)
+  //TRAER DATOS DEL USUARIO
+  const serviceState = useSelector((state) => state.services);
+  const filtroParaNoRepetir = serviceState.filter(
+    (e) => e.user_id === estado[0]?.id
+  );
+
+  console.log(filtroParaNoRepetir);
 
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
@@ -71,7 +78,7 @@ export default function FormService() {
   useEffect(() => {
     disptach(getAllCategories());
     disptach(getUserEmail(user?.email));
-    disptach(getAllServices())
+    disptach(getAllServices());
   }, [disptach, user?.email]);
 
   const handleOnChange = (e) => {
@@ -115,41 +122,84 @@ export default function FormService() {
 
   //Manejo de días de disponibilidad
   const handleDay = (e) => {
-    if(!service.day.includes(e.target.value)){
-      e.target.style.cssText = 'color: #E5E7EB; background-color: #1F2937';
+    if (!service.day.includes(e.target.value)) {
+      e.target.style.cssText = "color: #E5E7EB; background-color: #1F2937";
       setService({
         ...service,
-        day: [...service.day, e.target.value]
+        day: [...service.day, e.target.value],
       });
-    }else{
-      e.target.style.cssText = 'color: #1F2937; background-color: #E5E7EB';
+    } else {
+      e.target.style.cssText = "color: #1F2937; background-color: #E5E7EB";
       setService({
         ...service,
-        day: service.day.filter(el => el !== e.target.value)
+        day: service.day.filter((el) => el !== e.target.value),
       });
-    } 
-  }
+    }
+  };
 
   //manejo de horarios de disponibilidad
   const handleTime = (e) => {
-    let inputValue = document.getElementById('time');
-    if(inputValue.value !== '' && !service.hours.includes(inputValue.value)){
+    let inputValue = document.getElementById("time");
+    if (inputValue.value !== "" && !service.hours.includes(inputValue.value)) {
       setService({
         ...service,
-        hours: [...service.hours, inputValue.value]
-      })
+        hours: [...service.hours, inputValue.value],
+      });
     }
-  }
+  };
+
+  const handlePlusTime = (e) => {
+    let element = document.getElementById("time");
+    if (!element.value) element.value = "00:00";
+    let input = document.getElementById("time").value;
+    input = input.split(":");
+
+    if (element.value === "23:30") {
+      element.value = "00:00";
+    } else {
+      if (input[1] === 30) {
+        input[1] = "00";
+        input[0] = (Number(input[0]) + 1).toString();
+        input[0] = input[0] < 10 ? "0".concat(input[0]) : input[0];
+      } else if (input[1] !== 30) {
+        input[1] = "30";
+      } else if (element.value === "23:30") {
+        element.value = "00:00";
+      }
+
+      element.value = input.join(":");
+    }
+  };
+
+  const handleLessTime = (e) => {
+    let element = document.getElementById("time");
+    if (!element.value) element.value = "00:00";
+    let input = document.getElementById("time").value;
+    input = input.split(":");
+
+    if (element.value === "00:00") {
+      element.value = "23:30";
+    } else {
+      if (input[1] === "00") {
+        input[1] = "30";
+        input[0] = (Number(input[0]) - 1).toString();
+        input[0] = input[0] < 10 ? "0".concat(input[0]) : input[0];
+      } else if (input[1] !== "00") {
+        input[1] = "00";
+      }
+      element.value = input.join(":");
+    }
+  };
 
   const handleDeleteTime = (e) => {
     setService({
       ...service,
-      hours: service.hours.filter(el => el !== e.target.value)
-    })
-  }
+      hours: service.hours.filter((el) => el !== e.target.value),
+    });
+  };
 
   const handleCat = (dato) => {
-    document.getElementById("categoryLabel").style.display = 'none'
+    document.getElementById("categoryLabel").style.display = "none";
 
     if (service.category) {
       if (service.category.includes(dato)) {
@@ -163,6 +213,7 @@ export default function FormService() {
       ...service,
       category: service.category,
       category_id: dato,
+      email: user?.email,
     });
     setError(
       validate({
@@ -175,12 +226,14 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(service.user_id === '') service.user_id = estado[0].id
-    if(service.name === filtroParaNoRepetir[0]?.name){
-      alert('Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil')
-    }else {
-      service.day = service.day.join(",")
-      service.hours = service.hours.join(',')
+    if (service.user_id === "") service.user_id = estado[0].id;
+    if (service.name === filtroParaNoRepetir[0]?.name) {
+      alert(
+        "Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil"
+      );
+    } else {
+      service.day = service.day.join(",");
+      service.hours = service.hours.join(",");
       disptach(postService(service));
       setService({
         name: "",
@@ -189,161 +242,213 @@ export default function FormService() {
         price: "",
         category: [],
         day: [],
-        hours:[]
+        hours: [],
+        email: "",
       });
       navigate("/home");
     }
   };
 
+  console.log(user.email, "SERVICE");
 
   return (
-      <Box style={styles.container}>
-        <Box style={styles.containerForm}>
-          <Typography sx={{margin:'20px'}} variant="h4">Publicá tu servicio</Typography>
-          <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
-            <Box sx={{width:'100%', display:'flex'}}>
-              <Box sx={{width:'50%', padding:'20px 10px 0 20px'}}>
-                <Box style={styles.box}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Nombre del Servicio"
-                    variant="outlined"
-                    style={styles.input}
-                    type="text"
-                    name="name"
-                    value={service.name}
-                    onChange={handleOnChange}
-                  />
-                </Box>
-      
-                
-                <Box style={styles.box}>
-                  <FormControl fullWidth sx={{padding:'7px 0'}}>
-                    <InputLabel id="categoryLabel">Categoría</InputLabel>
-                    <Select
-                      value={service.category}
-                      onChange={(e) => handleCat(e.target.value)}
-                    >
-                      {
-                        categories?.map(el => {
-                          return <MenuItem key={el.id} value={el.id}>{el.name}</MenuItem>
-                        })
-                      }
-                    </Select>
-                  </FormControl>
-                </Box>
-      
-                <Box style={styles.box}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Descripción"
-                    variant="outlined"
-                    style={styles.input}
-                    type="text"
-                    name="description"
-                    value={service.description}
-                    onChange={handleOnChange}
-                  />
-                </Box>
-                
-                <Box style={styles.box}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Precio del servicio"
-                    variant="outlined"
-                    style={styles.input}
-                    type="number"
-                    name="price"
-                    value={service.price}
-                    onChange={handleOnChange}
-                  />
-                </Box>
+    <Box style={styles.container}>
+      <Box style={styles.containerForm}>
+        <Typography sx={{ margin: "20px" }} variant="h4">
+          Publicá tu servicio
+        </Typography>
+        <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
+          <Box sx={{ width: "100%", display: "flex" }}>
+            <Box sx={{ width: "50%", padding: "20px 10px 0 20px" }}>
+              <Box style={styles.box}>
+                <TextField
+                  id="outlined-basic"
+                  label="Nombre del Servicio"
+                  variant="outlined"
+                  style={styles.input}
+                  type="text"
+                  name="name"
+                  value={service.name}
+                  onChange={handleOnChange}
+                />
               </Box>
-            <Box sx={{width:'50%', padding:'20px 20px 0 10px'}}>
-              <Box sx={{ display: 'flex', flexDirection: 'column'}}>
-                <Typography 
+
+              <Box style={styles.box}>
+                <FormControl fullWidth sx={{ padding: "7px 0" }}>
+                  <InputLabel id="categoryLabel">Categoría</InputLabel>
+                  <Select
+                    value={service.category}
+                    onChange={(e) => handleCat(e.target.value)}
+                  >
+                    {categories?.map((el) => {
+                      return (
+                        <MenuItem key={el.id} value={el.id}>
+                          {el.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+              </Box>
+
+              <Box style={styles.box}>
+                <TextField
+                  id="outlined-basic"
+                  label="Descripción"
+                  variant="outlined"
+                  style={styles.input}
+                  type="text"
+                  name="description"
+                  value={service.description}
+                  onChange={handleOnChange}
+                />
+              </Box>
+
+              <Box style={styles.box}>
+                <TextField
+                  id="outlined-basic"
+                  label="Precio del servicio"
+                  variant="outlined"
+                  style={styles.input}
+                  type="number"
+                  name="price"
+                  value={service.price}
+                  onChange={handleOnChange}
+                />
+              </Box>
+            </Box>
+            <Box sx={{ width: "50%", padding: "20px 20px 0 10px" }}>
+              <Box sx={{ display: "flex", flexDirection: "column" }}>
+                <Typography
                   variant="h7"
-                  sx={{textAlign:'center', padding: '30px'}}
+                  sx={{ textAlign: "center", padding: "30px" }}
                 >
                   Seleccioná días de disponibilidad
                 </Typography>
-                <Box sx={{ display: 'flex', flexDirection: 'row'}}>
-                  {
-                    ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'].map(el => {
-                      return <Button
-                        key={el.id} 
-                        value={el} 
-                        onClick={(e)=>handleDay(e)}
+                <Box sx={{ display: "flex", flexDirection: "row" }}>
+                  {[
+                    "Lunes",
+                    "Martes",
+                    "Miércoles",
+                    "Jueves",
+                    "Viernes",
+                    "Sábado",
+                    "Domingo",
+                  ].map((el) => {
+                    return (
+                      <Button
+                        key={el.id}
+                        value={el}
+                        onClick={(e) => handleDay(e)}
                         variant="outlined"
-                        sx={{color: "#1F2937", margin: '5px', padding:'5px'}}
-                        >
-                          {el}
+                        sx={{ color: "#1F2937", margin: "5px", padding: "5px" }}
+                      >
+                        {el}
                       </Button>
-                    })
-                  }
+                    );
+                  })}
                 </Box>
-                
               </Box>
 
-              <Box sx={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                <Typography 
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
                   variant="h7"
-                  sx={{textAlign:'center', padding: '30px'}}
+                  sx={{ textAlign: "center", padding: "30px" }}
                 >
                   Agregá horarios de disponibilidad
                 </Typography>
-                <Box sx={{display:'flex', width:'100%'}}>
-                  <Box sx={{display:'flex', alignItems:'center', width:'30%'}}>
-                    <input id="time" type="time" style={styles.time} />
-                    <Button
-                      onClick={handleTime}
-                      sx={{ width: '40px',height: '45px',outline: 'none' }}
-                      variant='outlined'
-                    >
-                      ➕
-                    </Button>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    width: "30%",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Box sx={{ display: "flex" }}>
+                    <input
+                      style={styles.time}
+                      id="time"
+                      type="time"
+                      step={1800}
+                    />
+
+                    <Box sx={{ display: "flex" }}>
+                      <Button
+                        variant="outlined"
+                        onClick={(e) => handlePlusTime(e)}
+                        sx={{ minWidth: "30px" }}
+                      >
+                        <ExpandLessIcon />
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        onClick={(e) => handleLessTime(e)}
+                        sx={{ minWidth: "30px" }}
+                      >
+                        <ExpandMoreIcon />
+                      </Button>
+                    </Box>
                   </Box>
+                  <Button
+                    onClick={handleTime}
+                    sx={{ width: "40px", height: "45px", outline: "none" }}
+                    variant="outlined"
+                  >
+                    ➕
+                  </Button>
+                </Box>
+                <Box sx={{ display: "flex", width: "100%" }}>
                   <Box style={styles.hourAdded}>
-                    {
-                      service?.hours?.map(el=>{
-                        return <Box sx={{display:'flex', alignItems:'center', padding:'5px'}}>
+                    {service?.hours?.map((el) => {
+                      return (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            padding: "5px",
+                          }}
+                        >
                           <Typography>{el}</Typography>
-                          <Button 
-                          value={el} 
-                          onClick={(e)=>handleDeleteTime(e)} 
-                          sx={{minWidth:'20px',padding:'0'}}
+                          <Button
+                            value={el}
+                            onClick={(e) => handleDeleteTime(e)}
+                            sx={{ minWidth: "20px", padding: "0" }}
                           >
                             ✖
                           </Button>
                         </Box>
-                      })
-                    }
+                      );
+                    })}
                   </Box>
                 </Box>
               </Box>
-
-              
             </Box>
-            </Box>
-              <Box style={styles.bottomButtons}>
-                
-                <Link style={{ textDecoration: "none" }} to="/home">
-                  <Button sx={{ color: "#1F2937"}} variant='outlined'>
-                    Volver atras
-                  </Button>
-                </Link>
+          </Box>
+          <Box style={styles.bottomButtons}>
+            <Link style={{ textDecoration: "none" }} to="/home">
+              <Button sx={{ color: "#1F2937" }} variant="outlined">
+                Volver atras
+              </Button>
+            </Link>
 
-                <Button 
-                  sx={{ color: "#1F2937" }} 
-                  type="submit" 
-                  disabled={!btn}
-                  variant='outlined'
-                >
-                  Crear
-                </Button>
-              </Box>
-          </form>
-        </Box>
+            <Button
+              sx={{ color: "#1F2937" }}
+              type="submit"
+              disabled={!btn}
+              variant="outlined"
+            >
+              Crear
+            </Button>
+          </Box>
+        </form>
       </Box>
+    </Box>
   );
 }
