@@ -269,7 +269,7 @@ export default function FormService() {
         day: [],
         hours: [],
       });
-      navigate("/home");
+      // navigate("/home");
     }
   };
 
