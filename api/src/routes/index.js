@@ -6,7 +6,11 @@ const {
   getUsers,
   updateUser,
   filterUser,
+  bannState,
+  userById,
+
   userLocation,
+
 } = require("../services/user");
 const {
   getServices,
@@ -25,7 +29,13 @@ const {
   putRequest,
   deleteRequest,
 } = require("../services/request");
-const { getReviews, postReviews } = require("../services/reviews");
+
+const {
+  getReviews,
+  postReviews,
+  getUserReview,
+} = require("../services/reviews");
+
 const {
   getNotifications,
   postNotifications,
@@ -41,7 +51,11 @@ router.post("/user", register);
 router.get("/user", getUsers);
 router.put("/user/:email", updateUser);
 router.get("/user/:email", filterUser);
+router.put("/users/:id", bannState)
+router.get("/users/:id", userById)
+
 router.get("/user", userLocation);
+
 
 //services routes
 router.post("/services", postService);
@@ -66,6 +80,7 @@ router.post("/payment", paymentMethod);
 
 //review routes
 router.get("/reviews", getReviews);
+router.get("/reviews/user/:id", getUserReview);
 router.post("/reviews", postReviews);
 
 //sendEmail routes

@@ -25,7 +25,6 @@ export default function PublicServices() {
 
   return (
     <Box sx={{ width: "70%" }}>
-      <h1>Servicios publicados</h1>
       {userState[0]?.services?.length === 0 ? (
         <div>
           <p>Este usuario no tiene ningun servicio registrado</p>
@@ -49,17 +48,15 @@ export default function PublicServices() {
             //     {e.description}
             //   </p>
             // </div>
-            <Box key={e.id} component="div">
+
+            <Box sx={{ width: "100%" }}>
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                  width: "400px",
                   border: "solid grey 1px",
-                  padding: "10px",
-                  margin: "10px",
-                  borderRadius: "5px",
+                  borderRadius: "10px",
+                  padding: "2%",
+                  margin: "2%",
                 }}
               >
                 <Typography variant="h6">
