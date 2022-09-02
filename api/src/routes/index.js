@@ -72,7 +72,7 @@ router.post("/payment", paymentMethod);
 
 //review routes
 router.get("/reviews", getReviews);
-router.get("/reviews/user/:user_id", getUserReview);
+router.get("/reviews/user/:id", getUserReview);
 router.post("/reviews", postReviews);
 
 //sendEmail routes

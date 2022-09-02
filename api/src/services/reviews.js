@@ -31,7 +31,6 @@ const postReviews = async (req, res) => {
       author_id: author_id,
     });
     console.log(reviewCreated)
-
     res.status(201).send("Review created");
   } catch (error) {
     res.status(404).send(error);
@@ -40,11 +39,12 @@ const postReviews = async (req, res) => {
 };
 
 const getUserReview = async (req,res) =>{
-  const {user_id} = req.params
+  const {id} = req.params
   try {
     const userReview =  await Reviews.findAll({
-      where: {user_id : user_id}
+      where: {user_id : id}
     })
+    console.log(id)
     res.status(200).send(userReview)
   } catch (error) {
     console.log(error)
