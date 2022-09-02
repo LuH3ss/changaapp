@@ -18,18 +18,21 @@ export default function PublicServices() {
   }, [dispatch, user?.email]);
 
   const handleDelete = (e) => {
-    e.preventDefault()
-    dispatch(deleteService(e.target.id))
-    window.location.reload(true)
-  }
-  
+    e.preventDefault();
+    dispatch(deleteService(e.target.id));
+    window.location.reload(true);
+  };
+
   return (
-    <Box sx={{width:'70%'}}>
+    <Box sx={{ width: "70%" }}>
       <h1>Servicios publicados</h1>
       {userState[0]?.services?.length === 0 ? (
         <div>
           <p>Este usuario no tiene ningun servicio registrado</p>
-          <p>Si quieres publicar servicios, dirigete a la seccion <Link to='/home/createService'>crear servicios</Link> </p>
+          <p>
+            Si quieres publicar servicios, dirigete a la seccion{" "}
+            <Link to="/home/createService">crear servicios</Link>{" "}
+          </p>
         </div>
       ) : (
         userState[0]?.services.map((e) => {
@@ -46,18 +49,24 @@ export default function PublicServices() {
             //     {e.description}
             //   </p>
             // </div>
-            <Box component='div'>
-              <Box sx={{display: 'flex',
-               flexDirection: 'column',
-                gap:'10px', 
-                width: '400px', 
-                border: 'solid grey 1px', 
-                padding:'10px', 
-                margin: '10px',
-                borderRadius: '5px'}}>
-                <Typography variant="h6">Categoria: {e.category.name}</Typography>
+            <Box key={e.id} component="div">
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  width: "400px",
+                  border: "solid grey 1px",
+                  padding: "10px",
+                  margin: "10px",
+                  borderRadius: "5px",
+                }}
+              >
+                <Typography variant="h6">
+                  Categoria: {e.category.name}
+                </Typography>
                 <Typography variant="h6">{e.name}</Typography>
-                
+
                 <Typography variant="p">Dias disponibles: {e.day}</Typography>
                 <Typography variant="p">Precio: ${e.price}</Typography>
                 <Typography variant="p">
@@ -66,10 +75,17 @@ export default function PublicServices() {
                 </Typography>
 
                 <Button>
-                <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`/settings/updateService/${e.id}`}>Modificar Servicio</NavLink>
+                  <NavLink
+                    style={{ textDecoration: "none", color: "blue" }}
+                    to={`/settings/updateService/${e.id}`}
+                  >
+                    Modificar Servicio
+                  </NavLink>
                 </Button>
-                <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button>
-                </Box>
+                <Button id={e.id} onClick={handleDelete}>
+                  Borrar Servicio
+                </Button>
+              </Box>
             </Box>
           );
         })

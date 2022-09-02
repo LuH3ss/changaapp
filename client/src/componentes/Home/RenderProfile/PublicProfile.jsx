@@ -40,7 +40,7 @@ export default function PublicProfile() {
           {userServices &&
             userServices.map((s) => {
               return (
-                <div>
+                <div key={s.id}>
                   <h3>{s.name}</h3>
                   <p>{s.price}</p>
                   <p>{allUser[0]?.location}</p>
