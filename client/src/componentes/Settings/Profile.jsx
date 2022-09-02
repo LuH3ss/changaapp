@@ -65,32 +65,18 @@ export default function Profile() {
               sx={{ display: "flex", alignItems: "baseline", gap: "20px" }}
               variant="div"
             >
-              <Box sx={{ display: "flex", gap: "98px", alignItems: "center" }}>
-                <Avatar
-                  sx={{ width: 90, height: 90 }}
-                  alt="Profile photo"
-                  src={estado[0].img}
-                />
-                <Typography variant="h5">Perfil</Typography>
-              </Box>
-              <Box
-                sx={{ display: "flex", alignItems: "baseline", gap: "20px" }}
-                variant="div"
-              >
-                <Typography variant="h6">Nombre y Apellido</Typography>
-                <Typography variant="h6">
-                  {estado[0].firstName + " " + estado[0].lastName}
-                </Typography>
-              </Box>
-              <Box
-                sx={{ display: "flex", alignItems: "baseline", gap: "80px" }}
-                variant="div"
-              >
-                <Typography variant="h6">Descripción</Typography>
+              <Typography variant="h6">Nombre y Apellido</Typography>
+              <Typography variant="h6">
+                {estado[0].firstName + " " + estado[0].lastName}
+              </Typography>
+            </Box>
+            <Box
+              sx={{ display: "flex", alignItems: "baseline", gap: "80px" }}
+              variant="div"
+            >
+              <Typography variant="h6">Descripción</Typography>
 
-                <Typography variant="h6">{estado[0].description}</Typography>
-              </Box>
-
+              <Typography variant="h6">{estado[0].description}</Typography>
             </Box>
           </Box>
         </Box>

@@ -100,7 +100,7 @@ export default function Navbar() {
     dispatch(getUserEmail(user?.email));
     dispatch(allNotifications())
   }, [dispatch, user?.email]);
-  console.log(notifications)
+  
   //PROBANDO 
   const [noti, setNoti] = useState(true)
   const handleNotification = (e) => {

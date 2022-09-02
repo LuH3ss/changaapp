@@ -87,10 +87,9 @@ export default function StateRequest() {
             <p>No tienes estados pendientes de servicios</p>
           ) : (
             p.request?.map((e) => {
-              return e.state === "rechazado" ? (
+              return e.state === "rechazado" || e.state === 'Pagado' ? (
                 <p>
-                  La orden #{e.id} del servicio {filterEmail[0].name} fue
-                  rechazada
+                  La orden #{e.id} del servicio {filterEmail[0].name} fue {e.state === 'Pagado' ? 'Pagada' : 'Rechazada'}
                 </p>
               ) : (
                 <div>
@@ -118,35 +117,36 @@ export default function StateRequest() {
                       <Button type="submit">Actualizar</Button>
                     </form>
                   ) : (
-                    <form
-                      name={e.userRequester.email}
-                      onSubmit={(e) => handleOnSubmit(e)}
-                    >
-                      <label>Aceptar</label>
+                    e.state === 'pendiente' ? <form
+                    name={e.userRequester.email}
+                    onSubmit={(e) => handleOnSubmit(e)}
+                  >
+                    <label>Aceptar</label>
 
-                      <input
-                        type="checkbox"
-                        className={e.requester_id}
-                        id="aceptado"
-                        name="aceptado"
-                        value={e.id}
-                        onChange={handleOnClick}
-                      />
-                      <label>Rechazar</label>
-                      <input
-                        type="checkbox"
-                        className={e.requester_id}
-                        id="rechazado"
-                        name="rechazado"
-                        email={e.userRequester.email}
-                        value={e.id}
-                        onChange={handleOnClick}
-                      />
+                    <input
+                      type="checkbox"
+                      className={e.requester_id}
+                      id="aceptado"
+                      name="aceptado"
+                      value={e.id}
+                      onChange={handleOnClick}
+                    />
+                    <label>Rechazar</label>
+                    <input
+                      type="checkbox"
+                      className={e.requester_id}
+                      id="rechazado"
+                      name="rechazado"
+                      email={e.userRequester.email}
+                      value={e.id}
+                      onChange={handleOnClick}
+                    />
 
-                      <div>
-                        <button>Confirmar</button>
-                      </div>
-                    </form>
+                    <div>
+                      <button>Confirmar</button>
+                    </div>
+                  </form>
+                  : console.log('asd')
                   )}
                 </div>
               );

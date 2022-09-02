@@ -10,7 +10,7 @@ import {
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
-import Snackbar from "./Snackbar";
+// import Snackbar from "./Snackbar";
 import styles from "./style";
 //MATERIAL UI
 import Box from "@mui/material/Box";
