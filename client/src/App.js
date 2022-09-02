@@ -20,6 +20,7 @@ import FilterCategory from "./componentes/Home/FiltersCategorys/FilterCategory";
 import AllCategorys from "./componentes/Home/FiltersCategorys/AllCategorys";
 import StateRequest from "./componentes/Settings/Request/StateRequest";
 import StateRequester from "./componentes/Settings/Request/StateOfer";
+import Review from "./componentes/Review";
 
 import PreService from "./componentes/Home/RenderProfile/PreService";
 import PublicProfile from "./componentes/Home/RenderProfile/PublicProfile";
@@ -32,7 +33,11 @@ import Adminnavbar from "./componentes/admin/Admin-navbar";
 import Users from "./componentes/admin/Users";
 import Categories from "./componentes/admin/Categories";
 import CreateCategory from "./componentes/admin/CreateCategory";
+
 import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
+
+import UserDetail from "./componentes/admin/UserDetail";
+
 function App() {
   return (
     <AuthProvider>
@@ -49,6 +54,7 @@ function App() {
         <Route path="/home/createService" element={<Servicios />} />
         <Route path="/home/services/:id" element={<RequestService />} />
         <Route path="/home/services/payment/:id" element={<Stripe />} />
+        <Route path="/home/services/review" element={<Review />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
@@ -60,12 +66,13 @@ function App() {
           <Route path='notifications' element={<Notifications/>}/>
         </Route>
 
-        <Route path="/admin/" element={<PrivateRoute><Adminnavbar/></PrivateRoute>} >
-          <Route path="users" element={<PrivateRoute><Users/></PrivateRoute>} />  
-          <Route path="categories" element={<PrivateRoute><Categories/></PrivateRoute>} />  
-          <Route path="createCategory" element={<PrivateRoute><CreateCategory/></PrivateRoute>} />
-        </Route> 
-        {/* <Route path='/admin' element={<PrivateRoute><Adminnavbar/></PrivateRoute>}/> */}
+
+        <Route path="/admin/" element={<Adminnavbar />} >
+          <Route path="users" element={<Users />} />
+          <Route path="users/:id" element={<UserDetail />} />
+          <Route path="categories" element={<Categories />} />
+          <Route path="createCategory" element={<CreateCategory />} />
+        </Route>
 
       </Routes>
     </AuthProvider>
