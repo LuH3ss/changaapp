@@ -52,7 +52,7 @@ function App() {
         <Route path="/home/services/:id" element={<RequestService />} />
         <Route path="/home/services/payment/:id" element={<Stripe />} />
         <Route path="/home/services/review" element={<Review />} />
-        <Route path="/settings/" element={<Settings />}>
+        <Route path="/settings/:section" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
           <Route path="services" element={<PublicServices />} />
