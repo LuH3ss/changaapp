@@ -39,9 +39,10 @@ export default function Review({ user_id }) {
       // })
       // : "Error"
     });
-
+    alert("Gracias por dejar su reseña")
     console.log(userData, "userData");
     console.log(reviewData, "review data");
+    setMessage("")
   };
 
   function handleInput(e) {
