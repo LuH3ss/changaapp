@@ -33,7 +33,11 @@ import Adminnavbar from "./componentes/admin/Admin-navbar";
 import Users from "./componentes/admin/Users";
 import Categories from "./componentes/admin/Categories";
 import CreateCategory from "./componentes/admin/CreateCategory";
+
+import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
+
 import UserDetail from "./componentes/admin/UserDetail";
+
 function App() {
   return (
     <AuthProvider>
@@ -51,15 +55,17 @@ function App() {
         <Route path="/home/services/:id" element={<RequestService />} />
         <Route path="/home/services/payment/:id" element={<Stripe />} />
         <Route path="/home/services/review" element={<Review />} />
-        <Route path="/settings/:section" element={<Settings />}>
+        <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="services" element={<PublicServices />} />
+          <Route path="services/" element={<PublicServices />}/>
+          <Route path="services/:id" element={<UpdateService />} />
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />
-          <Route path="updateService/:id" element={<UpdateService />} />
+          
           <Route path='notifications' element={<Notifications/>}/>
         </Route>
+
 
         <Route path="/admin/" element={<Adminnavbar />} >
           <Route path="users" element={<Users />} />
@@ -67,6 +73,7 @@ function App() {
           <Route path="categories" element={<Categories />} />
           <Route path="createCategory" element={<CreateCategory />} />
         </Route>
+
       </Routes>
     </AuthProvider>
   );

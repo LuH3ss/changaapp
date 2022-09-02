@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import "./css/stripe.css";
@@ -9,12 +8,15 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import Navbar from "./PrivateRoute/Navbar";
+import Footer from "./Footer";
+import toast, { Toaster } from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
-import { allRequest, getAllServices } from "../redux/actions";
+import { allRequest, getAllServices, postNotification, updateRequest } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const publicUrl =
   "pk_test_51Lb2ZIKO72YUdcCNim89I44LXzpgG2vz57CjEn0ZAqmTZVW4D1o9y1ea5rzYeeH3dMFE4CAclOjOUqfc5NXncwMe00Zzkr0H1d";
 const stripePromise = loadStripe(publicUrl);
@@ -25,48 +27,67 @@ const CheckoutForm = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   let service = useSelector((state) => state.services);
-  const request = useSelector((state) => state.allRequest);
+  let request = useSelector((state) => state.allRequest);
+
   service = service.filter((p) => p.id === id);
-  console.log(request);
+  request = request.filter(p => p.service_id === id)
+  const navigate = useNavigate()
+  console.log(request)
+  console.log(service)
+
   useEffect(() => {
     dispatch(allRequest());
     dispatch(getAllServices());
   }, [dispatch]);
+
+  const [reque] = useState({
+    state: 'Pagado',
+    id: ''
+  })
+
+  const [noti] = useState({
+    message: `Recibiste un pago por el servicio ${service[0]?.name}`,
+    userNotification_id: '',
+    userNotificated_id: '',
+  })
+
   const handlerSubmit = async (e) => {
     e.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),
     });
+
     if (!error) {
       const email = service[0].user.email;
       const { id } = paymentMethod;
-      const { data } = await axios.post("http://www.localhost:3001/payment", {
+      await axios.post("http://www.localhost:3001/payment", {
         id,
         amount: request[0]?.services.price,
         email: email,
       });
-      //   const actualRequest = request.filter(p=> {
-      //     p.services.id === p.service_id
-      //   })
-      //   console.log(actualRequest, "asadasssd")
-      console.log(data);
-      console.log(paymentMethod);
+      dispatch(updateRequest({...reque, id: request[0]?.id}))
+      dispatch(postNotification({...noti,userNotification_id: request[0]?.requester_id, userNotificated_id: service[0]?.user_id }))
+      
       elements.getElement(CardElement).clear();
-      alert(data.message);
+      toast.success("Pago completado exitosamente");
+      navigate('/settings/requester')
     }
   };
-
+  
   return (
     <div className="container-flex">
+      <Toaster position="top-center" reverseOrder={false} />
       <form onSubmit={handlerSubmit} className="input">
         <img
           src="https://seeklogo.com/images/V/VISA-logo-62D5B26FE1-seeklogo.com.png"
           className="logo-card"
           alt="Not found"
+
         />
 
         <CardElement />
+
         <Link style={{ textDecoration: "none" }} to="/home/services/review">
           <button className="proceed">
             <svg
@@ -80,8 +101,9 @@ const CheckoutForm = () => {
           </button>
         </Link>
 
+
         <h3>
-          {console.log(request, "soy request")}
+
           {<br />}Amount: ${service[0]?.price}
         </h3>
       </form>
@@ -90,16 +112,26 @@ const CheckoutForm = () => {
 };
 
 export default function Stripe() {
+  const { id } = useParams()
+  let request = useSelector((state) => state.allRequest);
+  request = request.filter(p => p.service_id === id)
+  
   return (
     <div className="pay-container">
-      <Elements stripe={stripePromise}>
+      <Navbar />
+      {
+        request[0]?.state !== 'aceptado' ? <p>Error</p>
+        : <Elements stripe={stripePromise}>
         <Link style={{ textDecoration: "none" }} to="/settings/requester">
           <Button sx={{ color: "#1F2937" }} variant="outlined">
+        
             Volver atras
           </Button>
         </Link>
         <CheckoutForm />
       </Elements>
+      }
+      <Footer />
     </div>
   );
 }

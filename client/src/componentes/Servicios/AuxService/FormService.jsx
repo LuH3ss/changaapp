@@ -6,9 +6,11 @@ import {
   getAllServices,
   getUserEmail,
   postService,
+  postNotification
 } from "../../../redux/actions";
 import { useAuth } from "../../../context/authContext";
 import { Link, useNavigate } from "react-router-dom";
+// import Snackbar from "./Snackbar";
 import styles from "./style";
 //MATERIAL UI
 import Box from "@mui/material/Box";
@@ -19,6 +21,10 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+
+import toast, { Toaster } from "react-hot-toast";
+
+
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -61,6 +67,7 @@ export default function FormService() {
     hours: [],
     category_id: "",
     email: "",
+
   });
   //TRAER DATOS DEL USUARIO
   const serviceState = useSelector((state) => state.services);
@@ -68,13 +75,24 @@ export default function FormService() {
     (e) => e.user_id === estado[0]?.id
   );
 
-  console.log(filtroParaNoRepetir);
+  const servicioRepetido = filtroParaNoRepetir.filter(
+    (e) => e.name === service?.name
+  );
+
 
   const disptach = useDispatch();
   const categories = useSelector((state) => state.categories);
   const navigate = useNavigate();
   const [error, setError] = useState("");
   const [btn, setBtn] = useState(false);
+
+  //ESTADO PARA LA NOTIFICACION AUTOMATICA
+  const [noti] = useState({
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
+  });
+
   useEffect(() => {
     disptach(getAllCategories());
     disptach(getUserEmail(user?.email));
@@ -157,6 +175,7 @@ export default function FormService() {
     if (element.value === "23:30") {
       element.value = "00:00";
     } else {
+
       if (input[1] === 30) {
         input[1] = "00";
         input[0] = (Number(input[0]) + 1).toString();
@@ -226,14 +245,33 @@ export default function FormService() {
   //ENVIAR FORMULARIO PARA CREAR SERVICIO
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (estado?.length === 0) {
+      toast.error(
+        `Para crear un servicio, primero debes cargar todos tus datos. Dirigete a la opcion de editar perfil, desde tu perfil.`
+      );
+    }
     if (service.user_id === "") service.user_id = estado[0].id;
-    if (service.name === filtroParaNoRepetir[0]?.name) {
-      alert(
+    if (servicioRepetido.length > 0) {
+      // alert('Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil')
+      toast.error(
         "Ya tienes un posteo con ese nombre, si queres modificarlo dirigete a tu perfil"
       );
     } else {
       service.day = service.day.join(",");
       service.hours = service.hours.join(",");
+
+      if (
+        noti.message === "" &&
+        noti.userNotification_id === "" &&
+        noti.userNotificated_id === ""
+      ) {
+        noti.message = `Servicio creado exitosamente.`;
+        noti.userNotification_id = estado[0]?.id;
+        noti.userNotificated_id = estado[0]?.id;
+      }
+      disptach(postNotification(noti));
+
       disptach(postService(service));
       setService({
         name: "",
@@ -245,14 +283,17 @@ export default function FormService() {
         hours: [],
         email: "",
       });
-      navigate("/home");
+      // navigate("/home");
     }
   };
 
-  console.log(user.email, "SERVICE");
 
   return (
     <Box style={styles.container}>
+      <div>
+        <Toaster position="top-center" reverseOrder={false} />
+      </div>
+
       <Box style={styles.containerForm}>
         <Typography sx={{ margin: "20px" }} variant="h4">
           Publicá tu servicio
@@ -277,7 +318,9 @@ export default function FormService() {
                 <FormControl fullWidth sx={{ padding: "7px 0" }}>
                   <InputLabel id="categoryLabel">Categoría</InputLabel>
                   <Select
+
                     value={service.category}
+
                     onChange={(e) => handleCat(e.target.value)}
                   >
                     {categories?.map((el) => {
