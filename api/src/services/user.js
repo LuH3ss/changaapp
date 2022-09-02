@@ -142,7 +142,7 @@ const filterUser = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
+
 
 const userById = async (req, res) => {
   const {id} = req.params 
@@ -171,7 +171,7 @@ const userById = async (req, res) => {
   }
 
 }
-=======
+
 const userLocation = async (req, res) => {
   const { location } = req.params;
   const userLocation = await User.findAll({
@@ -191,16 +191,15 @@ const userLocation = async (req, res) => {
     return res.send("Location not found");
   }
 };
->>>>>>> origin/dev
+
 
 module.exports = {
   register,
   getUsers,
   updateUser,
   filterUser,
-<<<<<<< HEAD
-  userById
-=======
+
+  userById,
   userLocation,
->>>>>>> origin/dev
+
 };

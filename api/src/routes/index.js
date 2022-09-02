@@ -6,11 +6,11 @@ const {
   getUsers,
   updateUser,
   filterUser,
-<<<<<<< HEAD
+
   userById,
-=======
+
   userLocation,
->>>>>>> origin/dev
+
 } = require("../services/user");
 const {
   getServices,
@@ -45,11 +45,11 @@ router.post("/user", register);
 router.get("/user", getUsers);
 router.put("/user/:email", updateUser);
 router.get("/user/:email", filterUser);
-<<<<<<< HEAD
+
 router.get("/users/:id", userById)
-=======
+
 router.get("/user", userLocation);
->>>>>>> origin/dev
+
 
 //services routes
 router.post("/services", postService);

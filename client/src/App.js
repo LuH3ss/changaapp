@@ -62,7 +62,6 @@ function App() {
         <Route path="/admin/" element={<Adminnavbar />} >
           <Route path="users" element={<Users />} />
           <Route path="users/:id" element={<UserDetail />} />
-
           <Route path="categories" element={<Categories />} />
           <Route path="createCategory" element={<CreateCategory />} />
         </Route>
