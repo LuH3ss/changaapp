@@ -15,7 +15,6 @@ import { Box, Typography, Button } from "@mui/material";
 export default function UserDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const [estado, setState] = useState({ banned: false });
 
   useEffect(() => {
     dispatch(userById(id));
@@ -26,11 +25,13 @@ export default function UserDetail() {
   const allServices = useSelector((state) => state.services);
   // // const userServices = allServices.filter(serv => )
 
-  const userServices = allServices?.filter((serv) => serv.user_id === id);
+  const userServices = allServices?.filter((serv) => serv?.user_id === id);
 
   const allRequests = useSelector((state) => state.allRequest);
 
-  const userRequest = allRequests?.filter((req) => req.services.user_id === id);
+  const userRequest = allRequests?.filter(
+    (req) => req.services?.user_id === id
+  );
   console.log(userRequest, "RECIBIDAS");
   const userRequestDone = allRequests?.filter((req) => req.requester_id === id);
 
@@ -79,7 +80,12 @@ export default function UserDetail() {
                   <li>Dias/Disp: {serv.days}</li>
                   <li>Horas/Disp: {serv.hours}</li>
                 </ul>
-                <Button onClick={deleteService(serv.id)}>
+                <Button
+                  onClick={() => {
+                    deleteService(serv.id);
+                    window.location.reload();
+                  }}
+                >
                   Borrar Servicio
                 </Button>
               </Box>
@@ -100,7 +106,12 @@ export default function UserDetail() {
                   <li>Dias/Disp: {req.days}</li>
                   <li>Horas/Disp: {req.hours}</li>
                 </ul>
-                <Button onClick={deleteRequest(req.id)}>
+                <Button
+                  onClick={() => {
+                    deleteRequest(req.id);
+                    window.location.reload();
+                  }}
+                >
                   Borrar Solicitud
                 </Button>
               </Box>

@@ -21,7 +21,7 @@ export const DELETE_SERVICES = "DELETE_SERVICES";
 export const NEW_BANNED_STATE = "NEW_BANNED_STATE"
 export const ALL_USERS = 'ALL_USERS'
 export const USER_BY_ID = 'USER_BY_ID'
-
+export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS'
 export const POST_NOTIFICATION = 'POST_NOTIFICATION'
 export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
@@ -201,6 +201,19 @@ export function deleteService(id) {
 }
 
 //ACTION PARA LAS CATEGORIAS
+
+export function deleteCategory(id) {
+  
+  return async function(dispatch) {
+    await axios.delete(`${EP}/category/${id}`)
+    .then(detalle => 
+      dispatch({
+        type: DELETE_CATEGORY,
+        payload: detalle.data
+      }))
+  }
+} 
+
 export function filterByCategory(payload) {
   return {
     type: FILTER_SERVICES,
