@@ -310,7 +310,6 @@ export function allUsers() {
 }
 
 
-
 export function userById(userId) {
   
   return async function (dispatch) {
@@ -321,5 +320,4 @@ export function userById(userId) {
     })
   }
 }
-
 
