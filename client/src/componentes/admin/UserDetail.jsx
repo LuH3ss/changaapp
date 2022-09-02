@@ -20,7 +20,7 @@ export default function UserDetail() {
     )
     const user = useSelector(state => state.user)
     const allServices = useSelector(state => state.services)
-    // const userServices = allServices.filter(serv => )
+    // // const userServices = allServices.filter(serv => )
     const userServices = allServices?.filter(serv => serv.user_id === id)
   
     
@@ -28,7 +28,7 @@ export default function UserDetail() {
     console.log(allRequests, 'requests')
 
     const userRequest = allRequests?.filter(req => req.services.user_id === id )
-    const userRequestDone = allRequest.filter(req => req.requester_id === id)
+    const userRequestDone = allRequests?.filter(req => req.requester_id === id)
     console.log(userRequestDone)
   return (
     <Box component='section'>
