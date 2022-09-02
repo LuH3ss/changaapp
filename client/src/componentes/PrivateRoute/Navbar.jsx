@@ -70,7 +70,7 @@ export default function Navbar() {
           <Button style={styles.button}>Crear Servicio</Button>
         </Link>
       </div>
-      <Link to='/settings/notifications'><NotificationsActiveIcon/></Link>
+      <Link to='/settings/notifications/notifications'><NotificationsActiveIcon/></Link>
       <Tooltip title="Account settings">
         <IconButton
           onClick={handlerClick}
@@ -124,7 +124,7 @@ export default function Navbar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to="/settings/profile">
+        <Link to="/settings/profile/profile/">
           <MenuItem>
             <Avatar /> Perfil
           </MenuItem>

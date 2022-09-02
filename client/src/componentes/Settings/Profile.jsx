@@ -15,6 +15,8 @@ import Typography from "@mui/material/Typography";
 import { useAuth } from "../../context/authContext";
 import { Avatar, Box } from "@mui/material";
 
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+
 export default function Profile() {
   const { user } = useAuth();
   const estado = useSelector((state) => state.filter);
@@ -34,7 +36,7 @@ export default function Profile() {
         <h1>Loading..</h1>
       </Box>
     );
-  else if (user?.email && estado?.length) {
+
     return (
       <Box sx={{ width: "70%" }}>
         {user?.email === null ? (
@@ -61,48 +63,45 @@ export default function Profile() {
           // </Card>
           <Box
             variant="section"
-            className="profile-container"
-            sx={{ width: "100%", padding: "10%" }}
+            sx={{ display:'flex', padding:'10%' }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-                height: "300px",
-                width: "300px",
-              }}
-            >
-              <Box sx={{ display: "flex", gap: "98px", alignItems: "center" }}>
-                <Avatar
-                  sx={{ width: 90, height: 90 }}
+              <Box sx={{width:'60%', display:'flex', flexDirection:'column'}}>
+                <img
+                  style={{ width: '100%', height: '100%' }}
                   alt="Profile photo"
                   src={estado[0].img}
                 />
-                <Typography variant="h5">Perfil</Typography>
+                <Box sx={{display:'flex', justifyContent:'center', padding:'4%'}}>
+                  <LocationOnIcon sx={{fontSize:'1.8rem'}}/>
+                  <Typography variant="h6">
+                    {estado[0].location}
+                  </Typography>
+                </Box>
               </Box>
+              
+              <Box sx={{display:'flex', flexDirection:'column'}}>
               <Box
-                sx={{ display: "flex", alignItems: "baseline", gap: "20px" }}
+                sx={{ display: "flex", gap: "20px", padding:'5px 20px', borderBottom:'solid black 1px' }}
                 variant="div"
               >
-                <Typography variant="h6">Nombre y Apellido</Typography>
-                <Typography variant="h6">
-                  {estado[0].firstName + " " + estado[0].lastName}
+                <Typography variant="h4">
+                  {
+                  estado[0].firstName[0].toUpperCase().concat(estado[0].firstName.slice(1))
+                  }
                 </Typography>
+                <Typography variant="h4">
+                  {
+                  estado[0].lastName[0].toUpperCase().concat(estado[0].lastName.slice(1))
+                  }</Typography>
               </Box>
-              <Box
-                sx={{ display: "flex", alignItems: "baseline", gap: "80px" }}
-                variant="div"
-              >
-                <Typography variant="h6">Descripción</Typography>
-                <Typography variant="h6">{estado[0].description}</Typography>
+              <Typography sx={{padding:'4%'}} variant="h6">{estado[0].description}</Typography>
               </Box>
+             
             </Box>
-          </Box>
         ) : (
           navigate("/settings/edit")
         )}
       </Box>
     );
-  }
+  
 }
