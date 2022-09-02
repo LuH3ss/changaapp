@@ -34,7 +34,6 @@ export default function PublicServices() {
   
   return (
     <Box sx={{width:'70%'}}>
-      <h1>Servicios publicados</h1>
       {userState[0]?.services?.length === 0 ? (
         <div>
           <p>Este usuario no tiene ningun servicio registrado</p>
@@ -55,12 +54,10 @@ export default function PublicServices() {
             //     {e.description}
             //   </p>
             // </div>
-            <Box component='div'>
+            <Box sx={{width:'100%'}}>
               <Box sx={{display: 'flex',
-               flexDirection: 'column',
-                gap:'10px', 
-                width: '400px', 
                 border: 'solid grey 1px', 
+<<<<<<< HEAD
                 padding:'10px', 
                 margin: '10px',
                 borderRadius: '5px'}}>
@@ -76,13 +73,27 @@ export default function PublicServices() {
                   Descripcion del servicio <br />
                   {e.description}
                 </Typography>
+=======
+                borderRadius: '10px',
+                padding:'2%',
+                margin:'2%'}}>
+                  <Typography variant="h6">Categoria: {e.category.name}</Typography>
+                  <Typography variant="h6">{e.name}</Typography>
+                  
+                  <Typography variant="p">Dias disponibles: {e.day}</Typography>
+                  <Typography variant="p">Precio: ${e.price}</Typography>
+                  <Typography variant="p">
+                    Descripcion del servicio <br />
+                    {e.description}
+                  </Typography>
+>>>>>>> origin/Filters
 
-                <Button>
-                <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`/settings/updateService/${e.id}`}>Modificar Servicio</NavLink>
-                </Button>
-                <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button>
+                  <Button>
+                  <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`/settings/updateService/${e.id}`}>Modificar Servicio</NavLink>
+                  </Button>
+                  <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button>
                 </Box>
-            </Box>
+                </Box>
           );
         })
       )}

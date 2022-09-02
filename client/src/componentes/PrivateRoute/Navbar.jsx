@@ -123,6 +123,7 @@ export default function Navbar() {
           <Button style={styles.button}>Crear Servicio</Button>
         </Link>
       </div>
+
       <Link style={user?.email === 'pow.chorba@hotmail.com' ? styles.admin : styles.noAdmin} to='/admin'><button>Seccion Admin</button></Link>
         <div style={styles.divPrueba}>
         <NotificationsActiveIcon value={noti} onClick={handleNotification}/>
@@ -144,6 +145,7 @@ export default function Navbar() {
         </div>
         
         {/* </Link> */}
+
       <Tooltip title="Account settings">
         <IconButton
           onClick={handlerClick}
@@ -197,7 +199,7 @@ export default function Navbar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to="/settings/profile">
+        <Link to="/settings/profile/profile/">
           <MenuItem>
             <Avatar /> Perfil
           </MenuItem>
