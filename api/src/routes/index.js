@@ -21,7 +21,7 @@ const {
   deleteService,
 } = require("../services/service");
 const { email } = require("../services/Emails/sendEmails");
-const { getCategories, postCategorie } = require("../services/category");
+const { getCategories, postCategorie, deleteCategory } = require("../services/category");
 const { paymentMethod } = require("../services/payment");
 const {
   getRequest,
@@ -68,6 +68,7 @@ router.delete("/services/:id", deleteService);
 //category routes
 router.get("/category", getCategories);
 router.post("/category", postCategorie);
+router.delete('/category/:id', deleteCategory)
 
 //request routes
 router.get("/request", getRequest);
