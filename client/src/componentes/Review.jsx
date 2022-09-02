@@ -38,7 +38,7 @@ export default function Review({ user_id }) {
           <div className="reviews">
             <label>
               <input
-                className="input"
+                className="input-review"
                 type="radio"
                 name="rating"
                 value={ratingValue}
