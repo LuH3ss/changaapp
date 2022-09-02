@@ -6,7 +6,7 @@ const {
   getUsers,
   updateUser,
   filterUser,
-
+  bannState,
   userById,
 
   userLocation,
@@ -45,7 +45,7 @@ router.post("/user", register);
 router.get("/user", getUsers);
 router.put("/user/:email", updateUser);
 router.get("/user/:email", filterUser);
-
+router.put("/users/:id", bannState)
 router.get("/users/:id", userById)
 
 router.get("/user", userLocation);

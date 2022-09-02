@@ -192,13 +192,35 @@ const userLocation = async (req, res) => {
   }
 };
 
+const bannState = async (req, res) => {
+  const {id} = req.params 
+
+  if(id) {
+    try {
+    const {banned} = req.body 
+    console.log(banned)
+      const user = await User.update({
+        banned: banned
+      },
+      {
+        where:{
+           id
+          }      
+      })
+      return res.status(201).send(user)
+    } catch (error) {
+      res.status(404).send("inbloqueable bro 😎")
+    }
+  }
+}
+
 
 module.exports = {
   register,
   getUsers,
   updateUser,
   filterUser,
-
+  bannState,
   userById,
   userLocation,
 

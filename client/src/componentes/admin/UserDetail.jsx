@@ -1,8 +1,8 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { allRequest, getAllServices, userById } from '../../redux/actions'
+import { allRequest, getAllServices, userById, deleteService, deleteRequest, bannedState } from '../../redux/actions'
 import { useParams } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 
@@ -10,26 +10,36 @@ import { Box, Typography, Button } from "@mui/material";
 export default function UserDetail() {
     const dispatch = useDispatch()
     const{ id }= useParams()
-  
+    const [estado, setState] = useState({banned: false}) 
+    
     useEffect(() => {
-        dispatch(userById(id))
-        dispatch(getAllServices())
-        dispatch(allRequest())
-        
+      dispatch(userById(id))
+      dispatch(getAllServices())
+      dispatch(allRequest())
+      
+      
     },[dispatch]
     )
     const user = useSelector(state => state.user)
     const allServices = useSelector(state => state.services)
     // // const userServices = allServices.filter(serv => )
+  
     const userServices = allServices?.filter(serv => serv.user_id === id)
   
     
     const allRequests = useSelector(state => state.allRequest)
-    console.log(allRequests, 'requests')
+
 
     const userRequest = allRequests?.filter(req => req.services.user_id === id )
+    console.log(userRequest, 'RECIBIDAS')
     const userRequestDone = allRequests?.filter(req => req.requester_id === id)
-    console.log(userRequestDone)
+
+    const handleBanned = (id) => {
+      dispatch(bannedState(id, {banned:!user[0]?.banned}))
+      window.location.reload()
+  
+    }
+
   return (
     <Box component='section'>
       <Box component='div'>
@@ -44,9 +54,11 @@ export default function UserDetail() {
             <li>Edad: {user[0]?.birthDate}</li>
             <li>Email: {user[0]?.email} </li>
             <li>Ubicación: {user[0]?.location}</li>
-            <li>Banned: {user[0]?.banned}</li>
+            <li>Banned: {user[0]?.banned ? 'true' : 'false'}</li>
             <li>Description: {user[0]?.description}</li>
           </ul>
+          <Button   onClick={() => handleBanned(user[0]?.id)}>{user[0]?.banned ? 'Habilitar'  : 'Deshabilitar'}  Usuario</Button>
+
         </Box>
       </Box>
       <Box component='div'>
@@ -54,15 +66,16 @@ export default function UserDetail() {
         {
           userServices && userServices.map(serv => {
            return (
-             <Box key={userServices[0]?.id} component='div'>
+             <Box key={serv.id} component='div'>
               <ul >
-                <li>ID: {userServices[0]?.id}</li>
-                <li>Nombre: {userServices[0]?.name}</li>
-                <li>Precio: {userServices[0]?.price}</li>
-                <li>Descripción: {userServices[0]?.description}</li>
-                <li>Dias/Disp: {userServices[0]?.days}</li>
-                <li>Horas/Disp: {userServices[0]?.hours}</li>
+                <li>ID: {serv.id}</li>
+                <li>Nombre: {serv.name}</li>
+                <li>Precio: {serv.price}</li>
+                <li>Descripción: {serv.description}</li>
+                <li>Dias/Disp: {serv.days}</li>
+                <li>Horas/Disp: {serv.hours}</li>
               </ul> 
+              <Button onClick={deleteService(serv.id)}>Borrar Servicio</Button>
              </Box>
 
            )
@@ -84,6 +97,7 @@ export default function UserDetail() {
                 <li>Dias/Disp: {req.days}</li>
                 <li>Horas/Disp: {req.hours}</li>
               </ul> 
+              <Button onClick={deleteRequest(req.id)}>Borrar Solicitud</Button>
              </Box>
 
            )
@@ -92,9 +106,9 @@ export default function UserDetail() {
 
       </Box>
       <Box>
-      <Typography variant='h4'>Solicitudes Recibidas</Typography>
+      <Typography variant='h4'>Solicitudes Hechas</Typography>
         {
-          userRequest && userRequest.map(req => {
+          userRequestDone && userRequestDone.map(req => {
            return (
              <Box key={req.id} component='div'>
               <ul >
@@ -104,7 +118,8 @@ export default function UserDetail() {
                 <li>Descripción: {req.description}</li>
                 <li>Dias/Disp: {req.days}</li>
                 <li>Horas/Disp: {req.hours}</li>
-              </ul> 
+              </ul>
+              <Button onClick={deleteRequest(req.id)}>Borrar Solicitud</Button> 
              </Box>
 
            )

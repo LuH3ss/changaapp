@@ -22,7 +22,7 @@ import {
   POST_NOTIFICATION,
   DELETE_NOTIFICATION,
   ALL_USERS,
-
+  NEW_BANNED_STATE,
   USER_BY_ID
 
 
@@ -199,7 +199,12 @@ const reducer = (state = initialStates, action) => {
       return {
         ...state,
         user: action.payload
-      }
+      };
+      case NEW_BANNED_STATE:
+        return {
+          ...state,
+          user: [...state.user, {...action.payload}]
+        }
 
 
     default:
