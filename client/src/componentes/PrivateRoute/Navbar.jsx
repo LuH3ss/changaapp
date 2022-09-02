@@ -50,11 +50,13 @@ const styles = {
     borderRadius: '5px',
     width: '150px',
     height: '150px',
-    fontSize: '14px'
+    fontSize: '14px',
+    zIndex: '10'
   },
   asdd: {
     margin: '15px 5px',
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    
   },
   link: {
     textDecoration: 'none',
