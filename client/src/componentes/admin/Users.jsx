@@ -1,4 +1,3 @@
-
 import { Link } from '@mui/material';
 import MaterialTable from 'material-table'
 
@@ -6,6 +5,7 @@ import React, { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { allUsers } from "../../redux/actions";
+// import {Link} from 'react-router-dom'
 
 
 export default function Users() {
@@ -41,7 +41,7 @@ export default function Users() {
     {
       field: 'profile',
       title: 'Perfil/Detalle',
-      render: rowsData => <Link href={`users/${rowsData.id}`} target="_blank">Detalle</Link>
+      render: rowsData => <Link href={`users/${rowsData.id}`} >Detalle</Link>
     }
 ]
 
@@ -51,7 +51,6 @@ export default function Users() {
     title="Data de Usuarios"
     data={usersDb}
     columns={columns}
-    options={{ debounceInterval: 700, padding: "dense", searching: false }}
     style={{ height: '100%', width: '100%', background:'grey', fontSize:'1em', color:'white' }}
     />
   </div>
