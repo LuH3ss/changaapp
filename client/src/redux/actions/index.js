@@ -18,11 +18,19 @@ export const UPDATE_REQUEST = "UPDATE_REQUEST";
 export const DELETE_REQUEST = "DELETE_REQUEST";
 export const ALL_REQUEST = "ALL_REQUEST";
 export const DELETE_SERVICES = "DELETE_SERVICES";
+export const NEW_BANNED_STATE = "NEW_BANNED_STATE"
+export const ALL_USERS = 'ALL_USERS'
+export const USER_BY_ID = 'USER_BY_ID'
+
+export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS'
+export const POST_NOTIFICATION = 'POST_NOTIFICATION'
+export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
+
 export const USER_LOCATION = "USER_LOCATION";
-export const ALL_USERS = "ALL_USERS";
-export const ALL_NOTIFICATIONS = "ALL_NOTIFICATIONS";
-export const POST_NOTIFICATION = "POST_NOTIFICATION";
-export const DELETE_NOTIFICATION = "DELETE_NOTIFICATION";
+
+
+
+
 
 const EP = "http://localhost:3001";
 
@@ -79,6 +87,21 @@ export function updateUser(email, data) {
 //     }))
 //   }
 // }
+
+
+export function bannedState(id, data) {
+  return async function(dispatch) {
+    try {
+      await axios.put(`${EP}/users/${id}`, data).then(detalle =>
+        dispatch({
+          type: NEW_BANNED_STATE,
+          payload: detalle.data,
+        }))
+    } catch (error) {
+      console.log("imposible de bannear, tamo en la V.I.P 😎")
+    }
+  }
+}
 
 //ACTION PARA LOS SERVICIOS
 export function getDetail(id) {
@@ -285,3 +308,18 @@ export function allUsers() {
     });
   };
 }
+
+
+
+export function userById(userId) {
+  
+  return async function (dispatch) {
+    const dataDb = await axios(`${EP}/users/${userId}`)
+    return dispatch ({
+      type: USER_BY_ID,
+      payload: dataDb.data
+    })
+  }
+}
+
+

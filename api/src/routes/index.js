@@ -6,7 +6,11 @@ const {
   getUsers,
   updateUser,
   filterUser,
+  bannState,
+  userById,
+
   userLocation,
+
 } = require("../services/user");
 const {
   getServices,
@@ -41,7 +45,11 @@ router.post("/user", register);
 router.get("/user", getUsers);
 router.put("/user/:email", updateUser);
 router.get("/user/:email", filterUser);
+router.put("/users/:id", bannState)
+router.get("/users/:id", userById)
+
 router.get("/user", userLocation);
+
 
 //services routes
 router.post("/services", postService);
