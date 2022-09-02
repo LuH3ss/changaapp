@@ -95,6 +95,7 @@ export default function Profile() {
                   }</Typography>
               </Box>
               <Typography sx={{padding:'4%'}} variant="h6">{estado[0].description}</Typography>
+
               </Box>
              
             </Box>

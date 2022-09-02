@@ -24,9 +24,9 @@ export default function Settings() {
     handleSelected(null, section)
   }, [section]);
 
+
   const handleClick = (e) => {
     logout();
-    
   };
 
   const handleSelected = (e, id) => {

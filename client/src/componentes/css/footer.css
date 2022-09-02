@@ -27,6 +27,17 @@
   transform: scale(1.1);
 }
 
+li,
+a {
+  text-decoration: none;
+}
+
+.footer__linkedIn {
+  text-decoration: none;
+  color: #ffffff;
+  line-height: 2.5em;
+}
+
 .formulario {
   display: flex;
   flex-direction: column;
