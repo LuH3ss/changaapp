@@ -30,6 +30,7 @@ export default function PublicServices() {
 
        );
        window.location.reload(true)
+       
   }
   
   return (
@@ -57,27 +58,12 @@ export default function PublicServices() {
             <Box sx={{width:'100%'}}>
               <Box sx={{display: 'flex',
                 border: 'solid grey 1px', 
-<<<<<<< HEAD
-                padding:'10px', 
-                margin: '10px',
-                borderRadius: '5px'}}>
-                <Typography variant="h6">Categoria: {e.category.name}</Typography>
-                <Typography variant="h6">{e.name}</Typography>
-                <Toaster
-  position="top-center"
-  reverseOrder={false}
-/>
-                <Typography variant="p">Dias disponibles: {e.day}</Typography>
-                <Typography variant="p">Precio: ${e.price}</Typography>
-                <Typography variant="p">
-                  Descripcion del servicio <br />
-                  {e.description}
-                </Typography>
-=======
+
                 borderRadius: '10px',
                 padding:'2%',
                 margin:'2%'}}>
                   <Typography variant="h6">Categoria: {e.category.name}</Typography>
+                  
                   <Typography variant="h6">{e.name}</Typography>
                   
                   <Typography variant="p">Dias disponibles: {e.day}</Typography>
@@ -86,10 +72,10 @@ export default function PublicServices() {
                     Descripcion del servicio <br />
                     {e.description}
                   </Typography>
->>>>>>> origin/Filters
+
 
                   <Button>
-                  <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`/settings/updateService/${e.id}`}>Modificar Servicio</NavLink>
+                  <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`${e.id}`}>Modificar Servicio</NavLink>
                   </Button>
                   <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button>
                 </Box>

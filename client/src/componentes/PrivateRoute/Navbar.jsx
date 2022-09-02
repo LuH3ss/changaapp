@@ -199,7 +199,7 @@ export default function Navbar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to="/settings/profile/profile/">
+        <Link to="/settings/profile">
           <MenuItem>
             <Avatar /> Perfil
           </MenuItem>

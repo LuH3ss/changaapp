@@ -49,13 +49,14 @@ function App() {
         <Route path="/home/createService" element={<Servicios />} />
         <Route path="/home/services/:id" element={<RequestService />} />
         <Route path="/home/services/payment/:id" element={<Stripe />} />
-        <Route path="/settings/:section" element={<Settings />}>
+        <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="services" element={<PublicServices />} />
+          <Route path="services/" element={<PublicServices />}/>
+          <Route path="services/:id" element={<UpdateService />} />
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />
-          <Route path="updateService/:id" element={<UpdateService />} />
+          
           <Route path='notifications' element={<Notifications/>}/>
         </Route>
 

@@ -84,7 +84,7 @@ export default function StateRequest() {
       ) : (
         filterEmail?.map((p) => {
           return p.request.length === 0 ? (
-            <p>No tienes estados pendientes de servicios</p>
+            <p>No tienes estados pendientes del servicio {p.name}</p>
           ) : (
             p.request?.map((e) => {
               return e.state === "rechazado" || e.state === 'Pagado' ? (
