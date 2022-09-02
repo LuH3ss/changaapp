@@ -27,7 +27,7 @@ const CheckoutForm = () => {
   let service = useSelector((state) => state.services);
   const request = useSelector((state) => state.allRequest);
   service = service.filter((p) => p.id === id);
-  console.log(request);
+  console.log(service);
   useEffect(() => {
     dispatch(allRequest());
     dispatch(getAllServices());
@@ -46,10 +46,7 @@ const CheckoutForm = () => {
         amount: request[0]?.services.price,
         email: email,
       });
-      //   const actualRequest = request.filter(p=> {
-      //     p.services.id === p.service_id
-      //   })
-      //   console.log(actualRequest, "asadasssd")
+
       console.log(data);
       console.log(paymentMethod);
       elements.getElement(CardElement).clear();
@@ -67,17 +64,12 @@ const CheckoutForm = () => {
         />
 
         <CardElement />
-        <Link style={{ textDecoration: "none" }} to="/home/services/review">
-          <button className="proceed">
-            <svg
-              className="sendicon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
-            </svg>
-          </button>
+        <Link to={`/home/services/review/${id}`}>
+        <button className="proceed">
+          <svg className="sendicon" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+          </svg>
+        </button>
         </Link>
 
         <h3>

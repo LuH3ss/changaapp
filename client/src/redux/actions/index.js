@@ -286,3 +286,13 @@ export function allUsers() {
   };
 }
 
+// ACTION PARA LAS REVIEW
+// export function postReview() {
+//   const reviewData = await axios.post("http://www.localhost:3001/reviews", {
+//     message: message,
+//     rate: rating,
+//     user_id: id,
+//     author_id: userData.user_id,
+//   });
+//   console.log(reviewData)
+// };
