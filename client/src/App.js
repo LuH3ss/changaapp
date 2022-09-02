@@ -34,6 +34,7 @@ import Users from "./componentes/admin/Users";
 import Categories from "./componentes/admin/Categories";
 import CreateCategory from "./componentes/admin/CreateCategory";
 import UserDetail from "./componentes/admin/UserDetail";
+import DeleteCategory from "./componentes/admin/DeleteCategory";
 function App() {
   return (
     <AuthProvider>
@@ -63,9 +64,11 @@ function App() {
 
         <Route path="/admin/" element={<Adminnavbar />} >
           <Route path="users" element={<Users />} />
+          <Route path="dashboard" element={<Admin />} />
           <Route path="users/:id" element={<UserDetail />} />
           <Route path="categories" element={<Categories />} />
           <Route path="createCategory" element={<CreateCategory />} />
+          <Route path="deleteCategory" element={<DeleteCategory />} />
         </Route>
       </Routes>
     </AuthProvider>

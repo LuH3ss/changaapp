@@ -219,4 +219,3 @@ const reducer = (state = initialStates, action) => {
 };
 
 export default reducer;
-
