@@ -23,7 +23,8 @@ import {
   DELETE_NOTIFICATION,
   ALL_USERS,
   NEW_BANNED_STATE,
-  USER_BY_ID
+  USER_BY_ID,
+  DELETE_CATEGORY
 
 
 } from "../actions/index.js";
@@ -204,6 +205,11 @@ const reducer = (state = initialStates, action) => {
         return {
           ...state,
           user: [...state.user, {...action.payload}]
+        };
+      case DELETE_CATEGORY:
+        return{
+          ...state,
+          categories: action.payload
         }
 
 
@@ -213,3 +219,4 @@ const reducer = (state = initialStates, action) => {
 };
 
 export default reducer;
+
