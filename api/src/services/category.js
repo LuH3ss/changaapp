@@ -24,7 +24,25 @@ const postCategorie = async (req, res) => {
   }
 };
 
+const deleteCategory = async (req, res) => {
+  const {id} = req.params
+
+  console.log(id)
+  try {
+    await Category.destroy({
+      where: {
+        id
+      }
+    }) 
+    res.status(200).send("Category deleted");
+  } catch (error) {
+    res.status(404).send(error);
+  }
+
+}
+
 module.exports = {
   getCategories,
   postCategorie,
+  deleteCategory
 };

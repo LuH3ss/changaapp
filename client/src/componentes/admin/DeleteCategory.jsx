@@ -1,9 +1,8 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import Nav from '../landing/LandingNav';
-import {deleteCategory, postCategory} from '../../redux/actions/index.js'
+
+import {deleteCategory} from '../../redux/actions/index.js'
 
 export default function DeleteCategory() {
     const [category, setCategory] = useState({
@@ -12,7 +11,7 @@ export default function DeleteCategory() {
     
       const [error, setError] = useState("");
      
-      const navigate = useNavigate();
+   
       const dispatch = useDispatch()
     
       const handleOnChange = (e) => {
@@ -24,10 +23,10 @@ export default function DeleteCategory() {
     
       const handleSumbit = (e) => {
         e.preventDefault();
-        console.log(category.id)
+  
         dispatch(deleteCategory(category.id))
         setError("");
-        // navigate('/admin/categories')
+     
         window.location.reload()
        
       };
@@ -68,10 +67,10 @@ export default function DeleteCategory() {
           margin: "10px 0 10px 0",
         },
       };
-    
+
       return (
         <div>
-      
+
           <Box style={styles.container}>
             <Box style={styles.login}>
               <Typography variant="h4" sx={{ marginBottom: "30px" }}>
@@ -92,24 +91,13 @@ export default function DeleteCategory() {
                     value={category.id}
                     onChange={handleOnChange}
                   />
-                
+
                   <Button variant="contained" style={styles.button} type="submit">
                     Eliminar
                   </Button>
                 </Box>
               </form>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  width: "100%",
-                }}
-              >
-              
-              
-    
-               
-              </Box>
+      
             
              
             </Box>
@@ -117,4 +105,3 @@ export default function DeleteCategory() {
         </div>
       );
 }
-
