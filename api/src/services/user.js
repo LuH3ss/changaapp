@@ -142,35 +142,31 @@ const filterUser = async (req, res) => {
   }
 };
 
-
-
 const userById = async (req, res) => {
-  const {id} = req.params 
+  const { id } = req.params;
   if (id) {
-
     try {
       const user = await User.findAll({
-      // include: {
-      //   model: Services,
-      //   as: "services",
-      //   include: {
-      //     model: Category,
-      //     as: "category",
-      //   },
-      // },
-      where: {
-        id
+        // include: {
+        //   model: Services,
+        //   as: "services",
+        //   include: {
+        //     model: Category,
+        //     as: "category",
+        //   },
+        // },
+        where: {
+          id,
+        },
+      });
+      if (user) {
+        return res.json(user);
       }
-    });
-    if(user) {
-      return res.json(user)
-    }
     } catch (error) {
       return res.send("No se encontro el usuario solicitado");
     }
   }
-
-}
+};
 
 const userLocation = async (req, res) => {
   const { location } = req.params;
@@ -193,27 +189,28 @@ const userLocation = async (req, res) => {
 };
 
 const bannState = async (req, res) => {
-  const {id} = req.params 
+  const { id } = req.params;
 
-  if(id) {
+  if (id) {
     try {
-    const {banned} = req.body 
-    console.log(banned)
-      const user = await User.update({
-        banned: banned
-      },
-      {
-        where:{
-           id
-          }      
-      })
-      return res.status(201).send(user)
+      const { banned } = req.body;
+      console.log(banned);
+      const user = await User.update(
+        {
+          banned: banned,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      return res.status(201).send(user);
     } catch (error) {
-      res.status(404).send("inbloqueable bro 😎")
+      res.status(404).send("inbloqueable bro 😎");
     }
   }
-}
-
+};
 
 module.exports = {
   register,
@@ -223,5 +220,4 @@ module.exports = {
   bannState,
   userById,
   userLocation,
-
 };
