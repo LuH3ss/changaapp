@@ -70,7 +70,6 @@ export default function PublicServices() {
                 </Typography>
 
                 <Typography variant="h6">{e.name}</Typography>
-
                 <Typography variant="p">Dias disponibles: {e.day}</Typography>
                 <Typography variant="p">Precio: ${e.price}</Typography>
                 <Typography variant="p">
