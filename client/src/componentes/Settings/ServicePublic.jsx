@@ -5,6 +5,7 @@ import { deleteService, getUserEmail } from "../../redux/actions";
 import { Link, NavLink } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function PublicServices() {
   const { user } = useAuth();
@@ -17,9 +18,13 @@ export default function PublicServices() {
     dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
-    dispatch(deleteService(e.target.id));
+    await toast.promise(dispatch(deleteService(e.target.id)), {
+      loading: "Saving...",
+      success: <b>Servicio borrado</b>,
+      error: <b>No se pudo borrar el servicio</b>,
+    });
     window.location.reload(true);
   };
 
@@ -54,14 +59,16 @@ export default function PublicServices() {
                 sx={{
                   display: "flex",
                   border: "solid grey 1px",
+
                   borderRadius: "10px",
                   padding: "2%",
                   margin: "2%",
                 }}
               >
                 <Typography variant="h6">
-                  Categoria: {e.category.name}
+                  Categoria: {e.category?.name}
                 </Typography>
+
                 <Typography variant="h6">{e.name}</Typography>
 
                 <Typography variant="p">Dias disponibles: {e.day}</Typography>
@@ -74,7 +81,7 @@ export default function PublicServices() {
                 <Button>
                   <NavLink
                     style={{ textDecoration: "none", color: "blue" }}
-                    to={`/settings/updateService/${e.id}`}
+                    to={`${e.id}`}
                   >
                     Modificar Servicio
                   </NavLink>

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,8 +9,10 @@ import {
   deleteService,
   deleteRequest,
   bannedState,
+  adminState,
 } from "../../redux/actions";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+
 import { Box, Typography, Button } from "@mui/material";
 
 export default function UserDetail() {
@@ -20,10 +23,9 @@ export default function UserDetail() {
     dispatch(userById(id));
     dispatch(getAllServices());
     dispatch(allRequest());
-  }, [dispatch]);
+  }, [dispatch, id]);
   const user = useSelector((state) => state.user);
   const allServices = useSelector((state) => state.services);
-  // // const userServices = allServices.filter(serv => )
 
   const userServices = allServices?.filter((serv) => serv?.user_id === id);
 
@@ -32,7 +34,7 @@ export default function UserDetail() {
   const userRequest = allRequests?.filter(
     (req) => req.services?.user_id === id
   );
-  console.log(userRequest, "RECIBIDAS");
+
   const userRequestDone = allRequests?.filter((req) => req.requester_id === id);
 
   const handleBanned = (id) => {
@@ -40,10 +42,19 @@ export default function UserDetail() {
     window.location.reload();
   };
 
+  const handleAdmin = (id) => {
+    dispatch(adminState(id, { admin: !user[0]?.admin }));
+    window.location.reload();
+  };
+  console.log(user);
   return (
-    <Box component="section">
+    <Box
+      component="section"
+      sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+    >
       <Box component="div">
-        <Typography variant="h5">User {user[0]?.id}</Typography>
+        <Typography variant="h5">Dellates del Usuario</Typography>
+
         <Box component="div">
           <img
             style={{ width: "15%" }}
@@ -53,11 +64,15 @@ export default function UserDetail() {
         </Box>
         <Box component="div">
           <ul>
+            <li>ID: {user[0]?.id}</li>
             <li>Nombre: {user[0]?.firstName}</li>
             <li>Apellido: {user[0]?.lastName}</li>
             <li>Edad: {user[0]?.birthDate}</li>
             <li>Email: {user[0]?.email} </li>
             <li>Ubicación: {user[0]?.location}</li>
+
+            <li>Administrador: {user[0]?.admin ? "true" : "false"}</li>
+
             <li>Banned: {user[0]?.banned ? "true" : "false"}</li>
             <li>Description: {user[0]?.description}</li>
           </ul>
@@ -82,7 +97,8 @@ export default function UserDetail() {
                 </ul>
                 <Button
                   onClick={() => {
-                    deleteService(serv.id);
+                    dispatch(deleteService(serv.id));
+
                     window.location.reload();
                   }}
                 >
@@ -100,15 +116,21 @@ export default function UserDetail() {
               <Box key={req.id} component="div">
                 <ul>
                   <li>ID: {req.id}</li>
-                  <li>Nombre: {req.name}</li>
-                  <li>Precio: {req.price}</li>
-                  <li>Descripción: {req.description}</li>
-                  <li>Dias/Disp: {req.days}</li>
+
+                  <li>
+                    Cliente:{" "}
+                    <Link to={`/admin/users/${req.userRequester.id}`}>
+                      {req.userRequester.firstName}
+                    </Link>
+                  </li>
+                  <li>Dias/Disp: {req.day}</li>
+
                   <li>Horas/Disp: {req.hours}</li>
                 </ul>
                 <Button
                   onClick={() => {
-                    deleteRequest(req.id);
+                    dispatch(deleteRequest(req.id));
+
                     window.location.reload();
                   }}
                 >
@@ -119,7 +141,8 @@ export default function UserDetail() {
           })}
       </Box>
       <Box>
-        <Typography variant="h4">Solicitudes Hechas</Typography>
+        <Typography variant="h4">Solicitudes Realizadas</Typography>
+
         {userRequestDone &&
           userRequestDone.map((req) => {
             return (

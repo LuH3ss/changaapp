@@ -1,6 +1,6 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import { Link, NavLink, Outlet, useParams } from "react-router-dom";
+import { Box, Divider, Typography } from "@mui/material";
+import React from "react";
+import { NavLink, Outlet, useLocation} from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import Navbar from "../PrivateRoute/Navbar";
 import Footer from "../Footer";
@@ -13,35 +13,25 @@ import EmailIcon from '@mui/icons-material/Email';
 import SendIcon from '@mui/icons-material/Send';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-export default function Settings() {
-  const {section} = useParams();
-
+export default function Settings(id) {
+  
+  const location = useLocation()
   const { user, logout } = useAuth();
-
-  const [selected, setSelected] = useState(section);
-
-  useEffect(() => {
-    handleSelected(null, section)
-  }, [section]);
-
-
+ 
   const handleClick = (e) => {
-    logout();
-  };
+    e.preventDefault()
+    logout()
+  }
 
-  const handleSelected = (e, id) => {
-    const link = document.getElementById(id);
-    const icon = document.getElementById(`${id}Icon`);
-    const prevLink = document.getElementById(selected);
-    const prevIcon = document.getElementById(`${selected}Icon`);
-
-    prevLink.style='color: #1F2937; background-color: white; text-decoration:none';
-    prevIcon.style='font-size:3rem;padding:0 0 0 4%;color:#1F2937';
-    link.style='color: white; background-color: #1F2937; text-decoration:none';
-    icon.style='font-size:3rem;padding:0 0 0 4%;color:white';
-    
-    setSelected(id);
-  };
+  const handleSelected = ({ isActive }) => {
+    return{
+      
+      color: isActive ? '#fff' : '#1F2937',
+      backgroundColor: isActive ? '#1F2937' : '#fff',
+      textDecoration: isActive ? 'none' : 'none'
+      
+    }
+  }
 
   const styles={
     container:{
@@ -60,6 +50,11 @@ export default function Settings() {
       padding:'0 0 0 4%',
       color:"#1F2937"
     },
+    icons2:{
+      fontSize:'3rem',
+      padding:'0 0 0 4%',
+      color:"#fff"
+    },
     listText:{
       fontWeight:'bold',
       fontSize:'1.3rem',
@@ -67,9 +62,9 @@ export default function Settings() {
     },
     selected:{
       color:'red'
-    }
+    },
+    
   }
-
   
   return (
     <Box>
@@ -87,54 +82,54 @@ export default function Settings() {
 
               <Divider variant="inset" />
 
-              <NavLink onClick={(e)=>handleSelected(e, 'profile')} id='profile' style={styles.links} to="profile">
+              <NavLink style={(e)=>handleSelected(e)} id='profile'  to="profile">
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <AccountBoxIcon id="profileIcon" style={styles.icons}/>
+                  <AccountBoxIcon id="profileIcon" style={location?.pathname === '/settings/profile' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Perfil</Typography>
                 </Box>
               </NavLink>
 
               <Divider variant="inset" />
 
-              <NavLink onClick={(e)=>handleSelected(e, 'edit')} id="edit" style={styles.links} to="edit">
+              <NavLink style={(e)=>handleSelected(e)}  to="edit">
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <EditIcon id="editIcon" style={styles.icons}/>
+                  <EditIcon id="editIcon" style={location?.pathname === '/settings/edit' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Editar Perfil</Typography>
                 </Box>
               </NavLink>
               
               <Divider variant="inset" />
 
-              <NavLink onClick={(e)=>handleSelected(e, 'notifications')} id="notifications" style={styles.links} to='notifications'>
+              <NavLink style={(e)=>handleSelected(e)} to='notifications'>
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <NotificationsIcon id="notificationsIcon" style={styles.icons}/>
+                  <NotificationsIcon id="notificationsIcon" style={location?.pathname === '/settings/notifications' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Notificaciones</Typography>
                 </Box>
               </NavLink>
 
               <Divider variant="inset" />
 
-              <NavLink onClick={(e)=>handleSelected(e, 'services')} id="services" style={styles.links} to='services'>
+              <NavLink style={(e)=>handleSelected(e)} to='services'>
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <WorkIcon id="servicesIcon" style={styles.icons}/>
+                  <WorkIcon id="servicesIcon" style={location?.pathname === '/settings/services' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Servicios publicados</Typography>
                 </Box>
               </NavLink>
 
               <Divider variant="inset" />
 
-              <NavLink onClick={(e)=>handleSelected(e, 'request')} id="request" style={styles.links}to='request'>
+              <NavLink style={(e)=>handleSelected(e)} to='request'>
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <EmailIcon id="requestIcon" style={styles.icons}/>
+                  <EmailIcon id="requestIcon" style={location?.pathname === '/settings/request' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Solicitudes recibidas</Typography>
                 </Box>
               </NavLink>
 
               <Divider variant="inset" />
 
-              <NavLink onClick={(e)=>handleSelected(e, 'requester')} id="requester" style={styles.links} to='requester'>
+              <NavLink style={(e)=>handleSelected(e)} to='requester'>
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <SendIcon id="requesterIcon" style={styles.icons}/>
+                  <SendIcon id="requesterIcon" style={location?.pathname === '/settings/requester' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Solicitudes enviadas</Typography>
                 </Box>
               </NavLink>
@@ -148,6 +143,8 @@ export default function Settings() {
                 </Box>
               </NavLink>
             </Box>
+            
+
             <Outlet />
         </Box>
       <Footer></Footer>
