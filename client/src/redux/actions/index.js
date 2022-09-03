@@ -27,7 +27,7 @@ export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS'
 export const POST_NOTIFICATION = 'POST_NOTIFICATION'
 export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
 export const USER_LOCATION = "USER_LOCATION";
-
+export const ADMIN_UPDATE = "ADMIN_UPDATE"
 
 
 
@@ -89,6 +89,16 @@ export function bannedState(id, data) {
     } catch (error) {
       console.log("imposible de bannear, tamo en la V.I.P 😎")
     }
+  }
+}
+
+export function adminState(id, data) {
+  return async function(dispatch) {
+    await axios.put(`${EP}/userr/${id}`, data)
+    .then(detalle => dispatch({
+      type: ADMIN_UPDATE,
+      payload: detalle.data
+    }))
   }
 }
 

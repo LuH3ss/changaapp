@@ -25,7 +25,8 @@ import {
   NEW_BANNED_STATE,
   USER_BY_ID,
   POST_REVIEW,
-  DELETE_CATEGORY
+  DELETE_CATEGORY,
+  ADMIN_UPDATE
 
 
 
@@ -218,6 +219,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         postReview: [...state.postReview, {...action.payload}]
       }
+    case ADMIN_UPDATE: 
+      return{
+        ...state,
+        user: [...state.user, {...action.payload}]
+      }  
 
 
     default:

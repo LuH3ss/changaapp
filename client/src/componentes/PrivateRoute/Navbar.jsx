@@ -212,7 +212,7 @@ export default function Navbar() {
           </MenuItem>
         </Link>
         <Divider />
-        <Link style={user?.email === 'pow.chorba@hotmail.com' ? styles.admin : styles.noAdmin} to="/admin/dashboard">
+        <Link style={estado[0]?.admin === true ? styles.admin : styles.noAdmin} to="/admin/dashboard">
           <MenuItem>
             <Settings/> Admin
           </MenuItem>

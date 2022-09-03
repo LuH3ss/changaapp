@@ -17,7 +17,7 @@ export default function AdminPrivate({children}) {
   }, [dispatch, user?.email])
   
 
-  if(userState[0]?.email === 'pow.chorba@hotmail.com') {
+  if(userState[0]?.admin === true) {
     return <>{children}</>
   }else{
     return <div style={{textAlign: 'center'}}>

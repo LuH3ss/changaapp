@@ -8,8 +8,9 @@ import {
   deleteService,
   deleteRequest,
   bannedState,
+  adminState,
 } from "../../redux/actions";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 
 export default function UserDetail() {
@@ -31,7 +32,7 @@ export default function UserDetail() {
   const userRequest = allRequests?.filter(
     (req) => req.services?.user_id === id
   );
-  console.log(userRequest, "RECIBIDAS");
+  
   const userRequestDone = allRequests?.filter((req) => req.requester_id === id);
 
   const handleBanned = (id) => {
@@ -39,6 +40,11 @@ export default function UserDetail() {
     window.location.reload();
   };
 
+  const handleAdmin = (id) => {
+    dispatch(adminState(id, { admin: !user[0]?.admin}))
+    window.location.reload();
+  }
+  console.log(user)
   return (
     <Box
       component="section"
@@ -61,11 +67,15 @@ export default function UserDetail() {
             <li>Edad: {user[0]?.birthDate}</li>
             <li>Email: {user[0]?.email} </li>
             <li>Ubicación: {user[0]?.location}</li>
+            <li>Administrador: {user[0]?.admin ? 'true' : 'false'}</li>
             <li>Banned: {user[0]?.banned ? "true" : "false"}</li>
             <li>Description: {user[0]?.description}</li>
           </ul>
           <Button onClick={() => handleBanned(user[0]?.id)}>
             {user[0]?.banned ? "Habilitar" : "Deshabilitar"} Usuario
+          </Button>
+          <Button onClick={() => handleAdmin(user[0]?.id)}>
+            {user[0]?.admin ? "Sacar Administrador" : "Convertir Administrador"}
           </Button>
         </Box>
       </Box>
@@ -85,7 +95,7 @@ export default function UserDetail() {
                 </ul>
                 <Button
                   onClick={() => {
-                    deleteService(serv.id);
+                    dispatch(deleteService(serv.id))
                     window.location.reload();
                   }}
                 >
@@ -103,15 +113,13 @@ export default function UserDetail() {
               <Box key={req.id} component="div">
                 <ul>
                   <li>ID: {req.id}</li>
-                  <li>Nombre: {req.name}</li>
-                  <li>Precio: {req.price}</li>
-                  <li>Descripción: {req.description}</li>
-                  <li>Dias/Disp: {req.days}</li>
+                  <li>Cliente: <Link to={`/admin/users/${req.userRequester.id}`}>{req.userRequester.firstName}</Link></li>
+                  <li>Dias/Disp: {req.day}</li>
                   <li>Horas/Disp: {req.hours}</li>
                 </ul>
                 <Button
                   onClick={() => {
-                    deleteRequest(req.id);
+                    dispatch(deleteRequest(req.id))
                     window.location.reload();
                   }}
                 >
