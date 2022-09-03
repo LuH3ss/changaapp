@@ -21,22 +21,17 @@ import AllCategorys from "./componentes/Home/FiltersCategorys/AllCategorys";
 import StateRequest from "./componentes/Settings/Request/StateRequest";
 import StateRequester from "./componentes/Settings/Request/StateOfer";
 import Review from "./componentes/Review";
-
 import PreService from "./componentes/Home/RenderProfile/PreService";
 import PublicProfile from "./componentes/Home/RenderProfile/PublicProfile";
 import Notifications from "./componentes/Settings/Notifications";
-
 import Admin from "./componentes/admin/Admin";
-
-
 import Adminnavbar from "./componentes/admin/Admin-navbar";
 import Users from "./componentes/admin/Users";
 import Categories from "./componentes/admin/Categories";
 import CreateCategory from "./componentes/admin/CreateCategory";
-
 import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
-
 import UserDetail from "./componentes/admin/UserDetail";
+import DeleteCategory from "./componentes/admin/DeleteCategory";
 
 function App() {
   return (
@@ -68,9 +63,11 @@ function App() {
 
         <Route path="/admin/" element={<Adminnavbar />} >
           <Route path="users" element={<Users />} />
+          <Route path="dashboard" element={<Admin />} />
           <Route path="users/:id" element={<UserDetail />} />
           <Route path="categories" element={<Categories />} />
           <Route path="createCategory" element={<CreateCategory />} />
+          <Route path="deleteCategory" element={<DeleteCategory />} />
         </Route>
 
       </Routes>

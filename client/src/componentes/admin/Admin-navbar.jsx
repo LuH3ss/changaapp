@@ -31,7 +31,7 @@ export default function Adminnavbar() {
        selectionFollowsFocus
        sx={{ width: '100%', display:'flex', alignItems:'baseline', color:'white', backgroundColor:'black' }}
       >
-        <Typography variant='h6'>ADMIN</Typography>
+        <NavLink to='dashboard'><Typography variant='h6'>ADMIN</Typography></NavLink>
         <NavLink to='users'><Button sx={{color: 'white', textDecoration: 'none'}} label="USUARIOS">USUARIOS</Button></NavLink>
         <NavLink to='categories'>
           <Button  
@@ -63,6 +63,9 @@ export default function Adminnavbar() {
         <NavLink  sx={{color: 'white', textDecoration: 'none', backgroundColor:'black'}} to='createCategory'><MenuItem 
         sx={{color: 'white', textDecoration: 'none', backgroundColor:'black'}}
         onClick={handleClose}>Agregar</MenuItem></NavLink>
+         <NavLink  sx={{color: 'white', textDecoration: 'none', backgroundColor:'black'}} to='deleteCategory'><MenuItem 
+        sx={{color: 'white', textDecoration: 'none', backgroundColor:'black'}}
+        onClick={handleClose}>Eliminar</MenuItem></NavLink>
        
       </Menu>
       </Box>
