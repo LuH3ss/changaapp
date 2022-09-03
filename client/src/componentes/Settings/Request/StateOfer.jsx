@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { Button, Box } from "@mui/material";
 import styles from "./style.js";
 import Dialog from "@mui/material/Dialog";
+import Review from "../../Review";
 
 export default function StateRequester() {
   const { user } = useAuth();
@@ -81,7 +82,7 @@ export default function StateRequester() {
     dispatch(deleteRequest(e.target.id));
     window.location.reload(true);
   }
-
+  console.log(filterById)
   return (
     <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
       <h1>Estado de los servicios solicitados</h1>
@@ -151,7 +152,9 @@ export default function StateRequester() {
                   ) : (
                     <div>
                       {
-                        e.state === 'Pagado' ? <Link to='/laputamadre'><button>Dejar review</button></Link>
+                        e.state === 'Pagado' ? 
+                        <Link to={`/services/review/${e.service_id}`}><button>Dejar review</button></Link>
+                        
                         : <div>
                         <button
                           name={e.services?.user_id}

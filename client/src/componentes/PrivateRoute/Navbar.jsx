@@ -97,6 +97,7 @@ export default function Navbar() {
   const estado = useSelector((state) => state.filter);
   let notifications = useSelector(state => state.allNotifications)
   notifications = notifications.filter(e => e.userNotificated_id === estado[0]?.id)
+  notifications = notifications.splice(0,4)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserEmail(user?.email));

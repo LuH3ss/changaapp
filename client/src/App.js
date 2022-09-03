@@ -62,10 +62,9 @@ function App() {
           <Route path="services/:id" element={<UpdateService />} />
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />
-          
           <Route path='notifications' element={<Notifications/>}/>
         </Route>
-
+        <Route path='/services/review/:id' element={<Review/>}/>
 
         <Route path="/admin/" element={<Adminnavbar />} >
           <Route path="users" element={<Users />} />

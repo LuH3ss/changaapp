@@ -21,7 +21,7 @@ export const DELETE_SERVICES = "DELETE_SERVICES";
 export const NEW_BANNED_STATE = "NEW_BANNED_STATE"
 export const ALL_USERS = 'ALL_USERS'
 export const USER_BY_ID = 'USER_BY_ID'
-
+export const POST_REVIEW = 'POST_REVIEW'
 export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS'
 export const POST_NOTIFICATION = 'POST_NOTIFICATION'
 export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
@@ -318,6 +318,17 @@ export function userById(userId) {
       type: USER_BY_ID,
       payload: dataDb.data
     })
+  }
+}
+
+//REVIEWS 
+export function postReview(){
+  return async function(dispatch){
+    await axios.post("http://www.localhost:3001/reviews")
+    .then(detalle => dispatch({
+      type: POST_REVIEW,
+      payload: detalle.data
+    }))
   }
 }
 

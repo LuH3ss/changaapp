@@ -28,12 +28,10 @@ const CheckoutForm = () => {
   const dispatch = useDispatch();
   let service = useSelector((state) => state.services);
   let request = useSelector((state) => state.allRequest);
-
+  request = request.filter(p => p.state === 'aceptado')
   service = service.filter((p) => p.id === id);
   request = request.filter(p => p.service_id === id)
   const navigate = useNavigate()
-  console.log(request)
-  console.log(service)
 
   useEffect(() => {
     dispatch(allRequest());
@@ -88,7 +86,7 @@ const CheckoutForm = () => {
 
         <CardElement />
 
-        <Link style={{ textDecoration: "none" }} to="/home/services/review">
+        {/* <Link style={{ textDecoration: "none" }} to="/home/services/review"> */}
           <button className="proceed">
             <svg
               className="sendicon"
@@ -99,7 +97,7 @@ const CheckoutForm = () => {
               <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
             </svg>
           </button>
-        </Link>
+        {/* </Link> */}
 
 
         <h3>
@@ -114,14 +112,17 @@ const CheckoutForm = () => {
 export default function Stripe() {
   const { id } = useParams()
   let request = useSelector((state) => state.allRequest);
-  request = request.filter(p => p.service_id === id)
+  let prueba = request.filter(p => p.state === 'aceptado')
   
+  prueba = prueba.filter(p => p.service_id === id)
+  // console.log(prueba)
   return (
     <div className="pay-container">
       <Navbar />
+      
       {
-        request[0]?.state !== 'aceptado' ? <p>Error</p>
-        : <Elements stripe={stripePromise}>
+        prueba[0]?.state !== 'aceptado' ? <p>MEGA ERROR</p>
+        :<Elements stripe={stripePromise}>
         <Link style={{ textDecoration: "none" }} to="/settings/requester">
           <Button sx={{ color: "#1F2937" }} variant="outlined">
         
