@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { getUserEmail } from "../../redux/actions";
 import { useDispatch } from "react-redux";
 import "../css/profile.css";
+import userImg from '../../user.png'
 //IMPORT DE MATERIAL UI
 import Card from "@mui/material/Card";
+
 
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -46,10 +48,10 @@ export default function Profile() {
             variant="section"
             sx={{ display:'flex', padding:'10%' }}
           >
-              <Box sx={{width:'60%', display:'flex', flexDirection:'column'}}>
+              <Box sx={{width:'30%', display:'flex', flexDirection:'column', alignItems:'center'}}>
                 <img
-                  style={{ width: '100%', height: '100%' }}
-                  src={estado[0].img}
+                  style={{ width: '150px'}}
+                  src={estado[0].img ? estado[0].img : userImg}
                   alt="Profile photo"
                 />
                 <Box sx={{display:'flex', justifyContent:'center', padding:'4%'}}>
@@ -60,7 +62,7 @@ export default function Profile() {
                 </Box>
               </Box>
               
-              <Box sx={{display:'flex', flexDirection:'column'}}>
+              <Box sx={{width:'70%', display:'flex', flexDirection:'column', justifyContent:'flex-start'}}>
               <Box
                 sx={{ display: "flex", gap: "20px", padding:'5px 20px', borderBottom:'solid black 1px' }}
                 variant="div"

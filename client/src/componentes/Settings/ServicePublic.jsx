@@ -32,6 +32,13 @@ export default function PublicServices() {
        window.location.reload(true)
        
   }
+
+  const styles = {
+    infoText:{
+      fontSize:'1.2rem',
+      padding:'1%'
+    }
+  }
   
   return (
     <Box sx={{width:'70%'}}>
@@ -42,7 +49,7 @@ export default function PublicServices() {
         </div>
       ) : (
         userState[0]?.services.map((e) => {
-          return (
+          return (              
             // <div>
             //   <Link to={`/settings/updateService/${e.id}`}><button>Modificar Servicio</button></Link>
             //   <button id={e.id} onClick={handleDelete} >Borrar Servicio</button>
@@ -55,14 +62,53 @@ export default function PublicServices() {
             //     {e.description}
             //   </p>
             // </div>
-            <Box sx={{width:'100%'}}>
-              <Box sx={{display: 'flex',
-                border: 'solid grey 1px', 
+                <Box sx={{display: 'flex',
+                  border: 'solid grey 1px', 
+                  flexDirection:'column',
+                  borderRadius: '10px',
+                  padding:'2%',
+                  margin:'2%'}}>
+                  <Box sx={{display:'flex'}}>
+                  <Box
+                    sx={{
+                      width:'50%',
+                      display: "flex",
+                      justifyContent: "space-between",
+                      flexDirection:'column',
+                    }}
+                  >
+                    <Typography style={styles.infoText} variant="h7">{`Nombre: ${e.name}`}</Typography>
+                    <Box sx={{display:'flex'}}>
+                      <Typography style={styles.infoText} variant="h7">Precio:</Typography>
+                      <Typography
+                        sx={{ color: "green", marginLeft: "10px", fontSize:'1.2rem', padding:'1% 1% 1% 0'}}
+                        variant="h7"
+                      >
+                        {` $${e.price}`}
+                      </Typography>
+                    </Box>
+                    <Typography style={styles.infoText} variant="h7">{`Categoría: ${e.category.name}`}</Typography>
+                    <Typography style={styles.infoText} variant="h7">{`Solicitudes: ${e.request.length}`}</Typography>
+                    <Typography style={styles.infoText} variant="h7">{`Días: ${e.day.split(',').join(', ')}`}</Typography>
+                    <Typography style={styles.infoText} variant="h7">{`Horarios: ${e.hours.split(',').join(', ')}`}</Typography>
+                  </Box>
+                  <Box sx={{display:'flex', flexDirection:'column', width:'50%'}}>
+                    <Box sx={{height:'70%', display:'flex', flexDirection:'column'}}>
+                      <Typography style={styles.infoText} sx={{textAlign:'center'}} variant="h7">Descripción:</Typography>
+                      <Typography style={styles.infoText} sx={{textAlign:'center'}} variant="h7">{e.description}</Typography>
+                    </Box>
+                    <Box sx={{height:'30%',display:'flex', justifyContent:'space-around', alignItems:'center'}}>
+                    
+                    <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`${e.id}`}><Button variant='contained' sx={{backgroundColor:'#1F2937'}}>Modificar Servicio</Button></NavLink>
+                  
+                    <Button variant='contained' sx={{backgroundColor:'#1F2937'}} id={e.id} onClick={handleDelete} >Borrar Servicio</Button>
+                    </Box>
+                  </Box>
+                  </Box>
 
-                borderRadius: '10px',
-                padding:'2%',
-                margin:'2%'}}>
-                  <Typography variant="h6">Categoria: {e.category.name}</Typography>
+                </Box>
+                
+                  /* <Typography variant="h6">Categoria: {e.category.name}</Typography>
                   
                   <Typography variant="h6">{e.name}</Typography>
                   
@@ -77,9 +123,8 @@ export default function PublicServices() {
                   <Button>
                   <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`${e.id}`}>Modificar Servicio</NavLink>
                   </Button>
-                  <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button>
-                </Box>
-                </Box>
+                  <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button> */
+                
           );
         })
       )}

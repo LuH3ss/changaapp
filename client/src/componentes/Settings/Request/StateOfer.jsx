@@ -8,7 +8,7 @@ import {
   postNotification,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import styles from "./style.js";
 import Dialog from "@mui/material/Dialog";
 
@@ -84,19 +84,23 @@ export default function StateRequester() {
 
   return (
     <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
-      <h1>Estado de los servicios solicitados</h1>
       {filterById.length === 0 ? (
         <p>Aun no has realizado ninguna solicitud</p>
       ) : (
         filterById.map((e) => {
           return (
-            <div>
-              <h3>{e.services?.name}</h3>
-              <p>
+            <Box sx={{display:'flex', border:'solid grey 1px', borderRadius:'10px', padding:'2%', margin:'2%'}}>
+              <Box sx={{width:'20%'}}>
+                <Typography variant="h7">{e.services?.name}</Typography>
+              </Box>
+              <Box sx={{width:'60%', display:'flex', flexDirection:'column'}}>
+              <Typography variant="h7">
                 El servicio esta solicitado para el dia {e.day} a las {e.hours}
                 hs
-              </p>
-              <p>Estado: {e.state}</p>
+              </Typography>
+              <Typography variant="h7">Estado: {e.state}</Typography>
+              </Box>
+              
               {e.state === "rechazado" ? (
                 <Button id={e.id} onClick={handleDele}>
                   Eliminar
@@ -190,7 +194,7 @@ export default function StateRequester() {
                   )}
                 </div>
               )}
-            </div>
+            </Box>
           );
         })
       )}
