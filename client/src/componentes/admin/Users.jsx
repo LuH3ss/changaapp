@@ -23,19 +23,19 @@ export default function Users() {
     { field: 'firstName', title: 'Nombre', width: 130 },
     { field: 'lastName', title: 'Apellido', width: 130 },
     {
-      field: 'birthDate',
-      title: 'Edad',
-      type: 'number',
+      field: 'email',
+      title: 'Email',
+      type: 'text',
       width: 90,
     },
     {
-        field: 'location',
-        title: 'Zona',
+        field: 'admin',
+        title: 'Administrador',
         width: '70'
     },
     {
         field: 'banned',
-        title:'Banned?'
+        title:'Banned'
         
     },
     {

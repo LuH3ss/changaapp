@@ -19,7 +19,8 @@ import Logout from "@mui/icons-material/Logout";
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserEmail } from "../../redux/actions";
+import { allNotifications, getUserEmail } from "../../redux/actions";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const styles = {
   container: {
@@ -31,9 +32,50 @@ const styles = {
     color: "white",
   },
   asd: {
-    textDecoration: "none",
-    color: "#fff",
+
+    textDecoration: 'none',
+    color: '#fff'
   },
+  divPrueba: {
+    position: 'relative'
+  },
+  prueba: {
+    display: 'none'
+  },
+  prueba2: {
+    display: 'block',
+    backgroundColor: "#1F2937",
+    textAlign: 'center',
+    position: 'absolute',
+    right: '-60px',
+    borderRadius: '5px',
+    width: '150px',
+    height: '150px',
+    fontSize: '14px',
+    zIndex: '10'
+  },
+  asdd: {
+    margin: '15px 5px',
+    backgroundColor: '#fff',
+    
+  },
+  link: {
+    textDecoration: 'none',
+    color: '#000',
+  },
+  cero: {
+    backgroundColor: '#fff',
+    textAlign: 'center',
+    color: '#000',
+    margin: '15px 5px',
+  },
+  noAdmin: {
+    display: 'none'
+  },
+  admin: {
+    display: 'block'
+  }
+
 };
 
 export default function Navbar() {
@@ -54,10 +96,22 @@ export default function Navbar() {
 
   //PARA TRAER LA FOTO DEL USUARIO
   const estado = useSelector((state) => state.filter);
+  let notifications = useSelector(state => state.allNotifications)
+  notifications = notifications.filter(e => e.userNotificated_id === estado[0]?.id)
+  notifications = notifications.splice(0,4)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
+    dispatch(allNotifications())
   }, [dispatch, user?.email]);
+  
+  //PROBANDO 
+  const [noti, setNoti] = useState(true)
+  const handleNotification = (e) => {
+    e.preventDefault()
+    setNoti(!noti)
+  }
+
 
   return (
     <Box style={styles.container} className="navBar">
@@ -73,7 +127,32 @@ export default function Navbar() {
           <Button style={styles.button}>Crear Servicio</Button>
         </Link>
       </div>
-      <Link to='/settings/notifications/notifications'><NotificationsActiveIcon/></Link>
+
+      
+        <div style={styles.divPrueba}>
+        {
+          notifications.length === 0 ? <NotificationsIcon value={noti} onClick={handleNotification}/>
+          : <NotificationsActiveIcon value={noti} onClick={handleNotification}/>
+        }  
+        <div style={noti ? styles.prueba : styles.prueba2}>
+          {
+            notifications.length === 0 ? <p style={styles.cero}>No hay notificaciones nuevas</p>
+            : notifications.map(e => {
+              return (
+                <div key={e.id} style={styles.asdd}>
+                  
+                  <p><Link style={styles.link} to='/settings/notifications'>Nueva Notificacion</Link></p>
+                  
+                  
+                </div>
+              )
+            })
+          }
+        </div>
+        </div>
+        
+        {/* </Link> */}
+
       <Tooltip title="Account settings">
         <IconButton
           onClick={handlerClick}
@@ -127,12 +206,17 @@ export default function Navbar() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <Link to="/settings/profile/profile/">
+        <Link to="/settings/profile">
           <MenuItem>
             <Avatar /> Perfil
           </MenuItem>
         </Link>
-
+        <Divider />
+        <Link style={estado[0]?.admin === true ? styles.admin : styles.noAdmin} to="/admin/dashboard">
+          <MenuItem>
+            <Settings/> Admin
+          </MenuItem>
+        </Link>
         <Divider />
         <MenuItem onClick={handleClick}>
           <ListItemIcon>
