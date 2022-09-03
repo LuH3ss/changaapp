@@ -24,7 +24,10 @@ import {
   ALL_USERS,
   NEW_BANNED_STATE,
   USER_BY_ID,
-  DELETE_CATEGORY
+  POST_REVIEW,
+  DELETE_CATEGORY,
+  ADMIN_UPDATE
+
 
 
 } from "../actions/index.js";
@@ -49,7 +52,7 @@ const initialStates = {
   allNotifications: [],
   postNotification: [],
   deleteNotification: [],
-
+  postReview: [],
   user: []
 
 
@@ -211,6 +214,16 @@ const reducer = (state = initialStates, action) => {
           ...state,
           categories: action.payload
         }
+    case POST_REVIEW:
+      return{
+        ...state,
+        postReview: [...state.postReview, {...action.payload}]
+      }
+    case ADMIN_UPDATE: 
+      return{
+        ...state,
+        user: [...state.user, {...action.payload}]
+      }  
 
 
     default:

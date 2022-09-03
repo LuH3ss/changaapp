@@ -25,6 +25,7 @@ export default function EditProfile() {
   return (
 
     <Box sx={{width:'70%'}}>
+
       {user?.email === null ? (
         <Box sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
           <Typography>
