@@ -53,8 +53,8 @@ function App() {
         <Route path="/home/todos" element={<AllCategorys />} />
         <Route path="/home/createService" element={<Servicios />} />
         <Route path="/home/services/:id" element={<RequestService />} />
+        <Route path="/services/review/:id" element={<Review />} />
         <Route path="/home/services/payment/:id" element={<Stripe />} />
-        <Route path="/home/services/review" element={<Review />} />
         <Route path="/settings/" element={<Settings />}>
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
@@ -64,7 +64,7 @@ function App() {
           <Route path="requester" element={<StateRequester />} />
           <Route path='notifications' element={<Notifications/>}/>
         </Route>
-        <Route path='/services/review/:id' element={<Review/>}/>
+       
 
         <Route path="/admin/" element={<Adminnavbar />} >
           <Route path="users" element={<Users />} />

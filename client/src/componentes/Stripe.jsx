@@ -30,6 +30,7 @@ const CheckoutForm = () => {
   let request = useSelector((state) => state.allRequest);
   request = request.filter(p => p.state === 'aceptado')
   service = service.filter((p) => p.id === id);
+
   request = request.filter(p => p.service_id === id)
   const navigate = useNavigate()
 
@@ -64,9 +65,11 @@ const CheckoutForm = () => {
         amount: request[0]?.services.price,
         email: email,
       });
+
       dispatch(updateRequest({...reque, id: request[0]?.id}))
       dispatch(postNotification({...noti,userNotification_id: request[0]?.requester_id, userNotificated_id: service[0]?.user_id }))
       
+
       elements.getElement(CardElement).clear();
       toast.success("Pago completado exitosamente");
       navigate('/settings/requester')
@@ -86,18 +89,13 @@ const CheckoutForm = () => {
 
         <CardElement />
 
-        {/* <Link style={{ textDecoration: "none" }} to="/home/services/review"> */}
-          <button className="proceed">
-            <svg
-              className="sendicon"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-            >
-              <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
-            </svg>
-          </button>
-        {/* </Link> */}
+        <Link to={`/home/services/review/${id}`}>
+        <button className="proceed">
+          <svg className="sendicon" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+          </svg>
+        </button>
+        </Link>
 
 
         <h3>
