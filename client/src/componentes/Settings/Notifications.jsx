@@ -16,6 +16,9 @@ export default function Notifications() {
   notifications = notifications.filter(
     (e) => e.userNotificated_id === userState[0]?.id
   );
+
+  notifications = notifications.reverse();
+
   useEffect(() => {
     dispatch(allNotifications());
     dispatch(getUserEmail(user?.email));
