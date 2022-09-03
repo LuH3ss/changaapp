@@ -8,6 +8,7 @@ import {
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
 import { Button, Box } from "@mui/material";
+import toast, {Toaster} from "react-hot-toast";
 
 export default function StateRequest() {
   const { user } = useAuth();
@@ -68,13 +69,19 @@ export default function StateRequest() {
     if (btn.state !== "") {
       dispatch(postNotification(noti));
       dispatch(updateRequest({ ...btn, email: e.target.name }));
-      window.location.reload(true);
+      toast('Servicio Actualizado', {
+        icon: '👏',
+      });
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 2000);
     }
   };
-
+  console.log(filterEmail)
   return (
     <Box sx={{ width: "70%" }}>
       <h1>Estado del Servicio</h1>
+      <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <p>
           Para ver los estados del servicio, primero debes publicar uno,
@@ -94,8 +101,8 @@ export default function StateRequest() {
               ) : (
                 <div>
                   <p>Nombre del servicio: {filterEmail[0]?.name}</p>
-                  <p>Reservado por: {e.userRequest?.firstName} </p>
-                  <img src={e.userRequest?.img} alt="asd" />
+                  <p>Reservado por: {e.userRequester?.firstName} </p>
+                  <img src={e.userRequester?.img} alt="asd" width='150px'/>
                   <p>Estado: {e.state}</p>
                   <p>
                     Trabajo solicitado para el dia {e.day} a las {e.hours}hs

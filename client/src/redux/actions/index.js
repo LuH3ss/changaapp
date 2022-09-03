@@ -78,17 +78,6 @@ export function updateUser(email, data) {
   };
 }
 
-// export function allUsers () {
-//   return async function(dispatch){
-//     await axios.get(`${EP}/user`)
-//     .then(detalle => dispatch({
-//       type: ALL_USERS,
-//       payload: detalle.data
-//     }))
-//   }
-// }
-
-
 export function bannedState(id, data) {
   return async function(dispatch) {
     try {
@@ -320,9 +309,9 @@ export function userById(userId) {
 }
 
 //REVIEWS 
-export function postReview(){
+export function postReview(data){
   return async function(dispatch){
-    await axios.post("http://www.localhost:3001/reviews")
+    await axios.post("http://www.localhost:3001/reviews", data)
     .then(detalle => dispatch({
       type: POST_REVIEW,
       payload: detalle.data

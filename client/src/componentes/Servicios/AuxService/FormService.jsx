@@ -271,7 +271,6 @@ export default function FormService() {
         noti.userNotificated_id = estado[0]?.id;
       }
       disptach(postNotification(noti));
-
       disptach(postService(service));
       setService({
         name: "",
@@ -283,7 +282,10 @@ export default function FormService() {
         hours: [],
         email: "",
       });
-      // navigate("/home");
+      toast.success('Servicio publicado con exito')
+      setTimeout(() => {
+        navigate('/home')
+      }, 2000);
     }
   };
 
