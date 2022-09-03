@@ -1,5 +1,7 @@
 const { Category } = require("../db");
 const { allCategories } = require("../utils/utils");
+const createCategoryMail = require("./Emails/sendEmails");
+const deleteCategoryMail = require("./Emails/sendEmails");
 
 const getCategories = async (req, res) => {
   try {
@@ -19,30 +21,37 @@ const postCategorie = async (req, res) => {
     });
 
     res.status(201).send("Category created");
+    const email = "pfhenrychangapp@gmail.com";
+    const asunto = "Creacion de Categoria";
+    const mensaje = `Se ha creado la categoria ${name} exitosamente`;
+    createCategoryMail.email(email, asunto, mensaje);
   } catch (error) {
     res.status(404).send(error);
   }
 };
 
 const deleteCategory = async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params;
 
-  console.log(id)
+  console.log(id);
   try {
     await Category.destroy({
       where: {
-        id
-      }
-    }) 
+        id,
+      },
+    });
     res.status(200).send("Category deleted");
   } catch (error) {
     res.status(404).send(error);
   }
-
-}
+  const email = "pfhenrychangapp@gmail.com";
+  const asunto = "Eliminacion de Categoria";
+  const mensaje = `Se ha borrado la categoria exitosamente`;
+  deleteCategoryMail.email(email, asunto, mensaje);
+};
 
 module.exports = {
   getCategories,
   postCategorie,
-  deleteCategory
+  deleteCategory,
 };
