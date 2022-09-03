@@ -22,6 +22,7 @@ export default function PrivateRoute({ children }) {
         <Navbar />
         <h1>Tu cuenta se encuentra con acceso restringido.</h1>
         <h4>Para mas informacion contacta al soporte</h4>
+        <a href='https://res.cloudinary.com/powchorba/image/upload/v1662229553/changApp/qemw466jqrlqrcy2ccsg.jpg'>changApp@soporte.com.ar</a>
       </div>
     );
   else {
