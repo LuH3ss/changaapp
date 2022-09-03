@@ -20,6 +20,7 @@ import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { allNotifications, getUserEmail } from "../../redux/actions";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 
 const styles = {
   container: {
@@ -127,9 +128,12 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <Link style={user?.email === 'pow.chorba@hotmail.com' ? styles.admin : styles.noAdmin} to='/admin'><button>Seccion Admin</button></Link>
+      
         <div style={styles.divPrueba}>
-        <NotificationsActiveIcon value={noti} onClick={handleNotification}/>
+        {
+          notifications.length === 0 ? <NotificationsIcon value={noti} onClick={handleNotification}/>
+          : <NotificationsActiveIcon value={noti} onClick={handleNotification}/>
+        }  
         <div style={noti ? styles.prueba : styles.prueba2}>
           {
             notifications.length === 0 ? <p style={styles.cero}>No hay notificaciones nuevas</p>
@@ -207,7 +211,12 @@ export default function Navbar() {
             <Avatar /> Perfil
           </MenuItem>
         </Link>
-
+        <Divider />
+        <Link style={user?.email === 'pow.chorba@hotmail.com' ? styles.admin : styles.noAdmin} to="/admin/dashboard">
+          <MenuItem>
+            <Settings/> Admin
+          </MenuItem>
+        </Link>
         <Divider />
         <MenuItem onClick={handleClick}>
           <ListItemIcon>

@@ -32,6 +32,8 @@ import CreateCategory from "./componentes/admin/CreateCategory";
 import PrivateRoute from "./componentes/PrivateRoute/PrivateRoute";
 import UserDetail from "./componentes/admin/UserDetail";
 import DeleteCategory from "./componentes/admin/DeleteCategory";
+import AdminPrivate from "./componentes/PrivateRoute/AdminPrivate";
+
 
 function App() {
   return (
@@ -41,7 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/password" element={<Password />} />
-        <Route path="/home" element={<Guardar />} />
+        <Route path="/home" element={<PrivateRoute><Guardar /></PrivateRoute>} />
         <Route path="/home/:name" element={<FilterCategory />} />
         <Route path='/home/user/:id' element={<PreService/>}/>
         <Route path='/home/public/:id' element={<PublicProfile/>}/>
@@ -61,13 +63,13 @@ function App() {
         </Route>
        
 
-        <Route path="/admin/" element={<Adminnavbar />} >
-          <Route path="users" element={<Users />} />
-          <Route path="dashboard" element={<Admin />} />
-          <Route path="users/:id" element={<UserDetail />} />
-          <Route path="categories" element={<Categories />} />
-          <Route path="createCategory" element={<CreateCategory />} />
-          <Route path="deleteCategory" element={<DeleteCategory />} />
+        <Route path="/admin/" element={<AdminPrivate><Adminnavbar /></AdminPrivate>} >
+          <Route path="users" element={<AdminPrivate><Users/></AdminPrivate>} />
+          <Route path="dashboard" element={<AdminPrivate><Admin/></AdminPrivate>} />
+          <Route path="users/:id" element={<AdminPrivate><UserDetail/></AdminPrivate>} />
+          <Route path="categories" element={<AdminPrivate><Categories/></AdminPrivate>} />
+          <Route path="createCategory" element={<AdminPrivate><CreateCategory /></AdminPrivate>} />
+          <Route path="deleteCategory" element={<AdminPrivate><DeleteCategory /></AdminPrivate>} />
         </Route>
 
       </Routes>
