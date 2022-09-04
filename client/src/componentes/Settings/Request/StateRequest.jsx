@@ -74,6 +74,30 @@ export default function StateRequest() {
     }
   };
 
+  const styles = {
+    acepted: {
+      display:'flex', 
+      border:'solid #58CC22 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    },
+    rejected: {
+      display:'flex', 
+      border:'solid #E00A0A 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    },
+    pending: {
+      display:'flex', 
+      border:'solid grey 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    }
+  }
+
   return (
     <Box sx={{ width: "70%" }}>
       {filterEmail.length === 0 ? (
@@ -87,11 +111,13 @@ export default function StateRequest() {
           return (
             p.request?.map((e) => {
               return e.state === "rechazado" || e.state === 'Pagado' ? (
-                <p>
-                  La orden #{e.id} del servicio {filterEmail[0].name} fue {e.state === 'Pagado' ? 'Pagada' : 'Rechazada'}
-                </p>
+                <Box style={e.state==='rechazado'?styles.rejected:styles.acepted}>
+                  <Typography>
+                    La orden #{e.id} del servicio {filterEmail[0].name} fue {e.state === 'Pagado' ? 'Pagada' : 'Rechazada'}
+                  </Typography>  
+                </Box>
               ) : (
-                <Box sx={{display:'flex', border:'solid grey 1px', margin:'2%', padding:'2%', borderRadius:'10px'}}>
+                <Box style={e.state==='rechazado'? styles.rejected : e.state==='aceptado' ? styles.acepted : styles.pending}>
                   <Box sx={{width:'25%',display:'flex', flexDirection:'column',alignItems:'center'}}>
                   <Typography sx={{padding:'5%'}}>Reservado por: </Typography>
                   <img style={{width:'100px'}} src={e.userRequester?.img ? e.userRequester?.img : userImg} alt="asd" />
