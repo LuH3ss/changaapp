@@ -32,6 +32,19 @@ export default function Landing() {
           Conocenos
         </Button>
       </Box>
+      <Box
+        variant="section"
+        className="standout-services-welcome"
+        sx={{ padding: "20px", textAlign: "center", backgroundColor: "black" }}
+      >
+        <Typography
+          variant="h4"
+          sx={{ margin: "15px 0", color: "white", backgroundColor: "black" }}
+        >
+          Algunos Servicios
+        </Typography>
+        <CardLanding />
+      </Box>
       <Box variant="section" id="mision">
         <Box variant="div" className="whoWeAre-welcome">
           <Box variant="div" className="queEsChangapp">
@@ -59,70 +72,7 @@ export default function Landing() {
           </Box>
         </Box>
       </Box>
-      <Box
-        variant="section"
-        className="standout-services-welcome"
-        sx={{ padding: "20px", textAlign: "center", backgroundColor: "black" }}
-      >
-        <Typography
-          variant="h4"
-          sx={{ margin: "15px 0", color: "white", backgroundColor: "black" }}
-        >
-          Algunos Servicios
-        </Typography>
-        <CardLanding />
-      </Box>
-      <Box variant="section" className="get-started-welcome">
-        <Typography sx={{ padding: "60px" }} variant="h3" className="gt-tiitle">
-          Comenzamos?
-        </Typography>
-        <Typography sx={{ padding: "10px" }} viariant="p">
-          Ingresa con cualquiera de estos botones y/o inicia sesion con tu
-          cuenta nueva o ya registrada
-        </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            gap: "100px",
-            justifyContent: "center",
-            height: "200px",
-          }}
-        >
-          <Link
-            style={{
-              display: "flex",
-              alignItems: "center",
-              textDecoration: "none",
-              textTransform: "none",
-            }}
-            to="/home"
-          >
-            {/* <Typography className='bttns_welcome' sx={{height:'138px'}} variant='h5'>Ingreso sin cuenta</Typography> */}
-            <Box variant="div" className="bttns_welcome">
-              <Typography
-                variant="h5"
-                style={{ cursor: "pointer" }}
-                onClick={handleAnonymous}
-              >
-                Ingresar como anonimo
-              </Typography>
-            </Box>
-          </Link>
-          <Link
-            style={{
-              display: "flex",
-              alignItems: "center",
-              textDecoration: "none",
-              textTransform: "none",
-            }}
-            to="/login"
-          >
-            <Box variant="div" className="bttns_welcome">
-              <Typography variant="h5">Registrate o inicia sesion</Typography>
-            </Box>
-          </Link>
-        </Box>
-      </Box>
+    
 
       <Footer />
     </div>
