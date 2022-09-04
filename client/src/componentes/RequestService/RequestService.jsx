@@ -37,6 +37,7 @@ export default function RequestService(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+  console.log(id)
 
   const service = useSelector((state) => state.serviceDetail);
   let requests = useSelector((state) => state.allRequest);

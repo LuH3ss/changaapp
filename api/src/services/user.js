@@ -1,4 +1,4 @@
-const { Category, Services, User, Reviews, Request } = require("../db");
+const { Category, Services, User, Reviews, Request, Notification } = require("../db");
 const registerMail = require("./Emails/sendEmails");
 const bannedMail = require("./Emails/sendEmails");
 const desbannedMail = require("./Emails/sendEmails");
@@ -126,14 +126,23 @@ const filterUser = async (req, res) => {
   const { email } = req.params;
   if (email) {
     const users = await User.findAll({
-      include: {
+      include: [{
         model: Services,
         as: "services",
-        include: {
+        include: [{
           model: Category,
           as: "category",
         },
+        {
+          model: Request,
+          as: "request",
+        }]
       },
+      {
+        model: Request,
+        as: 'requester'
+      },
+      ],
     });
     const filterEmail = users.filter((e) => e.email === email);
     if (filterEmail) {

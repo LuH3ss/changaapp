@@ -8,7 +8,7 @@ import {
   postNotification,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography } from "@mui/material";
 import styles from "./style.js";
 import Dialog from "@mui/material/Dialog";
 import Review from "../../Review";
@@ -82,77 +82,128 @@ export default function StateRequester() {
     dispatch(deleteRequest(e.target.id));
     window.location.reload(true);
   };
-  console.log(filterById);
+
+  const styles = {
+    acepted: {
+      display: "flex",
+      border: "solid #58CC22 2px",
+      margin: "2%",
+      padding: "2%",
+      borderRadius: "10px",
+      alignItems: "center",
+    },
+    rejected: {
+      display: "flex",
+      border: "solid #E00A0A 2px",
+      margin: "2%",
+      padding: "2%",
+      borderRadius: "10px",
+      alignItems: "center",
+    },
+    pending: {
+      display: "flex",
+      border: "solid grey 2px",
+      margin: "2%",
+      padding: "2%",
+      borderRadius: "10px",
+      alignItems: "center",
+    },
+  };
+
   return (
     <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
-      <h1>Estado de los servicios solicitados</h1>
       {filterById.length === 0 ? (
         <p>Aun no has realizado ninguna solicitud</p>
       ) : (
         filterById.map((e) => {
           return (
-            <div key={e.id}>
-              <h3>{e.services?.name}</h3>
-              <p>
-                El servicio esta solicitado para el dia {e.day} a las {e.hours}
-                hs
-              </p>
-              <p>Estado: {e.state}</p>
+            <Box
+              style={
+                e.state === "rechazado"
+                  ? styles.rejected
+                  : e.sate === "aceptado"
+                  ? styles.acepted
+                  : styles.pending
+              }
+            >
+              <Box sx={{ width: "20%", fontSize: "1.2rem" }}>
+                <Typography variant="h7">{e.services?.name}</Typography>
+              </Box>
+              <Box
+                sx={{
+                  width: "60%",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Typography variant="h7">
+                  El servicio esta solicitado para el dia {e.day} a las{" "}
+                  {e.hours}
+                  hs
+                </Typography>
+                <Typography variant="h7">Estado: {e.state}</Typography>
+              </Box>
+
               {e.state === "rechazado" ? (
-                <Button id={e.id} onClick={handleDele}>
+                <Button
+                  sx={{ backgroundColor: "#1F2937" }}
+                  variant="contained"
+                  id={e.id}
+                  onClick={handleDele}
+                >
                   Eliminar
                 </Button>
               ) : (
-                <div key="Requester">
+                <div>
                   {e.state === "aceptado" ? (
-                    <div>
-                      <p>
-                        Para pagar el servicio accede al siguiente{" "}
+                    <Box>
+                      <Typography>
                         <Link to={`/home/services/payment/${e.services?.id}`}>
-                          {" "}
-                          link
+                          <Button
+                            variant="contained"
+                            sx={{ width: "100%", margin: "2%" }}
+                          >
+                            Pagar
+                          </Button>
                         </Link>
-                      </p>
-                      <p>
-                        Si quieres cancelar la solicitud aprieta el siguiente
-                        boton{" "}
-                        <Button
-                          name={e.services?.user_id}
-                          id={e.id}
-                          onClick={handleClic}
-                        >
-                          Cancelar
-                        </Button>
-                        <div>
-                          <Dialog open={!hide}>
-                            <div
-                              style={
-                                hide === true ? styles.hide : styles.nohide
-                              }
-                            >
-                              <form onSubmit={(p) => handleClear(p)}>
-                                <label>
-                                  Deja un mensaje explicando el motivo de
-                                  cancelacion
-                                </label>
-                                <br />
-                                <input
-                                  type="text"
-                                  name="message"
-                                  value={noti.message}
-                                  onChange={handleNotification}
-                                />
-                                <br />
-                                <button type="submit" id={e.id}>
-                                  Enviar
-                                </button>
-                              </form>
-                              <button onClick={handleClic}>Cerrar</button>
-                            </div>
-                          </Dialog>
-                        </div>
-                      </p>
-                    </div>
+                      </Typography>
+                      <Button
+                        sx={{ width: "100%", margin: "2%" }}
+                        variant="contained"
+                        name={e.services?.user_id}
+                        id={e.id}
+                        onClick={handleClic}
+                      >
+                        Cancelar
+                      </Button>
+                      <div>
+                        <Dialog open={!hide}>
+                          <div
+                            style={hide === true ? styles.hide : styles.nohide}
+                          >
+                            <form onSubmit={(p) => handleClear(p)}>
+                              <label>
+                                Deja un mensaje explicando el motivo de
+                                cancelacion
+                              </label>
+                              <br />
+                              <input
+                                type="text"
+                                name="message"
+                                value={noti.message}
+                                onChange={handleNotification}
+                              />
+                              <br />
+                              <button type="submit" id={e.id}>
+                                Enviar
+                              </button>
+                            </form>
+                            <button onClick={handleClic}>Cerrar</button>
+                          </div>
+                        </Dialog>
+                      </div>
+                    </Box>
                   ) : (
                     <div>
                       {e.state === "Pagado" ? (
@@ -161,13 +212,14 @@ export default function StateRequester() {
                         </Link>
                       ) : (
                         <div>
-                          <button
+                          <Button
+                            variant="contained"
                             name={e.services?.user_id}
                             id={e.id}
                             onClick={handleClic}
                           >
-                            Cancelar Servicio
-                          </button>
+                            Cancelar
+                          </Button>
                           <Dialog open={!hide}>
                             <div
                               style={
@@ -200,7 +252,7 @@ export default function StateRequester() {
                   )}
                 </div>
               )}
-            </div>
+            </Box>
           );
         })
       )}

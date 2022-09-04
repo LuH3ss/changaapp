@@ -11,6 +11,8 @@ import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import camera from "../../../pngwing.com.png";
+import EditIcon from '@mui/icons-material/Edit';
+
 
 function validate(input) {
   let error = {};
@@ -151,9 +153,30 @@ export default function UpdateProfile() {
       padding: "30px",
     },
     formLabel: {
+<<<<<<< HEAD
       fontSize: "1.3rem",
     },
   };
+=======
+      fontSize:'1.3rem'
+    },
+    editImg:{
+      position:'relative',
+      left: '0',
+      top: '0',
+    },
+    editIcon:{
+      position:'absolute',
+      zIndex:'1', 
+      bottom:'15px', 
+      left:'15px',
+      borderRadius:'50%',
+      backgroundColor:'white', 
+      padding:'4%', 
+      cursor:'pointer'
+    }
+  }
+>>>>>>> origin/dev
 
   return (
     <Box style={styles.container}>
@@ -210,6 +233,7 @@ export default function UpdateProfile() {
             </Box>
           </Box>
           <Box style={styles.imgSection}>
+<<<<<<< HEAD
             <label htmlFor="inputTag">
               <img
                 style={{ width: "150px", height: "150px", cursor: "pointer" }}
@@ -225,6 +249,24 @@ export default function UpdateProfile() {
                 onChange={handleImage}
               />
             </label>
+=======
+              <label style={styles.editImg} for="inputTag">
+                <img
+                  style={{ width: "150px", height: "150px", cursor: "pointer", zIndex:'-1' }}
+                  src={input.img? input.img : estado[0].img !== "" ? estado[0].img : camera}
+                  alt=""
+                />
+                <EditIcon style={styles.editIcon}/>
+                <input
+                  id="inputTag"
+                  style={styles.imgInput}
+                  type="file"
+                  accept="image/jpeg"
+                  name="img"
+                  onChange={handleImage}
+                />
+              </label>
+>>>>>>> origin/dev
           </Box>
         </Box>
         <Box style={styles.bottomSection}>
@@ -245,6 +287,7 @@ export default function UpdateProfile() {
     </Box>
   );
 }
+<<<<<<< HEAD
 {
   /* <Box
           component="div"
@@ -318,3 +361,5 @@ export default function UpdateProfile() {
           Guardar Cambios
         </Button> */
 }
+=======
+>>>>>>> origin/dev

@@ -101,7 +101,7 @@ export default function UpdateService() {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+    <Box sx={{ width:'70%', display: "flex", flexDirection: "column", gap: "20px" }}>
       <Typography variant="h6">Modificar servicio</Typography>
       {error && <p>{error.name}</p>}
       <form

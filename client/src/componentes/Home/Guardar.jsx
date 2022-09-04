@@ -1,10 +1,14 @@
 /* eslint-disable no-unused-vars */
+import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/authContext";
 import Footer from "../Footer";
 import Paging from "../Paging";
 import Navbar from "../PrivateRoute/Navbar";
+import Reviews from "../reviews/Reviews";
 import Category from "./AuxHome/Category";
+
+import '../css/revwievs.css'
 
 
 export default function Guardar() {
@@ -31,9 +35,10 @@ export default function Guardar() {
         <div>
           <Category />
         </div>
-        <div>
-          <h2>Algunas de las reviews de nuestros usuarios</h2>
-        </div>
+        <Box className="rev-section">
+          <Typography variant="h4" sx={{position: 'relative ',margin: '70px auto 150px', borderBottom:'solid 2px black', paddingBottom: '40px', width:'700px'}}>Algunas de las reviews de nuestros usuarios</Typography>
+          <Reviews />
+        </Box>
         <Footer />
       </div>
     );

@@ -12,6 +12,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  margin-right: 20px;
+  
 }
 
 .footer__lista {
@@ -21,6 +23,7 @@
 .footer__lista--item {
   cursor: pointer;
   transition: all 0.5s;
+  list-style: circle;
 }
 
 .footer__lista--item:hover {
@@ -41,8 +44,9 @@ a {
 .formulario {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  margin-right: 8%;
+  gap: 1.2rem;
+  margin-right: 5%;
+  margin-left: 2%;
 }
 
 .formulario__titulo {
@@ -74,7 +78,9 @@ a {
   padding: 0.5rem;
   width: 35rem;
 }
-
+.formulario input:active{
+  background-color: #f1f1f1;
+} 
 .formulario textarea {
   background-color: #ffffff;
   border: none;
@@ -86,6 +92,9 @@ a {
   padding: 0.5rem;
   resize: none;
   width: 35rem;
+}
+.formulario textarea:active{
+  background-color: #f1f1f1;
 }
 
 .formulario__boton {
