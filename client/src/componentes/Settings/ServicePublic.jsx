@@ -19,26 +19,24 @@ export default function PublicServices() {
   }, [dispatch, user?.email]);
 
   const handleDelete = async (e) => {
-    e.preventDefault()
-    await toast.promise(
-     dispatch(deleteService(e.target.id)),
-       {
-         loading: 'Saving...',
-         success: <b>Servicio borrado</b>,
-         error: <b>No se pudo borrar el servicio</b>,
-       },
+    e.preventDefault();
+    await toast.promise(dispatch(deleteService(e.target.id)), {
+      loading: "Saving...",
+      success: <b>Servicio borrado</b>,
+      error: <b>No se pudo borrar el servicio</b>,
+    });
+    window.location.reload(true);
+  };
 
-       );
-       window.location.reload(true)
-       
-  }
-  
   return (
-    <Box sx={{width:'70%'}}>
+    <Box sx={{ width: "70%" }}>
       {userState[0]?.services?.length === 0 ? (
         <div>
           <p>Este usuario no tiene ningun servicio registrado</p>
-          <p>Si quieres publicar servicios, dirigete a la seccion <Link to='/home/createService'>crear servicios</Link> </p>
+          <p>
+            Si quieres publicar servicios, dirigete a la seccion{" "}
+            <Link to="/home/createService">crear servicios</Link>{" "}
+          </p>
         </div>
       ) : (
         userState[0]?.services.map((e) => {
@@ -55,31 +53,43 @@ export default function PublicServices() {
             //     {e.description}
             //   </p>
             // </div>
-            <Box sx={{width:'100%'}}>
-              <Box sx={{display: 'flex',
-                border: 'solid grey 1px', 
+            <Box sx={{ width: "100%" }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  border: "solid grey 1px",
 
-                borderRadius: '10px',
-                padding:'2%',
-                margin:'2%'}}>
-                  <Typography variant="h6">Categoria: {e.category.name}</Typography>
-                  
-                  <Typography variant="h6">{e.name}</Typography>
-                  
-                  <Typography variant="p">Dias disponibles: {e.day}</Typography>
-                  <Typography variant="p">Precio: ${e.price}</Typography>
-                  <Typography variant="p">
-                    Descripcion del servicio <br />
-                    {e.description}
-                  </Typography>
+                  borderRadius: "10px",
+                  padding: "2%",
+                  margin: "2%",
+                }}
+              >
+                <Typography variant="h6">
+                  Categoria: {e.category?.name}
+                </Typography>
 
+                <Typography variant="h6">{e.name}</Typography>
 
-                  <Button>
-                  <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`${e.id}`}>Modificar Servicio</NavLink>
-                  </Button>
-                  <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button>
-                </Box>
-                </Box>
+                <Typography variant="p">Dias disponibles: {e.day}</Typography>
+                <Typography variant="p">Precio: ${e.price}</Typography>
+                <Typography variant="p">
+                  Descripcion del servicio <br />
+                  {e.description}
+                </Typography>
+
+                <Button>
+                  <NavLink
+                    style={{ textDecoration: "none", color: "blue" }}
+                    to={`${e.id}`}
+                  >
+                    Modificar Servicio
+                  </NavLink>
+                </Button>
+                <Button id={e.id} onClick={handleDelete}>
+                  Borrar Servicio
+                </Button>
+              </Box>
+            </Box>
           );
         })
       )}
