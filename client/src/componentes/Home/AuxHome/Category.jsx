@@ -2,7 +2,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getAllCategories } from "../../../redux/actions";
 
 import "../../css/home.css";
@@ -37,15 +37,15 @@ export default function Category() {
           category?.map((e) => {
             console.log(category);
             return (
-              <NavLink key={e.id} to={`/home/${e.name}`}>
-                <div >
-                  <div className="card-category"  >
+              <Link key={e.id} to={`/home/${e.name}`}>
+                <div className="card-category-container" >
+                  <div className="card-category">
                     <h3 className="title-category">{e.name}</h3>
                     <img src={e.img} alt={e.name} height="200px" width="300px" />
                     {/* <Button value={e.name} onClick={handleOnClick}>Ir</Button> */}
                   </div>
                 </div>
-              </NavLink>
+              </Link>
             );
           })}
       </div>
