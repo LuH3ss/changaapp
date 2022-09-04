@@ -67,7 +67,7 @@ export default function Notifications() {
               >
                 <Box sx={{ padding: "2%" }}>
                   <Typography sx={{ fontSize: "1.3rem" }}>
-                    Notificacion de {e.userNotification.firstName}{" "}
+                    Notificacion de {e.userNotification?.firstName}{" "}
                   </Typography>
                   <Typography sx={{ fontSize: "1.3rem" }}>
                     {e.message}

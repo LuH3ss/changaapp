@@ -90,7 +90,7 @@ export default function PublicServices() {
                   <Typography
                     style={styles.infoText}
                     variant="h7"
-                  >{`Categoría: ${e.category.name}`}</Typography>
+                  >{`Categoría: ${e.category?.name}`}</Typography>
                   <Typography
                     style={styles.infoText}
                     variant="h7"
