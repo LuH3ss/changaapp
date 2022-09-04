@@ -28,11 +28,7 @@ export default function PublicServices() {
     window.location.reload(true);
   };
 
-<<<<<<< HEAD
-       );
-       window.location.reload(true)
-       
-  }
+
 
   const styles = {
     infoText:{
@@ -41,8 +37,7 @@ export default function PublicServices() {
     }
   }
   
-=======
->>>>>>> origin/dev
+
   return (
     <Box sx={{ width: "70%" }}>
       {userState[0]?.services?.length === 0 ? (
@@ -56,19 +51,6 @@ export default function PublicServices() {
       ) : (
         userState[0]?.services.map((e) => {
           return (              
-            // <div>
-            //   <Link to={`/settings/updateService/${e.id}`}><button>Modificar Servicio</button></Link>
-            //   <button id={e.id} onClick={handleDelete} >Borrar Servicio</button>
-            //   <h3>Categoria: {e.category.name}</h3>
-            //   <h5>{e.name}</h5>
-            //   <p>Dias disponibles: {e.day}</p>
-            //   <p>Precio: ${e.price}</p>
-            //   <p>
-            //     Descripcion del servicio <br />
-            //     {e.description}
-            //   </p>
-            // </div>
-<<<<<<< HEAD
                 <Box sx={{display: 'flex',
                   border: 'solid grey 1px', 
                   flexDirection:'column',
@@ -114,64 +96,6 @@ export default function PublicServices() {
                   </Box>
 
                 </Box>
-                
-                  /* <Typography variant="h6">Categoria: {e.category.name}</Typography>
-                  
-                  <Typography variant="h6">{e.name}</Typography>
-                  
-                  <Typography variant="p">Dias disponibles: {e.day}</Typography>
-                  <Typography variant="p">Precio: ${e.price}</Typography>
-                  <Typography variant="p">
-                    Descripcion del servicio <br />
-                    {e.description}
-                  </Typography>
-=======
-            <Box sx={{ width: "100%" }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  border: "solid grey 1px",
-
-                  borderRadius: "10px",
-                  padding: "2%",
-                  margin: "2%",
-                }}
-              >
-                <Typography variant="h6">
-                  Categoria: {e.category?.name}
-                </Typography>
->>>>>>> origin/dev
-
-                <Typography variant="h6">{e.name}</Typography>
-
-<<<<<<< HEAD
-                  <Button>
-                  <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`${e.id}`}>Modificar Servicio</NavLink>
-                  </Button>
-                  <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button> */
-                
-=======
-                <Typography variant="p">Dias disponibles: {e.day}</Typography>
-                <Typography variant="p">Precio: ${e.price}</Typography>
-                <Typography variant="p">
-                  Descripcion del servicio <br />
-                  {e.description}
-                </Typography>
-
-                <Button>
-                  <NavLink
-                    style={{ textDecoration: "none", color: "blue" }}
-                    to={`${e.id}`}
-                  >
-                    Modificar Servicio
-                  </NavLink>
-                </Button>
-                <Button id={e.id} onClick={handleDelete}>
-                  Borrar Servicio
-                </Button>
-              </Box>
-            </Box>
->>>>>>> origin/dev
           );
         })
       )}
