@@ -12,6 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import camera from "../../../pngwing.com.png";
 import toast, {Toaster} from 'react-hot-toast'
+import EditIcon from '@mui/icons-material/Edit';
+
+
+
 
 function validate(input) {
   let error = {};
@@ -147,6 +151,21 @@ export default function UpdateProfile() {
     },
     formLabel: {
       fontSize:'1.3rem'
+    },
+    editImg:{
+      position:'relative',
+      left: '0',
+      top: '0',
+    },
+    editIcon:{
+      position:'absolute',
+      zIndex:'1', 
+      bottom:'15px', 
+      left:'15px',
+      borderRadius:'50%',
+      backgroundColor:'white', 
+      padding:'4%', 
+      cursor:'pointer'
     }
   }
 
@@ -195,12 +214,13 @@ export default function UpdateProfile() {
             </Box>
           </Box>
           <Box style={styles.imgSection}>
-              <label for="inputTag">
+              <label style={styles.editImg} for="inputTag">
                 <img
-                  style={{ width: "150px", height: "150px", cursor: "pointer" }}
-                  src={estado[0].img !== "" ? estado[0].img : camera}
+                  style={{ width: "150px", height: "150px", cursor: "pointer", zIndex:'-1' }}
+                  src={input.img? input.img : estado[0].img !== "" ? estado[0].img : camera}
                   alt=""
                 />
+                <EditIcon style={styles.editIcon}/>
                 <input
                   id="inputTag"
                   style={styles.imgInput}
@@ -232,74 +252,3 @@ export default function UpdateProfile() {
     </Box>
   );
 }
-{/* <Box
-          component="div"
-          sx={{ display: "flex", gap: "50px", marginBottom: "25px" }}
-        >
-          <Typography>Imagen de perfil</Typography>
-          <Button variant="outlined" component="label">
-            Cargar
-            <input
-              onChange={handleImage}
-              hidden
-              accept="image/*"
-              multiple
-              type="file"
-            />
-          </Button>
-        </Box>
-        <Box
-          component="div"
-          sx={{ display: "flex", gap: "20px", marginBottom: "25px" }}
-        >
-          <Typography>Nombre de Usuario: </Typography>
-          <TextField
-            type="text"
-            value={input.firstName}
-            placeholder={estado[0].firstName}
-            name="firstName"
-            onChange={handleChange}
-          />
-        </Box>
-        <Box
-          component="div"
-          sx={{ display: "flex", gap: "15px", marginBottom: "25px" }}
-        >
-          <Typography>Apellido del Usuario: </Typography>
-          <TextField
-            type="text"
-            placeholder={estado[0].lastName}
-            value={input.lastName}
-            name="lastName"
-            onChange={handleChange}
-          />
-        </Box>
-        <Box
-          component="div"
-          sx={{ display: "flex", gap: "15px", marginBottom: "25px" }}
-        >
-          <Typography>Ubicacion: </Typography>
-          <TextField
-            type="textArea"
-            placeholder={estado[0].location}
-            value={input.location}
-            name="location"
-            onChange={handleChange}
-          />
-        </Box>
-        <Box
-          component="div"
-          sx={{ display: "flex", gap: "15px", marginBottom: "25px" }}
-        >
-          <Typography>Descripcion: </Typography>
-          <TextField
-            type="text"
-            placeholder={estado[0].description}
-            value={input.description}
-            name="description"
-            onChange={handleChange}
-          />
-        </Box>
-        <Button type="submit" disabled={btn}>
-          Guardar Cambios
-        </Button> */}
