@@ -10,5 +10,5 @@
 .star{
     cursor: pointer;
     transition: color 200ms;
-   
+   background-color: black;
 }

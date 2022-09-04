@@ -16,7 +16,7 @@ export default function Review({ user_id }) {
   const userData = useSelector((state) => state.filter);
   // const serviceId = useSelector((state) => state.filterId);
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   let service = useSelector((state) => state.services);
   service = service.filter((p) => p.id === id);
   const dispatch = useDispatch();
@@ -34,15 +34,11 @@ export default function Review({ user_id }) {
       rate: rating,
       author_id: userData[0]?.id,
       user_id: service[0]?.user_id,
-      // author_id: userData ? userData.map(u=>{
-      //   return u.email
-      // })
-      // : "Error"
     });
-    alert("Gracias por dejar su reseña")
-    console.log(userData, "userData");
-    console.log(reviewData, "review data");
-    setMessage("")
+
+    alert("Gracias por dejar su reseña");
+    setMessage("");
+    setRating(null);
   };
 
   function handleInput(e) {
@@ -75,7 +71,7 @@ export default function Review({ user_id }) {
               <FaStar
                 className="star"
                 color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
-                size={100}
+                size={20}
                 onMouseEnter={() => setHover(ratingValue)}
                 onMouseLeave={() => setHover(null)}
               />
