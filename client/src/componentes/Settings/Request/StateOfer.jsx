@@ -81,8 +81,8 @@ export default function StateRequester() {
     e.preventDefault();
     dispatch(deleteRequest(e.target.id));
     window.location.reload(true);
-  }
-  console.log(filterById)
+  };
+  console.log(filterById);
   return (
     <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
       <h1>Estado de los servicios solicitados</h1>
@@ -91,7 +91,7 @@ export default function StateRequester() {
       ) : (
         filterById.map((e) => {
           return (
-            <div>
+            <div key={e.id}>
               <h3>{e.services?.name}</h3>
               <p>
                 El servicio esta solicitado para el dia {e.day} a las {e.hours}
@@ -103,7 +103,7 @@ export default function StateRequester() {
                   Eliminar
                 </Button>
               ) : (
-                <div>
+                <div key="Requester">
                   {e.state === "aceptado" ? (
                     <div>
                       <p>
@@ -116,79 +116,86 @@ export default function StateRequester() {
                       <p>
                         Si quieres cancelar la solicitud aprieta el siguiente
                         boton{" "}
-                        <Button name={e.services?.user_id}
-                        id={e.id}
-                        onClick={handleClic}>
+                        <Button
+                          name={e.services?.user_id}
+                          id={e.id}
+                          onClick={handleClic}
+                        >
                           Cancelar
                         </Button>
                         <div>
-                        <Dialog open={!hide}>
-                        <div
-                          style={hide === true ? styles.hide : styles.nohide}
-                        >
-                          <form onSubmit={(p) => handleClear(p)}>
-                            <label>
-                              Deja un mensaje explicando el motivo de
-                              cancelacion
-                            </label>
-                            <br />
-                            <input
-                              type="text"
-                              name="message"
-                              value={noti.message}
-                              onChange={handleNotification}
-                            />
-                            <br />
-                            <button type="submit" id={e.id}>
-                              Enviar
-                            </button>
-                          </form>
-                          <button onClick={handleClic}>Cerrar</button>
-                        </div>
-                      </Dialog>
+                          <Dialog open={!hide}>
+                            <div
+                              style={
+                                hide === true ? styles.hide : styles.nohide
+                              }
+                            >
+                              <form onSubmit={(p) => handleClear(p)}>
+                                <label>
+                                  Deja un mensaje explicando el motivo de
+                                  cancelacion
+                                </label>
+                                <br />
+                                <input
+                                  type="text"
+                                  name="message"
+                                  value={noti.message}
+                                  onChange={handleNotification}
+                                />
+                                <br />
+                                <button type="submit" id={e.id}>
+                                  Enviar
+                                </button>
+                              </form>
+                              <button onClick={handleClic}>Cerrar</button>
+                            </div>
+                          </Dialog>
                         </div>
                       </p>
                     </div>
                   ) : (
                     <div>
-                      {
-                        e.state === 'Pagado' ? 
-                        <Link to={`/services/review/${e.service_id}`}><button>Dejar review</button></Link>
-                        
-                        : <div>
-                        <button
-                          name={e.services?.user_id}
-                          id={e.id}
-                          onClick={handleClic}
-                        >
-                          Cancelar Servicio
-                        </button>
-                        <Dialog open={!hide}>
-                          <div
-                            style={hide === true ? styles.hide : styles.nohide}
+                      {e.state === "Pagado" ? (
+                        <Link to={`/services/review/${e.service_id}`}>
+                          <button>Dejar review</button>
+                        </Link>
+                      ) : (
+                        <div>
+                          <button
+                            name={e.services?.user_id}
+                            id={e.id}
+                            onClick={handleClic}
                           >
-                            <form onSubmit={(p) => handleClear(p)}>
-                              <label>
-                                Deja un mensaje explicando el motivo de
-                                cancelacion
-                              </label>
-                              <br />
-                              <input
-                                type="text"
-                                name="message"
-                                value={noti.message}
-                                onChange={handleNotification}
-                              />
-                              <br />
-                              <button type="submit" id={e.id}>
-                                Enviar
-                              </button>
-                            </form>
-                            <button onClick={handleClic}>Cerrar</button>
-                          </div>
-                        </Dialog>
-                      </div>
-                      }
+                            Cancelar Servicio
+                          </button>
+                          <Dialog open={!hide}>
+                            <div
+                              style={
+                                hide === true ? styles.hide : styles.nohide
+                              }
+                            >
+                              <form onSubmit={(p) => handleClear(p)}>
+                                <label>
+                                  Deja un mensaje explicando el motivo de
+                                  cancelacion
+                                </label>
+                                <br />
+                                <input
+                                  type="text"
+                                  name="message"
+                                  value={noti.message}
+                                  onChange={handleNotification}
+                                />
+                                <br />
+                                <button type="submit" id={e.id}>
+                                  Enviar
+                                </button>
+                              </form>
+                              <button onClick={handleClic}>Cerrar</button>
+                            </div>
+                          </Dialog>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

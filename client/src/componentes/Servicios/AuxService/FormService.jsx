@@ -446,6 +446,7 @@ export default function FormService() {
                     {service?.hours?.map((el) => {
                       return (
                         <Box
+                          key={el.id}
                           sx={{
                             display: "flex",
                             alignItems: "center",

@@ -90,16 +90,16 @@ export default function StateRequest() {
       ) : (
         filterEmail?.map((p) => {
           return p.request.length === 0 ? (
-            <p>No tienes estados pendientes del servicio {p.name}</p>
+            <p key={p.id}>No tienes estados pendientes del servicio {p.name}</p>
           ) : (
             p.request?.map((e) => {
               return e.state === "rechazado" || e.state === "Pagado" ? (
-                <p>
+                <p key={e.id}>
                   La orden #{e.id} del servicio {filterEmail[0].name} fue{" "}
                   {e.state === "Pagado" ? "Pagada" : "Rechazada"}
                 </p>
               ) : (
-                <div>
+                <div key="Request">
                   <p>Nombre del servicio: {p.name}</p>
                   <p>Reservado por: {e.userRequester?.firstName} </p>
                   <img src={e.userRequester?.img} alt="asd" width="150px" />

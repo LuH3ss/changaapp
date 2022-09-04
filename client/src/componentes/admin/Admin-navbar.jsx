@@ -27,7 +27,7 @@ export default function Adminnavbar() {
         onChange={handleChange}
         value={value}
         aria-label="Tabs where selection follows focus"
-        selectionFollowsFocus
+        selectionfollowsfocus="true"
         sx={{
           width: "100%",
           display: "flex",
@@ -38,7 +38,9 @@ export default function Adminnavbar() {
         }}
       >
         <div>
-          <Link style={{textDecoration: 'none', color: '#fff'}} to='/home'><h2>ChangApp</h2></Link>
+          <Link style={{ textDecoration: "none", color: "#fff" }} to="/home">
+            <h2>ChangApp</h2>
+          </Link>
         </div>
 
         <Box sx={{ display: "flex" }}>

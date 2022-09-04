@@ -1,5 +1,7 @@
 const { Category, Services, Request, User } = require("../db");
 const requestMail = require("./Emails/sendEmails");
+const requestAceptadoMail = require("./Emails/sendEmails");
+const requestRechazadoMail = require("./Emails/sendEmails");
 
 const getRequest = async (req, res) => {
   try {
@@ -73,15 +75,21 @@ const putRequest = async (req, res) => {
         email,
       }
     );
+    if (state === "aceptado") {
+      const asunto = "Novedades en su solicitud de servicio";
+      const mensaje =
+        "Su solicitud de servicio ha sido aceptada. Felicitaciones";
+      requestAceptadoMail.email(email, asunto, mensaje);
+    } else {
+      const asunto = "Novedades en su solicitud de servicio";
+      const mensaje = "Su solicitud de servicio ha sido rechazada";
+      requestRechazadoMail.email(email, asunto, mensaje);
+    }
     res.status(201).send("Request updated");
   } catch (error) {
     // console.log(error);
     res.status(404).send(error);
   }
-  const asunto = "Novedades en su solicitud de Servicio";
-  const mensaje =
-    "Su solicitud de servicio de ChangaApp ha sido aceptada/rechazada";
-  requestMail.email(email, asunto, mensaje);
 };
 
 const deleteRequest = async (req, res) => {

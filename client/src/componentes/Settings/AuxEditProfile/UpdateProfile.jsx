@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import camera from "../../../pngwing.com.png";
 
-
 function validate(input) {
   let error = {};
 
@@ -93,7 +92,6 @@ export default function UpdateProfile() {
     if (input.description === "") input.description = estado[0].description;
     if (input.location === "") input.location = estado[0].location;
 
-
     dispatch(updateUser(user?.email, input));
     dispatch(postNotification(noti));
     alert("Cambios guardados con exito");
@@ -102,7 +100,13 @@ export default function UpdateProfile() {
 
   //PARA CONTROLAR QUE SI NO INGRESO NINGUN DATO NO PUEDA GUARDAR LOS CAMBIOS
   useEffect(() => {
-    if (input.img || input.firstName || input.lastName || input.location || input.description) {
+    if (
+      input.img ||
+      input.firstName ||
+      input.lastName ||
+      input.location ||
+      input.description
+    ) {
       setBtn(false);
     } else {
       setBtn(true);
@@ -111,56 +115,59 @@ export default function UpdateProfile() {
 
   const styles = {
     container: {
-      margin:'4%',
-      height:'60vh',
-      display:'flex', 
-      alignItems:'center', 
-      justifyContent:'center', 
-      padding:'4%',
-      border: 'solid grey 1px',
-      borderRadius: '10px'
+      margin: "4%",
+      height: "60vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "4%",
+      border: "solid grey 1px",
+      borderRadius: "10px",
     },
     form: {
-      width:'80%',
-      display:'flex',
-      flexDirection:'column'
+      width: "80%",
+      display: "flex",
+      flexDirection: "column",
     },
     topSection: {
-      width:'100%',
-      display:'flex',
-      justifyContent:'space-between'
+      width: "100%",
+      display: "flex",
+      justifyContent: "space-between",
     },
     bottomSection: {
-      padding:'5%',
-      width:'100%',
-      display:'flex',
-      alignItems:'center'
+      padding: "5%",
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
     },
     inputsSection: {
-      width:'55%'
+      width: "55%",
     },
     imgInput: {
       width: "100%",
       display: "none",
     },
     bottomSection: {
-      padding:'30px'
+      padding: "30px",
     },
     formLabel: {
-      fontSize:'1.3rem'
-    }
-  }
+      fontSize: "1.3rem",
+    },
+  };
 
   return (
-    
     <Box style={styles.container}>
       <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <Box style={styles.topSection}>
           <Box style={styles.inputsSection}>
-            <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
-              <Typography style={styles.formLabel}>
-                Nombre: 
-              </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography style={styles.formLabel}>Nombre:</Typography>
               <TextField
                 type="text"
                 value={input.firstName}
@@ -169,10 +176,14 @@ export default function UpdateProfile() {
                 onChange={handleChange}
               />
             </Box>
-            <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
-              <Typography style={styles.formLabel}>
-                Apellido: 
-              </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography style={styles.formLabel}>Apellido:</Typography>
               <TextField
                 type="text"
                 placeholder={estado[0].lastName}
@@ -181,10 +192,14 @@ export default function UpdateProfile() {
                 onChange={handleChange}
               />
             </Box>
-            <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
-              <Typography style={styles.formLabel}>
-                Localidad: 
-              </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography style={styles.formLabel}>Localidad:</Typography>
               <TextField
                 type="textArea"
                 placeholder={estado[0].location}
@@ -195,35 +210,33 @@ export default function UpdateProfile() {
             </Box>
           </Box>
           <Box style={styles.imgSection}>
-              <label for="inputTag">
-                <img
-                  style={{ width: "150px", height: "150px", cursor: "pointer" }}
-                  src={estado[0].img !== "" ? estado[0].img : camera}
-                  alt=""
-                />
-                <input
-                  id="inputTag"
-                  style={styles.imgInput}
-                  type="file"
-                  accept="image/jpeg"
-                  name="img"
-                  onChange={handleImage}
-                />
-              </label>
+            <label htmlFor="inputTag">
+              <img
+                style={{ width: "150px", height: "150px", cursor: "pointer" }}
+                src={estado[0].img !== "" ? estado[0].img : camera}
+                alt=""
+              />
+              <input
+                id="inputTag"
+                style={styles.imgInput}
+                type="file"
+                accept="image/jpeg"
+                name="img"
+                onChange={handleImage}
+              />
+            </label>
           </Box>
         </Box>
         <Box style={styles.bottomSection}>
-            <Typography style={styles.formLabel}>
-              Descripción: 
-            </Typography>
-            <TextField
-                sx={{width:'100%'}}
-                type="text"
-                placeholder={estado[0].description}
-                value={input.description}
-                name="description"
-                onChange={handleChange}
-              />
+          <Typography style={styles.formLabel}>Descripción:</Typography>
+          <TextField
+            sx={{ width: "100%" }}
+            type="text"
+            placeholder={estado[0].description}
+            value={input.description}
+            name="description"
+            onChange={handleChange}
+          />
         </Box>
         <Button type="submit" disabled={btn}>
           Guardar Cambios
@@ -232,7 +245,8 @@ export default function UpdateProfile() {
     </Box>
   );
 }
-{/* <Box
+{
+  /* <Box
           component="div"
           sx={{ display: "flex", gap: "50px", marginBottom: "25px" }}
         >
@@ -302,4 +316,5 @@ export default function UpdateProfile() {
         </Box>
         <Button type="submit" disabled={btn}>
           Guardar Cambios
-        </Button> */}
+        </Button> */
+}

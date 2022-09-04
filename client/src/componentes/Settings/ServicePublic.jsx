@@ -54,7 +54,7 @@ export default function PublicServices() {
             //   </p>
             // </div>
 
-            <Box sx={{ width: "100%" }}>
+            <Box key={e.id} sx={{ width: "100%" }}>
               <Box
                 sx={{
                   display: "flex",
