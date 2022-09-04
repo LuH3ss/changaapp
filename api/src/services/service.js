@@ -1,6 +1,7 @@
 const { Category, Services, Request, User } = require("../db");
 const { Op } = require("sequelize");
 const serviceMail = require("./Emails/sendEmails");
+const deleteServiceMail = require("./Emails/sendEmails");
 
 const getServices = async (req, res) => {
   const { category } = req.query;
@@ -134,7 +135,13 @@ const deleteService = async (req, res) => {
       },
     });
     res.status(201).send("Service deleted");
-  } catch (error) {}
+  } catch (error) {
+    res.status(404).send(error);
+  }
+  const email = "pfhenrychangapp@gmail.com";
+  const asunto = "Eliminacion de Servicio";
+  const mensaje = `Se ha eliminado el servicio exitosamente`;
+  deleteServiceMail.email(email, asunto, mensaje);
 };
 
 module.exports = {

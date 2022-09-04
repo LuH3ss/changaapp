@@ -46,7 +46,7 @@ const deleteCategory = async (req, res) => {
   }
   const email = "pfhenrychangapp@gmail.com";
   const asunto = "Eliminacion de Categoria";
-  const mensaje = `Se ha borrado la categoria exitosamente`;
+  const mensaje = `Se ha eliminado la categoria exitosamente`;
   deleteCategoryMail.email(email, asunto, mensaje);
 };
 
