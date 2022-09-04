@@ -1,5 +1,7 @@
 const { Category, Services, User, Reviews, Request } = require("../db");
 const registerMail = require("./Emails/sendEmails");
+const bannedMail = require("./Emails/sendEmails");
+const desbannedMail = require("./Emails/sendEmails");
 
 const register = async (req, res) => {
   const {
@@ -193,7 +195,7 @@ const bannState = async (req, res) => {
 
   if (id) {
     try {
-      const { banned } = req.body;
+      const { banned, email } = req.body;
       console.log(banned);
       const user = await User.update(
         {
@@ -203,9 +205,23 @@ const bannState = async (req, res) => {
           where: {
             id,
           },
+        },
+        {
+          email: email,
         }
       );
-      return res.status(201).send(user);
+      if (banned === true) {
+        const asunto = "Usuario baneado";
+        const mensaje =
+          "Su usuario ha sido baneado de ChangaApp, por favor comuniquese con soporte para ver su situacion";
+        bannedMail.email(email, asunto, mensaje);
+      } else {
+        const asunto = "Usuario desbaneado";
+        const mensaje = "Su usuario ha sido desbaneado de ChangaApp.";
+        desbannedMail.email(email, asunto, mensaje);
+      }
+      res.status(201).send(user);
+      console.log(banned, "BANNED");
     } catch (error) {
       res.status(404).send("inbloqueable bro 😎");
     }

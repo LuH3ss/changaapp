@@ -34,11 +34,12 @@ export default function UserDetail() {
   const userRequest = allRequests?.filter(
     (req) => req.services?.user_id === id
   );
-
   const userRequestDone = allRequests?.filter((req) => req.requester_id === id);
 
   const handleBanned = (id) => {
-    dispatch(bannedState(id, { banned: !user[0]?.banned }));
+    dispatch(
+      bannedState(id, { banned: !user[0]?.banned, email: user[0]?.email })
+    );
     window.location.reload();
   };
 
