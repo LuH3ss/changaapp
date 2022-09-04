@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import { getUserEmail, registerUser } from "../../../redux/actions";
+import toast, {Toaster} from 'react-hot-toast'
 
 function validate(fire) {
   let error = {};
@@ -85,10 +86,14 @@ export default function CompleteProfile() {
     if (fire.img === "") fire.img = user?.photoURL;
     if (fire.email === "") fire.email = user?.email;
     dispatch(registerUser(fire));
-    window.location.reload(true);
+    toast.success('Datos recibidos exitosamente')
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 2000);
   };
   return (
     <div>
+      <Toaster position="top-center" reverseOrder={false} />
       <h4>Completar tus datos antes de seguir</h4>
       <form onSubmit={(e) => handleOnSubmit(e)}>
         <div>

@@ -11,7 +11,7 @@ import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import camera from "../../../pngwing.com.png";
-
+import toast, {Toaster} from 'react-hot-toast'
 
 function validate(input) {
   let error = {};
@@ -96,8 +96,10 @@ export default function UpdateProfile() {
 
     dispatch(updateUser(user?.email, input));
     dispatch(postNotification(noti));
-    alert("Cambios guardados con exito");
-    navigate("/settings/profile");
+    toast.success("Cambios guardados con exito");
+    setTimeout(() => {
+      navigate("/settings/profile");
+    }, 2000);
   };
 
   //PARA CONTROLAR QUE SI NO INGRESO NINGUN DATO NO PUEDA GUARDAR LOS CAMBIOS
@@ -143,9 +145,6 @@ export default function UpdateProfile() {
       width: "100%",
       display: "none",
     },
-    bottomSection: {
-      padding:'30px'
-    },
     formLabel: {
       fontSize:'1.3rem'
     }
@@ -154,6 +153,7 @@ export default function UpdateProfile() {
   return (
     
     <Box style={styles.container}>
+      <Toaster position="top-center" reverseOrder={false} />
       <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <Box style={styles.topSection}>
           <Box style={styles.inputsSection}>
@@ -163,7 +163,7 @@ export default function UpdateProfile() {
               </Typography>
               <TextField
                 type="text"
-                value={input.firstName}
+                value={input.firstName} 
                 placeholder={estado[0].firstName}
                 name="firstName"
                 onChange={handleChange}

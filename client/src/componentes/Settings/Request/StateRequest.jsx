@@ -69,7 +69,7 @@ export default function StateRequest() {
     if (btn.state !== "") {
       dispatch(postNotification(noti));
       dispatch(updateRequest({ ...btn, email: e.target.name }));
-      toast('Servicio Actualizado', {
+      toast('Solicitud Actualizada', {
         icon: '👏',
       });
       setTimeout(() => {
@@ -100,7 +100,7 @@ export default function StateRequest() {
                 </p>
               ) : (
                 <div>
-                  <p>Nombre del servicio: {filterEmail[0]?.name}</p>
+                  <p>Nombre del servicio: {p.name}</p>
                   <p>Reservado por: {e.userRequester?.firstName} </p>
                   <img src={e.userRequester?.img} alt="asd" width='150px'/>
                   <p>Estado: {e.state}</p>

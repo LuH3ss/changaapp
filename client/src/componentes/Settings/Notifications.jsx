@@ -10,6 +10,7 @@ export default function Notifications(){
     const userState = useSelector((state) => state.filter);
     const dispatch = useDispatch()
     notifications = notifications.filter(e => e.userNotificated_id === userState[0]?.id)
+    notifications = notifications.reverse()
     useEffect(() => {
        dispatch(allNotifications())  
        dispatch(getUserEmail(user?.email)) 

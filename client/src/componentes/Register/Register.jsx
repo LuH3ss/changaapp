@@ -303,6 +303,7 @@ export default function Register() {
               onChange={handleOnChange}
             />
             {error.password && <p>{error.password}</p>}
+            <p>Al hacer clic en Registrarte, aceptas las Condiciones, la Política de privacidad y la Política de cookies.</p>
             <Box
               sx={{
                 width: "100%",

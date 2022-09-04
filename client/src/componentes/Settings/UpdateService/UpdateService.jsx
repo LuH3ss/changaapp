@@ -8,6 +8,7 @@ import {
 } from "../../../redux/actions";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import toast, {Toaster} from 'react-hot-toast'
 
 function validate(service) {
   let error = {};
@@ -93,11 +94,15 @@ export default function UpdateService() {
     }
     dispatch(postNotification(noti));
     dispatch(updateService(param.id, service));
-    navigate("/settings/services");
+    toast.success('Servicio actualizado')
+    setTimeout(() => {
+      navigate("/settings/services");
+    }, 2000);
   };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+      <Toaster position="top-center" reverseOrder={false} />
       <Typography variant="h6">Modificar servicio</Typography>
       {error && <p>{error.name}</p>}
       <form
