@@ -5,11 +5,13 @@
     align-items: center;
     height: 8%;
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
     padding: 10px 0;
     background-color: #2f486b;
     color: white;
     margin: flex-start;
+    top: 0%;
+    z-index: 1;
 }
 
 .app-title {

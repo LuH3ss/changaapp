@@ -26,7 +26,8 @@ import {
   USER_BY_ID,
   POST_REVIEW,
   DELETE_CATEGORY,
-  ADMIN_UPDATE
+  ADMIN_UPDATE,
+  ALL_REVIEWS
 
 
 
@@ -53,7 +54,9 @@ const initialStates = {
   postNotification: [],
   deleteNotification: [],
   postReview: [],
-  user: []
+  user: [],
+  reviews:[]
+
 
 
 };
@@ -224,8 +227,11 @@ const reducer = (state = initialStates, action) => {
         ...state,
         user: [...state.user, {...action.payload}]
       }  
-
-
+      case ALL_REVIEWS:
+        return {
+          ...state,
+          reviews: action.payload
+        }
     default:
       return state;
   }
