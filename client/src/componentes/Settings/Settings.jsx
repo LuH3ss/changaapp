@@ -1,5 +1,5 @@
 import { Box, Divider, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect} from "react";
 import { NavLink, Outlet, useLocation} from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import Navbar from "../PrivateRoute/Navbar";
@@ -12,11 +12,33 @@ import WorkIcon from '@mui/icons-material/Work';
 import EmailIcon from '@mui/icons-material/Email';
 import SendIcon from '@mui/icons-material/Send';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useSelector, useDispatch } from "react-redux";
+import { getUserEmail, allNotifications } from "../../redux/actions";
 
 export default function Settings(id) {
+
+  const dispatch = useDispatch();
   
   const location = useLocation()
   const { user, logout } = useAuth();
+
+  const userData = useSelector(state => state.filter)[0];
+  const Notifications = useSelector(state => state.allNotifications)
+  const totalNotifications = Notifications.filter(e => e.userNotificated_id === userData?.id).length;
+  const totalServices = userData?.services ? userData?.services.length : 0;
+  let totalRequestsReceived = 0;
+  userData?.services?.forEach((e) => totalRequestsReceived += e.request.length);
+  const totalRequestsMade = userData?.requester.length;
+
+  console.log(totalServices, totalRequestsReceived, totalRequestsMade)
+  console.log(totalNotifications)
+  console.log(location.pathname.split('/')[3])
+
+  useEffect(() => {
+    dispatch(getUserEmail(user?.email));
+    dispatch(allNotifications())  
+
+  }, [dispatch, user?.email]);
  
   const handleClick = (e) => {
     e.preventDefault()
@@ -26,8 +48,8 @@ export default function Settings(id) {
   const handleSelected = ({ isActive }) => {
     return{
       
-      color: isActive ? '#fff' : '#1F2937',
-      backgroundColor: isActive ? '#1F2937' : '#fff',
+      color: isActive ? "#E5E7EB" : '#1F2937',
+      backgroundColor: isActive ? '#1F2937' : "#E5E7EB",
       textDecoration: isActive ? 'none' : 'none'
       
     }
@@ -40,25 +62,29 @@ export default function Settings(id) {
       alignItems:'start', 
       justifyContent:'center', 
       gap:'20px',
+      backgroundColor: "#E5E7EB",
+
     },
     links:{
+      
       textDecoration:'none',
       color:"#1F2937",
     },
     icons:{
-      fontSize:'3rem',
+      fontSize:'2.5rem',
       padding:'0 0 0 4%',
       color:"#1F2937"
     },
     icons2:{
-      fontSize:'3rem',
+      fontSize:'2.5rem',
       padding:'0 0 0 4%',
       color:"#fff"
     },
     listText:{
       fontWeight:'bold',
-      fontSize:'1.3rem',
-      padding:'3.5%'
+      fontSize:'1.2rem',
+      padding:'3.5%',
+      width:'80%'
     },
     selected:{
       color:'red'
@@ -104,6 +130,7 @@ export default function Settings(id) {
                 <Box sx={{display:'flex', alignItems:'center'}}>
                   <NotificationsIcon id="notificationsIcon" style={location?.pathname === '/settings/notifications' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Notificaciones</Typography>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold', cursor:'pointer'}} htmlFor="">{totalNotifications}</label>
                 </Box>
               </NavLink>
 
@@ -113,6 +140,7 @@ export default function Settings(id) {
                 <Box sx={{display:'flex', alignItems:'center'}}>
                   <WorkIcon id="servicesIcon" style={location?.pathname === '/settings/services' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Servicios publicados</Typography>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">{totalServices}</label>
                 </Box>
               </NavLink>
 
@@ -122,6 +150,7 @@ export default function Settings(id) {
                 <Box sx={{display:'flex', alignItems:'center'}}>
                   <EmailIcon id="requestIcon" style={location?.pathname === '/settings/request' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Solicitudes recibidas</Typography>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">{totalRequestsReceived}</label>
                 </Box>
               </NavLink>
 
@@ -131,6 +160,7 @@ export default function Settings(id) {
                 <Box sx={{display:'flex', alignItems:'center'}}>
                   <SendIcon id="requesterIcon" style={location?.pathname === '/settings/requester' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Solicitudes enviadas</Typography>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">{totalRequestsMade}</label>
                 </Box>
               </NavLink>
 
