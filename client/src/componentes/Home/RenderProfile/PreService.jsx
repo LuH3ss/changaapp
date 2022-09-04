@@ -4,6 +4,7 @@ import { getAllServices } from "../../../redux/actions";
 import Footer from "../../Footer";
 import Navbar from "../../PrivateRoute/Navbar";
 import { Link, useParams } from "react-router-dom";
+import { Box, Typography, Button } from "@mui/material";
 
 export default function PreService(){
     let userState = useSelector(state => state.services)
@@ -21,15 +22,15 @@ export default function PreService(){
     }
     
     return(
-        <div>
+        <Box>
             <Navbar/>
-            <h5><span onClick={handleOnClic}>{userState[0]?.category.name}</span> {' > '} {userState[0]?.name}</h5>
+            <Typography><span onClick={handleOnClic}>{userState[0]?.category.name}</span> {' > '} {userState[0]?.name}</Typography>
             <h3>Descripcion general</h3>
             <div>
                 <div>
                     <img src={userState[0]?.user.img} alt={userState[0]?.user.firstName}  width='150px' height='150px'/>
                     <h5>{userState[0]?.user.firstName}</h5>
-                    <Link to={`/home/public/${userState[0]?.user.id}`}><button>Ver perfil</button></Link>
+                    <Link to={`/home/public/${userState[0]?.user.id}`}><Button variant='contained'>Ver perfil</Button></Link>
                 </div>
                 <div>
                     <p>Descripcion general:</p>
@@ -47,10 +48,10 @@ export default function PreService(){
                     <h4>Contratar Servicio</h4>
                     <span>Metodos de pago: <b>Credito / Debito</b></span>
                     <p>${userState[0]?.price}</p>
-                    <Link to={`/home/services/${userState[0]?.id}`}><button>Reserva tu turno</button></Link>
+                    <Link to={`/home/services/${userState[0]?.id}`}><Button variant='contained'>Reserva tu turno</Button></Link>
                 </div>
             </div>
-            <button onClick={handleOnClic}>Volver atras</button>
+            <Button variant='contained' onClick={handleOnClic}>Volver atras</Button>
             <Footer/>
-        </div>)
+        </Box>)
 }
