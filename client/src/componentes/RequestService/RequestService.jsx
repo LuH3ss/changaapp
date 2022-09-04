@@ -227,7 +227,7 @@ export default function RequestService(props) {
                     <Box style={styles.containerHours}>
                       {service?.hours?.split(",").map((el) => {
                         return (
-                          <Box key={el.id} style={styles.hours}>
+                          <Box style={styles.hours}>
                             <Typography>{el}</Typography>
                             <input
                               id={el}

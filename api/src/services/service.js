@@ -2,6 +2,7 @@ const { Category, Services, Request, User } = require("../db");
 const { Op } = require("sequelize");
 const serviceMail = require("./Emails/sendEmails");
 const deleteServiceMail = require("./Emails/sendEmails");
+const updateServiceMail = require("./Emails/sendEmails");
 
 const getServices = async (req, res) => {
   const { category } = req.query;
@@ -102,8 +103,16 @@ const getByName = async (req, res) => {
 const updateService = async (req, res) => {
   const { id } = req.params;
   try {
-    const { name, description, price, day, hours, user_id, category_id } =
-      req.body;
+    const {
+      name,
+      description,
+      price,
+      day,
+      hours,
+      user_id,
+      category_id,
+      email,
+    } = req.body;
     await Services.update(
       {
         name,
@@ -113,6 +122,7 @@ const updateService = async (req, res) => {
         hours,
         user_id: user_id,
         category_id: category_id,
+        email,
       },
       {
         where: {
@@ -120,7 +130,11 @@ const updateService = async (req, res) => {
         },
       }
     );
-    return res.status(201).send("Service Updated");
+    res.status(201).send("Service Updated");
+    const asunto = "Modificacion de Servicio";
+    const mensaje =
+      "Su servicio se ha modificado exitosamente en ChangaApp. Felicitaciones.";
+    updateServiceMail.email(email, asunto, mensaje);
   } catch (error) {
     console.log(error);
   }

@@ -99,7 +99,7 @@ export default function StateRequest() {
                   {e.state === "Pagado" ? "Pagada" : "Rechazada"}
                 </p>
               ) : (
-                <div key="Request">
+                <div key={e.id}>
                   <p>Nombre del servicio: {p.name}</p>
                   <p>Reservado por: {e.userRequester?.firstName} </p>
                   <img src={e.userRequester?.img} alt="asd" width="150px" />
