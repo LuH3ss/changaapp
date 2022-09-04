@@ -223,6 +223,27 @@ const bannState = async (req, res) => {
   }
 }
 
+const adminState = async (req,res) => {
+  const {id} = req.params 
+
+  if(id) {
+    try {
+    const {admin} = req.body 
+    console.log(admin)
+      const user = await User.update({
+        admin: admin
+      },
+      {
+        where:{
+           id
+          }      
+      })
+      return res.status(201).send(user)
+    } catch (error) {
+      res.status(404).send("inbloqueable bro 😎")
+    }
+  }
+  }
 
 module.exports = {
   register,
@@ -232,5 +253,5 @@ module.exports = {
   bannState,
   userById,
   userLocation,
-
+  adminState
 };

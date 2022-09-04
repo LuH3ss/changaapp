@@ -117,7 +117,7 @@ export default function RequestService(props) {
       toast.error("No puedes hacer un pedido a un servicio que publicaste.");
     }
     if(requests.length >= 1){
-      toast.error('Ya tienes una solicitud para este pedido, dirigete a tu perfil.')
+      toast.error('Ya tienes una solicitud para este pedido, dirigete a tu perfil para modificarla.')
     }
     else {
       let requestService = {
@@ -150,7 +150,10 @@ export default function RequestService(props) {
         day: "",
         hours: "",
       });
-      navigate("/home");
+      toast.success('Servicio solicitado correctamente')
+      setTimeout(() => {
+        navigate('/home')
+      }, 2000);
     }
   };
 

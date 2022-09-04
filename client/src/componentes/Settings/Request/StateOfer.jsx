@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { Button, Box, Typography } from "@mui/material";
 import styles from "./style.js";
 import Dialog from "@mui/material/Dialog";
+import Review from "../../Review";
 
 export default function StateRequester() {
   const { user } = useAuth();
@@ -182,7 +183,9 @@ export default function StateRequester() {
                   ) : (
                     <div>
                       {
-                        e.state === 'Pagado' ? <Link to='/laputamadre'><button>Dejar review</button></Link>
+                        e.state === 'Pagado' ? 
+                        <Link to={`/services/review/${e.service_id}`}><button>Dejar review</button></Link>
+                        
                         : <div>
                         <Button
                           variant="contained"

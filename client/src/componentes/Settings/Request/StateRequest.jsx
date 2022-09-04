@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { Button, Box, Typography } from "@mui/material";
 import userImg from '../../../user.png'
 
+import toast, {Toaster} from "react-hot-toast";
 
 export default function StateRequest() {
   const { user } = useAuth();
@@ -70,7 +71,12 @@ export default function StateRequest() {
     if (btn.state !== "") {
       dispatch(postNotification(noti));
       dispatch(updateRequest({ ...btn, email: e.target.name }));
-      window.location.reload(true);
+      toast('Servicio Actualizado', {
+        icon: '👏',
+      });
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 2000);
     }
   };
 
@@ -98,8 +104,10 @@ export default function StateRequest() {
     }
   }
 
+
   return (
     <Box sx={{ width: "70%" }}>
+      <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <p>
           Para ver los estados del servicio, primero debes publicar uno,
