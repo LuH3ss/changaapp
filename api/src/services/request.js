@@ -2,6 +2,7 @@ const { Category, Services, Request, User } = require("../db");
 const requestMail = require("./Emails/sendEmails");
 const requestAceptadoMail = require("./Emails/sendEmails");
 const requestRechazadoMail = require("./Emails/sendEmails");
+const deleteRequestMail = require("./Emails/sendEmails");
 
 const getRequest = async (req, res) => {
   try {
@@ -104,6 +105,10 @@ const deleteRequest = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+  const email = "pfhenrychangapp@gmail.com";
+  const asunto = "Eliminacion de Solicitud";
+  const mensaje = `Se ha eliminado la solicitud de servicio exitosamente`;
+  deleteRequestMail.email(email, asunto, mensaje);
 };
 
 module.exports = {
