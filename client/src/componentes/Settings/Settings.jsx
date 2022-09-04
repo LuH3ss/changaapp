@@ -32,10 +32,12 @@ export default function Settings(id) {
 
   console.log(totalServices, totalRequestsReceived, totalRequestsMade)
   console.log(totalNotifications)
+  console.log(location.pathname.split('/')[3])
 
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
     dispatch(allNotifications())  
+
   }, [dispatch, user?.email]);
  
   const handleClick = (e) => {
@@ -46,8 +48,8 @@ export default function Settings(id) {
   const handleSelected = ({ isActive }) => {
     return{
       
-      color: isActive ? '#fff' : '#1F2937',
-      backgroundColor: isActive ? '#1F2937' : '#fff',
+      color: isActive ? "#E5E7EB" : '#1F2937',
+      backgroundColor: isActive ? '#1F2937' : "#E5E7EB",
       textDecoration: isActive ? 'none' : 'none'
       
     }
@@ -60,8 +62,11 @@ export default function Settings(id) {
       alignItems:'start', 
       justifyContent:'center', 
       gap:'20px',
+      backgroundColor: "#E5E7EB",
+
     },
     links:{
+      
       textDecoration:'none',
       color:"#1F2937",
     },

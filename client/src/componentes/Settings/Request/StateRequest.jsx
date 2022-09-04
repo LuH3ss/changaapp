@@ -7,11 +7,18 @@ import {
   updateRequest,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import toast, {Toaster} from "react-hot-toast";
 import { Button, Box, Typography } from "@mui/material";
 import userImg from '../../../user.png'
 
 
+=======
+import { Button, Box, Typography } from "@mui/material";
+import userImg from '../../../user.png'
+
+import toast, {Toaster} from "react-hot-toast";
+>>>>>>> origin/dev
 
 export default function StateRequest() {
   const { user } = useAuth();
@@ -80,13 +87,42 @@ export default function StateRequest() {
       }, 2000);
     }
   };
-  console.log(filterEmail)
+
+  const styles = {
+    acepted: {
+      display:'flex', 
+      border:'solid #58CC22 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    },
+    rejected: {
+      display:'flex', 
+      border:'solid #E00A0A 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    },
+    pending: {
+      display:'flex', 
+      border:'solid grey 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    }
+  }
+
+
   return (
     <Box sx={{ width: "70%" }}>
+<<<<<<< HEAD
 
       <h1>Estado del Servicio</h1>
       <Toaster position="top-center" reverseOrder={false} />
 
+=======
+      <Toaster position="top-center" reverseOrder={false} />
+>>>>>>> origin/dev
       {filterEmail.length === 0 ? (
         <p>
           Para ver los estados del servicio, primero debes publicar uno,
@@ -98,12 +134,18 @@ export default function StateRequest() {
           return (
             p.request?.map((e) => {
               return e.state === "rechazado" || e.state === 'Pagado' ? (
-                <p>
-                  La orden #{e.id} del servicio {filterEmail[0].name} fue {e.state === 'Pagado' ? 'Pagada' : 'Rechazada'}
-                </p>
+                <Box style={e.state==='rechazado'?styles.rejected:styles.acepted}>
+                  <Typography>
+                    La orden #{e.id} del servicio {filterEmail[0].name} fue {e.state === 'Pagado' ? 'Pagada' : 'Rechazada'}
+                  </Typography>  
+                </Box>
               ) : (
+<<<<<<< HEAD
 
                 <Box sx={{display:'flex', border:'solid grey 1px', margin:'2%', padding:'2%', borderRadius:'10px'}}>
+=======
+                <Box style={e.state==='rechazado'? styles.rejected : e.state==='aceptado' ? styles.acepted : styles.pending}>
+>>>>>>> origin/dev
                   <Box sx={{width:'25%',display:'flex', flexDirection:'column',alignItems:'center'}}>
                   <Typography sx={{padding:'5%'}}>Reservado por: </Typography>
                   <img style={{width:'100px'}} src={e.userRequester?.img ? e.userRequester?.img : userImg} alt="asd" />
@@ -114,7 +156,10 @@ export default function StateRequest() {
                   <Typography>Nombre del servicio: {filterEmail[0]?.name}</Typography>
                   <Typography>Estado: {e.state}</Typography>
                   <Typography>
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/dev
                     Trabajo solicitado para el dia {e.day} a las {e.hours}hs
                   </Typography>
                   </Box>

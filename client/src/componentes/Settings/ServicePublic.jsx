@@ -22,6 +22,7 @@ export default function PublicServices() {
     dispatch(getAllServices())
   }, [dispatch, user?.email]);
 
+
   const handleDelete = (e) => {
     e.preventDefault()
     dispatch(deleteService(e.target.id))
@@ -32,6 +33,7 @@ export default function PublicServices() {
        
   }
 
+
   const styles = {
     infoText:{
       fontSize:'1.2rem',
@@ -39,13 +41,17 @@ export default function PublicServices() {
     }
   }
   
+
   return (
     <Box sx={{width:'70%'}}>
       <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
         <div>
           <p>Este usuario no tiene ningun servicio registrado</p>
-          <p>Si quieres publicar servicios, dirigete a la seccion <Link to='/home/createService'>crear servicios</Link> </p>
+          <p>
+            Si quieres publicar servicios, dirigete a la seccion{" "}
+            <Link to="/home/createService">crear servicios</Link>{" "}
+          </p>
         </div>
       ) : (
         userState[0]?.services.map((e) => {
@@ -95,24 +101,6 @@ export default function PublicServices() {
                   </Box>
 
                 </Box>
-                
-                  /* <Typography variant="h6">Categoria: {e.category.name}</Typography>
-                  
-                  <Typography variant="h6">{e.name}</Typography>
-                  
-                  <Typography variant="p">Dias disponibles: {e.day}</Typography>
-                  <Typography variant="p">Precio: ${e.price}</Typography>
-                  <Typography variant="p">
-                    Descripcion del servicio <br />
-                    {e.description}
-                  </Typography>
-
-
-                  <Button>
-                  <NavLink style={{textDecoration: 'none', color: 'blue'}} to={`${e.id}`}>Modificar Servicio</NavLink>
-                  </Button>
-                  <Button id={e.id} onClick={handleDelete} >Borrar Servicio</Button> */
-                
           );
         })
       )}

@@ -39,6 +39,8 @@ export default function Review({ user_id }) {
     userNotificated_id: "",
   });
 
+  console.log(service[0]?.user.email, "EMAIL");
+
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
     dispatch(getAllServices());
@@ -53,6 +55,8 @@ export default function Review({ user_id }) {
         rate: rating,
         author_id: userData[0]?.id,
         user_id: service[0]?.user_id,
+        email: service[0]?.user.email,
+
       })
     );
     dispatch(
@@ -68,6 +72,7 @@ export default function Review({ user_id }) {
     setTimeout(() => {
       navigate("/home");
     }, 1000);
+
   };
 
   function handleInput(e) {
@@ -118,6 +123,7 @@ export default function Review({ user_id }) {
           <button onClick={postRevieew}>Enviar</button>
         </div>
       )}
+
       <Footer />
     </div>
   );

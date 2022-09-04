@@ -75,7 +75,38 @@ export default function StateRequester() {
     dispatch(deleteRequest(e.target.id));
     window.location.reload(true);
   }
+<<<<<<< HEAD
   
+=======
+
+  const styles = {
+    acepted: {
+      display:'flex', 
+      border:'solid #58CC22 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+      alignItems:'center'
+    },
+    rejected: {
+      display:'flex', 
+      border:'solid #E00A0A 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+      alignItems:'center'
+    },
+    pending: {
+      display:'flex', 
+      border:'solid grey 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+      alignItems:'center'
+    }
+  }
+
+>>>>>>> origin/dev
   return (
     <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
       {filterById.length === 0 ? (
@@ -83,11 +114,11 @@ export default function StateRequester() {
       ) : (
         filterById.map((e) => {
           return (
-            <Box sx={{display:'flex', border:'solid grey 1px', borderRadius:'10px', padding:'2%', margin:'2%'}}>
-              <Box sx={{width:'20%'}}>
+            <Box style={e.state==='rechazado'?styles.rejected:e.sate==='aceptado'?styles.acepted:styles.pending}>
+              <Box sx={{width:'20%', fontSize:'1.2rem'}}>
                 <Typography variant="h7">{e.services?.name}</Typography>
               </Box>
-              <Box sx={{width:'60%', display:'flex', flexDirection:'column'}}>
+              <Box sx={{width:'60%', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
               <Typography variant="h7">
                 El servicio esta solicitado para el dia {e.day} a las {e.hours}
                 hs
@@ -96,26 +127,27 @@ export default function StateRequester() {
               </Box>
               
               {e.state === "rechazado" ? (
-                <Button id={e.id} onClick={handleDele}>
+                <Button sx={{backgroundColor:'#1F2937'}} variant='contained' id={e.id} onClick={handleDele}>
                   Eliminar
                 </Button>
               ) : (
                 <div>
                   {e.state === "aceptado" ? (
-                    <div>
-                      <p>
-                        Para pagar el servicio accede al siguiente{" "}
+                    <Box >
+                      <Typography>
                         <Link to={`/home/services/payment/${e.services?.id}`}>
-                          {" "}
-                          link
+                          <Button variant="contained" sx={{width:'100%', margin:'2%'}}>
+                            Pagar
+                          </Button>
                         </Link>
-                      </p>
-                      <p>
-                        Si quieres cancelar la solicitud aprieta el siguiente
-                        boton{" "}
-                        <Button name={e.services?.user_id}
-                        id={e.id}
-                        onClick={handleClic}>
+                      </Typography>
+                        <Button 
+                          sx={{width:'100%', margin:'2%'}}
+                          variant="contained"
+                          name={e.services?.user_id}
+                          id={e.id}
+                          onClick={handleClic}
+                        >
                           Cancelar
                         </Button>
                         <div>
@@ -143,9 +175,8 @@ export default function StateRequester() {
                           <button onClick={handleClic}>Cerrar</button>
                         </div>
                       </Dialog>
-                        </div>
-                      </p>
-                    </div>
+                      </div>
+                    </Box>
                   ) : (
                     <div>
                       {
@@ -153,13 +184,14 @@ export default function StateRequester() {
                         <Link to={`/services/review/${e.service_id}`}><button>Dejar review</button></Link>
                         
                         : <div>
-                        <button
+                        <Button
+                          variant="contained"
                           name={e.services?.user_id}
                           id={e.id}
                           onClick={handleClic}
                         >
-                          Cancelar Servicio
-                        </button>
+                          Cancelar
+                        </Button>
                         <Dialog open={!hide}>
                           <div
                             style={hide === true ? styles.hide : styles.nohide}

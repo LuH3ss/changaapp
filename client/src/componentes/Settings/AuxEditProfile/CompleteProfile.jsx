@@ -1,3 +1,4 @@
+import { Box, Typography, TextField, Button } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../../context/authContext";
@@ -92,59 +93,82 @@ export default function CompleteProfile() {
     }, 2000);
   };
   return (
-    <div>
-      <Toaster position="top-center" reverseOrder={false} />
-      <h4>Completar tus datos antes de seguir</h4>
-      <form onSubmit={(e) => handleOnSubmit(e)}>
-        <div>
-          <label>Nombre de usuario: </label>
-          <input
-            type="text"
-            name="firstName"
-            value={fire.firstName}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Apellido del usuario: </label>
-          <input
-            type="text"
-            name="lastName"
-            value={fire.lastName}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Edad: </label>
-          <input
-            type="number"
-            name="birthDate"
-            value={fire.birthDate}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Ubicacion:</label>
-          <input
-            type="text"
-            name="location"
-            value={fire.location}
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label>Descripcion:</label>
-          <input
-            type="textarea"
-            name="description"
-            value={fire.description}
-            onChange={handleOnChange}
-          />
-        </div>
-        <button type="submit" disabled={btn}>
-          Cargar Datos
-        </button>
-      </form>
-    </div>
+    <Box sx={{display:'flex', alignItems:'center', justifyContent:'center', backgroundColor: "#E5E7EB"}}>
+      <Box sx={{border:'solid grey 1px', width:'60%', padding:'0 4%', margin:'4%', display:'flex', flexDirection:'column', borderRadius:'10px'}}>
+        <Typography sx={{padding:'6% 0', textAlign:'center'}} variant='h5'>Completar tus datos antes de seguir</Typography>
+        <form style={{display:'flex',justifyContent:'center', flexDirection:'column'}} onSubmit={(e) => handleOnSubmit(e)}>
+            <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                <Typography sx={{fontSize:'1.3rem'}}>
+                  Nombre: 
+                </Typography>
+                <TextField
+                  sx={{padding:'1%'}}
+                  type="text"
+                  value={fire.firstName}
+                  name="firstName"
+                  onChange={handleOnChange}
+                  />
+              </Box>
+
+              <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                <Typography sx={{fontSize:'1.3rem'}}>
+                  Apellido: 
+                </Typography>
+                <TextField
+                  sx={{padding:'1%'}}                
+                  type="text"
+                  value={fire.lastName}
+                  name="lastName"
+                  onChange={handleOnChange}
+                  />
+              </Box>
+
+              <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                <Typography sx={{fontSize:'1.3rem'}}>
+                  Edad: 
+                </Typography>
+                <TextField
+                  sx={{padding:'1%'}}                
+                  type="text"
+                  value={fire.birthDate}
+                  name="birthDate"
+                  onChange={handleOnChange}
+                  />
+              </Box>
+
+              <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                <Typography sx={{fontSize:'1.3rem'}}>
+                  Localidad: 
+                </Typography>
+                <TextField
+                  sx={{padding:'1%'}}
+                  type="text"
+                  value={fire.location}
+                  name="location"
+                  onChange={handleOnChange}
+                  />
+              </Box>
+
+              <Box sx={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+                <Typography sx={{fontSize:'1.3rem'}}>
+                  Descripción: 
+                </Typography>
+                <TextField
+                  sx={{padding:'1%'}}
+                  type="text"
+                  value={fire.description}
+                  name="description"
+                  onChange={handleOnChange}
+                  />
+              </Box>
+
+         
+          <Button variant='contained' sx={{margin:'4% 30%'}} type="submit" disabled={btn}>
+            Cargar Datos
+          </Button>
+        </form>
+      </Box>
+    </Box>
+
   );
 }
