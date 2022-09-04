@@ -1,3 +1,16 @@
+.current-categories-title {
+  font-size: 3rem;
+}
+.card-category-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 20px 0px;
+  border: 2px solid black;
+  border-radius: 4px;
+  transition: all 0.3s;
+  margin: "50px";
+  max-width: "370px";
+  text-align: "center";
+}
 .cards-container {
   height: 100%;
   width: auto;
