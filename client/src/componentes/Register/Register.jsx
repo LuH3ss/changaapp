@@ -10,6 +10,7 @@ import { Button, Typography, TextField } from "@mui/material";
 import camera from "../../pngwing.com.png";
 import Nav from "../landing/LandingNav";
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+import toast, { Toaster } from "react-hot-toast";
 
 function validate(user) {
   let error = {};
@@ -122,10 +123,15 @@ export default function Register() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault(e);
-    dispatch(registerUser(user));
     try {
       await signUp(user.email, user.password);
-      navigate("/home");
+      dispatch(registerUser(user));
+      toast('Registro completado', {
+        icon: '👏',
+      });
+      setTimeout(() => {
+        navigate('/home')
+      }, 2000);
     } catch (error) {
       if (error.code === "auth/weak-password") {
         setFire("La contraseña tiene que tener al menos 6 caracteres");
@@ -182,6 +188,7 @@ export default function Register() {
   return (
     <div>
       <Nav />
+      <Toaster position="top-center" reverseOrder={false} />
       <Box style={styles.container}>
         <Box style={styles.containerForm}>
           <Typography variant="h4" sx={{ padding: "10px" }}>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  allRequest,
   getDetail,
   getUserEmail,
   postNotification,
@@ -17,6 +18,7 @@ import userImg from "../../user.png";
 import Navbar from "../PrivateRoute/Navbar";
 import styles from "./style";
 import Footer from "../Footer";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function RequestService(props) {
   const { user } = useAuth(); // author
@@ -35,28 +37,32 @@ export default function RequestService(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+  console.log(id)
 
   const service = useSelector((state) => state.serviceDetail);
+  let requests = useSelector(state => state.allRequest)
+  const userDb = useSelector((state) => state.filter);
+  requests = requests.filter(p => p.service_id === id)
+  requests = requests.filter(p => p.requester_id === userDb[0]?.id)
 
-  const userDb = useSelector((state) => state.filter); // duthor
-  console.log(service);
-  // PARA MANDAR UNA NOTIFICACION
-
+  // PARA MANDAR UNA NOTIFICACION  
   const [noti] = useState({
-    message:
-      "Recibiste una solicitud de servicio, dirigete a tu casilla para confirmar.",
-    userNotification_id: userDb[0]?.id,
-    userNotificated_id: service.user?.id,
+
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
   });
-  const [asd] = useState({
-    message: `Servicio solicitado, dirigete a tu perfil para mas informacion.`,
-    userNotification_id: userDb[0]?.id,
-    userNotificated_id: userDb[0]?.id,
+  const [solicitador] = useState({
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
+
   });
 
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
+    dispatch(allRequest())
     setLoading(false);
   }, [dispatch, user?.email]);
 
@@ -100,31 +106,55 @@ export default function RequestService(props) {
       });
     }
   };
-  console.log(userDb);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userDb.length === 0) {
-      alert(
+      toast.error(
         "Para solicitar un servicio, primero debes completar los datos de tu perfil. Dirigete hacia tu perfil."
       );
     }
     if (userDb[0]?.id === service.user.id) {
-      alert("No puedes hacer un pedido a un servicio que publicaste.");
-    } else {
+      toast.error("No puedes hacer un pedido a un servicio que publicaste.");
+    }
+    if(requests.length >= 1){
+      toast.error('Ya tienes una solicitud para este pedido, dirigete a tu perfil para modificarla.')
+    }
+    else {
       let requestService = {
         ...request,
         service_id: service.id,
         requester_id: userDb[0].id,
         email: service?.user.email,
       };
-      dispatch(postNotification(asd));
+
+      if (
+        noti.message === "" &&
+        noti.userNotification_id === "" &&
+        noti.userNotificated_id === "" &&
+        solicitador.message === "" &&
+        solicitador.userNotification_id === "" &&
+        solicitador.userNotificated_id === ""
+      ) {
+        noti.message = `Recibiste una solicitud de servicio, dirigete a tu casilla para confirmar.`;
+        noti.userNotification_id = userDb[0]?.id;
+        noti.userNotificated_id = service.user?.id;
+        solicitador.message = `Servicio solicitado, dirigete a tu perfil para mas informacion.`;
+        solicitador.userNotification_id = userDb[0]?.id;
+        solicitador.userNotificated_id = userDb[0]?.id;
+      }
+      dispatch(postNotification(solicitador));
+
       dispatch(postNotification(noti));
       dispatch(postRequest(requestService));
       setRequest({
         day: "",
         hours: "",
       });
-      navigate("/home");
+      toast.success('Servicio solicitado correctamente')
+      setTimeout(() => {
+        navigate('/home')
+      }, 2000);
     }
   };
 
@@ -142,6 +172,7 @@ export default function RequestService(props) {
           </p>
         ) : (
           <Box style={styles.container}>
+            <Toaster position="top-center" reverseOrder={false} />
             <Box sx={{ display: "flex", width: "100%", margin: "20px" }}>
               <Box style={styles.containerRequest}>
                 <Box style={styles.containerService}>

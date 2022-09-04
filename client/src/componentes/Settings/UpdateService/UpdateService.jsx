@@ -35,17 +35,16 @@ export default function UpdateService() {
   });
   const [error, setError] = useState("");
 
+  //PARA RECIBIR NOTIFICACION AUTOMATICA
+  const [noti] = useState({
+    message: "",
+    userNotification_id: "",
+    userNotificated_id: "",
+  });
   useEffect(() => {
     dispatch(getAllServices());
     dispatch(getServiceById(param.id));
   }, [dispatch, param.id]);
-
-  //PARA RECIBIR NOTIFICACION AUTOMATICA
-  const [noti] = useState({
-    message: `Publicacion actualizada.`,
-    userNotification_id: idService[0]?.user_id,
-    userNotificated_id: idService[0]?.user_id,
-  });
 
   //PARA LEER LOS CAMBIOS
   const handleOnChange = (e) => {
@@ -83,8 +82,17 @@ export default function UpdateService() {
     if (service.description === "")
       service.description = idService[0]?.description;
     if (service.day === "") service.day = idService[0]?.day;
-    dispatch(updateService(param.id, service));
+    if (
+      noti.message === "" &&
+      noti.userNotification_id === "" &&
+      noti.userNotificated_id === ""
+    ) {
+      noti.message = `Publicacion actualizada.`;
+      noti.userNotification_id = idService[0]?.user_id;
+      noti.userNotificated_id = idService[0]?.user_id;
+    }
     dispatch(postNotification(noti));
+    dispatch(updateService(param.id, service));
     navigate("/settings/services");
   };
 

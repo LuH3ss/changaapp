@@ -3,10 +3,11 @@ import { useAuth } from "../../context/authContext";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserEmail } from "../../redux/actions";
 
+
 import { Link } from "react-router-dom";
 import CompleteProfile from "./AuxEditProfile/CompleteProfile";
 import UpdateProfile from "./AuxEditProfile/UpdateProfile";
-import { Box } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 
 export default function EditProfile() {
   const { user } = useAuth();
@@ -24,18 +25,20 @@ export default function EditProfile() {
   return (
 
     <Box sx={{width:'70%'}}>
-      <h1>Modificar perfil</h1>
 
       {user?.email === null ? (
-        <p>
-          No tienes acceso a estos datos ya que ingresaste como un usuario
-          anonimo. Ve a la seccion de registrar para poder utilizar estos
-          servicios.
-          <Link to="/register">Registrarse</Link>
-        </p>
+        <Box sx={{display:'flex', alignItems:'center', justifyContent:'center'}}>
+          <Typography>
+            No tienes acceso a estos datos ya que ingresaste como un usuario
+            anonimo. Ve a la seccion de registrar para poder utilizar estos
+            servicios.
+          </Typography>
+          <Link to="/register">
+            <Button>Registrarse</Button>
+          </Link>
+        </Box>
       ) : estado.length === 1 ? (
         <Box>
-          <h1>Modificar perfil</h1>
           <UpdateProfile />
         </Box>
       ) : (
