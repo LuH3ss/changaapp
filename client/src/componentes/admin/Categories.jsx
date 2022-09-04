@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { DataGrid, GridAddIcon } from "@mui/x-data-grid";
+import { DataGrid} from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories } from "../../redux/actions";
-import { Fab } from "@mui/material";
+
 
 export default function Categories() {
   const dispatch = useDispatch();

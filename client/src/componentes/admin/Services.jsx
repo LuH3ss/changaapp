@@ -8,7 +8,6 @@ export default function Services() {
     const services = useSelector(state => state.services)
     const dispatch = useDispatch()
    
-
     useEffect(() => {
         dispatch(getAllServices())
     }, [dispatch])

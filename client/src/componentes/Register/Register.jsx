@@ -9,7 +9,6 @@ import { Box } from "@mui/system";
 import { Button, Typography, TextField } from "@mui/material";
 import camera from "../../pngwing.com.png";
 import Nav from "../landing/LandingNav";
-import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
 import toast, { Toaster } from "react-hot-toast";
 
 function validate(user) {

@@ -41,7 +41,7 @@ export default function UpdateProfile() {
     description: "",
     location: "",
   });
-  const [error, setError] = useState("");
+  const [setError] = useState("");
   const [btn, setBtn] = useState(false);
   const dispatch = useDispatch();
   //PARA MANDAR UNA NOTIFICACION AUTOMATICA

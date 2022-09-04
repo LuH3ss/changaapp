@@ -1,8 +1,8 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import Nav from '../landing/LandingNav';
+import { useNavigate } from 'react-router-dom';
+
 import {postCategory} from '../../redux/actions/index.js'
 
 export default function CreateCategory() {

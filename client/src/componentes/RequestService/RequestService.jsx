@@ -31,7 +31,7 @@ export default function RequestService(props) {
     email: "",
   });
 
-  // const [userEmail, setUserEmail] = useState(service.user.email)
+  const [btn, setBtn] = useState(true)
 
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -105,6 +105,8 @@ export default function RequestService(props) {
       });
     }
   };
+  console.log(userDb[0]?.id)
+  // console.log(service.user?.id)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -113,13 +115,13 @@ export default function RequestService(props) {
         "Para solicitar un servicio, primero debes completar los datos de tu perfil. Dirigete hacia tu perfil."
       );
     }
-    if (userDb[0]?.id === service.user.id) {
+    if (userDb[0]?.id === service.user?.id) {
       toast.error("No puedes hacer un pedido a un servicio que publicaste.");
     }
     if(requests.length >= 1){
       toast.error('Ya tienes una solicitud para este pedido, dirigete a tu perfil para modificarla.')
     }
-    else {
+    if(userDb[0]?.id !== service.user?.id) {
       let requestService = {
         ...request,
         service_id: service.id,
@@ -143,7 +145,6 @@ export default function RequestService(props) {
         solicitador.userNotificated_id = userDb[0]?.id;
       }
       dispatch(postNotification(solicitador));
-
       dispatch(postNotification(noti));
       dispatch(postRequest(requestService));
       setRequest({
@@ -153,8 +154,9 @@ export default function RequestService(props) {
       toast.success('Servicio solicitado correctamente')
       setTimeout(() => {
         navigate('/home')
-      }, 2000);
+      }, 1000);
     }
+    
   };
 
   if (loading) return <h1>loading</h1>;

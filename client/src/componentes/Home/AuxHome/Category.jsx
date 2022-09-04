@@ -28,10 +28,11 @@ export default function Category() {
                     border: "solid black 1px",
                     maxWidth: "370px",
                     textAlign: "center",
+                    
                   }}
                 >
                   <h3>{e.name}</h3>
-                  <img src={e.img} alt={e.name} width="350px" height="250px" />
+                  <img src={e.img} alt={e.name} width="350px" height="250px"/>
                   {/* <Button value={e.name} onClick={handleOnClick}>Ir</Button> */}
                 </div>
               </Link>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
-import { deleteService, getUserEmail } from "../../redux/actions";
+import { deleteService, getAllServices, getUserEmail } from "../../redux/actions";
 import { Link, NavLink } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
@@ -11,25 +11,24 @@ export default function PublicServices() {
   const { user } = useAuth();
   const userState = useSelector((state) => state.filter);
   const dispatch = useDispatch();
-
+  let services = useSelector(state => state.services)
+  // services = services?.filter(e => e.user_id === userState[0]?.id)
   console.log(userState);
+  console.log(services);
+
 
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
+    dispatch(getAllServices())
   }, [dispatch, user?.email]);
 
-  const handleDelete = async (e) => {
+  const handleDelete = (e) => {
     e.preventDefault()
-    await toast.promise(
-     dispatch(deleteService(e.target.id)),
-       {
-         loading: 'Saving...',
-         success: <b>Servicio borrado</b>,
-         error: <b>No se pudo borrar el servicio</b>,
-       },
-
-       );
-       window.location.reload(true)
+    dispatch(deleteService(e.target.id))
+    toast.success('Servicio borrado con exito')
+       setTimeout(() => {
+        window.location.reload(true)
+       }, 1000);
        
   }
 
@@ -42,6 +41,7 @@ export default function PublicServices() {
   
   return (
     <Box sx={{width:'70%'}}>
+      <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
         <div>
           <p>Este usuario no tiene ningun servicio registrado</p>
@@ -50,18 +50,6 @@ export default function PublicServices() {
       ) : (
         userState[0]?.services.map((e) => {
           return (              
-            // <div>
-            //   <Link to={`/settings/updateService/${e.id}`}><button>Modificar Servicio</button></Link>
-            //   <button id={e.id} onClick={handleDelete} >Borrar Servicio</button>
-            //   <h3>Categoria: {e.category.name}</h3>
-            //   <h5>{e.name}</h5>
-            //   <p>Dias disponibles: {e.day}</p>
-            //   <p>Precio: ${e.price}</p>
-            //   <p>
-            //     Descripcion del servicio <br />
-            //     {e.description}
-            //   </p>
-            // </div>
                 <Box sx={{display: 'flex',
                   border: 'solid grey 1px', 
                   flexDirection:'column',

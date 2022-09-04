@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { allRequest, allUsers, getAllCategories, getAllServices } from '../../redux/actions'
 import styles from './Estilos/style'
 import { Link } from 'react-router-dom'
+import PeopleIcon from '@mui/icons-material/People';
+import Footer from '../Footer'
 
 export default function Admin() {
   const dispatch = useDispatch()
@@ -22,14 +24,16 @@ export default function Admin() {
 
 
   return (
-    <Box component='section' sx={styles.contenedor}>
-      <Box sx={styles.cajas}><Typography>Usuarios Registrados</Typography><Typography>{usersDb.length}</Typography><Link to='/admin/users'>Ver todos</Link></Box>
+    <div>
+      <Box component='section' sx={styles.contenedor}>
+      <Box sx={styles.cajas}><Typography><PeopleIcon/></Typography><Typography>{usersDb.length}</Typography><Link to='/admin/users'>Ver todos</Link></Box>
       <Box sx={styles.cajas}><Typography>Servicios Creados</Typography><Typography>{servicesDb.length}</Typography><Link to='/admin/services'>Ver todos</Link></Box>
       <Box sx={styles.cajas}><Typography>Categorias habilitadas</Typography><Typography>{categoriesDb.length}</Typography><Link to='/admin/categories'>Ver todos</Link></Box>
       <Box sx={styles.cajas}><Typography>Solicitudes de Servicios</Typography><Typography>{requestDb.length}</Typography><Link to='/admin/requests'>Ver todos</Link></Box>
 
       
-       
     </Box>
+     <Footer/>
+    </div>  
   )
 }
