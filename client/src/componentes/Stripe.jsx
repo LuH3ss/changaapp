@@ -64,6 +64,7 @@ const CheckoutForm = () => {
         amount: request[0]?.services.price,
         email: email,
       });
+      toast.success("Pago completado con exito! Redireccionando...");
 
       dispatch(updateRequest({ ...reque, id: request[0]?.id }));
       dispatch(
@@ -75,7 +76,7 @@ const CheckoutForm = () => {
       );
 
       elements.getElement(CardElement).clear();
-      toast.success("Pago completado exitosamente!, redireccionando...");
+      // toast.success("Pago completado exitosamente!, redireccionando...");
       setTimeout(() => {
         navigate("/settings/requester");
       }, 2000);
@@ -114,15 +115,21 @@ export default function Stripe() {
   const { id } = useParams();
   let request = useSelector((state) => state.allRequest);
   let prueba = request.filter((p) => p.state === "aceptado");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  prueba = prueba.filter((p) => p.service_id === id);
-  // console.log(prueba)
+  useEffect(() => {
+    dispatch(allRequest());
+    dispatch(getAllServices());
+  }, [dispatch]);
+
+  prueba = prueba?.filter((p) => p.service_id === id);
+  console.log(prueba);
   return (
     <div className="pay-container">
       <Navbar />
-
       {prueba[0]?.state !== "aceptado" ? (
-        <p>MEGA ERROR</p>
+        navigate("/settings/requester")
       ) : (
         <Elements stripe={stripePromise}>
           <Link style={{ textDecoration: "none" }} to="/settings/requester">
