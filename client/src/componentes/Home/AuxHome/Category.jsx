@@ -40,8 +40,8 @@ export default function Category() {
               <Link key={e.id} to={`/home/${e.name}`}>
                 <div >
                   <div className="card-category">
-                    <h3 className="title-category">{e.name}</h3>
                     <img src={e.img} alt={e.name} height="200px" width="300px" />
+                    <h3 className="title-category">{e.name}</h3>
                     {/* <Button value={e.name} onClick={handleOnClick}>Ir</Button> */}
                   </div>
                 </div>
