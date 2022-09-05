@@ -28,11 +28,11 @@ export default function FilterCategory() {
       <FormCategory />
       <Typography variant="h4">{param.name}</Typography>
       {filterUsers.length === 0 ? (
-        <Box className="asdasd" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center', maxWidth:'80%', position: 'relative', margin: '40px auto'  }} >
+        <Box className="lucas" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center', maxWidth:'80%', position: 'relative', margin: '40px auto'  }} >
             <Box>
                 <Typography variant="h5" mb={5}>  
                     No se encuentra ningun servicio para esta categoria{" "}
-                    <NavLink className='linkk' to="/home/createService">Se el primero en postularte!</NavLink>
+                    <NavLink className='linkk' to="/home/createService">se el primero en postularte!</NavLink>
                 </Typography>
                 <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px', position: 'relative', margin: '0 auto' }}>
             { 

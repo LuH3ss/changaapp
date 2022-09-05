@@ -36,7 +36,7 @@ export default function Footer() {
           {category &&
             category.map((c) => {
               return (
-                <Link key={c.id} to="/home/todos">
+                <Link key={c.id} to="/home/todos" className="footerLink">
                   <div>
                     <li className="footer__lista--item">
                       <p>{c.name}</p>
@@ -63,7 +63,7 @@ export default function Footer() {
             <p>Programa de Fidelidad</p>
           </li>
           <li className="footer__lista--item">
-            <Link to="/home/createService">
+            <Link to="/home/createService" className="footerLink">
               <p>Anuncie Aqui</p>
             </Link>
           </li>

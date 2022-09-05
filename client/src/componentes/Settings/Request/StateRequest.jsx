@@ -6,7 +6,7 @@ import {
   postNotification,
   updateRequest,
 } from "../../../redux/actions";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Button, Box, Typography, Avatar } from "@mui/material";
 import userImg from "../../../user.png";
 import toast, { Toaster } from "react-hot-toast";
@@ -25,6 +25,7 @@ export default function StateRequest() {
     id: "",
     email: "",
   });
+
   //ESTADO PARA LA NOTIFICACION AUTOMATICA
   const [noti, setNoti] = useState({
     message: "",
@@ -110,7 +111,7 @@ export default function StateRequest() {
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <Box
-          className="card-container"
+          className="lucas"
           sx={{
             textAlign: "center",
             display: "flex",
@@ -139,7 +140,7 @@ export default function StateRequest() {
             <Typography variant="h6" mb={5}>
               Para ver los estados del servicio, primero debes publicar uno,
               dirigete a la seccion{" "}
-              <NavLink className="link" to="/home/createService">
+              <NavLink className="linkk" to="/home/createService">
                 publicar servicio
               </NavLink>
             </Typography>

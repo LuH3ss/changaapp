@@ -13,17 +13,16 @@
   justify-content: flex-start;
   align-items: center;
   margin-right: 20px;
-  
 }
 
-.footer__lista {
-  list-style: square;
+.footerLink{
+  color: #fff;
 }
 
 .footer__lista--item {
   cursor: pointer;
   transition: all 0.5s;
-  list-style: circle;
+  list-style: none;
 }
 
 .footer__lista--item:hover {

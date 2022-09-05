@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   allNotifications,
@@ -8,7 +8,7 @@ import {
 import { useAuth } from "../../context/authContext";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import "../css/empty.css";
-
+import styles from './Request/style'
 
 export default function Notifications() {
   const { user } = useAuth();
@@ -20,6 +20,32 @@ export default function Notifications() {
   );
   notifications = notifications.reverse();
 
+  //Paginado para los servicios
+  const paginas = Math.ceil(notifications.length / 3)
+  const [pages, setPages] = useState(1)
+  const [notisPerPage] = useState(3)
+  const ultima = pages * notisPerPage
+  const primera = ultima - notisPerPage
+  const notisSlice = notifications.slice(primera, ultima)
+
+  const handleAnterior = (e) => {
+    e.preventDefault()
+    setPages(pages - 1)
+      if(pages < 2){
+        setPages(1)
+      }
+      window.scrollTo(0,0)
+  }
+
+  const handleSiguiente = () => {
+    setPages(pages + 1)
+    if(pages >= paginas){
+      setPages(paginas)
+    }
+    window.scrollTo(0,0)
+}
+
+
   useEffect(() => {
     dispatch(allNotifications());
     dispatch(getUserEmail(user?.email));
@@ -28,7 +54,9 @@ export default function Notifications() {
   const handleOnClick = (e) => {
     e.preventDefault();
     dispatch(deleteNotification(e.target.id));
-    window.location.reload(true);
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 500);
   };
 
   return (
@@ -52,7 +80,7 @@ export default function Notifications() {
       >
         {notifications.length === 0 ? (
           <Box
-            className="card-container"
+            className="lucas"
             sx={{
               textAlign: "center",
               display: "flex",
@@ -83,7 +111,7 @@ export default function Notifications() {
             </Avatar>
           </Box>
         ) : (
-          notifications.map((e) => {
+          notisSlice.map((e) => {
             return (
               <Box
                 sx={{
@@ -119,6 +147,11 @@ export default function Notifications() {
             );
           })
         )}
+        <div style={styles.paginadoDiv}>
+          <button style={styles.btnPaginado} onClick={handleAnterior}>{'<'}</button>
+          {pages} of {paginas}
+          <button style={styles.btnPaginado} onClick={handleSiguiente}>{'>'}</button>
+        </div>
       </Box>
     </Box>
   );

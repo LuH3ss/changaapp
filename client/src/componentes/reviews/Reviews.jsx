@@ -8,6 +8,7 @@ import '../css/revwievs.css'
 export default function Reviews() {
     const dispatch = useDispatch()
     let allReviews = useSelector(state => state.reviews)
+    allReviews = allReviews.sort(() => Math.random() - 0.5)
     allReviews = allReviews.slice(0,5)
 
     useEffect(() => {
