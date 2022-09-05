@@ -10,7 +10,7 @@ import {
   bannedState,
   adminState,
 } from "../../redux/actions";
-import { useParams, Link } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 
 import './Estilos/userDetail.css'
@@ -113,48 +113,52 @@ export default function UserDetail() {
       </Box>
       <Box component="div" className="prof-req-rec">
         <Typography variant="h4">Solicitudes Recibidas</Typography>
-        {userRequest &&
-          userRequest.map((req) => {
-            return (
-              <Box key={req.id} component="div">
-                <ul>
-                  <li>ID: {req.id}</li>
-                  <li>Cliente: <Link to={`/admin/users/${req.userRequester.id}`}>{req.userRequester.firstName}</Link></li>
-                  <li>Dias/Disp: {req.day}</li>
-                  <li>Horas/Disp: {req.hours}</li>
-                </ul>
-                <Button
-                  onClick={() => {
-                    dispatch(deleteRequest(req.id))
-                    window.location.reload();
-                  }}
-                >
-                  Borrar Solicitud
-                </Button>
-              </Box>
-            );
-          })}
+            <Box className="req-cont">
+              {userRequest &&
+                userRequest.map((req) => {
+                  return (
+                    <Box key={req.id} className="req-detail" component="div">
+                      <ul>
+                        <li>ID: {req.id}</li>
+                        <li>Cliente: <NavLink style={{color:'white', borderBottom:'solid white 1px'}} to={`/admin/users/${req.userRequester.id}`}>{req.userRequester.firstName}</NavLink></li>
+                        <li>Dias/Disp: {req.day}</li>
+                        <li>Horas/Disp: {req.hours}</li>
+                      </ul>
+                      <Button
+                        onClick={() => {
+                          dispatch(deleteRequest(req.id))
+                          window.location.reload();
+                        }}
+                      >
+                        Borrar Solicitud
+                      </Button>
+                    </Box>
+                  );
+                })}
+        </Box>
       </Box>
       <Box component="div" className="prof-req-done">
         <Typography variant="h4" >Solicitudes Realizadas</Typography>
-        {userRequestDone &&
-          userRequestDone.map((req) => {
-            return (
-              <Box key={req.id} component="div">
-                <ul>
-                  <li>ID: {req.id}</li>
-                  <li>Nombre: {req.name}</li>
-                  <li>Precio: {req.price}</li>
-                  <li>Descripción: {req.description}</li>
-                  <li>Dias/Disp: {req.days}</li>
-                  <li>Horas/Disp: {req.hours}</li>
-                </ul>
-                <Button onClick={deleteRequest(req.id)}>
-                  Borrar Solicitud
-                </Button>
-              </Box>
-            );
-          })}
+            <Box className="req-cont">
+              {userRequestDone &&
+              userRequestDone.map((req) => {
+                return (
+                  <Box key={req.id} className="req-detail" component="div">
+                    <ul>
+                      <li>ID: {req.id}</li>
+                      <li>Nombre: {req.name}</li>
+                      <li>Precio: {req.price}</li>
+                      <li>Descripción: {req.description}</li>
+                      <li>Dias/Disp: {req.days}</li>
+                      <li>Horas/Disp: {req.hours}</li>
+                    </ul>
+                    <Button onClick={deleteRequest(req.id)}>
+                      Borrar Solicitud
+                    </Button>
+                  </Box>
+                );
+              })}
+            </Box>
       </Box>
     </Box>
   );

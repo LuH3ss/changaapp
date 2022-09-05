@@ -1,16 +1,19 @@
 .profile-section {
-    background-color: rgba(0, 0, 0, 0.807);
+    background-color: #1f2937;
     margin: 20px;
     color: white;
     padding: 3%;
-    border-radius: 40px;
+    border-radius: 20px;
 }
 
 .prof-detail, 
-.prof-services {
+.prof-services,
+.prof-req-rec,
+.prof-req-done {
     border: salmon solid 2px;
     padding: 2%;
     border-radius: 40px;
+    margin-bottom: 5%;
 }
 
 .personal-data-profile {
@@ -28,18 +31,21 @@
 }
 
 .pd-list ul,
-.service-list ul {
+.service-list ul,
+.req-detail ul {
     list-style-type: none;
     width: 250px;
 }
 
-.services-cont {
+.services-cont, 
+.req-cont {
     margin-top: 4%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr ;
 }
 
-.service-list {
+.service-list, 
+.req-detail {
     text-align: center;
     background-color: rgba(144, 137, 137, 0.303);
     

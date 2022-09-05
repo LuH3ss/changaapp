@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Navbar from "../../PrivateRoute/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllServices } from "../../../redux/actions";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import FormCategory from "./FormCategory";
 import '../../css/empty.css'
@@ -32,7 +32,7 @@ export default function FilterCategory() {
             <Box>
                 <Typography variant="h5" mb={5}>  
                     No se encuentra ningun servicio para esta categoria{" "}
-                    <Link to="/home/createService">Se el primero en postularte!</Link>
+                    <NavLink className='link' to="/home/createService">Se el primero en postularte!</NavLink>
                 </Typography>
                 <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px', position: 'relative', margin: '0 auto' }}>
             { 

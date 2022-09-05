@@ -22,14 +22,10 @@ export default function Categories() {
       <DataGrid
         columns={columns}
         rows={categoriesDb}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={20}
+        rowsPerPageOptions={[20]}
       />
-      {/*       
-    <Fab sx={{position:'absolute', border: 'solid black 6px'}}
-    color="secondary" aria-label="add">
-    <GridAddIcon />
-</Fab> */}
+  
     </div>
   );
 }

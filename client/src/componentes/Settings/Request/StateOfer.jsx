@@ -11,9 +11,9 @@ import { Link } from "react-router-dom";
 
 import { Button, Box, Typography, Avatar } from "@mui/material";
 
-import styles from "./style.js";
+
 import Dialog from "@mui/material/Dialog";
-import Review from "../../Review";
+
 import '../../css/empty.css'
 
 export default function StateRequester() {
