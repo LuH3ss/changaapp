@@ -33,6 +33,7 @@ export default function UpdateService() {
     day: [],
     price: "",
     description: "",
+    email: "",
   });
   const [error, setError] = useState("");
 
@@ -46,6 +47,8 @@ export default function UpdateService() {
     dispatch(getAllServices());
     dispatch(getServiceById(param.id));
   }, [dispatch, param.id]);
+
+  console.log(idService[0].user.email, "SERVICE");
 
   //PARA LEER LOS CAMBIOS
   const handleOnChange = (e) => {
@@ -82,6 +85,7 @@ export default function UpdateService() {
     if (service.price === "") service.price = idService[0]?.price;
     if (service.description === "")
       service.description = idService[0]?.description;
+    service.email = idService[0].user.email;
     if (service.day === "") service.day = idService[0]?.day;
     if (
       noti.message === "" &&

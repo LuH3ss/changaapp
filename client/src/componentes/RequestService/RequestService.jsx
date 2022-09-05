@@ -40,14 +40,13 @@ export default function RequestService(props) {
   console.log(id)
 
   const service = useSelector((state) => state.serviceDetail);
-  let requests = useSelector(state => state.allRequest)
+  let requests = useSelector((state) => state.allRequest);
   const userDb = useSelector((state) => state.filter);
-  requests = requests.filter(p => p.service_id === id)
-  requests = requests.filter(p => p.requester_id === userDb[0]?.id)
+  requests = requests.filter((p) => p.service_id === id);
+  requests = requests.filter((p) => p.requester_id === userDb[0]?.id);
 
-  // PARA MANDAR UNA NOTIFICACION  
+  // PARA MANDAR UNA NOTIFICACION
   const [noti] = useState({
-
     message: "",
     userNotification_id: "",
     userNotificated_id: "",
@@ -56,13 +55,12 @@ export default function RequestService(props) {
     message: "",
     userNotification_id: "",
     userNotificated_id: "",
-
   });
 
   useEffect(() => {
     dispatch(getDetail(id));
     dispatch(getUserEmail(user?.email));
-    dispatch(allRequest())
+    dispatch(allRequest());
     setLoading(false);
   }, [dispatch, user?.email]);
 
@@ -123,6 +121,7 @@ export default function RequestService(props) {
       toast.error('Ya tienes una solicitud para este pedido, dirigete a tu perfil para modificarla.')
     }
     if(userDb[0]?.id !== service.user?.id) {
+
       let requestService = {
         ...request,
         service_id: service.id,
@@ -152,10 +151,11 @@ export default function RequestService(props) {
         day: "",
         hours: "",
       });
-      toast.success('Servicio solicitado correctamente')
+      toast.success("Servicio solicitado correctamente");
       setTimeout(() => {
         navigate('/home')
       }, 1000);
+
     }
     
   };

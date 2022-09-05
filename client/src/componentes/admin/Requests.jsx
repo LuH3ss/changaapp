@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { allRequest, deleteRequest } from "../../redux/actions";
 import request from './Estilos/request'
 
-export default function Request(){
-    const allReq = useSelector(state => state.allRequest)
-    const dispatch = useDispatch()
-    console.log(allReq)
-    useEffect(() => {
-        dispatch(allRequest())
-    }, [dispatch])
+export default function Request() {
+  const allReq = useSelector((state) => state.allRequest);
+  const dispatch = useDispatch();
+  console.log(allReq);
+  useEffect(() => {
+    dispatch(allRequest());
+  }, [dispatch]);
 
     const handleDelete = (e) => {
         e.preventDefault()
@@ -44,3 +44,4 @@ export default function Request(){
             </div>
         </div>)
 }
+

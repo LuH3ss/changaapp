@@ -26,7 +26,7 @@ export default function Adminnavbar() {
         onChange={handleChange}
         value={value}
         aria-label="Tabs where selection follows focus"
-        selectionFollowsFocus
+        selectionfollowsfocus="true"
         sx={{
           width: "100%",
           display: "flex",

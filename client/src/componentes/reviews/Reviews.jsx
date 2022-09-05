@@ -8,13 +8,13 @@ import '../css/revwievs.css'
 export default function Reviews() {
     const dispatch = useDispatch()
     const allReviews = useSelector(state => state.reviews)
-    console.log(allReviews)
+   
     useEffect(() => {
       dispatch(getAllReviews())
     }, [dispatch])
 
   return (
-    <Box>
+    <Box className='rev-container'>
       {
         allReviews && allReviews.map(rev => {
           return (
