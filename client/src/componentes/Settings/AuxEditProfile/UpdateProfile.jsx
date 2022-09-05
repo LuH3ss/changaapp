@@ -11,15 +11,8 @@ import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import camera from "../../../pngwing.com.png";
-<<<<<<< HEAD
 import toast, {Toaster} from 'react-hot-toast'
 import EditIcon from '@mui/icons-material/Edit';
-
-
-=======
-import EditIcon from "@mui/icons-material/Edit";
->>>>>>> origin/dev
-
 
 function validate(input) {
   let error = {};
@@ -158,12 +151,9 @@ export default function UpdateProfile() {
       width: "100%",
       display: "none",
     },
-<<<<<<< HEAD
-=======
     bottomSection: {
       padding: "30px",
     },
->>>>>>> origin/dev
     formLabel: {
       fontSize: "1.3rem",
     },

@@ -31,8 +31,7 @@ export default function Guardar() {
     return (
       <div>
         <Navbar />
-        {/* <SearchBar /> */}
-        <div style={{marginTop: '75px'}}>
+        <div>
           <Category />
         </div>
         <Box className="rev-section">

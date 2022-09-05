@@ -27,6 +27,7 @@ const styles = {
     padding: "10px 0",
     backgroundColor: "#1F2937",
     color: "#fff",
+    
   },
   button: {
     color: "#fff",
