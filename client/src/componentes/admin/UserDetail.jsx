@@ -13,6 +13,8 @@ import {
 import { useParams, Link } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 
+import './Estilos/userDetail.css'
+
 export default function UserDetail() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -48,64 +50,68 @@ export default function UserDetail() {
   return (
     <Box
       component="section"
-      sx={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}
+      className="profile-section"
     >
-      <Box component="div">
-        <Typography variant="h5">Dellates del Usuario</Typography>
-        <Box component="div">
-          <img
-            style={{ width: "15%" }}
-            src={user[0]?.img}
-            alt="Foto de usuario"
-          />
-        </Box>
-        <Box component="div">
-          <ul>
-            <li>ID: {user[0]?.id}</li>
-            <li>Nombre: {user[0]?.firstName}</li>
-            <li>Apellido: {user[0]?.lastName}</li>
-            <li>Edad: {user[0]?.birthDate}</li>
-            <li>Email: {user[0]?.email} </li>
-            <li>Ubicación: {user[0]?.location}</li>
-            <li>Administrador: {user[0]?.admin ? 'true' : 'false'}</li>
-            <li>Banned: {user[0]?.banned ? "true" : "false"}</li>
-            <li>Description: {user[0]?.description}</li>
-          </ul>
+      <Box component="div" className="prof-detail">
+        <Typography variant="h5">Detalles del Usuario</Typography>
+          <Box component='div' className="personal-data-profile">
+            <Box component="div">
+              <img
+                style={{ width: "75%" }}
+                src={user[0]?.img}
+                alt="Foto de usuario"
+                />
+            </Box>
+            <Box className='pd-list' component="div">
+              <ul>
+                <li>ID: {user[0]?.id}</li>
+                <li>Nombre: {user[0]?.firstName}</li>
+                <li>Apellido: {user[0]?.lastName}</li>
+                <li>Edad: {user[0]?.birthDate}</li>
+                <li>Email: {user[0]?.email} </li>
+                <li>Ubicación: {user[0]?.location}</li>
+                <li>Administrador: {user[0]?.admin ? 'true' : 'false'}</li>
+                <li>Banned: {user[0]?.banned ? "true" : "false"}</li>
+                <li>Description: {user[0]?.description}</li>
+              </ul>
+            </Box>
+          </Box>
           <Button onClick={() => handleBanned(user[0]?.id)}>
             {user[0]?.banned ? "Habilitar" : "Deshabilitar"} Usuario
           </Button>
           <Button onClick={() => handleAdmin(user[0]?.id)}>
             {user[0]?.admin ? "Sacar Administrador" : "Convertir Administrador"}
           </Button>
-        </Box>
       </Box>
-      <Box component="div">
+      <Box component="div" className="prof-services">
         <Typography variant="h4">Servicios</Typography>
-        {userServices &&
-          userServices.map((serv) => {
-            return (
-              <Box key={serv.id} component="div">
-                <ul>
-                  <li>ID: {serv.id}</li>
-                  <li>Nombre: {serv.name}</li>
-                  <li>Precio: {serv.price}</li>
-                  <li>Descripción: {serv.description}</li>
-                  <li>Dias/Disp: {serv.days}</li>
-                  <li>Horas/Disp: {serv.hours}</li>
-                </ul>
-                <Button
-                  onClick={() => {
-                    dispatch(deleteService(serv.id))
-                    window.location.reload();
-                  }}
-                >
-                  Borrar Servicio
-                </Button>
-              </Box>
-            );
-          })}
+          <Box className="services-cont">  
+              {userServices &&
+                userServices.map((serv) => {
+                  return (
+                    <Box className="service-list" key={serv.id} component="div">
+                      <ul>
+                        <li>ID: {serv.id}</li>
+                        <li>Nombre: {serv.name}</li>
+                        <li>Precio: {serv.price}</li>
+                        <li>Descripción: {serv.description}</li>
+                        <li>Dias/Disp: {serv.days}</li>
+                        <li>Horas/Disp: {serv.hours}</li>
+                      </ul>
+                      <Button
+                        onClick={() => {
+                          dispatch(deleteService(serv.id))
+                          window.location.reload();
+                        }}
+                      >
+                        Borrar Servicio
+                      </Button>
+                    </Box>
+                  );
+                })}
+          </Box>
       </Box>
-      <Box component="div">
+      <Box component="div" className="prof-req-rec">
         <Typography variant="h4">Solicitudes Recibidas</Typography>
         {userRequest &&
           userRequest.map((req) => {
@@ -129,8 +135,8 @@ export default function UserDetail() {
             );
           })}
       </Box>
-      <Box>
-        <Typography variant="h4">Solicitudes Realizadas</Typography>
+      <Box component="div" className="prof-req-done">
+        <Typography variant="h4" >Solicitudes Realizadas</Typography>
         {userRequestDone &&
           userRequestDone.map((req) => {
             return (

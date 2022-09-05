@@ -60,14 +60,14 @@ export default function PublicServices() {
       ) : (
         userState[0]?.services.map((e) => {
           return (              
-                <Box sx={{display: 'flex',
+                <Box key={e.id} sx={{display: 'flex',
                   border: 'solid grey 1px', 
                   flexDirection:'column',
                   borderRadius: '10px',
                   padding:'2%',
                   margin:'2%'}}>
-                  <Box sx={{display:'flex'}}>
-                  <Box
+                  <Box key={e.id} sx={{display:'flex'}}>
+                  <Box key={e.id}
                     sx={{
                       width:'50%',
                       display: "flex",
