@@ -47,21 +47,24 @@ export default function FormCategory(){
                 <option value="menor">Menor precio</option>
             </select>
             <form onSubmit={e => handleOnSubmit(e)} className="filter-category" >
-                <div style={{padding:"10px", fontSize:"1.2rem", border:"0.5px solid grey", borderRadius:"10px"}}>
+                <div 
+                className="category_filter-select"
+               
+                >
                     <label>Todos</label>
                     <input id="todos" type="radio" value='todos' onChange={(e)=>handleOnClick(e)}/>
                 </div>
                 {
                     categoryState.map(el => {
                         return(
-                            <div key={el.id} style={{padding:"10px", fontSize:"1.2rem", border:"0.5px solid grey", borderRadius:"10px"}}>
+                            <div key={el.id} className="category_filter-select">
                                 <label>{el.name}</label>
                                 <input id={el.name} type="radio" value={el.name} name={el.name} onChange={(e)=>handleOnClick(e)}/>
                             </div>
                         )
                     })
                 }
-                <Button type="submit">Filtrar</Button>
+                <Button variant="contained" sx={{backgroundColor: "aliceblue", color: 'black', marginTop: '5%'}} type="submit">Filtrar</Button>
             </form>
         </div>)
 }
