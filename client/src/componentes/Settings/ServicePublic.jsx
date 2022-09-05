@@ -1,39 +1,39 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
-import { deleteService, getAllServices , getUserEmail } from "../../redux/actions";
+import {
+  deleteService,
+  getAllServices,
+  getUserEmail,
+} from "../../redux/actions";
 import { NavLink } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Avatar, Button, Typography } from "@mui/material";
-import toast, {Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import "../css/empty.css";
 
 export default function PublicServices() {
   const { user } = useAuth();
   const userState = useSelector((state) => state.filter);
   const dispatch = useDispatch();
-  let services = useSelector(state => state.services)
+  let services = useSelector((state) => state.services);
   // services = services?.filter(e => e.user_id === userState[0]?.id)
   console.log(userState);
   console.log(services);
 
-
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
-    dispatch(getAllServices())
+    dispatch(getAllServices());
   }, [dispatch, user?.email]);
 
-
-
   const handleDelete = (e) => {
-    e.preventDefault()
-    dispatch(deleteService(e.target.id))
-    toast.success('Servicio borrado con exito')
-       setTimeout(() => {
-        window.location.reload(true)
-       }, 1000);
-       
-  }
+    e.preventDefault();
+    dispatch(deleteService(e.target.id));
+    toast.success("Servicio borrado con exito");
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 1000);
+  };
 
   const styles = {
     infoText: {
@@ -43,7 +43,7 @@ export default function PublicServices() {
   };
 
   return (
-    <Box sx={{width:'70%'}}>
+    <Box sx={{ width: "70%" }}>
       <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
         <Box className="card-container">
@@ -122,7 +122,7 @@ export default function PublicServices() {
                   <Typography
                     style={styles.infoText}
                     variant="h7"
-                  >{`Categoría: ${e.category.name}`}</Typography>
+                  >{`Categoría: ${e.category?.name}`}</Typography>
                   <Typography
                     style={styles.infoText}
                     variant="h7"
