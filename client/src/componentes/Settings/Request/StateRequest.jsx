@@ -6,8 +6,15 @@ import {
   postNotification,
   updateRequest,
 } from "../../../redux/actions";
+<<<<<<< HEAD
 import { Link, NavLink } from "react-router-dom";
 import { Button, Box, Typography, Avatar } from "@mui/material";
+=======
+import { Link } from "react-router-dom";
+import { Button, Box, Typography } from "@mui/material";
+import userImg from '../../../user.png'
+
+>>>>>>> dev
 import toast, {Toaster} from "react-hot-toast";
 
 export default function StateRequest() {
@@ -77,10 +84,39 @@ export default function StateRequest() {
       }, 2000);
     }
   };
-  console.log(filterEmail)
+
+  const styles = {
+    acepted: {
+      display:'flex', 
+      border:'solid #58CC22 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    },
+    rejected: {
+      display:'flex', 
+      border:'solid #E00A0A 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    },
+    pending: {
+      display:'flex', 
+      border:'solid grey 2px', 
+      margin:'2%', 
+      padding:'2%', 
+      borderRadius:'10px',
+    }
+  }
+
+
   return (
+<<<<<<< HEAD
     <Box className="section" sx={{ width: "70%" }}>
       <Typography variant="h4">Estado del Servicio</Typography>
+=======
+    <Box sx={{ width: "70%" }}>
+>>>>>>> dev
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <Box className="card-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
@@ -99,72 +135,80 @@ export default function StateRequest() {
         </Box>
       ) : (
         filterEmail?.map((p) => {
-          return p.request.length === 0 ? (
-            <p>No tienes estados pendientes del servicio {p.name}</p>
-          ) : (
+          return (
             p.request?.map((e) => {
               return e.state === "rechazado" || e.state === 'Pagado' ? (
-                <p>
-                  La orden #{e.id} del servicio {filterEmail[0].name} fue {e.state === 'Pagado' ? 'Pagada' : 'Rechazada'}
-                </p>
+                <Box style={e.state==='rechazado'?styles.rejected:styles.acepted}>
+                  <Typography>
+                    La orden #{e.id} del servicio {filterEmail[0].name} fue {e.state === 'Pagado' ? 'Pagada' : 'Rechazada'}
+                  </Typography>  
+                </Box>
               ) : (
-                <div>
-                  <p>Nombre del servicio: {filterEmail[0]?.name}</p>
-                  <p>Reservado por: {e.userRequester?.firstName} </p>
-                  <img src={e.userRequester?.img} alt="asd" width='150px'/>
-                  <p>Estado: {e.state}</p>
-                  <p>
+                <Box style={e.state==='rechazado'? styles.rejected : e.state==='aceptado' ? styles.acepted : styles.pending}>
+                  <Box sx={{width:'25%',display:'flex', flexDirection:'column',alignItems:'center'}}>
+                  <Typography sx={{padding:'5%'}}>Reservado por: </Typography>
+                  <img style={{width:'100px'}} src={e.userRequester?.img ? e.userRequester?.img : userImg} alt="asd" />
+                  <Typography sx={{padding:'5%'}}>{e.userRequester?.firstName.concat(` ${e.userRequester.lastName}`)}</Typography>
+                  {console.log(e.userRequester)}
+                  </Box>
+                  <Box sx={{width:'50%', display:'flex', flexDirection:'column', justifyContent:'space-around', padding:'0 2%'}}>
+                  <Typography>Nombre del servicio: {filterEmail[0]?.name}</Typography>
+                  <Typography>Estado: {e.state}</Typography>
+                  <Typography>
                     Trabajo solicitado para el dia {e.day} a las {e.hours}hs
-                  </p>
+                  </Typography>
+                  </Box>
+                  <Box sx={{width:'25%'}}>
                   {e.state === "aceptado" ? (
                     <form
+                      style={{height:'100%', display:'flex', flexDirection:'column',justifyContent:'space-around', padding:'0 2%'}}
                       name={e.userRequester.email}
                       onSubmit={(e) => handleOnSubmit(e)}
                     >
-                      <div>
-                        <label>Cancelar</label>
-                        <input
-                          type="checkbox"
-                          name="rechazado"
-                          value={e.id}
-                          onChange={handleOnClick}
-                        />
-                      </div>
-                      <Button type="submit">Actualizar</Button>
+                      
+                      <Button name="rechazado"
+                      variant='contained'
+                        value={e.id}
+                        onClick={handleOnClick}
+                        >Cancelar</Button>
+
+                      <Button variant='contained' type="submit">Actualizar</Button>
                     </form>
                   ) : (
-                    e.state === 'pendiente' ? <form
+                    e.state === 'pendiente' ? 
+                    <form
                     name={e.userRequester.email}
                     onSubmit={(e) => handleOnSubmit(e)}
-                  >
-                    <label>Aceptar</label>
+                    style={{height:'100%', display:'flex', flexDirection:'column',justifyContent:'space-around', padding:'0 2%'}}
+                    >
 
-                    <input
-                      type="checkbox"
-                      className={e.requester_id}
-                      id="aceptado"
-                      name="aceptado"
-                      value={e.id}
-                      onChange={handleOnClick}
-                    />
-                    <label>Rechazar</label>
-                    <input
-                      type="checkbox"
-                      className={e.requester_id}
-                      id="rechazado"
-                      name="rechazado"
-                      email={e.userRequester.email}
-                      value={e.id}
-                      onChange={handleOnClick}
-                    />
+                      <Button
+                        id="aceptado"
+                        name="aceptado"
+                        value={e.id}
+                        onClick={handleOnClick}
+                        variant='contained'
+                      >
+                        Aceptar
+                      </Button>
 
-                    <div>
-                      <button>Confirmar</button>
-                    </div>
-                  </form>
+                      <Button
+                        id="rechazado"
+                        name="rechazado"
+                        email={e.userRequester.email}
+                        value={e.id}
+                        onClick={handleOnClick}
+                        variant='contained'
+                      >
+                        Rechazar
+                      </Button>
+                    
+                      <Button type='submit' variant='contained'>Confirmar</Button>
+                    </form>
                   : console.log('asd')
                   )}
-                </div>
+                  </Box>
+                </Box>
               );
             })
           );
