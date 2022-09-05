@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import HomeIcon from "@mui/icons-material/Home";
 import Box from "@mui/material/Box";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { NavLink, Outlet, Link } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
