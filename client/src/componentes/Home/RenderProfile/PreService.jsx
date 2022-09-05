@@ -22,7 +22,7 @@ export default function PreService(){
     }
     
     return(
-        <Box style={{marginTop: '90px'}}>
+        <Box >
             <Navbar/>
             <Typography><span onClick={handleOnClic}>{userState[0]?.category.name}</span> {' > '} {userState[0]?.name}</Typography>
             <h3>Descripcion general</h3>
