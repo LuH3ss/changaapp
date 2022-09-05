@@ -175,9 +175,7 @@ export default function FormService() {
     if (element.value === "23:30") {
       element.value = "00:00";
     } else {
-
       if (Number(input[1]) === 30) {
-
         input[1] = "00";
         input[0] = (Number(input[0]) + 1).toString();
         input[0] = input[0] < 10 ? "0".concat(input[0]) : input[0];
