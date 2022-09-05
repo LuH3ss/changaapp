@@ -1,0 +1,39 @@
+/* .service-container-full{
+    height: 100%;
+    background-color: rgba(119, 119, 119, 0.2)
+} */
+.container-services {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: rgba(119, 119, 119, 0.2);
+  min-height: 125vh;
+}
+.cards-services{
+    border: 1px solid rgb(77, 77, 77);
+    padding: 20px;
+    border-radius: 10px;
+    width: 70%;
+    transition: all 0.3s;
+    margin: auto;
+    margin-left: 50px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
+.form-filter-services {
+  text-align: center;
+  display: block;
+  justify-content: center;
+  gap: 10px;
+  align-items: baseline;
+  float: left;
+  min-height: 125vh;
+  width: 20%;
+  padding: 30px;
+  background-color: rgba(119, 119, 119, 0.3);
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.filter-category{
+    padding: 20px;
+}

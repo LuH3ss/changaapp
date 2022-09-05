@@ -6,7 +6,7 @@ import FormCategory from "./FormCategory";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-
+import "../../css/card-services.css"
 export default function AllCategorys() {
   const services = useSelector((state) => state.services);
   const dispath = useDispatch();
@@ -15,22 +15,15 @@ export default function AllCategorys() {
   }, [dispath]);
 
   return (
-    <div>
+    <div className="service-container-full">
       <Navbar />
       <FormCategory />
-      <Box sx={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+      <div className="container-services">
         {services &&
           services?.map((e) => {
             return (
-              <Box
-                sx={{
-                  border: "solid black 1.5px",
-                  maxwidth: "300px",
-                  borderRadius: "20px",
-                  margin: "10px",
-                  textAlign: "center",
-                  padding: "10px",
-                }}
+              <div className="cards-services"
+               
                 key={e.id}
               >
                 <h3>Servicio: {e.name}</h3>
@@ -41,10 +34,10 @@ export default function AllCategorys() {
                 <Button>
                   <Link to={`/home/services/${e.id}`}>Haz tu reserva</Link>
                 </Button>
-              </Box>
+              </div>
             );
           })}
-      </Box>
+      </div>
     </div>
   );
 }

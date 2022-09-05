@@ -5,7 +5,7 @@ import { getAllServices } from "../../../redux/actions";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import FormCategory from "./FormCategory";
-
+import "../../css/filter-services.css"
 export default function FilterCategory() {
   const services = useSelector((state) => state.services);
   const dispatch = useDispatch();
@@ -23,6 +23,7 @@ export default function FilterCategory() {
       <Navbar />
       
       <FormCategory />
+      <div className="filter-services-container">
       <h4>{param.name} {' > '}</h4>
       {filterUsers.length === 0 ? (
         <p>
@@ -32,15 +33,7 @@ export default function FilterCategory() {
       ) : (
         filterUsers?.map((e) => {
           return (
-            <div
-              style={{
-                border: "solid black 1.5px",
-                maxWidth: "300px",
-                borderRadius: "20px",
-                margin: "10px",
-                textAlign: "center",
-                padding: "10px",
-              }}
+            <div className="filter-services"
               key={e.id}
             >
               <h3>Servicio: {e.name}</h3>
@@ -56,5 +49,6 @@ export default function FilterCategory() {
         })
       )}
     </div>
+  </div>
   );
 }

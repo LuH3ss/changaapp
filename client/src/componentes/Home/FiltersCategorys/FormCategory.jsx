@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate} from "react-router-dom";
 import { getAllCategories, getAllServices, sortServices } from "../../../redux/actions";
-
+import "../../css/card-services.css"
 export default function FormCategory(){
     const categoryState = useSelector(state => state.categories)
     const services = useSelector(state => state.services)
@@ -41,21 +41,21 @@ export default function FormCategory(){
       };
     
     return(
-        <div style={{ textAlign: 'center'}}>
+        <div className="form-filter-services">
             <select name="precios" onChange={handleSort}>
                 <option value="neutro">Precios</option>
                 <option value="mayor">Mayor precio</option>
                 <option value="menor">Menor precio</option>
             </select>
-            <form onSubmit={e => handleOnSubmit(e)} style={{ textAlign: 'center', display: 'flex', justifyContent:'center', gap: '10px', alignItems:'baseline'}}>
-                <div>
+            <form onSubmit={e => handleOnSubmit(e)} className="filter-category" >
+                <div style={{padding:"10px", fontSize:"1.2rem", border:"0.5px solid grey", borderRadius:"10px"}}>
                     <label>Todos</label>
                     <input id="todos" type="radio" value='todos' onChange={(e)=>handleOnClick(e)}/>
                 </div>
                 {
                     categoryState.map(el => {
                         return(
-                            <div key={el.id}>
+                            <div key={el.id} style={{padding:"10px", fontSize:"1.2rem", border:"0.5px solid grey", borderRadius:"10px"}}>
                                 <label>{el.name}</label>
                                 <input id={el.name} type="radio" value={el.name} name={el.name} onChange={(e)=>handleOnClick(e)}/>
                             </div>
