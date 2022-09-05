@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import HomeIcon from "@mui/icons-material/Home";
 import Box from "@mui/material/Box";
 import { Button, Typography } from "@mui/material";
 import { NavLink, Outlet, Link } from "react-router-dom";
@@ -38,12 +38,19 @@ export default function Adminnavbar() {
         }}
       >
         <div>
-          <Link style={{textDecoration: 'none', color: '#fff'}} to='/home'><h2>ChangApp</h2></Link>
+          <Link style={{ textDecoration: "none", color: "#fff" }} to="/home">
+            <h2>ChangApp</h2>
+          </Link>
         </div>
 
         <Box sx={{ display: "flex" }}>
           <NavLink to="dashboard">
-            <Typography variant="h6">Admin</Typography>
+            <Button
+              sx={{ color: "white", textDecoration: "none" }}
+              label="ADMIN"
+            >
+              Admin
+            </Button>
           </NavLink>
           <NavLink to="users">
             <Button

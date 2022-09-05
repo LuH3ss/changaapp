@@ -1,11 +1,11 @@
 .rev-section {
-    /* sx={{textAlign: 'center', backgroundColor: 'grey'}} */
     text-align: center;
     background-color: rgba(74, 133, 215, 0.84);
     padding: 20px;
     color: rgba(255, 255, 255, 0.734);
     
 }
+
 .reviewCard {
     height: 100%;
     min-height: 220px;

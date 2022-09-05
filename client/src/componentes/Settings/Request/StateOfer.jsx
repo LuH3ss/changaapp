@@ -75,9 +75,6 @@ export default function StateRequester() {
     dispatch(deleteRequest(e.target.id));
     window.location.reload(true);
   }
-<<<<<<< HEAD
-  
-=======
 
   const styles = {
     acepted: {
@@ -106,7 +103,7 @@ export default function StateRequester() {
     }
   }
 
->>>>>>> origin/dev
+
   return (
     <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
       {filterById.length === 0 ? (
