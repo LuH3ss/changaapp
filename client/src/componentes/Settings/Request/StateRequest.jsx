@@ -6,8 +6,12 @@ import {
   postNotification,
   updateRequest,
 } from "../../../redux/actions";
-import { Link } from "react-router-dom";
-import { Button, Box, Typography } from "@mui/material";
+
+import { Link, NavLink } from "react-router-dom";
+import { Button, Box, Typography, Avatar } from "@mui/material";
+
+
+
 import userImg from '../../../user.png'
 
 import toast, {Toaster} from "react-hot-toast";
@@ -106,14 +110,25 @@ export default function StateRequest() {
 
 
   return (
-    <Box sx={{ width: "70%" }}>
+    <Box className="section" sx={{ width: "70%" }}>
+      <Typography variant="h4">Estado del Servicio</Typography>
+
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
-        <p>
-          Para ver los estados del servicio, primero debes publicar uno,
-          dirigete a la seccion{" "}
-          <Link to="/home/createService">publicar servicio</Link>
-        </p>
+        <Box className="card-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
+          <Box className="low-section" pl={2}>
+          <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}>
+            { 
+              <img src='https://images.unsplash.com/photo-1505939675702-ea0ad504df86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' alt="?" width="182px" height="182px" />
+            }
+          </Avatar>
+            <Typography  variant="h6" mb={5}>
+              Para ver los estados del servicio, primero debes publicar uno,
+              dirigete a la seccion{" "}
+              <NavLink className="link" to="/home/createService">publicar servicio</NavLink>
+            </Typography>
+          </Box>
+        </Box>
       ) : (
         filterEmail?.map((p) => {
           return (

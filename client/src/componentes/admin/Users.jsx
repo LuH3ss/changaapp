@@ -1,5 +1,4 @@
-import { Link } from '@mui/material';
-import MaterialTable from 'material-table'
+
 
 import React, { useEffect } from "react";
 
@@ -18,41 +17,10 @@ export default function Users() {
   console.log(usersDb);
 
 
-   const columns = [
-    { field: 'id', title: 'ID', width: 70 },
-    { field: 'firstName', title: 'Nombre', width: 130 },
-    { field: 'lastName', title: 'Apellido', width: 130 },
-    {
-      field: 'email',
-      title: 'Email',
-      type: 'text',
-      width: 90,
-    },
-    {
-        field: 'admin',
-        title: 'Administrador',
-        width: '70'
-    },
-    {
-        field: 'banned',
-        title:'Banned'
-        
-    },
-    {
-      field: 'profile',
-      title: 'Perfil/Detalle',
-      render: rowsData => <Link href={`users/${rowsData.id}`} >Detalle</Link>
-    }
-]
 
   return (
     <div >
-    <MaterialTable 
-    title="Data de Usuarios"
-    data={usersDb}
-    columns={columns}
-    style={{ height: '100%', width: '100%', background:'grey', fontSize:'1em', color:'white' }}
-    />
+  iNSERTE SI TABLA QUI
   </div>
   )
 

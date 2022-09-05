@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
 import { deleteService, getUserEmail } from "../../redux/actions";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { Box } from "@mui/system";
-import { Button, Typography } from "@mui/material";
-import toast, { Toaster } from "react-hot-toast";
+import { Avatar, Button, Typography } from "@mui/material";
+import toast from "react-hot-toast";
+import '../css/empty.css'
 
 export default function PublicServices() {
   const { user } = useAuth();
@@ -39,19 +40,31 @@ export default function PublicServices() {
   
 
   return (
-    <Box sx={{ width: "70%" }}>
-      {userState[0]?.services?.length === 0 ? (
-        <div>
-          <p>Este usuario no tiene ningun servicio registrado</p>
-          <p>
-            Si quieres publicar servicios, dirigete a la seccion{" "}
-            <Link to="/home/createService">crear servicios</Link>{" "}
-          </p>
-        </div>
+    <Box  sx={{ width: "70%" }}>
+      
+
+          {userState[0]?.services?.length === 0 ? (
+            <Box className="card-container">
+              <Typography variant="h5">¡No tenes ningun servicio registrado!</Typography>
+                  <Box className="low-section">
+                        <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}>
+                          { 
+                            <img src='https://images.unsplash.com/photo-1505939675702-ea0ad504df86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' alt="?" width="182px" height="182px" />
+                          }
+                        </Avatar>
+              <Typography variant="p">
+                Si quieres publicar servicios, dirigete a la seccion{" "}
+                <NavLink className="link" to="/home/createService">crear servicios</NavLink>{" "}
+              </Typography>
+                </Box>          
+            </Box>
+       
       ) : (
         userState[0]?.services.map((e) => {
           return (              
+
                 <Box sx={{display: 'flex',
+
                   border: 'solid grey 1px', 
                   flexDirection:'column',
                   borderRadius: '10px',
