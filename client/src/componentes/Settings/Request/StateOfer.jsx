@@ -8,13 +8,10 @@ import {
   postNotification,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
-
 import { Button, Box, Typography, Avatar } from "@mui/material";
-
-
 import Dialog from "@mui/material/Dialog";
-
 import '../../css/empty.css'
+
 
 export default function StateRequester() {
   const { user } = useAuth();
@@ -31,13 +28,6 @@ export default function StateRequester() {
     dispatch(getUserEmail(user?.email));
     dispatch(allRequest());
   }, [dispatch, user?.email]);
-
-  const handleOnClick = (e) => {
-    e.preventDefault();
-    dispatch(deleteRequest(e.target.id));
-    alert("Solicitud cancelada exitosamente");
-    window.location.reload(true);
-  };
 
   //PARA ENVIAR NOTIFIACION CON MENSAJE PERSONALIZADO
   const [noti, setNoti] = useState({
@@ -112,6 +102,7 @@ export default function StateRequester() {
       alignItems: "center",
     },
   };
+
 
   return (
 

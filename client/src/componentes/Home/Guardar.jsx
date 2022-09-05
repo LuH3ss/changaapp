@@ -31,7 +31,6 @@ export default function Guardar() {
     return (
       <div>
         <Navbar />
-        {/* <SearchBar /> */}
         <div>
           <Category />
         </div>

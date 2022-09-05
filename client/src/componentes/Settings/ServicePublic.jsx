@@ -1,33 +1,39 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
-import { deleteService, getUserEmail } from "../../redux/actions";
+import { deleteService, getAllServices , getUserEmail } from "../../redux/actions";
 import { NavLink } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Avatar, Button, Typography } from "@mui/material";
-import toast from "react-hot-toast";
+import toast, {Toaster} from "react-hot-toast";
 import "../css/empty.css";
 
 export default function PublicServices() {
   const { user } = useAuth();
   const userState = useSelector((state) => state.filter);
   const dispatch = useDispatch();
-
+  let services = useSelector(state => state.services)
+  // services = services?.filter(e => e.user_id === userState[0]?.id)
   console.log(userState);
+  console.log(services);
+
 
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
+    dispatch(getAllServices())
   }, [dispatch, user?.email]);
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    await toast.promise(dispatch(deleteService(e.target.id)), {
-      loading: "Saving...",
-      success: <b>Servicio borrado</b>,
-      error: <b>No se pudo borrar el servicio</b>,
-    });
-    window.location.reload(true);
-  };
+
+
+  const handleDelete = (e) => {
+    e.preventDefault()
+    dispatch(deleteService(e.target.id))
+    toast.success('Servicio borrado con exito')
+       setTimeout(() => {
+        window.location.reload(true)
+       }, 1000);
+       
+  }
 
   const styles = {
     infoText: {
@@ -37,7 +43,8 @@ export default function PublicServices() {
   };
 
   return (
-    <Box sx={{ width: "70%" }}>
+    <Box sx={{width:'70%'}}>
+      <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
         <Box className="card-container">
           <Typography variant="h5">

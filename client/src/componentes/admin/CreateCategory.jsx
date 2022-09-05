@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Nav from "../landing/LandingNav";
 import { postCategory } from "../../redux/actions/index.js";
 
+
 export default function CreateCategory() {
   const [category, setCategory] = useState({
     name: "",

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-
 import { useSelector, useDispatch } from "react-redux";
 import {
   allNotifications,
@@ -9,6 +8,7 @@ import {
 import { useAuth } from "../../context/authContext";
 import { Avatar, Box, Button, Typography } from "@mui/material";
 import "../css/empty.css";
+
 
 export default function Notifications() {
   const { user } = useAuth();

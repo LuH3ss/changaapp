@@ -23,11 +23,11 @@
     margin: 1%;
     background-color: rgba(144, 137, 137, 0.303);
     padding: 1%;
-    border-radius: 40px;
+    border-radius: 10px;
 }
 
 .personal-data-profile img {
-    border-radius: 600px;
+    border-radius: 10px;
 }
 
 .pd-list ul,

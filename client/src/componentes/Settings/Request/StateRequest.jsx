@@ -11,6 +11,8 @@ import { Button, Box, Typography, Avatar } from "@mui/material";
 import userImg from "../../../user.png";
 import toast, { Toaster } from "react-hot-toast";
 
+
+
 export default function StateRequest() {
   const { user } = useAuth();
   const serviceState = useSelector((state) => state.services);
@@ -69,8 +71,8 @@ export default function StateRequest() {
     if (btn.state !== "") {
       dispatch(postNotification(noti));
       dispatch(updateRequest({ ...btn, email: e.target.name }));
-      toast("Servicio Actualizado", {
-        icon: "👏",
+      toast('Solicitud Actualizada', {
+        icon: '👏',
       });
       setTimeout(() => {
         window.location.reload(true);
@@ -105,7 +107,6 @@ export default function StateRequest() {
   return (
     <Box className="section" sx={{ width: "70%" }}>
       <Typography variant="h4">Estado del Servicio</Typography>
-
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <Box
@@ -189,7 +190,6 @@ export default function StateRequest() {
                       ` ${e.userRequester.lastName}`
                     )}
                   </Typography>
-                  {console.log(e.userRequester)}
                 </Box>
                 <Box
                   sx={{

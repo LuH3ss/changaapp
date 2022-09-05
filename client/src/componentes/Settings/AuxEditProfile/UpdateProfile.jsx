@@ -11,7 +11,8 @@ import { CLODUNIARY_API } from "../../../Secret/Secret";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import camera from "../../../pngwing.com.png";
-import EditIcon from "@mui/icons-material/Edit";
+import toast, {Toaster} from 'react-hot-toast'
+import EditIcon from '@mui/icons-material/Edit';
 
 function validate(input) {
   let error = {};
@@ -37,7 +38,7 @@ export default function UpdateProfile() {
     description: "",
     location: "",
   });
-  const [error, setError] = useState("");
+  const [setError] = useState("");
   const [btn, setBtn] = useState(false);
   const dispatch = useDispatch();
   //PARA MANDAR UNA NOTIFICACION AUTOMATICA
@@ -95,8 +96,10 @@ export default function UpdateProfile() {
 
     dispatch(updateUser(user?.email, input));
     dispatch(postNotification(noti));
-    alert("Cambios guardados con exito");
-    navigate("/settings/profile");
+    toast.success("Cambios guardados con exito");
+    setTimeout(() => {
+      navigate("/settings/profile");
+    }, 2000);
   };
 
   //PARA CONTROLAR QUE SI NO INGRESO NINGUN DATO NO PUEDA GUARDAR LOS CAMBIOS
@@ -173,6 +176,7 @@ export default function UpdateProfile() {
 
   return (
     <Box style={styles.container}>
+      <Toaster position="top-center" reverseOrder={false} />
       <form style={styles.form} onSubmit={(e) => handleSubmit(e)}>
         <Box style={styles.topSection}>
           <Box style={styles.inputsSection}>
@@ -186,7 +190,7 @@ export default function UpdateProfile() {
               <Typography style={styles.formLabel}>Nombre:</Typography>
               <TextField
                 type="text"
-                value={input.firstName}
+                value={input.firstName} 
                 placeholder={estado[0].firstName}
                 name="firstName"
                 onChange={handleChange}

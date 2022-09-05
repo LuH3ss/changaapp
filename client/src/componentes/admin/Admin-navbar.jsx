@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-
 import Box from "@mui/material/Box";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { NavLink, Outlet, Link } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -45,7 +44,12 @@ export default function Adminnavbar() {
 
         <Box sx={{ display: "flex" }}>
           <NavLink to="dashboard">
-            <Typography variant="h6">Admin</Typography>
+            <Button
+              sx={{ color: "white", textDecoration: "none" }}
+              label="ADMIN"
+            >
+              Admin
+            </Button>
           </NavLink>
           <NavLink to="users">
             <Button
