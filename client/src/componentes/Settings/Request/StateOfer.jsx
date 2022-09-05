@@ -8,11 +8,9 @@ import {
   postNotification,
 } from "../../../redux/actions";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
+
 import { Button, Box, Typography, Avatar } from "@mui/material";
-=======
-import { Button, Box, Typography } from "@mui/material";
->>>>>>> dev
+
 import styles from "./style.js";
 import Dialog from "@mui/material/Dialog";
 import Review from "../../Review";
@@ -116,13 +114,11 @@ export default function StateRequester() {
   }
 
   return (
-<<<<<<< HEAD
+
     <Box className="section" sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
       
       <Typography variant="h4">Estado de los servicios solicitados</Typography>
-=======
-    <Box sx={{ width: "70%" }} style={hide === false ? styles.con : styles.no}>
->>>>>>> dev
+
       {filterById.length === 0 ? (
         <Box className="card-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
 

@@ -6,15 +6,14 @@ import {
   postNotification,
   updateRequest,
 } from "../../../redux/actions";
-<<<<<<< HEAD
+
 import { Link, NavLink } from "react-router-dom";
 import { Button, Box, Typography, Avatar } from "@mui/material";
-=======
-import { Link } from "react-router-dom";
-import { Button, Box, Typography } from "@mui/material";
+
+
+
 import userImg from '../../../user.png'
 
->>>>>>> dev
 import toast, {Toaster} from "react-hot-toast";
 
 export default function StateRequest() {
@@ -111,12 +110,9 @@ export default function StateRequest() {
 
 
   return (
-<<<<<<< HEAD
     <Box className="section" sx={{ width: "70%" }}>
       <Typography variant="h4">Estado del Servicio</Typography>
-=======
-    <Box sx={{ width: "70%" }}>
->>>>>>> dev
+
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <Box className="card-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
