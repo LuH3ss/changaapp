@@ -46,7 +46,7 @@ export default function PublicServices() {
     <Box sx={{width:'70%'}}>
       <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
-        <Box className="card-container">
+        <Box className="empty-container">
           <Typography variant="h5">
             ¡No tenes ningun servicio registrado!
           </Typography>

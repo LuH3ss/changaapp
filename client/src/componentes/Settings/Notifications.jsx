@@ -52,7 +52,7 @@ export default function Notifications() {
       >
         {notifications.length === 0 ? (
           <Box
-            className="card-container"
+            className="empty-container"
             sx={{
               textAlign: "center",
               display: "flex",

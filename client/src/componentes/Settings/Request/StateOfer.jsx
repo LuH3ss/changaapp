@@ -111,7 +111,7 @@ export default function StateRequester() {
       <Typography variant="h4">Estado de los servicios solicitados</Typography>
 
       {filterById.length === 0 ? (
-        <Box className="card-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
+        <Box className="empty-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
 
           <Typography variant="h5" mb={5}>Aun no has realizado ninguna solicitud</Typography>
           <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}>
