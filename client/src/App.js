@@ -35,6 +35,7 @@ import DeleteCategory from "./componentes/admin/DeleteCategory";
 import AdminPrivate from "./componentes/PrivateRoute/AdminPrivate";
 import Services from "./componentes/admin/Services";
 import Request from "./componentes/admin/Requests";
+import ProfileRev from "./componentes/Settings/ProfileRev";
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />
           <Route path='notifications' element={<Notifications/>}/>
+          <Route path='reviews' element={<ProfileRev/>}/>
         </Route>
        
         {/* SECCION ADMINISTRADOR */}
