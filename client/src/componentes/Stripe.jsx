@@ -112,7 +112,6 @@ export default function Stripe({id}) {
   }, [dispatch]);
 
   prueba = prueba?.filter((p) => p.service_id === id);
-  console.log(prueba);
   return (
     <div className="pay-container">
       {prueba[0]?.state !== "aceptado" ? (

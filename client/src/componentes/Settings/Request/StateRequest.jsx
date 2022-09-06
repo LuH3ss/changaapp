@@ -230,36 +230,6 @@ export default function StateRequest() {
                     <form
                       name={e.userRequester.email}
                       onSubmit={(e) => handleOnSubmit(e)}
-                    >
-                      <label>Aceptar</label>
-
-                      <input
-                        type="checkbox"
-                        className={e.requester_id}
-                        id="aceptado"
-                        name="aceptado"
-                        value={e.id}
-                        onChange={handleOnClick}
-                      />
-                      <label>Rechazar</label>
-                      <input
-                        type="checkbox"
-                        className={e.requester_id}
-                        id="rechazado"
-                        name="rechazado"
-                        email={e.userRequester.email}
-                        value={e.id}
-                        onChange={handleOnClick}
-                      />
-
-                      <div>
-                        <button>Confirmar</button>
-                      </div>
-                    </form>
-                  ) : e.state === "pendiente" ? (
-                    <form
-                      name={e.userRequester.email}
-                      onSubmit={(e) => handleOnSubmit(e)}
                       style={{
                         height: "100%",
                         display: "flex",

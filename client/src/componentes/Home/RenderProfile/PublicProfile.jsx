@@ -23,7 +23,6 @@ export default function PublicProfile() {
   const filtrarReviews = allUser[0]?.reviews.slice(0, 2);
   //ESTADO PARA EL POP UP
   const [btn, setBtn] = useState(false);
-  console.log(filterUser[0]?.reviews)
   useEffect(() => {
     dispatch(getAllServices());
     dispatch(allUsers());
@@ -48,7 +47,7 @@ export default function PublicProfile() {
         <Box sx={{display:'flex', width:'50%', flexDirection:'column', padding:'2%'}}>
           <Box sx={{display:'flex', border:'solid grey 1px', borderRadius:'10px'}}>
             <Box sx={{display:'flex', flexDirection:'column'}}>
-              <img style={{borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', height:'100%'}} src={filterUser[0]?.img} alt={filterUser[0]?.firstName} />
+              <img style={{borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', height:'100%'}} src={filterUser[0]?.img} alt={filterUser[0]?.firstName} width='30px' />
             </Box>
             <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'2%'}}>
               <Typography sx={{fontSize:'1.5rem'}}>{`${filterUser[0]?.firstName} ${filterUser[0]?.lastName}`}</Typography>
