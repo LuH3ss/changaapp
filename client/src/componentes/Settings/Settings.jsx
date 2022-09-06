@@ -31,10 +31,6 @@ export default function Settings(id) {
   const totalRequestsMade = userData?.requester.length;
   const totalReviews = userData?.reviews.length;
 
-  console.log(totalServices, totalRequestsReceived, totalRequestsMade)
-  console.log(userData)
-  console.log(location.pathname.split('/')[3])
-
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
     dispatch(allNotifications())  

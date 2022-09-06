@@ -14,7 +14,6 @@ const paymentMethod = async (req, res) => {
       payment_method: id,
       confirm: true,
     });
-    console.log(payment);
     res.send({ message: "Successful payment" });
     const asunto = "Pago del servicio";
     const mensaje =

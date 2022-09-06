@@ -8,8 +8,6 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import Navbar from "./PrivateRoute/Navbar";
-import Footer from "./Footer";
 import toast, { Toaster } from "react-hot-toast";
 import { loadStripe } from "@stripe/stripe-js";
 import { useEffect } from "react";
@@ -21,23 +19,20 @@ import {
 } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const publicUrl =
   "pk_test_51Lb2ZIKO72YUdcCNim89I44LXzpgG2vz57CjEn0ZAqmTZVW4D1o9y1ea5rzYeeH3dMFE4CAclOjOUqfc5NXncwMe00Zzkr0H1d";
 const stripePromise = loadStripe(publicUrl);
 
-const CheckoutForm = () => {
+const CheckoutForm = ({id}) => {
   const stripe = useStripe();
   const elements = useElements();
-  const { id } = useParams();
   const dispatch = useDispatch();
   let service = useSelector((state) => state.services);
   let request = useSelector((state) => state.allRequest);
   request = request.filter((p) => p.state === "aceptado");
   request = request.filter((p) => p.service_id === id);
   service = service.filter((p) => p.id === id);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(allRequest());
@@ -57,7 +52,7 @@ const CheckoutForm = () => {
     });
 
     if (!error) {
-      const email = service[0].user.email;
+      const email = service[0]?.user.email;
       const { id } = paymentMethod;
       await axios.post("http://www.localhost:3001/payment", {
         id,
@@ -76,9 +71,8 @@ const CheckoutForm = () => {
       );
 
       elements.getElement(CardElement).clear();
-      // toast.success("Pago completado exitosamente!, redireccionando...");
       setTimeout(() => {
-        navigate("/settings/requester");
+        window.location.reload()
       }, 2000);
     }
   };
@@ -92,17 +86,12 @@ const CheckoutForm = () => {
           className="logo-card"
           alt="Not found"
         />
-
         <CardElement />
-
-        {/* <Link to={`/home/services/review/${id}`}> */}
         <button className="proceed">
           <svg className="sendicon" width="24" height="24" viewBox="0 0 24 24">
             <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
           </svg>
         </button>
-        {/* </Link> */}
-
         <h3>
           {<br />}Amount: ${service[0]?.price}
         </h3>
@@ -111,8 +100,7 @@ const CheckoutForm = () => {
   );
 };
 
-export default function Stripe() {
-  const { id } = useParams();
+export default function Stripe({id}) {
   let request = useSelector((state) => state.allRequest);
   let prueba = request.filter((p) => p.state === "aceptado");
   const dispatch = useDispatch();
@@ -127,20 +115,13 @@ export default function Stripe() {
   console.log(prueba);
   return (
     <div className="pay-container">
-      <Navbar />
       {prueba[0]?.state !== "aceptado" ? (
         navigate("/settings/requester")
       ) : (
         <Elements stripe={stripePromise}>
-          <Link style={{ textDecoration: "none" }} to="/settings/requester">
-            <Button sx={{ color: "#1F2937" }} variant="outlined">
-              Volver atras
-            </Button>
-          </Link>
-          <CheckoutForm />
+          <CheckoutForm id={id} />
         </Elements>
       )}
-      <Footer />
     </div>
   );
 }

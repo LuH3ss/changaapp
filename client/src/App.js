@@ -48,7 +48,6 @@ function App() {
         <Route path="/password" element={<Password />} />
         <Route path="/home" element={<PrivateRoute><Guardar /></PrivateRoute>} />
         <Route path="/home/:name" element={<PrivateRoute><FilterCategory /></PrivateRoute>} />
-        {/* <Route path='/home/user/:id' element={<PrivateRoute><PreService/></PrivateRoute>}/> */}
         <Route path='/home/public/:id' element={<PrivateRoute><PublicProfile/></PrivateRoute>}/>
         <Route path="/home/todos" element={<PrivateRoute><AllCategorys /></PrivateRoute>} />
         <Route path="/home/createService" element={<PrivateRoute><Servicios /></PrivateRoute>} />
@@ -59,6 +58,7 @@ function App() {
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
           <Route path="services/" element={<PublicServices />}/>
+          <Route path='reviews' element={<ProfileRev/>}/>
           <Route path="services/:id" element={<UpdateService />} />
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />
