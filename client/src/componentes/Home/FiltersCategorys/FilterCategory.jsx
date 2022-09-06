@@ -56,8 +56,11 @@ export default function FilterCategory() {
               <h4>{e.user?.firstName}</h4>
               <p>{e.description}</p>
               <p>${e.price}</p>
-              <Link to={`/home/user/${e.name}`}>
-                <Button variant="contained"  sx={{ backgroundColor: "#354152" }} >Haz tu reserva</Button>
+              <Link to={`/home/services/${e.id}`}>
+                <Button variant="contained"  sx={{ backgroundColor: "#354152", margin: '5px' }} >Haz tu reserva</Button>
+              </Link>
+              <Link to={`/home/public/${e.user?.id}`}>
+                <Button variant="contained"  sx={{ backgroundColor: "#354152" }} >Ver Perfil</Button>
               </Link>
             </div>
           );
