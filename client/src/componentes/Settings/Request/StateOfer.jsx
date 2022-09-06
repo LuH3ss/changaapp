@@ -11,7 +11,7 @@ import { Button, Box, Typography } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import '../../css/empty.css'
 import Review from "../../Review";
-import foto from '../../../herramientas.png'
+import error from '../../../404.png'
 import CloseIcon from "@mui/icons-material/Close";
 import Stripe from "../../Stripe";
 
@@ -188,7 +188,7 @@ export default function StateRequester() {
         <Box className="empty-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center'}}>
           <Typography variant="h5" mb={5}>Aun no has realizado ninguna solicitud</Typography>
           {/* <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px' }}> */}
-             <img src={foto} alt="?" width="250px" height="150px" />
+             <img src={error} alt="?" width="250px" height="150px" />
           {/* </Avatar> */}
         </Box>
       ) : (

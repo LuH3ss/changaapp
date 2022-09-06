@@ -5,8 +5,11 @@ import { useAuth } from "../../context/authContext";
 import { getUserEmail, getAllReviews } from "../../redux/actions";
 import Rating from "@mui/material/Rating";
 import styles from "./Request/style";
-import { Avatar, Box, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import userImg from "../../user.png";
+import error from '../../404.png'
+
 
 export default function ProfileRev() {
   const { user } = useAuth();
@@ -57,7 +60,33 @@ export default function ProfileRev() {
   return (
     <Box style={stylesJP.container}>
       {allReviews?.length === 0 ? (
-        <p>No recibiste reseñas por el momento</p>
+        <Box
+        className="empty-container"
+        sx={{
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Box className="low-section" pl={2}>
+            {
+              <img
+                src={error}
+                alt="?"
+                width="182px"
+                height="182px"
+              />
+            }
+          <Typography variant="h6" mb={5}>
+            Para ver los estados del servicio, primero debes publicar uno,
+            dirigete a la seccion{" "}
+            <NavLink className="linkk" to="/home/createService">
+              publicar servicio
+            </NavLink>
+          </Typography>
+        </Box>
+      </Box>
       ) : (
         revSlice?.map((e) => {
           return (
