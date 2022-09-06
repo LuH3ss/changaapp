@@ -142,6 +142,16 @@ export default function Settings(id) {
 
               <Divider variant="inset" />
 
+              <NavLink style={(e)=>handleSelected(e)} to='reviews'>
+                <Box sx={{display:'flex', alignItems:'center'}}>
+                  <WorkIcon id="servicesIcon" style={location?.pathname === '/settings/reviews' ? styles.icons2 : styles.icons}/>
+                  <Typography style={styles.listText}>Reseñas</Typography>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">JP</label>
+                </Box>
+              </NavLink>
+
+              <Divider variant="inset" />
+
               <NavLink style={(e)=>handleSelected(e)} to='request'>
                 <Box sx={{display:'flex', alignItems:'center'}}>
                   <EmailIcon id="requestIcon" style={location?.pathname === '/settings/request' ? styles.icons2 : styles.icons}/>

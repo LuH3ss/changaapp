@@ -70,6 +70,8 @@ export default function StateRequester() {
 
   const [hide, setHide] = useState(true);
   const [pagar, setPagar] = useState(true);
+  const [rev, setRev] = useState(true);
+
 
   const handlePagar = (e) => {
     e.preventDefault(e);
@@ -82,6 +84,19 @@ export default function StateRequester() {
     });
     setPagar(!pagar);
   }
+
+  const handleRev = (e) => {
+    e.preventDefault(e);
+    setNoti({
+      ...noti,
+      userNotificated_id: e.target.name,
+    });
+    setDel({
+      id: e.target.id,
+    });
+    setRev(!rev);
+  }
+
 
   const handleClic = (e) => {
     e.preventDefault(e);
@@ -235,7 +250,6 @@ export default function StateRequester() {
                         <CloseIcon />
                         </span>
                           <Stripe id={e.service_id}/>
-                          {console.log(e.service_id)}
                       </Dialog>
                       </div>
                       <Button
@@ -278,9 +292,9 @@ export default function StateRequester() {
                     <div>
                       {e.state === "Pagado" ? (
                         <div>
-                          <Button onClick={handleClic} sx={{ width: "100%", margin: "2%" }} variant="contained">Dejar reseña</Button>
-                        <Dialog open={!hide}>
-                        <span onClick={handleClic}>
+                          <Button onClick={handleRev} sx={{ width: "100%", margin: "2%" }} variant="contained">Dejar reseña</Button>
+                        <Dialog open={!rev}>
+                        <span onClick={handleRev}>
                         <CloseIcon />
                         </span>
                           <Review

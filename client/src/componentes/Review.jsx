@@ -18,6 +18,7 @@ export default function Review({id}) {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [rev, setRev] = useState("");
+  const [btn, setBtn] = useState(true)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useAuth();
@@ -39,7 +40,12 @@ export default function Review({id}) {
     dispatch(getUserEmail(user?.email));
     dispatch(getAllServices());
     dispatch(allRequest());
-  }, [dispatch, user?.email]);
+    if(rev && rating ){
+      setBtn(false)
+    }else{
+      setBtn(true)
+    }
+  }, [dispatch, user?.email, rev,rating]);
 
   const postRevieew = async (e) => {
     e.preventDefault();
@@ -115,7 +121,7 @@ export default function Review({id}) {
             );
           })}
           </div>
-          <button onClick={postRevieew} className='btnReview'>Publicar</button>
+          <button onClick={postRevieew} className='btnReview' disabled={btn}>Publicar</button>
         </div>
       )}
 

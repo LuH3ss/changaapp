@@ -35,6 +35,7 @@ import DeleteCategory from "./componentes/admin/DeleteCategory";
 import AdminPrivate from "./componentes/PrivateRoute/AdminPrivate";
 import Services from "./componentes/admin/Services";
 import Request from "./componentes/admin/Requests";
+import ProfileRev from "./componentes/Settings/ProfileRev";
 
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
           <Route path="services/" element={<PublicServices />}/>
+          <Route path='reviews' element={<ProfileRev/>}/>
           <Route path="services/:id" element={<UpdateService />} />
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />
