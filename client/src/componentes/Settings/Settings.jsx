@@ -29,6 +29,7 @@ export default function Settings(id) {
   let totalRequestsReceived = 0;
   userData?.services?.forEach((e) => totalRequestsReceived += e.request.length);
   const totalRequestsMade = userData?.requester.length;
+  const totalReviews = userData?.reviews.length;
 
   useEffect(() => {
     dispatch(getUserEmail(user?.email));
@@ -146,7 +147,7 @@ export default function Settings(id) {
                 <Box sx={{display:'flex', alignItems:'center'}}>
                   <WorkIcon id="servicesIcon" style={location?.pathname === '/settings/reviews' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Reseñas</Typography>
-                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">JP</label>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">{totalReviews}</label>
                 </Box>
               </NavLink>
 

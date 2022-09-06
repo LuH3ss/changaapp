@@ -5,7 +5,6 @@ const styles = {
     nohide: {
         display: 'block'
     },
-    //PARA EL PAGINADO DE NOTIFICATIONS (ASI NO HAGO OTRA PAGINA)
     btnPaginado: {
         cursor: "pointer",
         backgroundColor: "#1F2937",

@@ -65,6 +65,7 @@ function App() {
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />
           <Route path='notifications' element={<Notifications/>}/>
+          <Route path='reviews' element={<ProfileRev/>}/>
         </Route>
        
         {/* SECCION ADMINISTRADOR */}
