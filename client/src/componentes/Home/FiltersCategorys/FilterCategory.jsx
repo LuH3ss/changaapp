@@ -5,10 +5,11 @@ import { getAllServices } from "../../../redux/actions";
 import { NavLink, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import FormCategory from "./FormCategory";
+import "../../css/filter-services.css"
 import '../../css/empty.css'
-import { Avatar, Typography } from "@mui/material";
+import "../../css/card-services.css"
+import { Avatar, Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-
 export default function FilterCategory() {
   const services = useSelector((state) => state.services);
   const dispatch = useDispatch();
@@ -22,10 +23,12 @@ export default function FilterCategory() {
   
 
   return (
-    <div>
+    <div className="service-container-full">
       <Navbar />
       
       <FormCategory />
+      <div className="container-services">
+      
       <Typography variant="h4">{param.name}</Typography>
       {filterUsers.length === 0 ? (
         <Box className="empty-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center', maxWidth:'80%', position: 'relative', margin: '40px auto'  }} >
@@ -45,29 +48,22 @@ export default function FilterCategory() {
       ) : (
         filterUsers?.map((e) => {
           return (
-            <div
-              style={{
-                border: "solid black 1.5px",
-                maxWidth: "300px",
-                borderRadius: "20px",
-                margin: "10px",
-                textAlign: "center",
-                padding: "10px",
-              }}
+            <div className="cards-services"
               key={e.id}
             >
+              <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/>
               <h3>Servicio: {e.name}</h3>
               <h4>{e.user?.firstName}</h4>
-              <img src={e.user?.img} alt="No tiene" width='64px' height="64px"/>
               <p>{e.description}</p>
               <p>${e.price}</p>
               <Link to={`/home/user/${e.name}`}>
-                <button>Haz tu reserva</button>
+                <Button variant="contained"  sx={{ backgroundColor: "#354152" }} >Haz tu reserva</Button>
               </Link>
             </div>
           );
         })
       )}
     </div>
+  </div>
   );
 }
