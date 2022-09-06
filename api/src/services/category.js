@@ -1,5 +1,5 @@
 const { Category } = require("../db");
-const { allCategories } = require("../utils/utils");
+const { Op } = require("sequelize");
 const createCategoryMail = require("./Emails/sendEmails");
 const deleteCategoryMail = require("./Emails/sendEmails");
 
@@ -49,8 +49,22 @@ const deleteCategory = async (req, res) => {
   deleteCategoryMail.email(email, asunto, mensaje);
 };
 
+const searchCategory = async (req, res) => {
+  try {
+    const { name } = req.query;
+    const response = await Category.findAll({
+      where: { name: { [Op.iLike]: `%${name}%` } },
+    });
+    res.send(response);
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+
 module.exports = {
   getCategories,
   postCategorie,
   deleteCategory,
+  searchCategory
 };

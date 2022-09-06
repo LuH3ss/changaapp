@@ -29,7 +29,7 @@ export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
 export const USER_LOCATION = "USER_LOCATION";
 export const ADMIN_UPDATE = "ADMIN_UPDATE"
 export const ALL_REVIEWS = "ALL_REVIEWS"
-
+export const SEARCH_CATEGORY = 'SEARCH_CATEGORY'
 
 
 
@@ -213,6 +213,17 @@ export function deleteCategory(id) {
       }))
   }
 } 
+
+export function searchCategory(name) {
+  return async function(dispatch){
+    await axios.get(`${EP}/category/search?name=${name}`)
+    .then(detalle => dispatch({
+      type: SEARCH_CATEGORY,
+      payload: detalle.data
+    }))
+  }
+}
+
 
 export function filterByCategory(payload) {
   return {
