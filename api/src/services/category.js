@@ -33,7 +33,6 @@ const postCategorie = async (req, res) => {
 const deleteCategory = async (req, res) => {
   const { id } = req.params;
 
-  console.log(id);
   try {
     await Category.destroy({
       where: {

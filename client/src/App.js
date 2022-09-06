@@ -58,6 +58,7 @@ function App() {
           <Route path="edit" element={<EditProfile />} />
           <Route path="profile" element={<Profile />} />
           <Route path="services/" element={<PublicServices />}/>
+          <Route path='reviews' element={<ProfileRev/>}/>
           <Route path="services/:id" element={<UpdateService />} />
           <Route path="request" element={<StateRequest />} />
           <Route path="requester" element={<StateRequester />} />

@@ -8,6 +8,9 @@ import { Avatar, Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import "../../css/card-services.css"
 import '../../css/empty.css'
+import error from '../../../404.png'
+
+
 export default function AllCategorys() {
   const services = useSelector((state) => state.services);
   const dispath = useDispatch();
@@ -30,11 +33,11 @@ export default function AllCategorys() {
                     No se encuentra ningun servicio actualmente{" "}
                     <NavLink className='linkk' to="/home/createService">Se el primero en publicar un servicio!</NavLink>
                 </Typography>
-                <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px', position: 'relative', margin: '0 auto' }}>
+                {/* <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px', position: 'relative', margin: '0 auto' }}> */}
             { 
-              <img src='https://images.unsplash.com/photo-1505939675702-ea0ad504df86?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80' alt="?" width="182px" height="182px" />
+              <img src={error} alt="?" width="182px" height="182px" />
             }
-          </Avatar>
+          {/* </Avatar> */}
 
             </Box>
         </Box>
@@ -54,9 +57,12 @@ export default function AllCategorys() {
 
                 <p>{e.description}</p>
                 <p>${e.price}</p>
-                <Button variant="contained"  sx={{ backgroundColor: "#354152" }}>
-                  <NavLink style={{color: 'white'}} to={`/home/user/${e.name}`}>Haz tu reserva</NavLink>
-                </Button>
+                <Link to={`/home/services/${e.id}`}>
+                <Button variant="contained"  sx={{ backgroundColor: "#354152", margin: '5px' }} >Haz tu reserva</Button>
+              </Link>
+              <Link to={`/home/public/${e.user?.id}`}>
+                <Button variant="contained"  sx={{ backgroundColor: "#354152" }} >Ver Perfil</Button>
+              </Link>
               </div>
             );
           }))}
