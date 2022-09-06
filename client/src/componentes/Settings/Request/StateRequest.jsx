@@ -6,7 +6,7 @@ import {
   postNotification,
   updateRequest,
 } from "../../../redux/actions";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Button, Box, Typography, Avatar } from "@mui/material";
 import userImg from "../../../user.png";
 import toast, { Toaster } from "react-hot-toast";
@@ -110,7 +110,7 @@ export default function StateRequest() {
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <Box
-          className="card-container"
+          className="empty-container"
           sx={{
             textAlign: "center",
             display: "flex",

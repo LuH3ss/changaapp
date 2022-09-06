@@ -22,7 +22,7 @@ export default function PreService(){
     }
     
     return(
-        <Box style={{marginTop: '90px'}}>
+        <Box>
             <Navbar/>
 
             <Box sx={{display:'flex', flexDirection:'column', margin:'5%', border:'solid grey 1px', borderRadius:'10px', padding:'5%', alignItems:'center'}}>

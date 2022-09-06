@@ -28,7 +28,7 @@ export default function FilterCategory() {
       <FormCategory />
       <Typography variant="h4">{param.name}</Typography>
       {filterUsers.length === 0 ? (
-        <Box className="asdasd" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center', maxWidth:'80%', position: 'relative', margin: '40px auto'  }} >
+        <Box className="empty-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center', maxWidth:'80%', position: 'relative', margin: '40px auto'  }} >
             <Box>
                 <Typography variant="h5" mb={5}>  
                     No se encuentra ningun servicio para esta categoria{" "}
