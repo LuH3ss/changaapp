@@ -80,7 +80,7 @@ export default function Notifications() {
       >
         {notifications.length === 0 ? (
           <Box
-            className="lucas"
+            className="empty-container"
             sx={{
               textAlign: "center",
               display: "flex",

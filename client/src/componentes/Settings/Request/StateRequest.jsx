@@ -111,7 +111,7 @@ export default function StateRequest() {
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (
         <Box
-          className="lucas"
+          className="empty-container"
           sx={{
             textAlign: "center",
             display: "flex",

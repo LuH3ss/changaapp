@@ -78,8 +78,9 @@ export default function PublicServices() {
     <Box sx={{width:'70%'}}>
       <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
-        <Box className="lucas">
+        <Box className="empty-container">
           <Typography variant="h5" sx={{textAlign: 'center'}}>
+
             ¡No tenes ningun servicio registrado!
           </Typography>
           <Box className="low-section">

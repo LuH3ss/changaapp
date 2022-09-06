@@ -15,14 +15,17 @@
   margin-right: 20px;
 }
 
-.footerLink{
-  color: #fff;
+
+.footer__lista {
+  list-style: square;
+  color: #ffffff;
 }
 
 .footer__lista--item {
   cursor: pointer;
   transition: all 0.5s;
-  list-style: none;
+  list-style: circle;
+  color: #ffffff !important;
 }
 
 .footer__lista--item:hover {
@@ -55,6 +58,7 @@ a {
 .formulario__campo {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .formulario label {
@@ -65,6 +69,7 @@ a {
   font-size: 0.8rem;
   font-weight: 300;
   padding: 0.5rem 0.5rem 0 0.5rem;
+  width: 100%;
 }
 
 .formulario input {
@@ -75,7 +80,7 @@ a {
   font-size: 1rem;
   outline: none;
   padding: 0.5rem;
-  width: 35rem;
+  width: 100%;
 }
 .formulario input:active{
   background-color: #f1f1f1;
@@ -90,7 +95,8 @@ a {
   outline: none;
   padding: 0.5rem;
   resize: none;
-  width: 35rem;
+  
+  width: 100%;
 }
 .formulario textarea:active{
   background-color: #f1f1f1;
