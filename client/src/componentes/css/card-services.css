@@ -29,15 +29,15 @@
   float: right;
   height: 90%;
   width: 40%;
-  border-radius: 50%;
+  border-radius: 10px;
   }
   /* style={{padding:"10px", fontSize:"1.2rem", border:"0.5px solid grey", borderRadius:"10px"}} */
  .category_filter-select {
-  padding: 8%;
+  padding: 5px 0px;
   font-size: 1.2rem;
   border: 0.5px solid grey;
-  border-radius: 10%;
-  margin-top: 5%;
+  border-radius: 10px;
+  margin-top: 15px;
   background-color: #1F2937
 
  } 
@@ -47,29 +47,21 @@
 
  } 
 
- .category_filter-select label:hover {
-  border-bottom: solid white 2px;
-
- } 
-
 
 .form-filter-services {
   text-align: center;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 10px;
   flex: 2;
   justify-content: stretch;
-  /* align-items: stretch; */
   float: left;
   width: 20%;
   padding: 30px;
   padding-bottom: 15px;
   background-color: #1f293700;
   color: aliceblue;
-  /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
 }
 
 .filter-category{

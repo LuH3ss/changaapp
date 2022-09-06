@@ -23,7 +23,7 @@ export default function PublicProfile() {
   const filtrarReviews = allUser[0]?.reviews.slice(0, 2);
   //ESTADO PARA EL POP UP
   const [btn, setBtn] = useState(false);
-
+  console.log(filterUser[0]?.reviews)
   useEffect(() => {
     dispatch(getAllServices());
     dispatch(allUsers());
