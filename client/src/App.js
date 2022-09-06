@@ -21,7 +21,6 @@ import AllCategorys from "./componentes/Home/FiltersCategorys/AllCategorys";
 import StateRequest from "./componentes/Settings/Request/StateRequest";
 import StateRequester from "./componentes/Settings/Request/StateOfer";
 import Review from "./componentes/Review";
-import PreService from "./componentes/Home/RenderProfile/PreService";
 import PublicProfile from "./componentes/Home/RenderProfile/PublicProfile";
 import Notifications from "./componentes/Settings/Notifications";
 import Admin from "./componentes/admin/Admin";
@@ -49,7 +48,7 @@ function App() {
         <Route path="/password" element={<Password />} />
         <Route path="/home" element={<PrivateRoute><Guardar /></PrivateRoute>} />
         <Route path="/home/:name" element={<PrivateRoute><FilterCategory /></PrivateRoute>} />
-        <Route path='/home/user/:id' element={<PrivateRoute><PreService/></PrivateRoute>}/>
+        {/* <Route path='/home/user/:id' element={<PrivateRoute><PreService/></PrivateRoute>}/> */}
         <Route path='/home/public/:id' element={<PrivateRoute><PublicProfile/></PrivateRoute>}/>
         <Route path="/home/todos" element={<PrivateRoute><AllCategorys /></PrivateRoute>} />
         <Route path="/home/createService" element={<PrivateRoute><Servicios /></PrivateRoute>} />
