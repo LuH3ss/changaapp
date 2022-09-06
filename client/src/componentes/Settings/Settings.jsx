@@ -29,9 +29,10 @@ export default function Settings(id) {
   let totalRequestsReceived = 0;
   userData?.services?.forEach((e) => totalRequestsReceived += e.request.length);
   const totalRequestsMade = userData?.requester.length;
+  const totalReviews = userData?.reviews.length;
 
   console.log(totalServices, totalRequestsReceived, totalRequestsMade)
-  console.log(totalNotifications)
+  console.log(userData)
   console.log(location.pathname.split('/')[3])
 
   useEffect(() => {
@@ -141,6 +142,16 @@ export default function Settings(id) {
                   <WorkIcon id="servicesIcon" style={location?.pathname === '/settings/services' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Servicios publicados</Typography>
                   <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">{totalServices}</label>
+                </Box>
+              </NavLink>
+
+              <Divider variant="inset" />
+
+              <NavLink style={(e)=>handleSelected(e)} to='reviews'>
+                <Box sx={{display:'flex', alignItems:'center'}}>
+                  <WorkIcon id="servicesIcon" style={location?.pathname === '/settings/reviews' ? styles.icons2 : styles.icons}/>
+                  <Typography style={styles.listText}>Reseñas</Typography>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">{totalReviews}</label>
                 </Box>
               </NavLink>
 
