@@ -14,16 +14,15 @@ export default function Footer() {
     dispatch(getAllCategories());
   }, [dispatch]);
 
-  // const sendMail = (e) => {
-  //   e.preventDefault();
-  //   let body = document.getElementById("message");
-  //   let subjetLine = "Formulario de Contacto";
-  //   window.location.href =
-  //     "mailto:pfhenrychangapp@gmail.com?subject=" +
-  //     subjetLine +
-  //     "&body=" +
-  //     body;
-  // };
+  function sendMail() {
+    let body = document.getElementById("message");
+    let subjetLine = "Formulario de Contacto";
+    window.location.href =
+      "mailto:pfhenrychangapp@gmail.com?subject=" +
+      subjetLine +
+      "&body=" +
+      body;
+  }
 
   return (
     <div className="footer">
@@ -63,7 +62,7 @@ export default function Footer() {
             <p>Programa de Fidelidad</p>
           </li>
           <li className="footer__lista--item">
-            <NavLink style={{color: 'white'}} to="/home/createService">
+            <NavLink style={{ color: "white" }} to="/home/createService">
               <p>Anuncie Aqui</p>
             </NavLink>
           </li>
@@ -125,12 +124,7 @@ export default function Footer() {
         </ul>
       </div>
 
-      <form
-        action="mailto:pfhenrychangapp@gmail.com"
-        method="post"
-        encType="text/plain"
-        className="formulario"
-      >
+      <form type="submit" className="formulario">
         <h3 className="formulario__titulo">Contactanos</h3>
         <div className="formulario__campo">
           <label>Email</label>
@@ -154,12 +148,9 @@ export default function Footer() {
             data-tipo="message"
           ></textarea>
         </div>
-        <a
-          href="mailto:pfhenrychangapp@gmail.com"
-          className="formulario__boton"
-        >
+        <button onClick={sendMail()} className="formulario__boton">
           Enviar mensaje
-        </a>
+        </button>
       </form>
     </div>
   );
