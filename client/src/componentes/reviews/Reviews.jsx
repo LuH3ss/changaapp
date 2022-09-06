@@ -29,7 +29,7 @@ export default function Reviews() {
           </Avatar>
           <Box component='div' className='rev-dataUser'>
             <Typography>
-              {rev.author.firstName}
+              {rev.author?.firstName}
             </Typography>
                 <Typography>
                 <Rating defaultValue={rev.rate} readOnly/> 

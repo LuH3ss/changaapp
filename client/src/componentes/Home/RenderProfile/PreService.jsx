@@ -25,34 +25,35 @@ export default function PreService(){
 
         <Box>
             <Navbar/>
-            <Typography><span onClick={handleOnClic}>{userState[0]?.category.name}</span> {' > '} {userState[0]?.name}</Typography>
-            <h3>Descripcion general</h3>
-            <div>
-                <div>
+
+            <Box sx={{display:'flex', flexDirection:'column', margin:'5%', border:'solid grey 1px', borderRadius:'10px', padding:'5%', alignItems:'center'}}>
+                <Box sx={{display:'flex'}}>
+                    <Box>
                     <img src={userState[0]?.user.img} alt={userState[0]?.user.firstName}  width='150px' height='150px'/>
-                    <h5>{userState[0]?.user.firstName}</h5>
-                    <Link to={`/home/public/${userState[0]?.user.id}`}><Button variant='contained'>Ver perfil</Button></Link>
-                </div>
-                <div>
+                    <Typography>{userState[0]?.user.firstName}</Typography>
+                    <Typography>{userState[0]?.user.location}</Typography>
+                    </Box>
                     <p>Descripcion general:</p>
                     <p>{userState[0]?.description}</p>
-                </div>
-                <div>
+
                     <p>Certificados </p>
                     <p>Aca pondriamos los certificados solicitados</p>
-                </div>
-                <div>
-                    <p>Zona de trabajo</p>
-                    <p>Aca pondriamos <b>{userState[0]?.user.location}</b> o <b>El mapa con el rango, si lo implementamos</b></p>
-                </div>
-                <div style={{border: '1px solid black'}}>
+
+
                     <h4>Contratar Servicio</h4>
                     <span>Metodos de pago: <b>Credito / Debito</b></span>
                     <p>${userState[0]?.price}</p>
+                </Box>
+                <Box sx={{display:'flex', justifyContent:'space-between', width:'40%'}}>
+                    <Link to={`/home/public/${userState[0]?.user.id}`}><Button variant='contained'>Ver perfil</Button></Link>
+
                     <Link to={`/home/services/${userState[0]?.id}`}><Button variant='contained'>Reserva tu turno</Button></Link>
-                </div>
-            </div>
-            <Button variant='contained' onClick={handleOnClic}>Volver atras</Button>
+
+                    <Button variant='contained' onClick={handleOnClic}>Volver atras</Button>
+
+                </Box>
+
+            </Box>
             <Footer/>
         </Box>)
 }
