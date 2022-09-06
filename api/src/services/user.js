@@ -142,6 +142,10 @@ const filterUser = async (req, res) => {
         model: Request,
         as: 'requester'
       },
+      {
+        model: Reviews,
+        as: 'reviews'
+      },
       ],
     });
     const filterEmail = users.filter((e) => e.email === email);
