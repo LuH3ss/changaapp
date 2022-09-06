@@ -12,6 +12,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import CloseIcon from '@mui/icons-material/Close';
 
+
 export default function PublicProfile() {
   let userServices = useSelector((state) => state.services);
   const allUser = useSelector((state) => state.users);
@@ -19,9 +20,9 @@ export default function PublicProfile() {
   const dispatch = useDispatch();
   const filterUser = allUser.filter((n) => n.id === param.id);
   userServices = userServices.filter((e) => e.user?.id === param.id);
-  const filtrarReviews = allUser[0]?.reviews.slice(0,2)
+  const filtrarReviews = allUser[0]?.reviews.slice(0, 2);
   //ESTADO PARA EL POP UP
-  const [btn, setBtn] = useState(false)
+  const [btn, setBtn] = useState(false);
 
   useEffect(() => {
     dispatch(getAllServices());
@@ -32,12 +33,11 @@ export default function PublicProfile() {
     e.preventDefault();
     window.history.back();
   };
-  
+
   const handleOpen = (e) => {
-    e.preventDefault()
-    setBtn(!btn)
-  }
-  
+    e.preventDefault();
+    setBtn(!btn);
+  };
 
   return (
     <Box sx={{backgroundColor:'#E5E7EB'}}>
@@ -115,8 +115,7 @@ export default function PublicProfile() {
         </Box>
         
       </Box>
-      
-      
+
       <Footer />
     </Box>
   );

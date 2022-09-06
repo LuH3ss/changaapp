@@ -1,5 +1,7 @@
 const { Category, Services, User, Reviews, Request, Notification } = require("../db");
 const registerMail = require("./Emails/sendEmails");
+const bannedMail = require("./Emails/sendEmails");
+const desbannedMail = require("./Emails/sendEmails");
 
 const register = async (req, res) => {
   const {
@@ -155,35 +157,31 @@ const filterUser = async (req, res) => {
   }
 };
 
-
-
 const userById = async (req, res) => {
-  const {id} = req.params 
+  const { id } = req.params;
   if (id) {
-
     try {
       const user = await User.findAll({
-      // include: {
-      //   model: Services,
-      //   as: "services",
-      //   include: {
-      //     model: Category,
-      //     as: "category",
-      //   },
-      // },
-      where: {
-        id
+        // include: {
+        //   model: Services,
+        //   as: "services",
+        //   include: {
+        //     model: Category,
+        //     as: "category",
+        //   },
+        // },
+        where: {
+          id,
+        },
+      });
+      if (user) {
+        return res.json(user);
       }
-    });
-    if(user) {
-      return res.json(user)
-    }
     } catch (error) {
       return res.send("No se encontro el usuario solicitado");
     }
   }
-
-}
+};
 
 const userLocation = async (req, res) => {
   const { location } = req.params;
@@ -206,48 +204,66 @@ const userLocation = async (req, res) => {
 };
 
 const bannState = async (req, res) => {
-  const {id} = req.params 
+  const { id } = req.params;
 
-  if(id) {
+  if (id) {
     try {
-    const {banned} = req.body 
-    console.log(banned)
-      const user = await User.update({
-        banned: banned
-      },
-      {
-        where:{
-           id
-          }      
-      })
-      return res.status(201).send(user)
+      const { banned, email } = req.body;
+      console.log(banned);
+      const user = await User.update(
+        {
+          banned: banned,
+        },
+        {
+          where: {
+            id,
+          },
+        },
+        {
+          email: email,
+        }
+      );
+      if (banned === true) {
+        const asunto = "Usuario baneado";
+        const mensaje =
+          "Su usuario ha sido baneado de ChangaApp, por favor comuniquese con soporte para ver su situacion";
+        bannedMail.email(email, asunto, mensaje);
+      } else {
+        const asunto = "Usuario desbaneado";
+        const mensaje = "Su usuario ha sido desbaneado de ChangaApp.";
+        desbannedMail.email(email, asunto, mensaje);
+      }
+      res.status(201).send(user);
+      console.log(banned, "BANNED");
     } catch (error) {
-      res.status(404).send("inbloqueable bro 😎")
+      res.status(404).send("inbloqueable bro 😎");
     }
   }
-}
+};
 
-const adminState = async (req,res) => {
-  const {id} = req.params 
+const adminState = async (req, res) => {
+  const { id } = req.params;
 
-  if(id) {
+  if (id) {
     try {
-    const {admin} = req.body 
-    console.log(admin)
-      const user = await User.update({
-        admin: admin
-      },
-      {
-        where:{
-           id
-          }      
-      })
-      return res.status(201).send(user)
+      const { admin } = req.body;
+      console.log(admin);
+      const user = await User.update(
+        {
+          admin: admin,
+        },
+        {
+          where: {
+            id,
+          },
+        }
+      );
+      return res.status(201).send(user);
     } catch (error) {
-      res.status(404).send("inbloqueable bro 😎")
+      res.status(404).send("inbloqueable bro 😎");
     }
   }
-  }
+};
 
 module.exports = {
   register,
@@ -257,5 +273,6 @@ module.exports = {
   bannState,
   userById,
   userLocation,
-  adminState
+
+  adminState,
 };

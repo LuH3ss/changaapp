@@ -29,7 +29,6 @@ import {
   ADMIN_UPDATE,
   ALL_REVIEWS
 
-
 } from "../actions/index.js";
 
 const initialStates = {
@@ -54,7 +53,7 @@ const initialStates = {
   deleteNotification: [],
   postReview: [],
   user: [],
-  reviews: []
+  reviews:[]
 
 
 };
@@ -230,7 +229,6 @@ const reducer = (state = initialStates, action) => {
         ...state,
         reviews: action.payload
       }      
-
     default:
       return state;
   }

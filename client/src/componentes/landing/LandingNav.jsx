@@ -1,30 +1,38 @@
 import React from "react";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import '../css/navBar.css'
+import { Button } from "@mui/material";
+import { useAuth } from "../../context/authContext.js";
 
-const styles = {
-    container:{
-      padding: '10px 0', 
-      backgroundColor: '#1F2937',
-      color: 'white',
-      
-    },
-    button: {
-      color: 'white'
-    },
-    asd: {
-      textDecoration: 'none',
-      color: '#fff'
-    }
 
-  }
 
 export default function Nav() {
+  const { logAnonymous } = useAuth();
+const navigate = useNavigate();
+
+const handleAnonymous = async (e) => {
+  e.preventDefault();
+  try {
+    await logAnonymous();
+    navigate("/home");
+  } catch (error) {
+    console.log("Error anonimo");
+  }
+};
+
+
+
+
     return(
-        <div style={{width:'100%'}}>
-            <Box style={styles.container} className="navBar">
-                <Link  style={styles.asd} to='/'><Typography variant="h4">ChangApp</Typography></Link>
+        <div>
+            <Box  className="navBar">
+                <NavLink className='app-title'  to='/'><Typography variant="h4">ChangApp</Typography></NavLink>
+                <Box className="btn-container">
+                    <Button className="anon-btn"   onClick={handleAnonymous} >Comienza a buscar</Button>
+                    <Button className="anon-btn" onClick={() => {navigate('/login')}}>Registrate/Inicia sesión</Button>
+                </Box>
             </Box>
         </div>)
 }

@@ -28,7 +28,8 @@ export const POST_NOTIFICATION = 'POST_NOTIFICATION'
 export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
 export const USER_LOCATION = "USER_LOCATION";
 export const ADMIN_UPDATE = "ADMIN_UPDATE"
-export const ALL_REVIEWS = 'ALL_REVIEWS'
+export const ALL_REVIEWS = "ALL_REVIEWS"
+
 
 
 
@@ -350,4 +351,7 @@ export function getAllReviews() {
       payload: dataDb.data,
     });
   };
+
 }
+
+
