@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../context/authContext";
 import { getAllCategories } from "../redux/actions";
 import { Link, NavLink } from "react-router-dom";
 import "./css/footer.css";
+import emailjs from "emailjs-com";
 
 export default function Footer() {
   const { user } = useAuth();
@@ -14,15 +15,28 @@ export default function Footer() {
     dispatch(getAllCategories());
   }, [dispatch]);
 
-  function sendMail() {
-    let body = document.getElementById("message");
-    let subjetLine = "Formulario de Contacto";
-    window.location.href =
-      "mailto:pfhenrychangapp@gmail.com?subject=" +
-      subjetLine +
-      "&body=" +
-      body;
-  }
+  const form = useRef();
+
+  const sendMail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_rk2klb4",
+        "template_hlxsows",
+        form.current,
+        "zeuTKJmSq8Vw0WoI3"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          form.current.reset();
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+  };
 
   return (
     <div className="footer">
@@ -124,33 +138,29 @@ export default function Footer() {
         </ul>
       </div>
 
-      <form type="submit" className="formulario">
+      <form ref={form} onSubmit={sendMail} className="formulario">
         <h3 className="formulario__titulo">Contactanos</h3>
         <div className="formulario__campo">
+          <label>Nombre</label>
+          <input name="name" type="text" className="formulario__nombre" />
+        </div>
+        <div className="formulario__campo">
           <label>Email</label>
-          <input
-            name="name"
-            type="text"
-            className="formulario__nombre"
-            id="name"
-            required
-            data-tipo="name"
-            placeholder={user?.email}
-          />
+          <input name="email" type="email" className="formulario__nombre" />
+        </div>
+        <div className="formulario__campo">
+          <label>Asunto</label>
+          <input name="subject" type="text" className="formulario__nombre" />
         </div>
         <div className="formulario__campo">
           <label>Escribe tu mensaje</label>
-          <textarea
-            name="message"
-            id="message"
-            className="formulario__texto"
-            required
-            data-tipo="message"
-          ></textarea>
+          <textarea name="message" className="formulario__texto"></textarea>
         </div>
-        <button onClick={sendMail()} className="formulario__boton">
-          Enviar mensaje
-        </button>
+        <input
+          type="submit"
+          className="formulario__boton"
+          value="Enviar Mensaje"
+        />
       </form>
     </div>
   );
