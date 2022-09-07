@@ -219,7 +219,7 @@ export default function PublicProfile() {
                         borderTopLeftRadius: "10px",
                         borderBottomLeftRadius: "10px",
                       }}
-                      src={s.category.img}
+                      src={s.category?.img}
                       alt=""
                     />
                   </Box>
