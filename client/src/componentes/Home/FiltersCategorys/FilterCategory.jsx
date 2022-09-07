@@ -8,9 +8,10 @@ import FormCategory from "./FormCategory";
 import "../../css/filter-services.css"
 import '../../css/empty.css'
 import "../../css/card-services.css"
-import { Avatar, Button, Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import error from '../../../404.png'
+import { useState } from "react";
 
 
 export default function FilterCategory() {
@@ -18,6 +19,31 @@ export default function FilterCategory() {
   const dispatch = useDispatch();
   const param = useParams();
   const filterUsers = services.filter((e) => e.category?.name === param.name);
+
+  //PAGINADO 
+  const paginas = Math.ceil(filterUsers?.length / 4)
+  const [pages, setPages] = useState(1)
+  const [servicePerPage] = useState(4)
+  const ultimo = pages * servicePerPage
+  const primero = ultimo - servicePerPage
+  const userSlice = filterUsers.slice(primero, ultimo)
+
+  const handleAnterior = (e) => {
+    e.preventDefault()
+    setPages(pages - 1)
+      if(pages < 2){
+        setPages(1)
+      }
+      window.scrollTo(0,0)
+  }
+
+  const handleSiguiente = () => {
+    setPages(pages + 1)
+    if(pages >= paginas){
+      setPages(paginas)
+    }
+    window.scrollTo(0,0)
+}
 
   useEffect(() => {
     dispatch(getAllServices());
@@ -32,7 +58,9 @@ export default function FilterCategory() {
       <FormCategory />
       <div className="container-services">
       
-      <Typography variant="h4">{param.name}</Typography>
+      <div style={{ margin:"15px", color: '#fff'}}>
+      <Typography variant="h5">{param.name}</Typography>
+      </div>
       {filterUsers.length === 0 ? (
         <Box className="empty-container" sx={{textAlign: 'center', display: 'flex', flexDirection:'column', alignItems: 'center', maxWidth:'80%', position: 'relative', margin: '40px auto'  }} >
             <Box>
@@ -40,16 +68,13 @@ export default function FilterCategory() {
                     No se encuentra ningun servicio para esta categoria{" "}
                     <NavLink className='linkk' to="/home/createService">se el primero en postularte!</NavLink>
                 </Typography>
-                {/* <Avatar sx={{ width: 182, height: 182, boxShadow:' rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px', position: 'relative', margin: '0 auto' }}> */}
             { 
               <img src={error} alt="?" width="182px" height="182px" />
             }
-          {/* </Avatar> */}
-
             </Box>
         </Box>
       ) : (
-        filterUsers?.map((e) => {
+        userSlice?.map((e) => {
           return (
             <div className="cards-services"
               key={e.id}
@@ -69,6 +94,11 @@ export default function FilterCategory() {
           );
         })
       )}
+    </div>
+    <div style={{textAlign: 'center'}}>
+      <Button  variant="contained" sx={{ backgroundColor: "#354152", margin: '5px', color:'#fff' }} onClick={handleAnterior}>{'<'}</Button>
+      <span style={{color: '#fff'}}>{pages} de {paginas}</span>
+      <Button  variant="contained" sx={{ backgroundColor: "#354152", margin: '5px', color:'#fff' }} onClick={handleSiguiente}>{'>'}</Button>
     </div>
   </div>
   );
