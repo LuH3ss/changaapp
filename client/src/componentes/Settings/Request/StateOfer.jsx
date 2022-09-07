@@ -339,7 +339,8 @@ export default function StateRequester() {
                                   cols='50'
                                   name="message"
                                   value={noti.message}
-                                  onChange={handleNotification}
+                                  onChange={handleNotification} 
+                                  required
                                   style={{resize:'none'}}
                                 />
                                 <Box sx={{width:'50%', margin:'2% auto',display:'flex', justifyContent:'space-around'}}>
