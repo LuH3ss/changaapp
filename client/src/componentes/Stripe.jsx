@@ -19,7 +19,7 @@ import {
 } from "../redux/actions";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const publicUrl =
   "pk_test_51Lb2ZIKO72YUdcCNim89I44LXzpgG2vz57CjEn0ZAqmTZVW4D1o9y1ea5rzYeeH3dMFE4CAclOjOUqfc5NXncwMe00Zzkr0H1d";
 const stripePromise = loadStripe(publicUrl);

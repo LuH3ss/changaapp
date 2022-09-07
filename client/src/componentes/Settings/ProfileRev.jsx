@@ -15,7 +15,7 @@ export default function ProfileRev() {
   const { user } = useAuth();
   let allReviews = useSelector((state) => state.reviews);
   const userDb = useSelector((state) => state.filter);
-  allReviews = allReviews.filter((r) => r.user_id === userDb[0]?.id);
+  allReviews = allReviews.filter((r) => r.user_id === userDb[0]?.id).reverse();
   const dispatch = useDispatch();
 
   //Paginado para las reviews
@@ -59,6 +59,7 @@ export default function ProfileRev() {
 
   return (
     <Box style={stylesJP.container}>
+      <Typography variant="h4">Reseñas recibidas</Typography>
       {allReviews?.length === 0 ? (
         <Box
         className="empty-container"

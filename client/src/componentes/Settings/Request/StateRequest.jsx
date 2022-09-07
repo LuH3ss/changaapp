@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../../context/authContext";
 import {
+  allRequest,
   getAllServices,
   postNotification,
   updateRequest,
@@ -16,6 +17,8 @@ import error from '../../../404.png'
 export default function StateRequest() {
   const { user } = useAuth();
   const serviceState = useSelector((state) => state.services);
+  const allRequests = useSelector((state) => state.allRequest)
+  const filtroRequestsUsers = allRequests.filter(e => e.services?.user?.email === user?.email).reverse()
   const dispatch = useDispatch();
   const filterEmail = serviceState.filter(
     (state) => state.user?.email === user?.email
@@ -26,6 +29,35 @@ export default function StateRequest() {
     email: "",
   });
 
+
+  //Paginado para los servicios
+  const paginas = Math.ceil(filtroRequestsUsers.length / 2)
+  const [pages, setPages] = useState(1)
+  const [requestPerPage] = useState(2)
+  const ultima = pages * requestPerPage
+  const primera = ultima - requestPerPage
+  const requestSlice = filtroRequestsUsers.slice(primera, ultima)
+
+  const handleAnterior = (e) => {
+    e.preventDefault()
+    setPages(pages - 1)
+      if(pages < 2){
+        setPages(1)
+      }
+      window.scrollTo(0,0)
+  }
+
+  const handleSiguiente = () => {
+    setPages(pages + 1)
+    if(pages >= paginas){
+      setPages(paginas)
+    }
+    window.scrollTo(0,0)
+}
+
+
+
+
   //ESTADO PARA LA NOTIFICACION AUTOMATICA
   const [noti, setNoti] = useState({
     message: "",
@@ -33,9 +65,10 @@ export default function StateRequest() {
     userNotificated_id: "",
   });
   //PARA TRAER LOS SERVICIOS
-  useEffect(() => {
-    dispatch(getAllServices());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllServices());
+  //   dispatch(allRequest())
+  // }, [dispatch]);
 
   //PARA CAMBIAR EL VALOR DEL ESTADO
   const handleOnClick = (e) => {
@@ -103,6 +136,20 @@ export default function StateRequest() {
       padding: "2%",
       borderRadius: "10px",
     },
+    btnPaginado: {
+      cursor: "pointer",
+      backgroundColor: "#1F2937",
+       border: "none",
+        padding: "5px 20px",
+        borderRadius: "20px",
+        color: '#fff',
+        outline: '0'
+    },
+    paginadoDiv: {
+      // marginTop: '5px',
+      textAlign: 'center',
+      marginBottom:"5px"
+    }
   };
 
   return (
@@ -137,11 +184,34 @@ export default function StateRequest() {
             </Typography>
           </Box>
         </Box>
-      ) : (
-        filterEmail?.map((p) => {
-          return p.request?.map((e) => {
+      ): requestSlice.length === 0 ? <Box
+      className="empty-container"
+      sx={{
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Box className="low-section" pl={2}>
+          {
+            <img
+              src={error}
+              alt="?"
+              width="182px"
+              height="182px"
+            />
+          }
+        <Typography variant="h6" mb={5}>
+          Aun no has recibido ninguna solicitud
+        </Typography>
+      </Box>
+    </Box>: (
+        // filterEmail?.map((p) => {
+          requestSlice.map((e) => {
             return e.state === "rechazado" || e.state === "Pagado" ? (
               <Box
+              key={e.id}
                 style={
                   e.state === "rechazado" ? styles.rejected : styles.acepted
                 }
@@ -153,6 +223,7 @@ export default function StateRequest() {
               </Box>
             ) : (
               <Box
+              key={e.id}
                 style={
                   e.state === "rechazado"
                     ? styles.rejected
@@ -193,7 +264,7 @@ export default function StateRequest() {
                   }}
                 >
                   <Typography>
-                    Nombre del servicio: {filterEmail[0]?.name}
+                    Nombre del servicio: {e.services?.name}
                   </Typography>
                   <Typography>Estado: {e.state}</Typography>
                   <Typography>
@@ -269,9 +340,14 @@ export default function StateRequest() {
                 </Box>
               </Box>
             );
-          });
-        })
+          })
+        // })
       )}
+      <div style={styles.paginadoDiv}>
+          <button style={styles.btnPaginado} onClick={handleAnterior}>{'<'}</button>
+          {pages} of {paginas}
+          <button style={styles.btnPaginado} onClick={handleSiguiente}>{'>'}</button>
+        </div>
     </Box>
   );
 }

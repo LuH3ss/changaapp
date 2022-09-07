@@ -166,7 +166,7 @@ export default function UpdateProfile() {
       bottom: "15px",
       left: "15px",
       borderRadius: "50%",
-      backgroundColor: "white",
+      backgroundColor: "#E5E7EB",
       padding: "4%",
       cursor: "pointer",
       fontSize: '16px'

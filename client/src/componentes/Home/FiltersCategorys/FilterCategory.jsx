@@ -12,7 +12,8 @@ import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import error from '../../../404.png'
 import { useState } from "react";
-
+import CircularProgress from '@mui/material/CircularProgress';
+import Footer from '../../Footer'
 
 export default function FilterCategory() {
   const services = useSelector((state) => state.services);
@@ -50,7 +51,17 @@ export default function FilterCategory() {
   }, [dispatch]);
 
   
-
+  if (services.length === 0)
+    return (
+      <div style={{backgroundColor: 'rgba(0, 0, 0, 0.644)'}}>
+        <Navbar />
+      <div style={{display:'flex' ,height: '80vh', alignItems:'center', justifyContent: 'center'}}>
+        <CircularProgress />
+      </div>
+        <Footer/>
+      </div>
+    );
+  else  
   return (
     <div className="service-container-full">
       <Navbar />

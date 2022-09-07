@@ -20,7 +20,7 @@ export default function PublicProfile() {
   const dispatch = useDispatch();
   const filterUser = allUser.filter((n) => n.id === param.id);
   userServices = userServices.filter((e) => e.user?.id === param.id);
-  const filtrarReviews = allUser[0]?.reviews.slice(0, 2);
+  const filtrarReviews = filterUser[0]?.reviews.slice(0, 2);
   //ESTADO PARA EL POP UP
   const [btn, setBtn] = useState(false);
   useEffect(() => {
@@ -43,11 +43,11 @@ export default function PublicProfile() {
       <Navbar />
       <Button sx={{margin:'2% 0 0 4%', backgroundColor:'#1F2937'}} variant='contained' onClick={handleOnClic}>Volver atras</Button>
 
-      <Box sx={{display:'flex', padding:'0 2% 2% 2%'}}>
+      <Box sx={{display:'flex', padding:'0 2% 2% 2%', height: '75vh', alignContent: 'center'}}>
         <Box sx={{display:'flex', width:'50%', flexDirection:'column', padding:'2%'}}>
           <Box sx={{display:'flex', border:'solid grey 1px', borderRadius:'10px'}}>
             <Box sx={{display:'flex', flexDirection:'column'}}>
-              <img style={{borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', height:'100%'}} src={filterUser[0]?.img} alt={filterUser[0]?.firstName} width='30px' />
+              <img style={{borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', height:'100%'}} src={filterUser[0]?.img} alt={filterUser[0]?.firstName} width='250px' hegiht='250px' />
             </Box>
             <Box sx={{display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'2%'}}>
               <Typography sx={{fontSize:'1.5rem'}}>{`${filterUser[0]?.firstName} ${filterUser[0]?.lastName}`}</Typography>
@@ -58,19 +58,19 @@ export default function PublicProfile() {
             
           </Box>
 
-          <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', padding:'4%'}}>
+          <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', padding:'10px',margin: '10px 0px',borderRadius: '10px', border:'solid grey 1px'}}>
           {
             filterUser[0]?.reviews?.length === 0 ? <Typography>Sin reseñas por el momento </Typography>
             : filtrarReviews?.map(e => {
               return(
-                <Box sx={{display:'flex', flexDirection:'row', border:'solid grey 1px', padding:'4%', margin:'2% 0', borderRadius:'10px', justifyContent:'space-between', width:'100%'}}>
+                <Box sx={{display:'flex', flexDirection:'row', padding:'10px', margin:'5px 0', borderRadius:'10px', justifyContent:'space-between', width:'100%'}}>
                   <Typography>{e.message}</Typography>
                   <span><Rating defaultValue={e.rate} readOnly/></span>
                 </Box>
               )
             })
           }
-          <Button sx={{margin:'2%', backgroundColor:'#1F2937'}} variant='contained' onClick={handleOpen}>Ver mas</Button>
+          <Button sx={{margin:'2%', backgroundColor:'#1F2937', display: filterUser[0]?.reviews?.length < 3 ? 'none' : 'block'}} variant='contained' onClick={handleOpen}>Ver mas</Button>
           <Dialog style={{padding:'0'}} open={btn}>
             <Box sx={{width:'300px', padding:'30px 80px', display:'flex', alignItems:'center', flexDirection:'column'}}>
               <Box sx={{width:'100%',display:'flex', justifyContent:'flex-end', float:'right'}}>
