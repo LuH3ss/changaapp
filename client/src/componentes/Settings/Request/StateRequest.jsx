@@ -106,7 +106,7 @@ export default function StateRequest() {
   };
 
   return (
-    <Box className="section" sx={{ width: "70%" }}>
+    <Box sx={{ width: "70%" }}>
       <Typography variant="h4">Estado del Servicio</Typography>
       <Toaster position="top-center" reverseOrder={false} />
       {filterEmail.length === 0 ? (

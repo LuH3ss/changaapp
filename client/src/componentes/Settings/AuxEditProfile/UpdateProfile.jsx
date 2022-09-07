@@ -166,7 +166,7 @@ export default function UpdateProfile() {
       bottom: "15px",
       left: "15px",
       borderRadius: "50%",
-      backgroundColor: "white",
+      backgroundColor: "#E5E7EB",
       padding: "4%",
       cursor: "pointer",
       fontSize: '16px'
@@ -236,7 +236,7 @@ export default function UpdateProfile() {
                   height: "150px",
                   cursor: "pointer",
                   zIndex: "-1",
-                  borderRadius: '50%'
+                  borderRadius: '10px'
                 }}
                 src={
                   input.img
