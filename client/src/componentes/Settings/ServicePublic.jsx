@@ -1,59 +1,59 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth } from "../../context/authContext";
+
 import { deleteService, getUserEmail } from "../../redux/actions";
 import { NavLink } from "react-router-dom";
 import { Box } from "@mui/system";
 import { Avatar, Button, Typography } from "@mui/material";
-import toast, {Toaster} from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import "../css/empty.css";
 import { useState } from "react";
-import error from '../../404.png'
-
+import error from "../../404.png";
 
 export default function PublicServices() {
   const { user } = useAuth();
   const userState = useSelector((state) => state.filter);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(getUserEmail(user?.email))
+    dispatch(getUserEmail(user?.email));
   }, [dispatch, user?.email]);
 
   //Paginado para los servicios
-  const paginas = Math.ceil(userState[0]?.services.length / 1)
-  const [pages, setPages] = useState(1)
-  const [servicePerPage] = useState(1)
-  const ultima = pages * servicePerPage
-  const primera = ultima - servicePerPage
-  const serviceSlice = userState[0]?.services.slice(primera, ultima)
+  const paginas = Math.ceil(userState[0]?.services.length / 1);
+  const [pages, setPages] = useState(1);
+  const [servicePerPage] = useState(1);
+  const ultima = pages * servicePerPage;
+  const primera = ultima - servicePerPage;
+  const serviceSlice = userState[0]?.services.slice(primera, ultima);
 
   const handleAnterior = (e) => {
-    e.preventDefault()
-    setPages(pages - 1)
-      if(pages < 2){
-        setPages(1)
-      }
-      window.scrollTo(0,0)
-  }
+    e.preventDefault();
+    setPages(pages - 1);
+    if (pages < 2) {
+      setPages(1);
+    }
+    window.scrollTo(0, 0);
+  };
 
   const handleSiguiente = () => {
-    setPages(pages + 1)
-    if(pages >= paginas){
-      setPages(paginas)
+    setPages(pages + 1);
+    if (pages >= paginas) {
+      setPages(paginas);
     }
-    window.scrollTo(0,0)
-}
+    window.scrollTo(0, 0);
+  };
 
   //BORRAR SERVICIO
   const handleDelete = (e) => {
-    e.preventDefault()
-    dispatch(deleteService(e.target.id))
-    toast.success('Servicio borrado con exito')
-       setTimeout(() => {
-        window.location.reload(true)
-       }, 1000);
-       
-  }
+    e.preventDefault();
+    dispatch(deleteService(e.target.id));
+    toast.success("Servicio borrado con exito");
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 1000);
+  };
 
   const styles = {
     infoText: {
@@ -63,37 +63,29 @@ export default function PublicServices() {
     btnPaginado: {
       cursor: "pointer",
       backgroundColor: "#1F2937",
-       border: "none",
-        padding: "5px 20px",
-        borderRadius: "20px",
-        color: '#fff',
-        outline: '0'
+      border: "none",
+      padding: "5px 20px",
+      borderRadius: "20px",
+      color: "#fff",
+      outline: "0",
     },
     paginadoDiv: {
       // marginTop: '5px',
-      textAlign: 'center',
-      marginBottom:"5px"
-    }
+      textAlign: "center",
+      marginBottom: "5px",
+    },
   };
 
   return (
-    <Box sx={{width:'70%'}}>
+    <Box sx={{ width: "70%" }}>
       <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
         <Box className="empty-container">
-          <Typography variant="h5" sx={{textAlign: 'center'}}>
-
+          <Typography variant="h5" sx={{ textAlign: "center" }}>
             ¡No tenes ningun servicio registrado!
           </Typography>
           <Box className="low-section">
-              {
-                <img
-                  src={error}
-                  alt="?"
-                  width="182px"
-                  height="182px"
-                />
-              }
+            {<img src={error} alt="?" width="182px" height="182px" />}
             <Typography variant="p">
               Si quieres publicar servicios, dirigete a la seccion{" "}
               <NavLink className="linkk" to="/home/createService">
@@ -103,7 +95,8 @@ export default function PublicServices() {
           </Box>
         </Box>
       ) : (
-        typeof serviceSlice === 'object' && serviceSlice?.map((e) => {
+        typeof serviceSlice === "object" &&
+        serviceSlice?.map((e) => {
           return (
             <Box
               sx={{
@@ -225,12 +218,16 @@ export default function PublicServices() {
             </Box>
           );
         })
-        )}
-        <div style={styles.paginadoDiv}>
-          <button style={styles.btnPaginado} onClick={handleAnterior}>{'<'}</button>
-          {pages} of {paginas}
-          <button style={styles.btnPaginado} onClick={handleSiguiente}>{'>'}</button>
-        </div>
+      )}
+      <div style={styles.paginadoDiv}>
+        <button style={styles.btnPaginado} onClick={handleAnterior}>
+          {"<"}
+        </button>
+        {pages} of {paginas}
+        <button style={styles.btnPaginado} onClick={handleSiguiente}>
+          {">"}
+        </button>
+      </div>
     </Box>
   );
 }

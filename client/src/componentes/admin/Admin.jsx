@@ -11,7 +11,6 @@ import {
 import styles from "./Estilos/style";
 import { NavLink } from "react-router-dom";
 
-
 export default function Admin() {
   const dispatch = useDispatch();
   const usersDb = useSelector((state) => state.users);
