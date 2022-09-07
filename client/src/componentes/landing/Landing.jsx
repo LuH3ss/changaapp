@@ -38,8 +38,7 @@ export default function Landing() {
             <Typography variant="h4">Qué es ChangApp?</Typography>
             <Typography variant="p">
               Changa app es una aplicación web que te ayuda a ofrecer y/o
-              contratar servicios. Como cliente vas a encontrar los
-              profesionales más destacados del mercado.
+              contratar servicios.
             </Typography>
           </Box>
           <Box variant="div" className="primeraPregunta">
