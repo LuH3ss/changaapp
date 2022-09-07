@@ -26,10 +26,10 @@ export default function StateRequester() {
     (e) => e.requester_id === userState[0]?.id
   );
  
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-    dispatch(allRequest());
-  }, [dispatch, user?.email]);
+  // useEffect(() => {
+  //   dispatch(getUserEmail(user?.email));
+  //   dispatch(allRequest());
+  // }, [dispatch, user?.email]);
 
   //Paginado para los servicios
   const paginas = Math.ceil(filterById.length / 3)
@@ -37,7 +37,7 @@ export default function StateRequester() {
   const [requestPerPage] = useState(3)
   const ultima = pages * requestPerPage
   const primera = ultima - requestPerPage
-  const requestSlice = filterById.slice(primera, ultima)
+  const requestSlice = filterById.slice(primera, ultima).reverse()
 
   const handleAnterior = (e) => {
     e.preventDefault()

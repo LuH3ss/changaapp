@@ -16,17 +16,17 @@ export default function PublicServices() {
   const userState = useSelector((state) => state.filter);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email]);
+  // useEffect(() => {
+  //   dispatch(getUserEmail(user?.email));
+  // }, [dispatch, user?.email]);
 
   //Paginado para los servicios
-  const paginas = Math.ceil(userState[0]?.services.length / 1);
-  const [pages, setPages] = useState(1);
-  const [servicePerPage] = useState(1);
-  const ultima = pages * servicePerPage;
-  const primera = ultima - servicePerPage;
-  const serviceSlice = userState[0]?.services.slice(primera, ultima);
+  const paginas = Math.ceil(userState[0]?.services.length / 2)
+  const [pages, setPages] = useState(1)
+  const [servicePerPage] = useState(2)
+  const ultima = pages * servicePerPage
+  const primera = ultima - servicePerPage
+  const serviceSlice = userState[0]?.services.slice(primera, ultima)
 
   const handleAnterior = (e) => {
     e.preventDefault();
@@ -107,6 +107,7 @@ export default function PublicServices() {
           return (
             <Box sx={{display:'flex', width:'90%', alignItems:'center', justifyContent:'center', height:'100%'}}>
             <Box
+            key={e.id}
               sx={{
                 width:'100%',
                 display: "flex",

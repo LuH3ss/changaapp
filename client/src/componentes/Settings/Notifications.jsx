@@ -6,7 +6,7 @@ import {
   getUserEmail,
 } from "../../redux/actions";
 import { useAuth } from "../../context/authContext";
-import { Avatar, Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import "../css/empty.css";
 
 import styles from "./Request/style";
@@ -47,10 +47,10 @@ export default function Notifications() {
     window.scrollTo(0, 0);
   };
 
-  useEffect(() => {
-    dispatch(allNotifications());
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email]);
+  // useEffect(() => {
+  //   dispatch(allNotifications());
+  //   dispatch(getUserEmail(user?.email));
+  // }, [dispatch, user?.email]);
 
   const handleOnClick = (e) => {
     e.preventDefault();

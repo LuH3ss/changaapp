@@ -17,7 +17,7 @@ export default function PublicProfile() {
   const dispatch = useDispatch();
   const filterUser = allUser.filter((n) => n.id === param.id);
   userServices = userServices.filter((e) => e.user?.id === param.id);
-  const filtrarReviews = allUser[0]?.reviews.slice(0, 2);
+  const filtrarReviews = filterUser[0]?.reviews.slice(0, 2);
   //ESTADO PARA EL POP UP
   const [btn, setBtn] = useState(false);
   useEffect(() => {
@@ -46,7 +46,14 @@ export default function PublicProfile() {
         Volver atras
       </Button>
 
-      <Box sx={{ display: "flex", padding: "0 2% 2% 2%" }}>
+      <Box
+        sx={{
+          display: "flex",
+          padding: "0 2% 2% 2%",
+          height: "75vh",
+          alignContent: "center",
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -71,7 +78,8 @@ export default function PublicProfile() {
                 }}
                 src={filterUser[0]?.img}
                 alt={filterUser[0]?.firstName}
-                width="30px"
+                width="250px"
+                hegiht="250px"
               />
             </Box>
             <Box
@@ -106,7 +114,10 @@ export default function PublicProfile() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              padding: "4%",
+              padding: "10px",
+              margin: "10px 0px",
+              borderRadius: "10px",
+              border: "solid grey 1px",
             }}
           >
             {filterUser[0]?.reviews?.length === 0 ? (
@@ -118,9 +129,8 @@ export default function PublicProfile() {
                     sx={{
                       display: "flex",
                       flexDirection: "row",
-                      border: "solid grey 1px",
-                      padding: "4%",
-                      margin: "2% 0",
+                      padding: "10px",
+                      margin: "5px 0",
                       borderRadius: "10px",
                       justifyContent: "space-between",
                       width: "100%",
@@ -135,7 +145,11 @@ export default function PublicProfile() {
               })
             )}
             <Button
-              sx={{ margin: "2%", backgroundColor: "#1F2937" }}
+              sx={{
+                margin: "2%",
+                backgroundColor: "#1F2937",
+                display: filterUser[0]?.reviews?.length < 3 ? "none" : "block",
+              }}
               variant="contained"
               onClick={handleOpen}
             >

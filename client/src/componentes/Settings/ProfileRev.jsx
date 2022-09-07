@@ -15,7 +15,7 @@ export default function ProfileRev() {
   const { user } = useAuth();
   let allReviews = useSelector((state) => state.reviews);
   const userDb = useSelector((state) => state.filter);
-  allReviews = allReviews.filter((r) => r.user_id === userDb[0]?.id);
+  allReviews = allReviews.filter((r) => r.user_id === userDb[0]?.id).reverse();
   const dispatch = useDispatch();
 
   //Paginado para las reviews
@@ -43,10 +43,10 @@ export default function ProfileRev() {
     window.scrollTo(0, 0);
   };
 
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-    dispatch(getAllReviews());
-  }, [dispatch, user?.email]);
+  // useEffect(() => {
+  //   dispatch(getUserEmail(user?.email));
+  //   dispatch(getAllReviews());
+  // }, [dispatch, user?.email]);
 
   const stylesJP = {
     container: {
@@ -61,6 +61,7 @@ export default function ProfileRev() {
 
   return (
     <Box style={stylesJP.container}>
+
       <Box sx={{
           width: "95%",
           height:'80%',
