@@ -72,14 +72,34 @@ export default function UpdateService() {
   //AGREGAR DIAS DISPONIBLES
   const handleOnClick = (e) => {
     if (!service.day.includes(e.target.value)) {
+      e.target.style.cssText = "color: #E5E7EB; background-color: #1F2937";
       setService({
         ...service,
         day: [...service.day, e.target.value],
       });
     } else {
+      e.target.style.cssText = "color: #1F2937; background-color: #E5E7EB";
       console.log("Ya lo agregaste");
     }
   };
+
+  // const handleDay = (e) => {
+  //   if (!service.day.includes(e.target.value)) {
+  //     e.target.style.cssText = "color: #E5E7EB; background-color: #1F2937";
+  //     setService({
+  //       ...service,
+  //       day: [...service.day, e.target.value],
+  //     });
+  //   } else {
+  //     e.target.style.cssText = "color: #1F2937; background-color: #E5E7EB";
+  //     setService({
+  //       ...service,
+  //       day: service.day.filter((el) => el !== e.target.value),
+  //     });
+  //   }
+  // };
+
+
 
 //manejo de horarios de disponibilidad
 const handleTime = (e) => {
@@ -173,7 +193,7 @@ const handleDeleteTime = (e) => {
   };
 
   return (
-    <Box sx={{ width:'70%', display: "flex", flexDirection: "column", gap: "20px" }}>
+    <Box sx={{ width:'70%', display: "flex", flexDirection: "column", gap: "20px", textAlign: 'center' }} pt={2}>
       <Toaster position="top-center" reverseOrder={false} />
       <Typography variant="h6">Modificar servicio</Typography>
       {error && <p>{error.name}</p>}
@@ -181,8 +201,8 @@ const handleDeleteTime = (e) => {
         onSubmit={(e) => handleSubmit(e)}
         style={{ display: "flex", flexDirection: "column", gap: "20px" }}
       >
-        <Box sx={{ display: "flex", gap: "20px" }}>
-          <label>Nombre del servicio</label>
+        <Box sx={{ display: "flex", gap: "20px", justifyContent: 'center' }}>
+          <label>Nombre </label>
           <TextField
             type="text"
             name="name"
@@ -190,9 +210,18 @@ const handleDeleteTime = (e) => {
             value={service.name}
             onChange={handleOnChange}
           />
+            <label>Precio</label>
+          <TextField
+            type="number"
+            name="price"
+            placeholder={idService[0]?.price.toString()}
+            value={service.price}
+            onChange={handleOnChange}
+          />
         </Box>
-        <Box sx={{ display: "flex", gap: "20px", flexWrap: "warp" }}>
+        <Box variant='contained' sx={{ display: "flex", gap: "20px", flexDirection: 'column', flexWrap: 'wrap', alignItems: 'center', justifyContent: '' }}>
           <label>Dias disponibles</label>
+          <Box>
           {[
             "Lunes",
             "Martes",
@@ -204,16 +233,17 @@ const handleDeleteTime = (e) => {
           ].map((e) => {
             return (
               <Button
-                sx={{ maxWidth: "100px" }}
-                onClick={handleOnClick}
-                value={e}
-                type="button"
-                key={e}
+              sx={{ maxWidth: "100px" }}
+              onClick={handleOnClick}
+              value={e}
+              type="button"
+              key={e}
               >
                 {e}
               </Button>
             );
           })}
+          </Box>
         </Box>
         <Box
                 sx={{
@@ -242,6 +272,7 @@ const handleDeleteTime = (e) => {
                       id="time"
                       type="time"
                       step={1800}
+                      
                     />
 
                     <Box sx={{ display: "flex" }}>
@@ -295,20 +326,10 @@ const handleDeleteTime = (e) => {
                   </Box>
                 </Box>
               </Box>
-            {/* </Box> */}
-        <Box sx={{ display: "flex", gap: "120px" }}>
-          <label>Precio</label>
-          <TextField
-            type="number"
-            name="price"
-            placeholder={idService[0]?.price.toString()}
-            value={service.price}
-            onChange={handleOnChange}
-          />
-        </Box>
-        <Box sx={{ display: "flex", gap: "80px" }}>
+        <Box sx={{ display: "flex", gap: "80px", justifyContent: 'center' }}>
           <label>Descripcion</label>
           <textarea
+            style={{backgroundColor: 'inherit'}}
             name="description"
             cols="40"
             rows="4"

@@ -18,20 +18,18 @@ export const UPDATE_REQUEST = "UPDATE_REQUEST";
 export const DELETE_REQUEST = "DELETE_REQUEST";
 export const ALL_REQUEST = "ALL_REQUEST";
 export const DELETE_SERVICES = "DELETE_SERVICES";
-export const NEW_BANNED_STATE = "NEW_BANNED_STATE"
-export const ALL_USERS = 'ALL_USERS'
-export const USER_BY_ID = 'USER_BY_ID'
-export const POST_REVIEW = 'POST_REVIEW'
-export const DELETE_CATEGORY = 'DELETE_CATEGORY'
-export const ALL_NOTIFICATIONS = 'ALL_NOTIFICATIONS'
-export const POST_NOTIFICATION = 'POST_NOTIFICATION'
-export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION'
+export const NEW_BANNED_STATE = "NEW_BANNED_STATE";
+export const ALL_USERS = "ALL_USERS";
+export const USER_BY_ID = "USER_BY_ID";
+export const POST_REVIEW = "POST_REVIEW";
+export const DELETE_CATEGORY = "DELETE_CATEGORY";
+export const ALL_NOTIFICATIONS = "ALL_NOTIFICATIONS";
+export const POST_NOTIFICATION = "POST_NOTIFICATION";
+export const DELETE_NOTIFICATION = "DELETE_NOTIFICATION";
 export const USER_LOCATION = "USER_LOCATION";
-export const ADMIN_UPDATE = "ADMIN_UPDATE"
-export const ALL_REVIEWS = "ALL_REVIEWS"
-export const SEARCH_CATEGORY = 'SEARCH_CATEGORY'
-
-
+export const ADMIN_UPDATE = "ADMIN_UPDATE";
+export const ALL_REVIEWS = "ALL_REVIEWS";
+export const SEARCH_CATEGORY = "SEARCH_CATEGORY";
 
 const EP = "http://localhost:3001";
 
@@ -80,27 +78,29 @@ export function updateUser(email, data) {
 }
 
 export function bannedState(id, data) {
-  return async function(dispatch) {
+  return async function (dispatch) {
     try {
-      await axios.put(`${EP}/users/${id}`, data).then(detalle =>
+      await axios.put(`${EP}/users/${id}`, data).then((detalle) =>
         dispatch({
           type: NEW_BANNED_STATE,
           payload: detalle.data,
-        }))
+        })
+      );
     } catch (error) {
-      console.log("imposible de bannear, tamo en la V.I.P 😎")
+      console.log("imposible de bannear, tamo en la V.I.P 😎");
     }
-  }
+  };
 }
 
 export function adminState(id, data) {
-  return async function(dispatch) {
-    await axios.put(`${EP}/userr/${id}`, data)
-    .then(detalle => dispatch({
-      type: ADMIN_UPDATE,
-      payload: detalle.data
-    }))
-  }
+  return async function (dispatch) {
+    await axios.put(`${EP}/userr/${id}`, data).then((detalle) =>
+      dispatch({
+        type: ADMIN_UPDATE,
+        payload: detalle.data,
+      })
+    );
+  };
 }
 
 //ACTION PARA LOS SERVICIOS
@@ -203,27 +203,26 @@ export function deleteService(id) {
 //ACTION PARA LAS CATEGORIAS
 
 export function deleteCategory(id) {
-  
-  return async function(dispatch) {
-    await axios.delete(`${EP}/category/${id}`)
-    .then(detalle => 
+  return async function (dispatch) {
+    await axios.delete(`${EP}/category/${id}`).then((detalle) =>
       dispatch({
         type: DELETE_CATEGORY,
-        payload: detalle.data
-      }))
-  }
-} 
-
-export function searchCategory(name) {
-  return async function(dispatch){
-    await axios.get(`${EP}/category/search?name=${name}`)
-    .then(detalle => dispatch({
-      type: SEARCH_CATEGORY,
-      payload: detalle.data
-    }))
-  }
+        payload: detalle.data,
+      })
+    );
+  };
 }
 
+export function searchCategory(name) {
+  return async function (dispatch) {
+    await axios.get(`${EP}/category/search?name=${name}`).then((detalle) =>
+      dispatch({
+        type: SEARCH_CATEGORY,
+        payload: detalle.data,
+      })
+    );
+  };
+}
 
 export function filterByCategory(payload) {
   return {
@@ -333,25 +332,27 @@ export function allUsers() {
   };
 }
 export function userById(userId) {
-  
   return async function (dispatch) {
-    const dataDb = await axios(`${EP}/users/${userId}`)
-    return dispatch ({
+    const dataDb = await axios(`${EP}/users/${userId}`);
+    return dispatch({
       type: USER_BY_ID,
-      payload: dataDb.data
-    })
-  }
+      payload: dataDb.data,
+    });
+  };
 }
 
-//REVIEWS 
-export function postReview(data){
-  return async function(dispatch){
-    await axios.post("http://www.localhost:3001/reviews", data)
-    .then(detalle => dispatch({
-      type: POST_REVIEW,
-      payload: detalle.data
-    }))
-  }
+//REVIEWS
+export function postReview(data) {
+  return async function (dispatch) {
+    await axios
+      .post("http://www.localhost:3001/reviews", data)
+      .then((detalle) =>
+        dispatch({
+          type: POST_REVIEW,
+          payload: detalle.data,
+        })
+      );
+  };
 }
 
 export function getAllReviews() {
@@ -362,7 +363,4 @@ export function getAllReviews() {
       payload: dataDb.data,
     });
   };
-
 }
-
-

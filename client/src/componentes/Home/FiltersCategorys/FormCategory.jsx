@@ -8,7 +8,7 @@ export default function FormCategory(){
     const categoryState = useSelector(state => state.categories)
     const dispatch = useDispatch()
     const [cat, setCat] = useState('')
-    const [select, setSelect] = useState('')  
+    const [ select, setSelect] = useState('')    
     const navigate = useNavigate()
     useEffect(() => {
         dispatch(getAllCategories())
