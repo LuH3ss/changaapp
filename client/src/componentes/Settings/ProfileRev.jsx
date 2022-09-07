@@ -43,10 +43,10 @@ export default function ProfileRev() {
     window.scrollTo(0, 0);
   };
 
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-    dispatch(getAllReviews());
-  }, [dispatch, user?.email]);
+  // useEffect(() => {
+  //   dispatch(getUserEmail(user?.email));
+  //   dispatch(getAllReviews());
+  // }, [dispatch, user?.email]);
 
   const stylesJP = {
     container: {

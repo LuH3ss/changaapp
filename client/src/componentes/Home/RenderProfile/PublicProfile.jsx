@@ -98,7 +98,7 @@ export default function PublicProfile() {
                   return (
                     <Box sx={{padding:'0 4% 0 0', display:'flex', justifyContent:'space-between', alignItems:'center',border:'solid grey 1px', borderRadius:'10px'}}>
                       <Box>
-                        <img style={{height:'100%', width:'100px', borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px'}} src={s.category.img} alt="" />
+                        <img style={{height:'100%', width:'100px', borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px'}} src={s.category?.img} alt="" />
                       </Box>
                       <Box sx={{height:'70%', display:'flex', flexDirection:'column', justifyContent:'space-between'}}>
                         <Typography sx={{fontSize:'1.2rem'}}>{s.name}</Typography>

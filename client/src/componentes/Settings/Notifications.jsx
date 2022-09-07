@@ -47,10 +47,10 @@ export default function Notifications() {
     window.scrollTo(0, 0);
   };
 
-  useEffect(() => {
-    dispatch(allNotifications());
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email]);
+  // useEffect(() => {
+  //   dispatch(allNotifications());
+  //   dispatch(getUserEmail(user?.email));
+  // }, [dispatch, user?.email]);
 
   const handleOnClick = (e) => {
     e.preventDefault();
