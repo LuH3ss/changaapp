@@ -53,7 +53,13 @@ export default function CreateCategory() {
     e.preventDefault();
     dispatch(postCategory(category));
     setError("");
-    navigate("/admin/categories");
+
+    setTimeout(function(){
+      window.location.reload();
+      navigate("/admin/categories")
+   }, 2000);
+   
+    
   };
 
   const styles = {
