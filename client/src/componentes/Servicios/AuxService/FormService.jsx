@@ -48,6 +48,8 @@ function validate(service) {
     error.description = "La descripcion es muy larga";
   //ERROR PRECIO
   // else if (!/^[0-9]$/.test(error.price)) error.price = 'Solo puedes ingresar numeros enteros'
+  else if (service.price < 1 || service.price > 10000)
+  error.price = "El valor esta fuera del rango";
   return error;
 }
 
@@ -129,6 +131,7 @@ export default function FormService() {
       service.category &&
       service.day.length &&
       service.hours.length
+
     ) {
       setBtn(true);
     } else {
