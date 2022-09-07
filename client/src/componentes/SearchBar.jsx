@@ -42,7 +42,7 @@ export default function SearchBar() {
       <form onSubmit={location.pathname === '/home' ? (e) => handleSearchCat(e) : (e) => handleSubmit(e)}>
       <input
         style={styles.input}
-        placeholder="Buscar Servicio..."
+        placeholder={location.pathname === '/home' ? 'Buscar categoria...' : 'Buscar servicio...'}
         type="text"
         value={name}
         onChange={(e) => handleInput(e)}

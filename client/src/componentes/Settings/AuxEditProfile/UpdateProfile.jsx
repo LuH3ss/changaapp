@@ -49,9 +49,9 @@ export default function UpdateProfile() {
   });
   //PARA TRAER LA DATA DESDE LA BASE DE DATOS
 
-  useEffect(() => {
-    dispatch(getUserEmail(user?.email));
-  }, [dispatch, user?.email]);
+  // useEffect(() => {
+  //   dispatch(getUserEmail(user?.email));
+  // }, [dispatch, user?.email]);
 
   // PARA MANEJAR LOS NUEVOS DATOS INGRESADOS
   const handleChange = (e) => {
