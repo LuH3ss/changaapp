@@ -12,6 +12,7 @@ import WorkIcon from '@mui/icons-material/Work';
 import EmailIcon from '@mui/icons-material/Email';
 import SendIcon from '@mui/icons-material/Send';
 import LogoutIcon from '@mui/icons-material/Logout';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 import { useSelector, useDispatch } from "react-redux";
 import { getUserEmail, allNotifications, getAllReviews, allRequest, getAllServices } from "../../redux/actions";
 import CircularProgress from '@mui/material/CircularProgress';
@@ -143,7 +144,7 @@ export default function Settings(id) {
                 <Box sx={{display:'flex', alignItems:'center'}}>
                   <NotificationsIcon id="notificationsIcon" style={location?.pathname === '/settings/notifications' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Notificaciones</Typography>
-                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold', cursor:'pointer'}} htmlFor="">{totalNotifications}</label>
+                  <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold', cursor:'pointer'}} htmlFor="">{totalNotifications >= 99 ? `+${99}` : totalNotifications}</label>
                 </Box>
               </NavLink>
 
@@ -161,7 +162,7 @@ export default function Settings(id) {
 
               <NavLink style={(e)=>handleSelected(e)} to='reviews'>
                 <Box sx={{display:'flex', alignItems:'center'}}>
-                  <WorkIcon id="servicesIcon" style={location?.pathname === '/settings/reviews' ? styles.icons2 : styles.icons}/>
+                  <RateReviewIcon id="servicesIcon" style={location?.pathname === '/settings/reviews' ? styles.icons2 : styles.icons}/>
                   <Typography style={styles.listText}>Reseñas</Typography>
                   <label style={{width:'20%', textAlign:'right', padding:'0 4%', fontWeight:'bold'}} htmlFor="">{totalReviews}</label>
                 </Box>

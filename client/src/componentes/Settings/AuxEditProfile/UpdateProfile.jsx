@@ -236,7 +236,7 @@ export default function UpdateProfile() {
                   height: "150px",
                   cursor: "pointer",
                   zIndex: "-1",
-                  borderRadius: '50%'
+                  borderRadius: '10px'
                 }}
                 src={
                   input.img
