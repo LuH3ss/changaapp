@@ -164,9 +164,9 @@ export default function Navbar() {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>
+          <Avatar sx={{ width: 52, height: 52 }}>
             {estado[0]?.img ? (
-              <img src={estado[0]?.img} alt="?" width="32px" height="32px" />
+              <img src={estado[0]?.img} alt="?" width="52px" height="52px" />
             ) : (
               "?"
             )}

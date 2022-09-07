@@ -64,14 +64,17 @@ export default function Notifications() {
     <Box
       sx={{
         width: "70%",
+        height:'88vh',
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "space-between",
+        flexDirection:'column'
       }}
     >
       <Box
         sx={{
-          width: "100%",
+          width: "95%",
+          height:'80%',
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -140,12 +143,13 @@ export default function Notifications() {
             );
           })
         )}
-        <div style={styles.paginadoDiv}>
+
+      </Box>
+      <Box style={styles.paginadoDiv}>
           <button style={styles.btnPaginado} onClick={handleAnterior}>{'<'}</button>
           {pages} of {paginas}
           <button style={styles.btnPaginado} onClick={handleSiguiente}>{'>'}</button>
-        </div>
-      </Box>
+        </Box>
     </Box>
   );
 }

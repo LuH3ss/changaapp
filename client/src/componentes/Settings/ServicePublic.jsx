@@ -77,7 +77,14 @@ export default function PublicServices() {
   };
 
   return (
-    <Box sx={{width:'70%'}}>
+    <Box sx={{
+      width: "70%",
+      height:'88vh',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      flexDirection:'column'
+    }}>
       <Toaster position="top-center" reverseOrder={false} />
       {userState[0]?.services?.length === 0 ? (
         <Box className="empty-container">
@@ -105,21 +112,21 @@ export default function PublicServices() {
       ) : (
         typeof serviceSlice === 'object' && serviceSlice?.map((e) => {
           return (
+            <Box sx={{display:'flex', width:'90%', alignItems:'center', justifyContent:'center', height:'100%'}}>
             <Box
               sx={{
+                width:'100%',
                 display: "flex",
-
                 border: "solid grey 1px",
                 flexDirection: "column",
                 borderRadius: "10px",
                 padding: "2%",
-                margin: "2%",
               }}
             >
               <Box sx={{ display: "flex" }}>
                 <Box
                   sx={{
-                    width: "50%",
+                    width: "60%",
                     display: "flex",
                     justifyContent: "space-between",
                     flexDirection: "column",
@@ -166,7 +173,7 @@ export default function PublicServices() {
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    width: "50%",
+                    width: "40%",
                   }}
                 >
                   <Box
@@ -223,14 +230,15 @@ export default function PublicServices() {
                 </Box>
               </Box>
             </Box>
+            </Box>
           );
         })
         )}
-        <div style={styles.paginadoDiv}>
+        <Box style={styles.paginadoDiv}>
           <button style={styles.btnPaginado} onClick={handleAnterior}>{'<'}</button>
           {pages} of {paginas}
           <button style={styles.btnPaginado} onClick={handleSiguiente}>{'>'}</button>
-        </div>
+        </Box>
     </Box>
   );
 }
