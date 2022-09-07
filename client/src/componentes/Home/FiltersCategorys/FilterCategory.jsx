@@ -85,7 +85,7 @@ export default function FilterCategory() {
             return (
               <div className="cards-services" key={e.id}>
                 <img
-                  src={e.user?.img}
+                  src={e.user?.img }
                   alt="No tiene"
                   width="64px"
                   height="64px"
