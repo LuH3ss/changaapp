@@ -43,7 +43,7 @@ export default function PublicProfile() {
       <Navbar />
       <Button sx={{margin:'2% 0 0 4%', backgroundColor:'#1F2937'}} variant='contained' onClick={handleOnClic}>Volver atras</Button>
 
-      <Box sx={{display:'flex', padding:'0 2% 2% 2%', height: '75vh', alignContent: 'center'}}>
+      <Box sx={{display:'flex', padding:'0 2% 2% 2%', height: '100vh', alignContent: 'center'}}>
         <Box sx={{display:'flex', width:'50%', flexDirection:'column', padding:'2%'}}>
           <Box sx={{display:'flex', border:'solid grey 1px', borderRadius:'10px'}}>
             <Box sx={{display:'flex', flexDirection:'column'}}>
