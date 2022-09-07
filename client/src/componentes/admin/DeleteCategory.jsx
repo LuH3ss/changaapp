@@ -21,14 +21,15 @@ export default function DeleteCategory() {
         });
       };
     
-      const handleSumbit = (e) => {
+     const handleSumbit = (e) => {
         e.preventDefault();
-  
+
         dispatch(deleteCategory(category.id))
         setError("");
-     
-        window.location.reload()
-       
+     setTimeout(function(){
+        window.location.reload();
+     }, 2000);
+
       };
       
 
