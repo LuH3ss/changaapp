@@ -141,19 +141,19 @@ export default function Footer() {
       <form ref={form} onSubmit={sendMail} className="formulario">
         <h3 className="formulario__titulo">Contactanos</h3>
         <div className="formulario__campo">
-          <label>Nombre</label>
+          <label>&nbsp;Nombre</label>
           <input name="name" type="text" className="formulario__nombre" />
         </div>
         <div className="formulario__campo">
-          <label>Email</label>
+          <label>&nbsp;Email</label>
           <input name="email" type="email" className="formulario__nombre" />
         </div>
         <div className="formulario__campo">
-          <label>Asunto</label>
+          <label>&nbsp;Asunto</label>
           <input name="subject" type="text" className="formulario__nombre" />
         </div>
         <div className="formulario__campo">
-          <label>Escribe tu mensaje</label>
+          <label>&nbsp;Escribe tu mensaje</label>
           <textarea name="message" className="formulario__texto"></textarea>
         </div>
         <input
